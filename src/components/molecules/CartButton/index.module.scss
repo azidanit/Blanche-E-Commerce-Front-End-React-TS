@@ -1,6 +1,7 @@
 @use '../../../styles/variables.scss' as *;
 
 .cart__button {
+<<<<<<< HEAD
   display: inline-block;
 
   &:hover {
@@ -29,4 +30,9 @@
     display: inline-block;
     padding-bottom: 0.75rem;
   }
+=======
+  &:hover {
+    cursor: pointer;
+  }
+>>>>>>> 919109b (feat: layouting auth layout)
 }

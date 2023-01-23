@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @use '../../../../styles/variables.scss' as *;
 
 .cart__menu {
@@ -33,5 +34,12 @@
     &__number {
       font-weight: $text-bold;
     }
+=======
+.cart__menu {
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+>>>>>>> 919109b (feat: layouting auth layout)
   }
 }
