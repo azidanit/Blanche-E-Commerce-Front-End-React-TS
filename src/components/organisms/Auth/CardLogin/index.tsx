@@ -23,13 +23,13 @@ const CardLogin = (): JSX.Element => {
           autoComplete="off"
         >
           <FormLabel label="Email" name="email" rules={rules.email}>
-            <Input />
+            <Input placeholder="Email" />
           </FormLabel>
 
           <FormLabel label="Password" name="password" rules={rules.password}>
-            <InputPassword />
+            <InputPassword placeholder="Password" />
           </FormLabel>
-          <Button type="primary" size="large" block>
+          <Button type="primary" size="large" htmlType="submit" block>
             Login
           </Button>
         </Form>

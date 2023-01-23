@@ -11,10 +11,7 @@ export interface ErrorLogin {
 }
 
 export interface FormReturnLogin<T> {
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-  values: T;
-  errors: ErrorLogin | undefined;
+  handleSubmit: (values: LoginProps) => void;
 }
 
 export interface RegisterProps {
