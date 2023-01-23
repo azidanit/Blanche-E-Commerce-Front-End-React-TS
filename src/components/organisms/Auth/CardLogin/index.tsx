@@ -30,7 +30,7 @@ const CardLogin = (): JSX.Element => {
             <InputPassword />
           </FormLabel>
           <Button type="primary" size="large" block>
-            Submit
+            Login
           </Button>
         </Form>
         <Link to="/">Forgot Password?</Link>

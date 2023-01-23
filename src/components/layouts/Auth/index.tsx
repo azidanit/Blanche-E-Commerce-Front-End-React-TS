@@ -19,7 +19,7 @@ const AuthLayout: React.FC<AuthProps> = ({ children }) => {
         </Col>
       )}
       <Col flex="auto">
-        <AuthSectionRight />
+        <AuthSectionRight>{children}</AuthSectionRight>
       </Col>
     </Row>
   );
