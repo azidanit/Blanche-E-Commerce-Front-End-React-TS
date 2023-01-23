@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @use '../../../../styles/variables.scss' as *;
 
 .cart__item {
@@ -42,4 +43,9 @@
     font-size: 0.75rem;
     color: $gray;
   }
+=======
+.cart__item {
+  display: flex;
+  gap: 0.25rem;
+>>>>>>> 919109b (feat: layouting auth layout)
 }

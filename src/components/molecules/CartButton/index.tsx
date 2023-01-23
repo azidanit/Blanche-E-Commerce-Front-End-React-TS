@@ -12,6 +12,7 @@ interface CartButtonProps {
 const CartButton: React.FC<CartButtonProps> = ({ total, items }) => {
   const [showDetails, setShowDetails] = useState(false);
   return (
+<<<<<<< HEAD
     <>
       <div className={style.cart__button}>
         <div
@@ -40,6 +41,23 @@ const CartButton: React.FC<CartButtonProps> = ({ total, items }) => {
         />
       )}
     </>
+=======
+    <div
+      className={style.cart__button}
+      onMouseEnter={() => {
+        setShowDetails(true);
+      }}
+      onMouseLeave={() => {
+        // setShowDetails(false);
+      }}
+    >
+      <div>
+        <ShoppingFilled className={style.cart__button__icon} />
+        <span className={style.cart__button__total}>{total}</span>
+      </div>
+      {showDetails && <CartMenu items={items} />}
+    </div>
+>>>>>>> 919109b (feat: layouting auth layout)
   );
 };
 
