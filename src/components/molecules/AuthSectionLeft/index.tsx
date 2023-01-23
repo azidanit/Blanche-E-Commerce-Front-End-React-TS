@@ -9,7 +9,7 @@ const AuthSectionLeft: React.FC = () => {
       <div className={style.auth__layout__left__content}>
         <h5>
           Enrich
-          <br /> your shopping list wisely <br />
+          <br /> your shopping list wisely with <br />
           <span>blanche</span>
         </h5>
       </div>
