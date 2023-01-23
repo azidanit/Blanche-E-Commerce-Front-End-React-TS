@@ -1,11 +1,10 @@
 import React from 'react';
-import { ProductDetail, ProductImage } from '../../components';
+import { ProductDetail } from '../../components';
 
 const Product = (): JSX.Element => {
   return (
     <div>
       <ProductDetail />
-      <ProductImage />
     </div>
   );
 };

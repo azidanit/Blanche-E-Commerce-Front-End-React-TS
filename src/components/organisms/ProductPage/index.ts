@@ -1,5 +1,4 @@
 import ProductDetail from './ProductDetail';
-import ProductImage from './ProductImage';
-import ProductInfo from './ProductInfo';
+import ProductInfo from './ProductDetail/ProductInfo';
 
-export { ProductDetail, ProductImage, ProductInfo };
+export { ProductDetail, ProductInfo };
