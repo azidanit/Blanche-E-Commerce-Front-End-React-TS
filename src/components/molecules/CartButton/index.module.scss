@@ -1,0 +1,7 @@
+@use '../../../styles/variables.scss' as *;
+
+.cart__button {
+  &:hover {
+    cursor: pointer;
+  }
+}

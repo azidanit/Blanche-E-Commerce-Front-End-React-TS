@@ -1,12 +1,21 @@
 import React from 'react';
-import { Image as AImage, ImageProps } from 'antd';
-import style from './style.module.scss';
+import style from './index.module.scss';
 import classNames from 'classnames';
 
-const Image: React.FC<ImageProps> = ({ className, ...props }) => {
-  const classProps = classNames(className, style.button);
+interface ImageProps {
+  src: string;
+  alt: string;
+  className?: string;
+}
 
-  return <AImage className={classProps} {...props} />;
+const Image: React.FC<ImageProps> = ({ className, src, alt }) => {
+  const classProps = classNames(className, style.image);
+
+  return (
+    <div className={classProps}>
+      <img className={style.image__img} src={src} alt={alt} />
+    </div>
+  );
 };
 
 export default Image;
