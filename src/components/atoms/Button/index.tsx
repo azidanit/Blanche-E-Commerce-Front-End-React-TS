@@ -7,24 +7,9 @@ const Button: React.FC<ButtonProps> = ({
   children = 'Button',
   onClick,
   className,
-  size,
   ...props
 }) => {
-  const getSize = () => {
-    if (size === 'large') {
-      return { className: style.large };
-    }
-
-    if (size === 'middle') {
-      return { className: style.middle };
-    }
-
-    if (size === 'small') {
-      return { className: style.small };
-    }
-  };
-
-  const classProps = classNames(className, style.button, getSize()?.className);
+  const classProps = classNames(className, style.button);
 
   return (
     <AButton onClick={onClick} className={classProps} {...props}>

@@ -4,6 +4,8 @@ import { Button, Card, FormLabel, Input, InputPassword } from '../../../atoms';
 import style from './index.module.scss';
 import useForm from './useForm';
 import { rules } from './rules';
+import { Link } from 'react-router-dom';
+import CardLoginBottom from './CardLoginBottom';
 
 const CardLogin = (): JSX.Element => {
   const { handleSubmit } = useForm();
@@ -11,8 +13,7 @@ const CardLogin = (): JSX.Element => {
   return (
     <Card className={style.card__login}>
       <>
-        <h6>Hey Hello👋</h6>
-        <p>Lorem ipsum dolor sit amet.</p>
+        <h6>Login</h6>
 
         <Form
           name="basic"
@@ -28,8 +29,12 @@ const CardLogin = (): JSX.Element => {
           <FormLabel label="Password" name="password" rules={rules.password}>
             <InputPassword />
           </FormLabel>
-          <Button type="primary">Submit</Button>
+          <Button type="primary" size="large" block>
+            Submit
+          </Button>
         </Form>
+        <Link to="/">Forgot Password?</Link>
+        <CardLoginBottom />
       </>
     </Card>
   );
