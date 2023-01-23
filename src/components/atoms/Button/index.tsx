@@ -6,13 +6,28 @@ import style from './index.module.scss';
 const Button: React.FC<ButtonProps> = ({
   children = 'Button',
   onClick,
-  className: classProps,
-  type,
+  className,
+  size,
+  ...props
 }) => {
-  const className = classNames(classProps, style.button);
+  const getSize = () => {
+    if (size === 'large') {
+      return { className: style.large };
+    }
+
+    if (size === 'middle') {
+      return { className: style.middle };
+    }
+
+    if (size === 'small') {
+      return { className: style.small };
+    }
+  };
+
+  const classProps = classNames(className, style.button, getSize()?.className);
 
   return (
-    <AButton onClick={onClick} className={className} type={type}>
+    <AButton onClick={onClick} className={classProps} {...props}>
       {children}
     </AButton>
   );
