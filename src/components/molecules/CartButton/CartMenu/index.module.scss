@@ -1,7 +1,37 @@
+@use '../../../../styles/variables.scss' as *;
+
 .cart__menu {
+  box-shadow: $box-shadow;
+  max-width: 400px;
+
+  &:hover {
+    cursor: pointer;
+  }
+
   &__list {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+  }
+
+  &__action {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+
+    &__button {
+      text-decoration: none;
+      font-weight: $text-bold;
+      color: $primary-60;
+
+      &:hover {
+        color: $primary-70;
+      }
+    }
+
+    &__number {
+      font-weight: $text-bold;
+    }
   }
 }

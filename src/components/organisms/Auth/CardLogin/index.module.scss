@@ -2,47 +2,14 @@
 .card__login {
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
   line-height: 2rem;
-  padding: 2rem;
+  padding: 1.5rem;
   width: 100%;
   margin-top: 1rem;
-  a {
-    color: $primary-70;
-    font-size: 1rem;
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
-    }
+  h6 {
+    font-size: 1.5rem;
+    font-weight: $text-medium;
   }
-  &__title {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    h6 {
-      font-size: 2.5rem;
-      font-weight: $text-bold;
-      color: $primary-100;
-    }
-    a {
-      color: $primary-70;
-      font-size: 1.1rem;
-      text-decoration: none;
-    }
-    margin-bottom: 2rem;
-  }
-
-  &__bottom {
-    text-align: center;
-    p {
-      color: $gray;
-    }
-
-    .divider {
-      color: $gray;
-      font-weight: $text-regular;
-    }
-  }
-  &__button {
-    margin-top: 0.6rem;
+  p {
+    color: $gray;
   }
 }
