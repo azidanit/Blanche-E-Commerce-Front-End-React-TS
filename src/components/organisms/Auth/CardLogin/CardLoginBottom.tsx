@@ -7,6 +7,7 @@ const CardLoginBottom: React.FC = () => {
   return (
     <div className={style.card__login__bottom}>
       <Divider className={style.divider}>atau masuk dengan</Divider>
+      {/* TODO --> LOGIN GOOGLE BUTTON */}
       <Link to="/">Daftar</Link>
     </div>
   );

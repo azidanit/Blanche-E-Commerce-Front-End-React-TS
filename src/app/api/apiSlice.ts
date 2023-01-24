@@ -15,12 +15,15 @@ const baseQueryWithReauth: typeof baseQuery = async (
     if (status === 403) {
       const refreshResult = await baseQuery('/auth/refresh', api, extraOptions);
       if (refreshResult.error) {
+        //TODO CALL LOGOUT API
         // api.dispatch(logOut());
       } else {
+        //TODO CALL LOGIN API
         // api.dispatch(logIn());
         result = await baseQuery(args, api, extraOptions);
       }
     } else if (status === 401) {
+      //TODO CALL REFRESH TOKEN API
       // api.dispatch(logOut());
     }
   }

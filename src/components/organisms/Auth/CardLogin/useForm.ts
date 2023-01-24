@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FormReturnLogin, LoginProps } from '../../../../helpers/types';
@@ -15,6 +14,8 @@ function useForm(): FormReturnLogin<LoginProps> {
       email: values.email,
       password: values.password,
     };
+
+    //TODO - dispatch login
 
     console.log(values);
   };
