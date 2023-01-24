@@ -9,6 +9,8 @@ import LogoIcon from './LogoIcon';
 import Search from './Search';
 import SEO from './SEO';
 import Alert from './Alert';
+import Rate from './Rate';
+import Badge from './Badge';
 
 export {
   Logo,
@@ -22,4 +24,6 @@ export {
   Search,
   SEO,
   Alert,
+  Rate,
+  Badge,
 };

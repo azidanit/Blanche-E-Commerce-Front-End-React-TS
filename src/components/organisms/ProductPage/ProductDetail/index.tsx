@@ -3,6 +3,7 @@ import { Row, Col } from 'antd';
 import CarouselPhoto from '../CarouselPhoto';
 import style from './index.module.scss';
 import { Container } from '../../../molecules';
+import ProductInfo from './ProductInfo';
 
 const ProductDetail = (): JSX.Element => {
   return (
@@ -11,7 +12,9 @@ const ProductDetail = (): JSX.Element => {
         <Col flex="1">
           <CarouselPhoto />
         </Col>
-        <Col flex="1"></Col>
+        <Col flex="1">
+          <ProductInfo />
+        </Col>
       </Row>
     </Container>
   );
