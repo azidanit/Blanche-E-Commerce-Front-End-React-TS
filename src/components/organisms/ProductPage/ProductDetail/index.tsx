@@ -1,23 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Row, Col } from 'antd';
 import CarouselPhoto from '../CarouselPhoto';
 import style from './index.module.scss';
-import { Container } from '../../../molecules';
 import ProductInfo from './ProductInfo';
+import { IProduct } from '../../../../helpers/types';
 
-const ProductDetail = (): JSX.Element => {
+interface ProductDetailProps {
+  data: IProduct;
+  isRangePrice: boolean;
+  isDiscount: boolean;
+  isRangePriceDisc: boolean;
+}
+
+const ProductDetail: React.FC<ProductDetailProps> = ({
+  data,
+  isDiscount,
+  isRangePrice,
+  isRangePriceDisc,
+}) => {
+  const [selectedImage, setSelectedImage] = useState(3);
   return (
-    <Container>
-      <Row className={style.product_detail}>
-        <Col flex="1">
-          <CarouselPhoto />
-        </Col>
-        <Col flex="1">
-          <ProductInfo />
-        </Col>
-      </Row>
-    </Container>
+    <Row className={style.product__detail} gutter={[16, 16]}>
+      <Col xs={24} sm={24} md={24} lg={10} xl={10}>
+        <CarouselPhoto photos={data?.images} selectedItem={selectedImage} />
+      </Col>
+      <Col xs={24} sm={24} md={24} lg={14} xl={14}>
+        <ProductInfo
+          data={data}
+          isDiscount={isDiscount}
+          isRangePrice={isRangePrice}
+          isRangePriceDisc={isRangePriceDisc}
+        />
+      </Col>
+    </Row>
   );
 };
 
 export default ProductDetail;
+('1');

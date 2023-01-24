@@ -1,21 +1,36 @@
 import React from 'react';
+import { IProduct } from '../../../../../helpers/types';
 import { Rate } from '../../../../atoms';
 import style from './index.module.scss';
 import ProductPrice from './ProductPrice';
 
-const ProductInfo: React.FC = () => {
+interface ProductInfoProps {
+  data: IProduct;
+  isDiscount: boolean;
+  isRangePrice: boolean;
+  isRangePriceDisc: boolean;
+}
+
+const ProductInfo: React.FC<ProductInfoProps> = ({
+  data,
+  isDiscount,
+  isRangePrice,
+  isRangePriceDisc,
+}) => {
   return (
     <div className={style.product__info}>
-      <h3>
-        Kaos cowok / baju kaos / kaos cowok / kaos distro pria / kaos pendek -
-        Putih
-      </h3>
+      <h3>{data?.title}</h3>
       <div className={style.product__info__rating}>
-        <span>Sold : 100</span>
-        <Rate value={2} disabled />
-        <span>2 Review</span>
+        <span>Sold : {data?.unit_sold}</span>
+        <Rate value={data?.rating?.avg_rating} disabled />
+        <span>{data?.rating?.count} Review</span>
       </div>
-      <ProductPrice />
+      <ProductPrice
+        data={data}
+        isDiscount={isDiscount}
+        isRangePrice={isRangePrice}
+        isRangePriceDisc={isRangePriceDisc}
+      />
     </div>
   );
 };
