@@ -6,5 +6,16 @@ import Card from './Card';
 import FormLabel from './FormLabel';
 import InputPassword from './InputPassword';
 import LogoIcon from './LogoIcon';
+import Search from './Search';
 
-export { Logo, Button, Image, Input, Card, FormLabel, InputPassword, LogoIcon };
+export {
+  Logo,
+  Button,
+  Image,
+  Input,
+  Card,
+  FormLabel,
+  InputPassword,
+  LogoIcon,
+  Search,
+};
