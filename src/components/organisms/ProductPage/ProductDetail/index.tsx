@@ -4,6 +4,7 @@ import CarouselPhoto from '../CarouselPhoto';
 import style from './index.module.scss';
 import ProductInfo from './ProductInfo';
 import { IProduct } from '../../../../helpers/types';
+import ProductVariant from './ProductVariant';
 
 interface ProductDetailProps {
   data: IProduct;
@@ -31,6 +32,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
           isRangePrice={isRangePrice}
           isRangePriceDisc={isRangePriceDisc}
         />
+        <ProductVariant />
       </Col>
     </Row>
   );

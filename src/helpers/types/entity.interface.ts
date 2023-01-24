@@ -74,17 +74,14 @@ const data = {
 export interface IMerchant {
   name: string;
   domain: string;
-  image_url: string;
+  image: string;
   avg_rating: number;
+  seller_city: string;
 }
 
 export interface ICategory {
   name: string;
   url: string;
-}
-
-export interface IImage {
-  image_url: string;
 }
 
 export interface IRating {
@@ -100,7 +97,7 @@ export interface IDimension {
 
 export interface IVariantOption {
   name: string;
-  value: string[];
+  type: string[];
 }
 
 export interface IVarianItem {
@@ -112,29 +109,30 @@ export interface IVarianItem {
 }
 
 export interface IVariant {
-  variant_option: IVariantOption[];
+  variant_options: IVariantOption[];
   variant_items: IVarianItem[];
 }
 
 export interface IProduct {
   id: number;
-  merchant_id: number;
-  category_id: number;
-  category: ICategory;
   title: string;
-  description: string;
   min_real_price: number;
   max_real_price: number;
   min_discount_price: number;
   max_discount_price: number;
+  category: ICategory;
+  images: string[];
+  is_used: boolean;
+  SKU: string;
+  description: string;
+  favorite_count: number;
+  is_favorited: boolean;
   unit_sold: number;
-  images: IImage[];
+  total_stock: number;
+  is_archived: boolean;
+  avg_rating: number;
   weight: number;
   dimension: IDimension;
-  SKU: string;
-  favorite_count: number;
-  total_stock: number;
-  status: string;
-  rating: IRating;
+  variants: IVariant;
   merchant: IMerchant;
 }

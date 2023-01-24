@@ -1,11 +1,10 @@
 import React from 'react';
 import { Carousel } from 'react-responsive-carousel';
-import { IImage } from '../../../../helpers/types';
 import style from './index.module.scss';
 
 interface CarouselProps {
   selectedItem: number;
-  photos: IImage[];
+  photos: string[];
 }
 
 const CarouselPhoto: React.FC<CarouselProps> = ({ photos, selectedItem }) => {
@@ -13,8 +12,8 @@ const CarouselPhoto: React.FC<CarouselProps> = ({ photos, selectedItem }) => {
     <div className={style.carousel}>
       <Carousel selectedItem={3}>
         {photos?.map((photo) => (
-          <div key={photo.image_url} className={style.carousel__photo}>
-            <img src={photo.image_url} alt="detail-house" />
+          <div key={photo} className={style.carousel__photo}>
+            <img src={photo} alt="detail-house" />
           </div>
         ))}
       </Carousel>

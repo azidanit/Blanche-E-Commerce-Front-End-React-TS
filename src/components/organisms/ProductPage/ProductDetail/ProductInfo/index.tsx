@@ -22,8 +22,7 @@ const ProductInfo: React.FC<ProductInfoProps> = ({
       <h3>{data?.title}</h3>
       <div className={style.product__info__rating}>
         <span>Sold : {data?.unit_sold}</span>
-        <Rate value={data?.rating?.avg_rating} disabled />
-        <span>{data?.rating?.count} Review</span>
+        <Rate value={data?.avg_rating} disabled />
       </div>
       <ProductPrice
         data={data}

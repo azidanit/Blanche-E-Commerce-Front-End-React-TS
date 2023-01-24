@@ -5,56 +5,83 @@ import style from './index.module.scss';
 const Product = (): JSX.Element => {
   const data = {
     id: 1,
-    merchant_id: 1,
-    merchant: {
-      name: 'ZogoZ Shop',
-      domain: 'zogojogo',
-      image_url: 'http://dummyimage.com/173x122.png/ff4444/ffffff',
-      avg_rating: 4.8,
-    },
-    category_id: 1,
-    category: {
-      name: 'Elektronika Instrumentasi',
-      url: 'test-url',
-    },
     title: 'laptop geming',
-    description: 'ini laptop khusus gamer ygy',
     min_real_price: 2450000,
     max_real_price: 2450000,
     min_discount_price: 2450000,
     max_discount_price: 2450000,
-    unit_sold: 2400,
+    category: {
+      name: 'Elektronika Instrumentasi',
+      url: 'test-url',
+    },
     images: [
-      {
-        image_url:
-          'https://cf.shopee.co.id/file/10efc6e8321e9a1f06c5af02dbf6f7e6',
-      },
-      {
-        image_url:
-          'https://cf.shopee.co.id/file/10efc6e8321e9a1f06c5af02dbf6f7e6',
-      },
-      {
-        image_url:
-          'https://cf.shopee.co.id/file/10efc6e8321e9a1f06c5af02dbf6f7e6',
-      },
-      {
-        image_url:
-          'https://cf.shopee.co.id/file/10efc6e8321e9a1f06c5af02dbf6f7e6',
-      },
-      {
-        image_url:
-          'https://cf.shopee.co.id/file/10efc6e8321e9a1f06c5af02dbf6f7e6',
-      },
+      'https://res.cloudinary.com/dqkivnsov/image/upload/v1672368688/toyota-fortuner-bekas-2020-harga-drop-77-juta-meski-baru-berjalan-8.000-km-123_polgvo.jpg',
+      'https://res.cloudinary.com/dqkivnsov/image/upload/v1672368877/toyota-fortuner-bekas-2020-sub2_xkccvr.jpg',
+      'https://res.cloudinary.com/dqkivnsov/image/upload/v1672368843/toyota_fortuner_bekas_2020_harga_drop_77_juta_meski_baru_berjalan_8.000_km_2_hnrlz2.jpg',
     ],
-    weight: 2,
-    SKU: 'ABC1230XYZ',
-    favorite_count: 10,
-    total_stock: 77,
-    status: 'ACTIVE',
-    dimension: '15,20,25',
-    rating: {
+    description: 'ini deksripsi adalahhh',
+    is_used: false,
+    SKU: 'SKU101212',
+    favorite_count: 2500,
+    is_favorited: false,
+    unit_sold: 2400,
+    total_stock: 4000,
+    is_archived: false,
+    avg_rating: 4.8,
+    weight: 900,
+    dimension: {
+      width: 30,
+      length: 20,
+      height: 10,
+    },
+    variants: {
+      variant_options: [
+        {
+          name: 'color',
+          type: ['red', 'black'],
+        },
+        {
+          name: 'size',
+          type: ['S', 'M'],
+        },
+      ],
+      variant_items: [
+        {
+          id: 11,
+          is_archived: false,
+          image: 'http://dummyimage.com/173x122.png/ff4444/ffffff',
+          price: 10000,
+          stock: 1010,
+        },
+        {
+          id: 22,
+          is_archived: false,
+          image: 'http://dummyimage.com/173x122.png/ff4444/ffffff',
+          price: 20000,
+          stock: 1020,
+        },
+        {
+          id: 33,
+          is_archived: false,
+          image: 'http://dummyimage.com/173x122.png/ff4444/ffffff',
+          price: 21000,
+          stock: 1020,
+        },
+        {
+          id: 44,
+          is_archived: false,
+          image: 'http://dummyimage.com/173x122.png/ff4444/ffffff',
+          price: 23000,
+          stock: 1020,
+        },
+      ],
+    },
+    merchant: {
+      name: 'Penak Jaya',
+      domain: 'penakjaya',
+      image: 'http://dummyimage.com/173x122.png/ff4444/ffffff',
       avg_rating: 4.5,
-      count: 21,
+      seller_city: 'Jakarta',
     },
   };
 

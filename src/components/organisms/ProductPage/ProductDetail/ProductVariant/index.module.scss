@@ -1,0 +1,8 @@
+.product__variant {
+  &__item {
+    &__radio {
+      display: flex;
+      gap: 1rem;
+    }
+  }
+}
