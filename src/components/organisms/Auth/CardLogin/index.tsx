@@ -30,7 +30,13 @@ const CardLogin = (): JSX.Element => {
         <FormLabel label="Password" name="password" rules={rules.password}>
           <InputPassword placeholder="Password" />
         </FormLabel>
-        <Button type="primary" size="large" htmlType="submit" block>
+        <Button
+          type="primary"
+          size="large"
+          htmlType="submit"
+          block
+          className={style.card__login__button}
+        >
           Login
         </Button>
       </Form>
