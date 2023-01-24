@@ -1,8 +1,8 @@
 import React from 'react';
 import { textTruncate } from '../../../../helpers/textTruncate';
 import { toRupiah } from '../../../../helpers/toRupiah';
+import { ICartItem } from '../../../../helpers/types';
 import { Image } from '../../../atoms';
-import { ICartItem } from '../../interface';
 import style from './index.module.scss';
 
 interface CartItemProps {
