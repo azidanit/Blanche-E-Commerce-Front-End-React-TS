@@ -23,7 +23,6 @@ const CartButton: React.FC<CartButtonProps> = ({ total, items }) => {
     >
       <div className={style.cart__button}>
         <div className={style.cart__button__container}>
-          {' '}
           <Badge className={style.cart__button__total} count={total}>
             <ShoppingFilled className={style.cart__button__icon} />
           </Badge>
