@@ -30,7 +30,6 @@ const CardLogin = (): JSX.Element => {
         <FormLabel label="Password" name="password" rules={rules.password}>
           <InputPassword placeholder="Password" />
         </FormLabel>
-<<<<<<< HEAD
         <Button
           type="primary"
           size="large"
@@ -38,9 +37,6 @@ const CardLogin = (): JSX.Element => {
           block
           className={style.card__login__button}
         >
-=======
-        <Button type="primary" size="large" htmlType="submit" block>
->>>>>>> 856bdb9 (fix: fix wordingan login page)
           Login
         </Button>
       </Form>
