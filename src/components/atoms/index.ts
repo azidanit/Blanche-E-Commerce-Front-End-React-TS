@@ -5,6 +5,7 @@ import Input from './Input';
 import Card from './Card';
 import FormLabel from './FormLabel';
 import InputPassword from './InputPassword';
+import InputNumber from './InputNumber';
 import LogoIcon from './LogoIcon';
 import Search from './Search';
 import SEO from './SEO';
@@ -20,6 +21,7 @@ export {
   Card,
   FormLabel,
   InputPassword,
+  InputNumber,
   LogoIcon,
   Search,
   SEO,
