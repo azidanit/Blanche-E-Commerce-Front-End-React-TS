@@ -1,0 +1,18 @@
+@use '../../../../../styles/variables' as *;
+.product__info {
+  h3 {
+    font-size: 1.8rem;
+    font-weight: $text-bold;
+    margin-bottom: 1rem;
+  }
+
+  &__rating {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1rem;
+    .rating {
+      margin-right: 1rem;
+    }
+  }
+}
