@@ -4,7 +4,7 @@ import style from './index.module.scss';
 
 interface TextProps {
   text: string;
-  className: string;
+  className?: string;
 }
 
 const StrikethroughText: React.FC<TextProps> = ({ text, className }) => {
