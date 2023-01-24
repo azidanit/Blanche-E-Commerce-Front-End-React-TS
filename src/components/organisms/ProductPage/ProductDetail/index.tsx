@@ -7,7 +7,7 @@ import { Container } from '../../../molecules';
 const ProductDetail = (): JSX.Element => {
   return (
     <Container>
-      <Row className={style.auth__layout}>
+      <Row className={style.product_detail}>
         <Col flex="1">
           <CarouselPhoto />
         </Col>
