@@ -14,7 +14,7 @@ const ProductInfo = (): JSX.Element => {
 
       <div className={style.product__detail__info__price}>
         <div className={style.product__detail__info__price__disc}>
-          <Badge color="green">20%</Badge>
+          <Badge type="success">20%</Badge>
           <span>Rp 100.000</span>
         </div>
         <div className={style.product__detail__info__price__real}>
