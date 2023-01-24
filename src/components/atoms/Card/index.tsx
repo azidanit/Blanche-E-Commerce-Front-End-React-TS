@@ -17,7 +17,7 @@ const Card: React.FC<CardProps> = ({ className, children, ...props }) => {
   );
 =======
 interface CardProps {
-  children: JSX.Element;
+  children: React.ReactNode;
   className?: string;
 }
 
