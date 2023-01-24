@@ -6,6 +6,7 @@ import ProductVariant from './ProductVariant';
 import ProductDescription from './ProductDescription';
 import MerchantInfo from './MerchantInfo';
 import ProductGallery from '../ProductGallery.tsx';
+import { Container } from '../../../molecules';
 
 const ProductDetail: React.FC = () => {
   return (
