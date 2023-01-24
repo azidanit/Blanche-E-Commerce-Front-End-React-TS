@@ -1,0 +1,12 @@
+@use '../../../styles/variables.scss' as *;
+.auth__section__right {
+  background: #fff;
+  border-radius: 5px;
+  padding: 30px;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  height: 100vh;
+}
