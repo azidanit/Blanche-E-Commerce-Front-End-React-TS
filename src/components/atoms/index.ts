@@ -29,9 +29,9 @@ export {
   Search,
   SEO,
   Alert,
-  RadioButton,
   Avatar,
   StrikethroughText,
   Rate,
   Badge,
+  RadioButton,
 };
