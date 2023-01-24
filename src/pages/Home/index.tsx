@@ -1,5 +1,7 @@
 import React from 'react';
-import { Logo } from '../../components';
+import { setSearch } from '../../app/features/home/searchSlice';
+import { useAppDispatch } from '../../app/hooks';
+import { Logo, Search } from '../../components';
 import CartButton from '../../components/molecules/CartButton';
 
 const Home = (): JSX.Element => {
@@ -19,12 +21,18 @@ const Home = (): JSX.Element => {
       quantity: 10,
     },
   ];
+  const dispatch = useAppDispatch();
+  const onSearch = (value: string) => {
+    dispatch(setSearch(value));
+  };
+
   return (
     <>
       <Logo />
       <div>
         <CartButton items={items} total={11} />
       </div>
+      <Search onSearch={onSearch} />
     </>
   );
 };
