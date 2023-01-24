@@ -6,13 +6,26 @@ import style from './index.module.scss';
 type BadgeColor = 'success' | 'primary' | 'danger' | 'secondary';
 
 type props = BadgeProps & {
-  type: BadgeColor;
+  type?: BadgeColor;
+};
+const getColor = (type: any) => {
+  if (type === 'success') {
+    return {
+      color: '#81d687',
+    };
+  }
 };
 
-const Badge: React.FC<props> = ({ type, className, ...props }) => {
-  const classProps = classNames(className, style[type]);
+const Badge: React.FC<props> = ({ className, color, children, ...props }) => {
+  const classProps = classNames(className);
 
-  return <ABadge {...props} className={classProps} />;
+  const colorProps = getColor(color)?.color;
+
+  return (
+    <ABadge {...props} color={colorProps} className={classProps}>
+      {children}
+    </ABadge>
+  );
 };
 
 export default Badge;
