@@ -2,19 +2,24 @@ import React from 'react';
 import style from './index.module.scss';
 import { AuthSectionLeft, AuthSectionRight } from '../../molecules';
 import { Row, Col } from 'antd';
+import useMediaQuery from '../../../hooks/useMediaQuery';
 
 interface AuthProps {
   children: React.ReactNode;
 }
 
 const AuthLayout: React.FC<AuthProps> = ({ children }) => {
+  const isMobile = useMediaQuery('(max-width: 768px)');
+
   return (
     <Row className={style.auth__layout}>
-      <Col xs={2} sm={4} md={6} lg={8} xl={10}>
-        <AuthSectionLeft />
-      </Col>
-      <Col xs={2} sm={4} md={6} lg={8} xl={10}>
-        <AuthSectionRight />
+      {!isMobile && (
+        <Col flex="none">
+          <AuthSectionLeft />
+        </Col>
+      )}
+      <Col flex="auto">
+        <AuthSectionRight>{children}</AuthSectionRight>
       </Col>
     </Row>
   );
