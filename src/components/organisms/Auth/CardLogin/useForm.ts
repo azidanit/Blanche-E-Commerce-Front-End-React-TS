@@ -12,7 +12,7 @@ function useForm(): FormReturnLogin<LoginProps> {
   const handleSubmit = (values: LoginProps) => {
     const data = {
       email: values.email,
-      password: values.password,
+      password: values.password.trim(),
     };
 
     //TODO - dispatch login

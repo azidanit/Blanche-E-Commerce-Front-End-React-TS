@@ -6,9 +6,8 @@ import style from './index.module.scss';
 const CardLoginBottom: React.FC = () => {
   return (
     <div className={style.card__login__bottom}>
-      <Divider className={style.divider}>atau masuk dengan</Divider>
+      <Divider className={style.divider}>Or Login with</Divider>
       {/* TODO --> LOGIN GOOGLE BUTTON */}
-      <Link to="/">Daftar</Link>
     </div>
   );
 };
