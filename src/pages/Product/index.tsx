@@ -1,5 +1,5 @@
-import React from 'react';
-import { ProductDetail } from '../../components';
+import React, { useState } from 'react';
+import { CardSummary, Container, ProductDetail } from '../../components';
 import style from './index.module.scss';
 
 const Product = (): JSX.Element => {
@@ -57,10 +57,29 @@ const Product = (): JSX.Element => {
       count: 21,
     },
   };
+
+  const [isRangePrice, setIsRangePrice] = useState(
+    data.min_real_price !== data.max_real_price,
+  );
+
+  const [isDiscount, setIsDiscount] = useState(
+    data.min_discount_price !== null && data.max_discount_price !== null,
+  );
+
+  const [isRangePriceDisc, setIsRangePriceDisc] = useState(
+    data.min_discount_price !== data.max_discount_price && isDiscount,
+  );
+
   return (
-    <div className={style.product__page}>
-      <ProductDetail />
-    </div>
+    <Container className={style.product__page}>
+      <ProductDetail
+        data={data}
+        isDiscount={isDiscount}
+        isRangePrice={isRangePrice}
+        isRangePriceDisc={isRangePriceDisc}
+      />
+      <CardSummary />
+    </Container>
   );
 };
 
