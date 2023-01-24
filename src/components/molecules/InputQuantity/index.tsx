@@ -15,10 +15,24 @@ const InputQuantity: React.FC<InputQuantityProps> = ({ value }) => {
   };
 
   const addonIncrement = (
-    <Button type="primary" onClick={increment} icon="plus" />
+    <Button
+      type="primary"
+      shape="default"
+      style={{ borderRadius: 0 }}
+      onClick={increment}
+    >
+      +
+    </Button>
   );
   const addonDecrement = (
-    <Button type="primary" onClick={decrement} icon="minus" />
+    <Button
+      type="primary"
+      shape="default"
+      style={{ borderRadius: 0 }}
+      onClick={decrement}
+    >
+      -
+    </Button>
   );
 
   return (
