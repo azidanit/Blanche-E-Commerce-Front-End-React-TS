@@ -12,6 +12,7 @@ import SEO from './SEO';
 import Alert from './Alert';
 import Rate from './Rate';
 import Badge from './Badge';
+import RadioButton from './RadioButton';
 
 export {
   Logo,
@@ -28,4 +29,5 @@ export {
   Alert,
   Rate,
   Badge,
+  RadioButton,
 };
