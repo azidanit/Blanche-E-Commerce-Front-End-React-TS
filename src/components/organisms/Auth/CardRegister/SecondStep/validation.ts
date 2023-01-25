@@ -1,9 +1,12 @@
 import { NamePath } from 'antd/es/form/interface';
-
+// username 8-16
+// password 8-32
+// fullname 2-32
 export const rules = {
   fullname: [
     { required: true, message: 'Please input your fullname.' },
-    { min: 3, message: 'Fullname must be at least 3 characters long.' },
+    { min: 2, message: 'Fullname must be at least 2 characters long.' },
+    { max: 32, message: 'Fullname must be at most 32 characters long.' },
   ],
   password: [
     { required: true, message: 'Please input your password.' },
