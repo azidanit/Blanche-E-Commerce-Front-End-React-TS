@@ -8,6 +8,7 @@ type ImageProps = {
   src: string;
   alt: string;
   className?: string;
+<<<<<<< HEAD
 } & React.HTMLAttributes<HTMLDivElement>;
 
 const Image: React.FC<ImageProps> = ({ className, src, alt, ...props }) => {
@@ -15,6 +16,18 @@ const Image: React.FC<ImageProps> = ({ className, src, alt, ...props }) => {
 
   return (
     <div className={classProps} {...props}>
+=======
+  onClick?: () => void;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
+}
+
+const Image: React.FC<ImageProps> = ({ className, onClick, src, alt }) => {
+  const classProps = classNames(className, style.image);
+
+  return (
+    <div className={classProps} onClick={onClick}>
+>>>>>>> 4e7814c (feat: styling product gallery)
       <img className={style.image__img} src={src} alt={alt} />
     </div>
   );
