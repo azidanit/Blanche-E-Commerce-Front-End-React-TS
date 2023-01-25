@@ -1,0 +1,14 @@
+@use '../../../../../styles/variables.scss' as *;
+
+.product__description {
+  ul {
+    li {
+      display: flex;
+      span {
+        font-weight: $text-medium;
+        margin-right: 0.3rem;
+        color: $gray;
+      }
+    }
+  }
+}

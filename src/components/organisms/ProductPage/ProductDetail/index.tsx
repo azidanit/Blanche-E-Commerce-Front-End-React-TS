@@ -5,6 +5,7 @@ import style from './index.module.scss';
 import ProductInfo from './ProductInfo';
 import { IProduct } from '../../../../helpers/types';
 import ProductVariant from './ProductVariant';
+import ProductDescription from './ProductDescription';
 
 interface ProductDetailProps {
   data: IProduct;
@@ -25,7 +26,14 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
       <Col xs={24} sm={24} md={24} lg={10} xl={10}>
         <CarouselPhoto photos={data?.images} selectedItem={selectedImage} />
       </Col>
-      <Col xs={24} sm={24} md={24} lg={14} xl={14}>
+      <Col
+        xs={24}
+        sm={24}
+        md={24}
+        lg={14}
+        xl={14}
+        className={style.product__detail__item}
+      >
         <ProductInfo
           data={data}
           isDiscount={isDiscount}
@@ -33,6 +41,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
           isRangePriceDisc={isRangePriceDisc}
         />
         <ProductVariant />
+        <ProductDescription />
       </Col>
     </Row>
   );
