@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Row, Col, Divider } from 'antd';
-import CarouselPhoto from '../CarouselPhoto';
 import style from './index.module.scss';
 import ProductInfo from './ProductInfo';
 import { IProduct } from '../../../../helpers/types';
 import ProductVariant from './ProductVariant';
 import ProductDescription from './ProductDescription';
 import MerchantInfo from './MerchantInfo';
+import ProductGallery from '../ProductGallery.tsx';
 
 interface ProductDetailProps {
   data: IProduct;
@@ -25,7 +25,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
   return (
     <Row className={style.product__detail} gutter={[16, 16]}>
       <Col xs={24} sm={24} md={24} lg={10} xl={10}>
-        <CarouselPhoto photos={data?.images} selectedItem={selectedImage} />
+        <ProductGallery />
       </Col>
       <Col
         xs={24}

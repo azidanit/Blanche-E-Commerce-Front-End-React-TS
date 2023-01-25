@@ -1,0 +1,25 @@
+.product__gallery {
+  &__image__active {
+  }
+
+  &__image__list {
+    margin-top: 0.8rem;
+    display: flex;
+    justify-content: start;
+    gap: 0.8rem;
+    overflow-x: scroll;
+
+    &__item {
+      border-radius: 1px;
+      width: 70px;
+      cursor: pointer;
+
+      &__active {
+        border: 2px solid black;
+
+        outline: 100px solid rgba(255, 0, 0, 0.5) !important;
+        outline-offset: -100px;
+      }
+    }
+  }
+}
