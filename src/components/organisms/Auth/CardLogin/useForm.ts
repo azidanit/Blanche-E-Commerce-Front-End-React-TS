@@ -1,26 +1,34 @@
-import { useDispatch } from 'react-redux';
+import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { FormReturnLogin, LoginProps } from '../../../../helpers/types';
+import { useLoginMutation } from '../../../../app/features/auth/authApiSlice';
+import { setAccessToken } from '../../../../app/features/auth/authSlice';
+import { useAppDispatch } from '../../../../app/hooks';
+import { FormReturnAuth, LoginProps } from '../../../../helpers/types';
 
-function useForm(): FormReturnLogin<LoginProps> {
-  const dispatch = useDispatch();
-
+function useForm(): FormReturnAuth<LoginProps> {
   const location = useLocation();
   const from = location.state?.from?.pathname || '/';
   const navigate = useNavigate();
+  const [login, { isError, isLoading }] = useLoginMutation();
+  const dispatch = useAppDispatch();
+  const [error, setError] = useState<Error>();
 
-  const handleSubmit = (values: LoginProps) => {
-    const data = {
-      email: values.email,
-      password: values.password.trim(),
-    };
+  const handleSubmit = async (values: LoginProps) => {
+    try {
+      const body = {
+        email: values.email,
+        password: values.password.trim(),
+      };
 
-    //TODO - dispatch login
-
-    console.log(values);
+      const data = await login(body).unwrap();
+      dispatch(setAccessToken(data.access_token));
+      navigate(from, { replace: true });
+    } catch (error) {
+      setError(error as Error);
+    }
   };
 
-  return { handleSubmit };
+  return { handleSubmit, isError, isLoading, error };
 }
 
 export default useForm;
