@@ -2,8 +2,13 @@ import { RadioChangeEvent } from 'antd';
 import React, { useState } from 'react';
 import { RadioButtonGroup } from '../../../../molecules';
 import style from './index.module.scss';
+import { IVariantOption } from '../../../../../helpers/types';
 
-const ProductVariantItem: React.FC = () => {
+interface ProductVariantItemProps {
+  item: IVariantOption;
+}
+
+const ProductVariantItem: React.FC<ProductVariantItemProps> = ({ item }) => {
   const [value, setValue] = useState('red');
 
   const handleChange = (e: RadioChangeEvent) => {
@@ -13,11 +18,11 @@ const ProductVariantItem: React.FC = () => {
 
   return (
     <div className={style.product__variant__item}>
-      <p>Variant: </p>
+      <p>{item.name}: </p>
       <RadioButtonGroup
         className={style.product__variant__item__radio}
         value={value}
-        values={['red', 'black']}
+        values={item.type}
         onChange={handleChange}
         size="large"
       />

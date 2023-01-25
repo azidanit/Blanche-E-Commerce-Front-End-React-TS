@@ -100,7 +100,7 @@ export interface IVariantOption {
   type: string[];
 }
 
-export interface IVarianItem {
+export interface IVariantItem {
   id: number;
   is_archived: boolean;
   image: string;
@@ -110,10 +110,10 @@ export interface IVarianItem {
 
 export interface IVariant {
   variant_options: IVariantOption[];
-  variant_items: IVarianItem[];
+  variant_items: IVariantItem[];
 }
 
-export interface IProduct {
+export interface IProductDetail {
   id: number;
   title: string;
   min_real_price: number;

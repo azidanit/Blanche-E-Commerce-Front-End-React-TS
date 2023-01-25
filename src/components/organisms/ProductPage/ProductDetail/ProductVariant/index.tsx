@@ -1,20 +1,15 @@
 import React from 'react';
 import ProductVariantItem from './ProductVariantItem';
 import style from './index.module.scss';
-const variant_options = [
-  {
-    name: 'color',
-    type: ['red', 'black'],
-  },
-  {
-    name: 'size',
-    type: ['S', 'M'],
-  },
-];
+import useProduct from '../../../../../hooks/useProduct';
+
 const ProductVariant: React.FC = () => {
+  const { product } = useProduct();
   return (
     <div className={style.product__variant}>
-      <ProductVariantItem />
+      {product?.variants?.variant_options.map((item) => (
+        <ProductVariantItem key={item.name} item={item} />
+      ))}
     </div>
   );
 };

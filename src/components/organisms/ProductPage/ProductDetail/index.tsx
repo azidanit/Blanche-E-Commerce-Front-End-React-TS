@@ -2,29 +2,17 @@ import React, { useState } from 'react';
 import { Row, Col, Divider } from 'antd';
 import style from './index.module.scss';
 import ProductInfo from './ProductInfo';
-import { IProduct } from '../../../../helpers/types';
+import { IProductDetail } from '../../../../helpers/types';
 import ProductVariant from './ProductVariant';
 import ProductDescription from './ProductDescription';
 import MerchantInfo from './MerchantInfo';
 import ProductGallery from '../ProductGallery.tsx';
 
-interface ProductDetailProps {
-  data: IProduct;
-  isRangePrice: boolean;
-  isDiscount: boolean;
-  isRangePriceDisc: boolean;
-}
-
-const ProductDetail: React.FC<ProductDetailProps> = ({
-  data,
-  isDiscount,
-  isRangePrice,
-  isRangePriceDisc,
-}) => {
+const ProductDetail: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState(3);
   return (
-    <Row className={style.product__detail} gutter={[16, 16]}>
-      <Col xs={24} sm={24} md={24} lg={10} xl={10}>
+    <Row className={style.product__detail} gutter={[32, 16]}>
+      <Col xs={24} sm={24} md={24} lg={10} xl={11}>
         <ProductGallery />
       </Col>
       <Col
@@ -32,15 +20,10 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
         sm={24}
         md={24}
         lg={14}
-        xl={14}
+        xl={13}
         className={style.product__detail__item}
       >
-        <ProductInfo
-          data={data}
-          isDiscount={isDiscount}
-          isRangePrice={isRangePrice}
-          isRangePriceDisc={isRangePriceDisc}
-        />
+        <ProductInfo />
         <ProductVariant />
         <ProductDescription />
         <Divider style={{ margin: 0 }} />
@@ -52,4 +35,3 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
 };
 
 export default ProductDetail;
-('1');

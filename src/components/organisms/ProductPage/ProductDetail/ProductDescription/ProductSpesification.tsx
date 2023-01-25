@@ -1,19 +1,21 @@
 import React from 'react';
+import useProduct from '../../../../../hooks/useProduct';
 
 const ProductSpesification: React.FC = () => {
+  const { product } = useProduct();
   return (
     <ul>
       <li>
         <span>Width: </span>
-        <p>New</p>
+        <p>{product?.dimension?.width}</p>
       </li>
       <li>
         <span>Length: </span>
-        <p>50</p>
+        <p>{product?.dimension?.length}</p>
       </li>
       <li>
         <span>Height:</span>
-        <p>Elektronika</p>
+        <p>{product?.dimension?.height}</p>
       </li>
     </ul>
   );

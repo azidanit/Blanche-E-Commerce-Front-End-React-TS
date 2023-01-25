@@ -1,45 +1,44 @@
 import React from 'react';
-import { IProduct } from '../../../../../helpers/types';
-import { Badge } from '../../../../atoms';
+import { toRupiah } from '../../../../../helpers/toRupiah';
+import useProduct from '../../../../../hooks/useProduct';
 import StrikethroughText from '../../../../StrikethroughText';
 import style from './index.module.scss';
 
-interface ProductPriceProps {
-  data: IProduct;
-  isDiscount: boolean;
-  isRangePrice: boolean;
-  isRangePriceDisc: boolean;
-}
+const ProductPrice: React.FC = () => {
+  const { product, isDiscount, isRangePrice, isRangePriceDiscount, price } =
+    useProduct();
 
-const ProductPrice: React.FC<ProductPriceProps> = ({
-  data,
-  isDiscount,
-  isRangePrice,
-  isRangePriceDisc,
-}) => {
   return (
     <div className={style.product__info__price}>
-      {isDiscount && (
-        <div className={style.product__info__price__disc}>
-          {isRangePriceDisc ? (
-            <>
-              <StrikethroughText text="Rp 80.000" /> -
-              <StrikethroughText text="Rp 80.000" />
-            </>
-          ) : (
-            <StrikethroughText text="Rp 80.000" />
-          )}
-        </div>
-      )}
       <div className={style.product__info__price__real}>
         {isRangePrice ? (
           <>
-            <span>{data?.max_real_price}</span> - <span>R</span>
+            <span>{`${toRupiah(product?.min_real_price)}`}</span> -{' '}
+            <span>{`${toRupiah(product?.max_real_price)}`}</span>
           </>
         ) : (
-          <span>Rp 80.000</span>
+          <span>{`${toRupiah(price as number)}`}</span>
         )}
       </div>
+      {isDiscount && (
+        <div className={style.product__info__price__disc}>
+          {isRangePriceDiscount ? (
+            <>
+              <StrikethroughText
+                text={`${toRupiah(product?.min_discount_price)}`}
+              />
+              -
+              <StrikethroughText
+                text={`${toRupiah(product?.max_discount_price)}`}
+              />
+            </>
+          ) : (
+            <StrikethroughText
+              text={`${toRupiah(product?.max_discount_price)}`}
+            />
+          )}
+        </div>
+      )}
     </div>
   );
 };

@@ -1,7 +1,7 @@
 @use '../../../../../styles/variables' as *;
 .product__info {
   h3 {
-    font-size: 1.7rem;
+    font-size: 1.9rem;
     font-weight: $text-bold;
     margin-bottom: 0.7rem;
   }
@@ -18,10 +18,9 @@
   }
 
   &__price {
-    display: flex;
+    display: grid;
     gap: 1rem;
     align-items: center;
-    margin-bottom: 1rem;
     span {
       font-size: 1rem;
       font-weight: $text-regular;
@@ -39,8 +38,8 @@
     &__real {
       span {
         font-size: 1.5rem;
+        color: $primary-90;
         font-weight: $text-bold;
-        color: $primary-100;
       }
     }
   }
