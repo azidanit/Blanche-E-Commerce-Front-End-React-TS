@@ -1,28 +1,30 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import useProduct from '../../../../../hooks/useProduct';
+import { Link, useParams } from 'react-router-dom';
+import { useGetMerchantInfoQuery } from '../../../../../app/features/merchant/merchantApiSlice';
 import { Avatar, Rate } from '../../../../atoms';
 import style from './index.module.scss';
 
 const MerchantInfo: React.FC = () => {
-  const { product } = useProduct();
+  const { store, slug } = useParams();
+
+  const {
+    data: merchant,
+    error: merchantError,
+    isLoading: merchantLoading,
+  } = useGetMerchantInfoQuery(JSON.stringify(store));
+
   return (
     <div className={style.merchant__info}>
       <Link to="/">
-        <Avatar
-          size={50}
-          src={product?.merchant?.image}
-          alt={product?.merchant?.name}
-        />
+        <Avatar size={50} src={merchant?.image_url} alt={merchant?.name} />
       </Link>
       <div className={style.merchant__info__desc}>
         <Link to="/" className={style.merchant__info__desc__link}>
-          {product?.merchant?.name}
+          {merchant?.name}
         </Link>
-        <p>{product?.merchant?.seller_city}</p>
+        <p>{merchant?.address.city}</p>
         <p>
-          <Rate disabled count={product?.merchant?.avg_rating} />{' '}
-          {product?.merchant?.avg_rating}
+          <Rate disabled count={merchant?.avg_rating} /> {merchant?.avg_rating}
         </p>
       </div>
     </div>

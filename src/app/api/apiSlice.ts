@@ -32,6 +32,6 @@ const baseQueryWithReauth: typeof baseQuery = async (
 
 export const apiSlice = createApi({
   baseQuery: baseQueryWithReauth,
-  tagTypes: ['Product'],
+  tagTypes: ['Product', 'Merchant'],
   endpoints: () => ({}),
 });

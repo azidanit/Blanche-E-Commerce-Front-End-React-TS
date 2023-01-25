@@ -1,20 +1,46 @@
 import { Divider } from 'antd';
-import React, { useState } from 'react';
+import { valueType } from 'antd/es/statistic/utils';
+import React, { useEffect, useState } from 'react';
+import { toRupiah } from '../../../../helpers/toRupiah';
 import { ICartItem } from '../../../../helpers/types';
+import useProduct from '../../../../hooks/useProduct';
 import { Button, Card } from '../../../atoms';
 import { CartItem, InputQuantity } from '../../../molecules';
 import style from './index.module.scss';
 
 const CardSummary: React.FC = () => {
-  const [value, setValue] = useState(0);
+  const { product, stock, price, images } = useProduct();
 
+  const [quantity, setQuantity] = useState(1);
+  const [totalPrice, setTotalPrice] = useState(
+    price ? price : product?.max_real_price,
+  );
   const item: ICartItem = {
-    imgUrl: 'https://picsum.photos/200/300',
-    title:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.',
-    quantity: value,
-    price: 100000,
+    imgUrl: images?.[0] ? images[0] : '',
+    title: product?.title ? product.title : '',
+    quantity: quantity,
+    price: price ? price : 0,
   };
+
+  const handleChange = (value: valueType | null) => {
+    setQuantity(value as number);
+  };
+
+  const handleDecrement = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
+
+  const handleIncrement = () => {
+    if (quantity < (stock as number)) {
+      setQuantity(quantity + 1);
+    }
+  };
+
+  useEffect(() => {
+    setTotalPrice(quantity * (price as number));
+  }, [quantity, price]);
 
   return (
     <Card className={style.card__summary}>
@@ -23,15 +49,20 @@ const CardSummary: React.FC = () => {
 
       <CartItem item={item} />
       <div className={style.card__summary__quantity}>
-        <InputQuantity value={value} />
+        <InputQuantity
+          value={quantity}
+          handleDecrement={handleDecrement}
+          handleIncrement={handleIncrement}
+          handleChange={handleChange}
+        />
         <p>
-          Stok: <span>990</span>
+          Stok: <span>{stock}</span>
         </p>
       </div>
       <Divider />
       <div className={style.card__summary__total}>
         <span>Total</span>
-        <p>Rp. 100.000</p>
+        <p>{toRupiah(totalPrice)}</p>
       </div>
       <div className={style.card__summary__button}>
         <Button type="primary" size="large" block>

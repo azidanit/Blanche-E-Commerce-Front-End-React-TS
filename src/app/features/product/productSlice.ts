@@ -5,11 +5,12 @@ const initialState = {
   variant: null,
   isDiscount: false,
   isRangePrice: false,
-  isRangePriceDiscount: false,
   price: null,
   stock: null,
   images: null,
   activeImage: null,
+  merchant: null,
+  isLoading: false,
 };
 
 export const productSlice = createSlice({
@@ -31,9 +32,6 @@ export const productSlice = createSlice({
     setIsRangePrice: (state, action) => {
       state.isRangePrice = action.payload;
     },
-    setIsRangePriceDiscount: (state, action) => {
-      state.isRangePriceDiscount = action.payload;
-    },
     setPrice: (state, action) => {
       state.price = action.payload;
     },
@@ -42,6 +40,12 @@ export const productSlice = createSlice({
     },
     setActiveImage: (state, action) => {
       state.activeImage = action.payload;
+    },
+    setMerchant: (state, action) => {
+      state.merchant = action.payload;
+    },
+    setIsLoading: (state, action) => {
+      state.isLoading = action.payload;
     },
   },
 });
@@ -52,10 +56,11 @@ export const {
   setVariant,
   setIsDiscount,
   setIsRangePrice,
-  setIsRangePriceDiscount,
   setPrice,
   setStock,
   setActiveImage,
+  setMerchant,
+  setIsLoading,
 } = productSlice.actions;
 
 export default productSlice.reducer;

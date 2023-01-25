@@ -6,24 +6,36 @@ import { IVariantOption } from '../../../../../helpers/types';
 
 interface ProductVariantItemProps {
   item: IVariantOption;
+  handleChange: (index: number, value: number) => void;
+  value?: string;
+  index: number;
 }
 
-const ProductVariantItem: React.FC<ProductVariantItemProps> = ({ item }) => {
-  const [value, setValue] = useState('red');
+const ProductVariantItem: React.FC<ProductVariantItemProps> = ({
+  index,
+  item,
+  handleChange,
+}) => {
+  const [value, setValue] = useState('');
 
-  const handleChange = (e: RadioChangeEvent) => {
-    console.log(e.target.value);
+  const onChange = (e: RadioChangeEvent) => {
     setValue(e.target.value);
+    const value = item.type.findIndex((item) => item === e.target.value);
+
+    console.log('valll', value);
+
+    handleChange(index, value);
   };
 
   return (
     <div className={style.product__variant__item}>
-      <p>{item.name}: </p>
+      <p>
+        {item.name}: {value}{' '}
+      </p>
       <RadioButtonGroup
         className={style.product__variant__item__radio}
-        value={value}
         values={item.type}
-        onChange={handleChange}
+        onChange={onChange}
         size="large"
       />
     </div>

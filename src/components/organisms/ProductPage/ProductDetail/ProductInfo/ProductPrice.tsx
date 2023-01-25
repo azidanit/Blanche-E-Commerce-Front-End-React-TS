@@ -5,8 +5,7 @@ import StrikethroughText from '../../../../StrikethroughText';
 import style from './index.module.scss';
 
 const ProductPrice: React.FC = () => {
-  const { product, isDiscount, isRangePrice, isRangePriceDiscount, price } =
-    useProduct();
+  const { product, isDiscount, isRangePrice, price } = useProduct();
 
   return (
     <div className={style.product__info__price}>
@@ -17,12 +16,12 @@ const ProductPrice: React.FC = () => {
             <span>{`${toRupiah(product?.max_real_price)}`}</span>
           </>
         ) : (
-          <span>{`${toRupiah(price as number)}`}</span>
+          <span>{`${toRupiah(Number(price))}`}</span>
         )}
       </div>
       {isDiscount && (
         <div className={style.product__info__price__disc}>
-          {isRangePriceDiscount ? (
+          {isRangePrice ? (
             <>
               <StrikethroughText
                 text={`${toRupiah(product?.min_discount_price)}`}

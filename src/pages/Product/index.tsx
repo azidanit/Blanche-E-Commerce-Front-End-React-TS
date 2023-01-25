@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useGetMerchantInfoQuery } from '../../app/features/merchant/merchantApiSlice';
 import { useGetProductBySlugQuery } from '../../app/features/product/productApiSlice';
 import {
   setIsDiscount,
-  setIsRangePriceDiscount,
   setIsRangePrice,
   setProduct,
   setPrice,
   setStock,
   setImages,
   setActiveImage,
+  setIsLoading,
 } from '../../app/features/product/productSlice';
 import { useAppDispatch } from '../../app/hooks';
 import { CardSummary, Container, ProductDetail } from '../../components';
@@ -16,39 +18,31 @@ import useProduct from '../../hooks/useProduct';
 import style from './index.module.scss';
 
 const Product = (): JSX.Element => {
+  const { store, slug } = useParams();
   const dispatch = useAppDispatch();
 
   const { data, error, isLoading } = useGetProductBySlugQuery({
-    slug: 'laptop-gaming',
-    store: 'jaya',
+    store: store as string,
+    slug: slug as string,
   });
 
-  const { isDiscount, isRangePrice, variant, images } = useProduct();
-
-  const allImage = [
-    ...(data?.images as string[]),
-    ...(data?.variants.variant_items.map((item) => item.image) as string[]),
-  ];
+  const { isRangePrice, variant } = useProduct();
 
   useEffect(() => {
-    console.log(data);
-
     dispatch(setProduct(data));
+    dispatch(setIsDiscount(data?.min_real_price !== data?.max_real_price));
     dispatch(
-      setIsDiscount(
-        data?.min_discount_price !== null && data?.max_discount_price !== null,
+      setImages(
+        data?.images.concat(
+          data?.variants?.variant_items.map((item) => item.image),
+        ),
       ),
     );
-    dispatch(setImages(allImage));
     dispatch(setIsRangePrice(data?.min_real_price !== data?.max_real_price));
-    dispatch(
-      setIsRangePriceDiscount(
-        data?.min_discount_price !== data?.max_discount_price && isDiscount,
-      ),
-    );
     dispatch(setPrice(!isRangePrice ? data?.min_real_price : 0));
     dispatch(setStock(variant === null ? data?.total_stock : variant.stock));
-    dispatch(setActiveImage(images?.[0]));
+    dispatch(setActiveImage(data?.images?.[0]));
+    dispatch(setIsLoading(isLoading));
   }, [data]);
 
   return (

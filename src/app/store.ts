@@ -11,6 +11,7 @@ export const store = configureStore({
     search: searchReducer,
     auth: authReducer,
     product: productReducer,
+
     register: registerReducer,
   },
   middleware: (getDefaultMiddleware) =>
