@@ -1,4 +1,4 @@
-import { Divider } from 'antd';
+import { Divider, Skeleton, Space } from 'antd';
 import { valueType } from 'antd/es/statistic/utils';
 import React, { useEffect, useState } from 'react';
 import { toRupiah } from '../../../../helpers/toRupiah';
@@ -9,7 +9,7 @@ import { CartItem, InputQuantity } from '../../../molecules';
 import style from './index.module.scss';
 
 const CardSummary: React.FC = () => {
-  const { product, stock, price, images } = useProduct();
+  const { product, stock, price, images, isLoading } = useProduct();
 
   const [quantity, setQuantity] = useState(1);
   const [totalPrice, setTotalPrice] = useState(
@@ -44,33 +44,44 @@ const CardSummary: React.FC = () => {
 
   return (
     <Card className={style.card__summary}>
-      <h6>Order Summary</h6>
-      <Divider />
+      <Skeleton loading={isLoading}>
+        <h6>Order Summary</h6>
+        <Divider />
 
-      <CartItem item={item} />
-      <div className={style.card__summary__quantity}>
-        <InputQuantity
-          value={quantity}
-          handleDecrement={handleDecrement}
-          handleIncrement={handleIncrement}
-          handleChange={handleChange}
-        />
-        <p>
-          Stok: <span>{stock}</span>
-        </p>
-      </div>
-      <Divider />
-      <div className={style.card__summary__total}>
-        <span>Total</span>
-        <p>{toRupiah(totalPrice)}</p>
-      </div>
+        <CartItem item={item} />
+        <div className={style.card__summary__quantity}>
+          <InputQuantity
+            value={quantity}
+            handleDecrement={handleDecrement}
+            handleIncrement={handleIncrement}
+            handleChange={handleChange}
+          />
+          <p>
+            Stok: <span>{stock}</span>
+          </p>
+        </div>
+        <Divider />
+        <div className={style.card__summary__total}>
+          <span>Total</span>
+          <p>{toRupiah(totalPrice)}</p>
+        </div>
+      </Skeleton>
       <div className={style.card__summary__button}>
-        <Button type="primary" size="large" block>
-          Add to Cart
-        </Button>
-        <Button type="primary" size="large" ghost block>
-          Buy Now
-        </Button>
+        {isLoading ? (
+          <>
+            <Skeleton.Button block />
+            <Skeleton.Button block />
+          </>
+        ) : (
+          <>
+            <Button type="primary" size="large" block>
+              Add to Cart
+            </Button>
+            <Button type="primary" size="large" ghost block>
+              Buy Now
+            </Button>
+          </>
+        )}
       </div>
     </Card>
   );

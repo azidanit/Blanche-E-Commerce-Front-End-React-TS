@@ -1,5 +1,6 @@
-import { TabsProps } from 'antd';
+import { Skeleton, TabsProps } from 'antd';
 import React from 'react';
+import useProduct from '../../../../../hooks/useProduct';
 import { Tabs } from '../../../../molecules';
 import style from './index.module.scss';
 import ProductDescriptionItem from './ProductDescriptionItem';
@@ -19,13 +20,17 @@ const items: TabsProps['items'] = [
 ];
 
 const ProductDescription: React.FC = () => {
+  const { isLoading } = useProduct();
+
   return (
-    <Tabs
-      defaultActiveKey="1"
-      items={items}
-      className={style.product__description}
-      size="middle"
-    />
+    <Skeleton loading={isLoading}>
+      <Tabs
+        defaultActiveKey="1"
+        items={items}
+        className={style.product__description}
+        size="middle"
+      />
+    </Skeleton>
   );
 };
 
