@@ -13,6 +13,7 @@ import Alert from './Alert';
 import Rate from './Rate';
 import Badge from './Badge';
 import RadioButton from './RadioButton';
+import Avatar from './Avatar';
 
 export {
   Logo,
@@ -30,4 +31,5 @@ export {
   Rate,
   Badge,
   RadioButton,
+  Avatar,
 };

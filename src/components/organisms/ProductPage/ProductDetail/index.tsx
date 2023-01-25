@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Row, Col } from 'antd';
+import { Row, Col, Divider } from 'antd';
 import CarouselPhoto from '../CarouselPhoto';
 import style from './index.module.scss';
 import ProductInfo from './ProductInfo';
 import { IProduct } from '../../../../helpers/types';
 import ProductVariant from './ProductVariant';
 import ProductDescription from './ProductDescription';
+import MerchantInfo from './MerchantInfo';
 
 interface ProductDetailProps {
   data: IProduct;
@@ -42,6 +43,9 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
         />
         <ProductVariant />
         <ProductDescription />
+        <Divider style={{ margin: 0 }} />
+        <MerchantInfo />
+        <Divider style={{ margin: 0 }} />
       </Col>
     </Row>
   );
