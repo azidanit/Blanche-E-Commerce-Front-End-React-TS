@@ -28,7 +28,7 @@ const useForm = ({
       const body = {
         email,
         username,
-        password,
+        password: password.trim(),
         fullname,
       };
       const data = await register(body).unwrap();

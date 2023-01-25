@@ -36,12 +36,20 @@ const SecondStep: React.FC<SecondStepProps> = ({ email }) => {
       };
     }
 
-    if (username.length < 3) {
+    if (username.length <= 8) {
       return {
         validateStatus: 'error',
-        errorMsg: 'Username is too short (Minimum 3 characters needed.)',
+        errorMsg: 'Username must be at least 8 characters long.',
       };
     }
+
+    if (username.length >= 16) {
+      return {
+        validateStatus: 'error',
+        errorMsg: 'Username must be at most 16 characters long.',
+      };
+    }
+
     const body = {
       username,
     };
@@ -49,7 +57,7 @@ const SecondStep: React.FC<SecondStepProps> = ({ email }) => {
     if (!data.is_available) {
       return {
         validateStatus: 'error',
-        errorMsg: 'Username is already taken',
+        errorMsg: 'Username is already taken.',
       };
     }
     return {
@@ -62,12 +70,18 @@ const SecondStep: React.FC<SecondStepProps> = ({ email }) => {
     e: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const { value } = e.target;
+    setUsername({
+      validateStatus: 'validating',
+      errorMsg: null,
+      value,
+    });
     const result = await validateUsername(value);
     setUsername({
       ...result,
       value,
     });
   };
+
   return (
     <Form
       name="basic"
@@ -81,6 +95,7 @@ const SecondStep: React.FC<SecondStepProps> = ({ email }) => {
         name="username"
         validateStatus={username.validateStatus}
         help={username.errorMsg || ''}
+        hasFeedback
         required
       >
         <Input
