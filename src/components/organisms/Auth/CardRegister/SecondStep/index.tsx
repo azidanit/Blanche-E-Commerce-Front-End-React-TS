@@ -50,6 +50,12 @@ const SecondStep: React.FC<SecondStepProps> = ({ email }) => {
       };
     }
 
+    if (username.length < 3) {
+      return {
+        validateStatus: 'error',
+        errorMsg: 'Username is too short (Minimum 3 characters needed.)',
+      };
+    }
     const body = {
       username,
     };
