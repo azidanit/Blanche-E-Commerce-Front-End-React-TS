@@ -5,6 +5,7 @@ import Container from './Container';
 import Form from './Form';
 import CartItem from './CartButton/CartItem';
 import RadioButtonGroup from './RadioButtonGroup';
+import Tabs from './Tabs';
 
 export {
   AuthSectionLeft,
@@ -14,4 +15,5 @@ export {
   InputQuantity,
   RadioButtonGroup,
   CartItem,
+  Tabs,
 };
