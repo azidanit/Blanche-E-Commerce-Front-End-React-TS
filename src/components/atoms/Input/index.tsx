@@ -1,7 +1,7 @@
 import React from 'react';
 import { Input as AInput, InputProps } from 'antd';
 
-const Input: React.FC<InputProps> = ({ size, className, ...props }) => {
+const Input: React.FC<InputProps> = (props) => {
   return <AInput size="large" {...props} />;
 };
 

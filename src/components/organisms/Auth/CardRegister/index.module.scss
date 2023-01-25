@@ -1,6 +1,6 @@
 @use '../../../../styles/variables' as *;
 
-.card__login {
+.card__register {
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
   line-height: 2rem;
   padding: 1.5rem;
@@ -13,7 +13,7 @@
     justify-content: space-between;
 
     h6 {
-      font-size: 2.5rem;
+      font-size: 2rem;
       font-weight: $text-bold;
       color: $primary-100;
     }
@@ -28,6 +28,16 @@
 
   &__alert {
     margin-bottom: 1rem;
+  }
+
+  &__email {
+    color: $gray;
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
+
+    span {
+      font-weight: $text-bold;
+    }
   }
 
   p {

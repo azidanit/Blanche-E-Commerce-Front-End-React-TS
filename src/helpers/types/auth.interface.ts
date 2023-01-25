@@ -1,6 +1,13 @@
-import React from 'react';
-
 export interface LoginProps {
+  email: string;
+  password: string;
+}
+
+export interface ILoginResponse {
+  access_token: string;
+}
+
+export interface ILoginRequest {
   email: string;
   password: string;
 }
@@ -10,16 +17,33 @@ export interface ErrorLogin {
   password: string;
 }
 
-export interface FormReturnLogin<T> {
-  handleSubmit: (values: LoginProps) => void;
+export interface FormReturnAuth<T> {
+  handleSubmit: (values: T) => void;
+  isLoading?: boolean;
+  isError?: boolean;
+  error?: Error;
 }
 
-export interface RegisterProps {
-  name: string;
+export interface RegisterFirstStepProps {
   email: string;
-  address?: string;
+}
+
+export interface RegisterSecondStepProps {
+  username: string;
+  fullname: string;
   password: string;
   confirmPassword: string;
+}
+
+export interface IRegisterRequest {
+  email: string;
+  username: string;
+  fullname: string;
+  password: string;
+}
+
+export interface IRegisterResponse {
+  access_token: string;
 }
 
 export interface ErrorRegister {
@@ -27,4 +51,18 @@ export interface ErrorRegister {
   email: string;
   password: string;
   confirmPassword: string;
+}
+
+export interface ICheckEmailResponse {
+  is_available: boolean;
+  email: string;
+}
+
+export interface ICheckUsernameResponse {
+  is_available: boolean;
+  username: string;
+}
+
+export interface ICheckUsernameRequest {
+  username: string;
 }
