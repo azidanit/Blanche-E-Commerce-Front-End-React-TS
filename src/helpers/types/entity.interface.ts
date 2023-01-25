@@ -16,12 +16,20 @@ export interface IUser {
   role?: string;
 }
 
-export interface IMerchant {
+export interface IAddress {
+  province: string;
+  city: string;
+}
+
+export interface IMerchantInfo {
+  id: number;
   name: string;
   domain: string;
-  image: string;
   avg_rating: number;
-  seller_city: string;
+  join_date: string;
+  num_of_sale: number;
+  num_of_review: number;
+  image_url: string;
 }
 
 export interface ICategory {
@@ -95,5 +103,5 @@ export interface IProductDetail {
   weight: number;
   dimension: IDimension;
   variants: IVariant;
-  merchant: IMerchant;
+  merchant: IMerchantInfo;
 }
