@@ -7,6 +7,8 @@ import FormLabel from './FormLabel';
 import InputPassword from './InputPassword';
 import LogoIcon from './LogoIcon';
 import Search from './Search';
+import SEO from './SEO';
+import Alert from './Alert';
 
 export {
   Logo,
@@ -18,4 +20,6 @@ export {
   InputPassword,
   LogoIcon,
   Search,
+  SEO,
+  Alert,
 };

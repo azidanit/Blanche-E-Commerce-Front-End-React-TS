@@ -1,10 +1,11 @@
 import React from 'react';
-import { CardLogin } from '../../../components';
+import { CardLogin, SEO } from '../../../components';
 import { AuthLayout } from '../../../components/layouts';
 
-const Login = (): JSX.Element => {
+const Login: React.FC = () => {
   return (
     <AuthLayout>
+      <SEO title="Login" description="Login page" />
       <CardLogin />
     </AuthLayout>
   );
