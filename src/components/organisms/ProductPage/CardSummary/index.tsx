@@ -46,8 +46,6 @@ const CardSummary: React.FC = () => {
     <Card className={style.card__summary}>
       <Skeleton loading={isLoading}>
         <h6>Order Summary</h6>
-        <Divider />
-
         <CartItem item={item} />
         <div className={style.card__summary__quantity}>
           <InputQuantity
@@ -57,7 +55,7 @@ const CardSummary: React.FC = () => {
             handleChange={handleChange}
           />
           <p>
-            Stok: <span>{stock}</span>
+            Stock: <span>{stock}</span>
           </p>
         </div>
         <Divider />

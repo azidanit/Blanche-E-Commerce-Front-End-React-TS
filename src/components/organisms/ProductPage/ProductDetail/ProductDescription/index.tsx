@@ -4,7 +4,7 @@ import useProduct from '../../../../../hooks/useProduct';
 import { Tabs } from '../../../../molecules';
 import style from './index.module.scss';
 import ProductDescriptionItem from './ProductDescriptionItem';
-import ProductSpesification from './ProductSpesification';
+import ProductSpecification from './ProductSpesification';
 
 const items: TabsProps['items'] = [
   {
@@ -14,8 +14,8 @@ const items: TabsProps['items'] = [
   },
   {
     key: '2',
-    label: `Spesification`,
-    children: <ProductSpesification />,
+    label: `Specification`,
+    children: <ProductSpecification />,
   },
 ];
 
