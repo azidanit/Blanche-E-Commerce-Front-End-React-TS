@@ -23,13 +23,25 @@
 }
 
 .small {
-  font-size: 2rem;
+  width: 150px;
+  display: block;
+  img {
+    width: 100%;
+  }
 }
 
 .medium {
-  font-size: 4rem;
+  width: 250px;
+  display: block;
+  img {
+    width: 100%;
+  }
 }
 
 .large {
-  font-size: 4.5rem;
+  width: 500px;
+  display: block;
+  img {
+    width: 100%;
+  }
 }

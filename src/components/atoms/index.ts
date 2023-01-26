@@ -9,6 +9,7 @@ import LogoIcon from './LogoIcon';
 import Search from './Search';
 import SEO from './SEO';
 import Alert from './Alert';
+import StrikethroughText from './StrikethroughText';
 
 export {
   Logo,
@@ -22,4 +23,5 @@ export {
   Search,
   SEO,
   Alert,
+  StrikethroughText,
 };
