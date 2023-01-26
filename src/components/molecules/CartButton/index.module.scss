@@ -2,6 +2,7 @@
 
 .cart__button {
   display: inline-block;
+  padding: 1rem 0.25rem;
 
   &:hover {
     cursor: pointer;
@@ -19,6 +20,5 @@
   &__container {
     position: relative;
     display: inline-block;
-    padding-bottom: 0.75rem;
   }
 }

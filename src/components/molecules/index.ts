@@ -6,6 +6,9 @@ import Form from './Form';
 import CartItem from './CartButton/CartItem';
 import RadioButtonGroup from './RadioButtonGroup';
 import Tabs from './Tabs';
+import Nav from './Nav';
+import CardProduct from './CardProduct';
+import ListCardProduct from './ListCardProduct';
 
 export {
   AuthSectionLeft,
@@ -16,4 +19,7 @@ export {
   RadioButtonGroup,
   CartItem,
   Tabs,
+  Nav,
+  CardProduct,
+  ListCardProduct,
 };

@@ -14,6 +14,7 @@ import Rate from './Rate';
 import Badge from './Badge';
 import RadioButton from './RadioButton';
 import Avatar from './Avatar';
+import StrikethroughText from './StrikethroughText';
 
 export {
   Logo,
@@ -32,4 +33,5 @@ export {
   Badge,
   RadioButton,
   Avatar,
+  StrikethroughText,
 };
