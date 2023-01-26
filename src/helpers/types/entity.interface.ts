@@ -58,7 +58,7 @@ export interface IVariantOption {
   type: string[];
 }
 
-export interface IVarianItem {
+export interface IVariantItem {
   id: number;
   image: string;
   price: number;
@@ -68,7 +68,7 @@ export interface IVarianItem {
 
 export interface IVariant {
   variant_options: IVariantOption[];
-  variant_items: IVarianItem[];
+  variant_items: IVariantItem[];
 }
 
 export interface IProduct {
