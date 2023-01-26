@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'https://e5d88c55-2724-4f33-b4da-63382e9a03dc.mock.pstmn.io/api/v1',
+  baseUrl: process.env.REACT_APP_API_URL,
 });
 
 const baseQueryWithReauth: typeof baseQuery = async (

@@ -6,5 +6,22 @@ import Card from './Card';
 import FormLabel from './FormLabel';
 import InputPassword from './InputPassword';
 import LogoIcon from './LogoIcon';
+import Search from './Search';
+import SEO from './SEO';
+import Alert from './Alert';
+import StrikethroughText from './StrikethroughText';
 
-export { Logo, Button, Image, Input, Card, FormLabel, InputPassword, LogoIcon };
+export {
+  Logo,
+  Button,
+  Image,
+  Input,
+  Card,
+  FormLabel,
+  InputPassword,
+  LogoIcon,
+  Search,
+  SEO,
+  Alert,
+  StrikethroughText,
+};
