@@ -27,8 +27,6 @@ const ProductVariant: React.FC = () => {
     slug: slug as string,
   });
 
-  console.log(variants);
-
   const [optionValue, setOptionValues] = useState<number[]>([]);
   const length = variants?.variant_options?.[0]?.type.length || 0;
   const id = optionValue[1] + optionValue[0] * length;
@@ -53,7 +51,6 @@ const ProductVariant: React.FC = () => {
     ) {
       dispatch(setVariant(variants?.variant_items[id]));
       dispatch(setPrice(variants?.variant_items[id].price));
-      console.log(variants?.variant_items[id].image);
 
       dispatch(
         setActiveImage(

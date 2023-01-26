@@ -22,8 +22,6 @@ const ProductVariantItem: React.FC<ProductVariantItemProps> = ({
     setValue(e.target.value);
     const value = item.type.findIndex((item) => item === e.target.value);
 
-    console.log('valll', value);
-
     handleChange(index, value);
   };
 

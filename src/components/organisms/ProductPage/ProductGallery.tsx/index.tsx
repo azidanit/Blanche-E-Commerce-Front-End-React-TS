@@ -15,8 +15,6 @@ const ProductGallery: React.FC = () => {
     dispatch(setActiveImage(image));
   };
 
-  console.log('ProductGallery', images, activeImage, isLoading);
-
   return (
     <div className={style.product__gallery}>
       <div className={style.product__gallery__image__active}>
@@ -43,8 +41,6 @@ const ProductGallery: React.FC = () => {
                 src={image}
                 alt=""
                 onClick={() => handleActiveImage(image)}
-                onMouseEnter={() => handleActiveImage(image)}
-                onMouseLeave={() => handleActiveImage(images[0])}
                 className={classNames(
                   style.product__gallery__image__list__item,
                   activeImage === image &&
