@@ -25,7 +25,7 @@ const ProductGallery: React.FC = () => {
         ) : (
           <Image
             src={activeImage as string}
-            alt=""
+            alt="active image"
             className={style.product__gallery__image__active__item}
           />
         )}
@@ -35,18 +35,23 @@ const ProductGallery: React.FC = () => {
           isLoading ? (
             <Skeleton key={image} />
           ) : (
-            <Image
-              src={image}
+            <div
               key={`${image} ${index}`}
-              alt=""
-              onClick={() => handleActiveImage(image)}
-              onMouseEnter={() => handleActiveImage(image)}
-              className={classNames(
-                style.product__gallery__image__list__item,
-                activeImage === image &&
-                  'product__gallery__image__list__item__active',
-              )}
-            />
+              className={style.product__gallery__image__list__container}
+            >
+              <Image
+                src={image}
+                alt=""
+                onClick={() => handleActiveImage(image)}
+                onMouseEnter={() => handleActiveImage(image)}
+                onMouseLeave={() => handleActiveImage(images[0])}
+                className={classNames(
+                  style.product__gallery__image__list__item,
+                  activeImage === image &&
+                    'product__gallery__image__list__item__active',
+                )}
+              />
+            </div>
           ),
         )}
       </div>

@@ -1,8 +1,15 @@
 .product__gallery {
   &__image__active {
-    min-height: 300px;
+    min-height: 200px;
     height: 100%;
     width: 100%;
+    overflow: hidden;
+    border-radius: 16px;
+
+    &__item {
+      object-fit: contain;
+      width: 100%;
+    }
   }
 
   &__image__list {
@@ -12,19 +19,21 @@
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: space-between;
     overflow-x: scroll;
 
     &::-webkit-scrollbar {
       display: none;
     }
 
+    &__container {
+      overflow: hidden;
+      border-radius: 8px;
+      width: 100px;
+    }
+
     &__item {
-      border-radius: 1px;
-      width: 70px;
-      display: inline-block;
-      flex-shrink: 0;
-      cursor: pointer;
+      width: 100%;
+      object-fit: contain;
     }
   }
 }

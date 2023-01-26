@@ -15,8 +15,9 @@ import { useParams } from 'react-router-dom';
 
 const ProductVariant: React.FC = () => {
   const { store, slug } = useParams();
-  const { images } = useProduct();
+  const { images, activeImage } = useProduct();
 
+  const [variantImages, setVariantImages] = useState<string[]>([]);
   const {
     data: variants,
     error,
@@ -26,7 +27,9 @@ const ProductVariant: React.FC = () => {
     slug: slug as string,
   });
 
-  const [optionValue, setOptionValues] = useState<number[]>([0, 0]);
+  console.log(variants);
+
+  const [optionValue, setOptionValues] = useState<number[]>([]);
   const length = variants?.variant_options?.[0]?.type.length || 0;
   const id = optionValue[1] + optionValue[0] * length;
   const dispatch = useAppDispatch();
@@ -38,18 +41,27 @@ const ProductVariant: React.FC = () => {
   };
 
   useEffect(() => {
-    const imgs = variants?.variant_items.map((item) => item.image);
-
-    dispatch(setImages(imgs));
-  }, []);
+    setVariantImages(variants?.variant_items.map((item) => item.image) || []);
+    dispatch(setImages(images?.concat(variantImages)));
+  }, [variants]);
 
   useEffect(() => {
-    if (optionValue.length === variants?.variant_options.length) {
+    if (
+      optionValue.length === variants?.variant_options.length &&
+      optionValue[0] !== undefined &&
+      optionValue[1] !== undefined
+    ) {
       dispatch(setVariant(variants?.variant_items[id]));
       dispatch(setPrice(variants?.variant_items[id].price));
       console.log(variants?.variant_items[id].image);
 
-      dispatch(setActiveImage(variants?.variant_items[id].image));
+      dispatch(
+        setActiveImage(
+          variants?.variant_items[id].image
+            ? variants?.variant_items[id].image
+            : activeImage,
+        ),
+      );
       dispatch(setStock(variants?.variant_items[id].stock));
     }
   }, [optionValue]);

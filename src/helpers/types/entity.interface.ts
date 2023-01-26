@@ -23,10 +23,15 @@ export interface IAddress {
 
 export interface IMerchantInfo {
   id: number;
-  name: string;
   domain: string;
+  name: string;
+  address: {
+    province: string;
+    city: string;
+  };
   avg_rating: number;
   join_date: string;
+  num_of_product: number;
   num_of_sale: number;
   num_of_review: number;
   image_url: string;
@@ -104,4 +109,18 @@ export interface IProductDetail {
   dimension: IDimension;
   variants: IVariant;
   merchant: IMerchantInfo;
+}
+
+export interface IProduct {
+  id: number;
+  title: string;
+  min_real_price: number;
+  max_real_price: number;
+  min_discount_price: number;
+  max_discount_price: number;
+  num_of_sale: number;
+  avg_rating: number;
+  thumbnail_img: string;
+  slug: string;
+  seller_city: string;
 }
