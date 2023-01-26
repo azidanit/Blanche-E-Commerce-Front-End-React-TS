@@ -31,13 +31,7 @@ const Product = (): JSX.Element => {
   useEffect(() => {
     dispatch(setProduct(data));
     dispatch(setIsDiscount(data?.min_real_price !== data?.max_real_price));
-    dispatch(
-      setImages(
-        data?.images.concat(
-          data?.variants?.variant_items.map((item) => item.image),
-        ),
-      ),
-    );
+    dispatch(setImages(data?.images));
     dispatch(setIsRangePrice(data?.min_real_price !== data?.max_real_price));
     dispatch(setPrice(!isRangePrice ? data?.min_real_price : 0));
     dispatch(setStock(variant === null ? data?.total_stock : variant.stock));

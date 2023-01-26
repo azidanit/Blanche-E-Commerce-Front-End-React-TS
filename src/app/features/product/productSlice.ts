@@ -9,7 +9,6 @@ const initialState = {
   stock: null,
   images: null,
   activeImage: null,
-  merchant: null,
   isLoading: false,
 };
 
@@ -41,9 +40,6 @@ export const productSlice = createSlice({
     setActiveImage: (state, action) => {
       state.activeImage = action.payload;
     },
-    setMerchant: (state, action) => {
-      state.merchant = action.payload;
-    },
     setIsLoading: (state, action) => {
       state.isLoading = action.payload;
     },
@@ -59,7 +55,6 @@ export const {
   setPrice,
   setStock,
   setActiveImage,
-  setMerchant,
   setIsLoading,
 } = productSlice.actions;
 

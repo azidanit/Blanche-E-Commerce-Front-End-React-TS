@@ -11,7 +11,6 @@ export interface ProductState {
   stock: number | null;
   images: string[] | null;
   activeImage: string | null;
-  merchant: IMerchantInfo | null;
   isLoading: boolean;
 }
 

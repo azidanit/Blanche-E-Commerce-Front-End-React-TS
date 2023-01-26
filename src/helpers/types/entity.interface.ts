@@ -55,9 +55,9 @@ export interface IVariantOption {
 
 export interface IVarianItem {
   id: number;
-  is_archived: boolean;
   image: string;
   price: number;
+  discount__price: number;
   stock: number;
 }
 

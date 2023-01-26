@@ -31,13 +31,13 @@ const ProductGallery: React.FC = () => {
         )}
       </div>
       <div className={style.product__gallery__image__list}>
-        {images?.map((image) =>
+        {images?.map((image, index) =>
           isLoading ? (
             <Skeleton key={image} />
           ) : (
             <Image
               src={image}
-              key={image}
+              key={`${image} ${index}`}
               alt=""
               onClick={() => handleActiveImage(image)}
               onMouseEnter={() => handleActiveImage(image)}
