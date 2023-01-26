@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { ShoppingFilled } from '@ant-design/icons';
-import { ICartItem } from '../interface';
 import style from './index.module.scss';
 import CartMenu from './CartMenu';
+import { Badge } from '../../atoms';
+import { ICartItem } from '../../../helpers/types';
 
 interface CartButtonProps {
   total: number;
@@ -22,8 +23,9 @@ const CartButton: React.FC<CartButtonProps> = ({ total, items }) => {
     >
       <div className={style.cart__button}>
         <div className={style.cart__button__container}>
-          <ShoppingFilled className={style.cart__button__icon} />
-          <span className={style.cart__button__total}>{total}</span>
+          <Badge className={style.cart__button__total} count={total}>
+            <ShoppingFilled className={style.cart__button__icon} />
+          </Badge>
         </div>
       </div>
       {showDetails && <CartMenu items={items} total={total} />}

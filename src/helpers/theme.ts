@@ -4,7 +4,6 @@ const theme = {
     borderRadius: 5,
     colorError: 'rgb(239, 20, 74)',
     fontFamily: 'Poppins, sans-serif',
-    colorTextBase:' '
   },
 };
 

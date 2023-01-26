@@ -1,9 +1,9 @@
 import React from 'react';
 import { Card } from '../../../atoms';
-import { ICartItem } from '../../interface';
 import CartItem from '../CartItem';
 import style from './index.module.scss';
 import { Link } from 'react-router-dom';
+import { ICartItem } from '../../../../helpers/types';
 
 type CardMenuProps = {
   items: ICartItem[];

@@ -1,0 +1,23 @@
+@use '../../../../../styles/variables.scss' as *;
+.merchant__info {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+
+  &__desc {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+
+    &__link {
+      font-size: 1rem;
+      font-weight: $text-medium;
+      color: $primary-100;
+    }
+    p {
+      font-size: 0.8rem;
+      color: $gray;
+      font-weight: $text-medium;
+    }
+  }
+}

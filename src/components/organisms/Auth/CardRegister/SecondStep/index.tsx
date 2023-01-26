@@ -50,6 +50,20 @@ const SecondStep: React.FC<SecondStepProps> = ({ email }) => {
       };
     }
 
+    if (username.length < 3) {
+      return {
+        validateStatus: 'error',
+        errorMsg: 'Username must be at least 8 characters long.',
+      };
+    }
+
+    if (username.length >= 16) {
+      return {
+        validateStatus: 'error',
+        errorMsg: 'Username must be at most 16 characters long.',
+      };
+    }
+
     const body = {
       username,
     };

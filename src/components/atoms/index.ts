@@ -5,10 +5,15 @@ import Input from './Input';
 import Card from './Card';
 import FormLabel from './FormLabel';
 import InputPassword from './InputPassword';
+import InputNumber from './InputNumber';
 import LogoIcon from './LogoIcon';
 import Search from './Search';
 import SEO from './SEO';
 import Alert from './Alert';
+import Rate from './Rate';
+import Badge from './Badge';
+import RadioButton from './RadioButton';
+import Avatar from './Avatar';
 import StrikethroughText from './StrikethroughText';
 
 export {
@@ -19,9 +24,14 @@ export {
   Card,
   FormLabel,
   InputPassword,
+  InputNumber,
   LogoIcon,
   Search,
   SEO,
   Alert,
+  Avatar,
   StrikethroughText,
+  Rate,
+  Badge,
+  RadioButton,
 };

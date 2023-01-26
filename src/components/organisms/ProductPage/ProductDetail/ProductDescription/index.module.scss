@@ -1,0 +1,17 @@
+@use '../../../../../styles/variables.scss' as *;
+
+.product__description {
+  min-height: 220px;
+  height: 100%;
+  ul {
+    li {
+      display: flex;
+      font-size: 0.9rem;
+      span {
+        font-weight: $text-medium;
+        margin-right: 0.3rem;
+        color: $gray;
+      }
+    }
+  }
+}

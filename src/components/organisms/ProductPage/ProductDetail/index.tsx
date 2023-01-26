@@ -1,19 +1,35 @@
-import React from 'react';
-import { Row, Col } from 'antd';
-import CarouselPhoto from '../CarouselPhoto';
+import React, { useState } from 'react';
+import { Row, Col, Divider } from 'antd';
 import style from './index.module.scss';
+import ProductInfo from './ProductInfo';
+import ProductVariant from './ProductVariant';
+import ProductDescription from './ProductDescription';
+import MerchantInfo from './MerchantInfo';
+import ProductGallery from '../ProductGallery.tsx';
 import { Container } from '../../../molecules';
 
-const ProductDetail = (): JSX.Element => {
+const ProductDetail: React.FC = () => {
   return (
-    <Container>
-      <Row className={style.auth__layout}>
-        <Col flex="1">
-          <CarouselPhoto />
-        </Col>
-        <Col flex="1"></Col>
-      </Row>
-    </Container>
+    <Row className={style.product__detail} gutter={[32, 16]}>
+      <Col xs={24} sm={24} md={24} lg={10} xl={11}>
+        <ProductGallery />
+      </Col>
+      <Col
+        xs={24}
+        sm={24}
+        md={24}
+        lg={14}
+        xl={13}
+        className={style.product__detail__item}
+      >
+        <ProductInfo />
+        <ProductVariant />
+        <ProductDescription />
+        <Divider style={{ margin: 0 }} />
+        <MerchantInfo />
+        <Divider style={{ margin: 0 }} />
+      </Col>
+    </Row>
   );
 };
 
