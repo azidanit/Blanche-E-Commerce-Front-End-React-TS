@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Row, Col, Divider } from 'antd';
 import style from './index.module.scss';
-import ProductInfo from './ProductInfo';
-import ProductVariant from './ProductVariant';
 import ProductDescription from './ProductDescription';
 import MerchantInfo from './MerchantInfo';
 import ProductGallery from '../ProductGallery.tsx';
 import { Container } from '../../../molecules';
+import ProductInfo from './ProductInfo';
+import ProductVariant from './ProductVariant';
 
 const ProductDetail: React.FC = () => {
   return (

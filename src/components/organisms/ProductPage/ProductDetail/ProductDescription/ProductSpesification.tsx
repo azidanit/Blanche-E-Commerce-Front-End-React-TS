@@ -1,7 +1,7 @@
 import React from 'react';
 import useProduct from '../../../../../hooks/useProduct';
 
-const ProductSpesification: React.FC = () => {
+const ProductSpecification: React.FC = () => {
   const { product } = useProduct();
   return (
     <ul>
@@ -21,4 +21,4 @@ const ProductSpesification: React.FC = () => {
   );
 };
 
-export default ProductSpesification;
+export default ProductSpecification;
