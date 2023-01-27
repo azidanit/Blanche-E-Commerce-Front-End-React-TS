@@ -16,30 +16,20 @@ export interface IUser {
   role?: string;
 }
 
-export interface IAddress {
-  province: string;
-  city: string;
-}
-
-export interface IMerchantInfo {
-  id: number;
-  domain: string;
+export interface IMerchant {
   name: string;
-  address: {
-    province: string;
-    city: string;
-  };
-  avg_rating: number;
-  join_date: string;
-  num_of_product: number;
-  num_of_sale: number;
-  num_of_review: number;
+  domain: string;
   image_url: string;
+  avg_rating: number;
 }
 
 export interface ICategory {
   name: string;
   url: string;
+}
+
+export interface IImage {
+  image_url: string;
 }
 
 export interface IRating {
@@ -60,9 +50,9 @@ export interface IVariantOption {
 
 export interface IVariantItem {
   id: number;
+  is_archived: boolean;
   image: string;
   price: number;
-  discount__price: number;
   stock: number;
 }
 
@@ -73,7 +63,11 @@ export interface IVariant {
 
 export interface IProduct {
   id: number;
+  merchant_id: number;
+  category_id: number;
+  category: ICategory;
   title: string;
+  description: string;
   min_real_price: number;
   max_real_price: number;
   min_discount_price: number;
@@ -85,6 +79,39 @@ export interface IProduct {
   seller_city: string;
 }
 
+export interface ICategory {
+  id: number;
+  name: string;
+  slug: string;
+  image_url: string;
+  children: ICategory[] | null;
+  unit_sold: number;
+  images: IImage[];
+  weight: number;
+  dimension: IDimension;
+  SKU: string;
+  favorite_count: number;
+  total_stock: number;
+  status: string;
+  rating: IRating;
+  merchant: IMerchant;
+}
+
+export interface IMerchantInfo {
+  id: number;
+  domain: string;
+  name: string;
+  address: {
+    province: string;
+    city: string;
+  };
+  avg_rating: number;
+  join_date: string;
+  num_of_product: number;
+  num_of_sale: number;
+  num_of_review: number;
+  image_url: string;
+}
 export interface IProductDetail {
   id: number;
   merchant_id: number;
@@ -109,18 +136,4 @@ export interface IProductDetail {
   dimension: IDimension;
   variants: IVariant;
   merchant: IMerchantInfo;
-}
-
-export interface IProduct {
-  id: number;
-  title: string;
-  min_real_price: number;
-  max_real_price: number;
-  min_discount_price: number;
-  max_discount_price: number;
-  num_of_sale: number;
-  avg_rating: number;
-  thumbnail_img: string;
-  slug: string;
-  seller_city: string;
 }

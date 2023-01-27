@@ -10,11 +10,11 @@ import LogoIcon from './LogoIcon';
 import Search from './Search';
 import SEO from './SEO';
 import Alert from './Alert';
+import Avatar from './Avatar';
+import StrikethroughText from './StrikethroughText';
 import Rate from './Rate';
 import Badge from './Badge';
 import RadioButton from './RadioButton';
-import Avatar from './Avatar';
-import StrikethroughText from './StrikethroughText';
 
 export {
   Logo,
