@@ -1,4 +1,6 @@
 import {
+  IGetCategoriesRequest,
+  IGetCategoriesResponse,
   IGetProductListRequest,
   IGetProductListResponse,
 } from '../../../helpers/types';
@@ -14,7 +16,15 @@ const homeApiSlice = apiSlice.injectEndpoints({
         response.data,
       transformErrorResponse: (response) => response.data,
     }),
+    getCategories: build.query<IGetCategoriesResponse, IGetCategoriesRequest>({
+      query: (params) => {
+        return { url: 'categories', method: 'GET', params };
+      },
+      transformResponse: (response: { data: IGetCategoriesResponse }) =>
+        response.data,
+      transformErrorResponse: (response) => response.data,
+    }),
   }),
 });
 
-export const { useGetProductsQuery } = homeApiSlice;
+export const { useGetProductsQuery, useGetCategoriesQuery } = homeApiSlice;

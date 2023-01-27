@@ -1,0 +1,24 @@
+.slider {
+  position: relative;
+
+  &:hover {
+    .slider__arrow {
+      opacity: 100%;
+    }
+  }
+
+  &__arrow {
+    opacity: 0;
+  }
+
+  &__items {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  &__right {
+    right: 0;
+  }
+}

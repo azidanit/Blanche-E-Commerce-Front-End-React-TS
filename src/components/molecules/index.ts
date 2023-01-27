@@ -3,11 +3,13 @@ import AuthSectionRight from './AuthSectionRight';
 import InputQuantity from './InputQuantity';
 import Container from './Container';
 import Form from './Form';
-import RadioButtonGroup from './RadioButtonGroup';
-import Tabs from './Tabs';
 import Nav from './Nav';
 import CardProduct from './CardProduct';
 import ListCardProduct from './ListCardProduct';
+import Slider from './Slider';
+import Arrow from './Arrow';
+import RadioButtonGroup from './RadioButtonGroup';
+import Tabs from './Tabs';
 import CartItem from './CartButton/CartItem';
 
 export {
@@ -19,6 +21,8 @@ export {
   Nav,
   CardProduct,
   ListCardProduct,
+  Slider,
+  Arrow,
   InputQuantity,
   RadioButtonGroup,
   CartItem,
