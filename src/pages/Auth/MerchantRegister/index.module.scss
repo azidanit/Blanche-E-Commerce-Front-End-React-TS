@@ -1,0 +1,10 @@
+.merchant__register__page {
+  display: flex;
+  align-items: center;
+  &__image {
+    width: 550px;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+  }
+}

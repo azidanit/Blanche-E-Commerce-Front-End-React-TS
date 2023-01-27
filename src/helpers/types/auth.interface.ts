@@ -22,6 +22,7 @@ export interface FormReturnAuth<T> {
   isLoading?: boolean;
   isError?: boolean;
   error?: Error;
+  values?: T;
 }
 
 export interface RegisterFirstStepProps {
@@ -65,4 +66,13 @@ export interface ICheckUsernameResponse {
 
 export interface ICheckUsernameRequest {
   username: string;
+}
+
+export interface RegisterMerchantFirstStepProps {
+  store: string;
+  domain: string;
+}
+
+export interface RegisterMerchantSecondStepProps {
+  address_id: number;
 }

@@ -5,6 +5,7 @@ import style from './index.module.scss';
 import CartButton from '../CartButton';
 import { useAppDispatch } from '../../../app/hooks';
 import { setSearch } from '../../../app/features/home/searchSlice';
+import Container from '../Container';
 
 const { Header } = Layout;
 

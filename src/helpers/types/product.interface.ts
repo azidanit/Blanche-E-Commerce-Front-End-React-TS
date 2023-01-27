@@ -1,5 +1,4 @@
 import { ICategory, IProduct } from './entity.interface';
-
 export interface IGetProductListResponse {
   products: IProduct[];
   total_data: number;

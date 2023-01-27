@@ -7,7 +7,6 @@ const Home: React.FC = () => {
   return (
     <>
       <SEO title="The Best Ecommerce Around" description="Home page" />
-      <Nav />
       <div className={style.home}>
         <CategorySlider />
         <HomeProductList />

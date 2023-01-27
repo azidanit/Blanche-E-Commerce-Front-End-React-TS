@@ -1,6 +1,7 @@
 @use '../../../../styles/variables.scss' as *;
 .card__summary {
   box-shadow: $box-shadow;
+  border-radius: 1.1rem;
   h6 {
     font-size: 1.2rem;
     font-weight: $text-bold;
