@@ -9,13 +9,12 @@ export interface ProductState {
   isRangePrice: boolean;
   price: number | null;
   stock: number | null;
-  images: string[] | null;
   activeImage: string | null;
   isLoading: boolean;
 }
 
 export default function useProduct(): ProductState {
   return useSelector((state: RootState) => {
-    return state.product;
+    return state.product.productInfo;
   });
 }

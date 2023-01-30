@@ -1,6 +1,9 @@
-.product__gallery {
+.modal__gallery {
+  display: flex;
+  justify-content: space-between;
+
   &__image__active {
-    min-height: 220px;
+    min-height: 120px;
     overflow: hidden;
     border-radius: 16px;
 
@@ -13,21 +16,10 @@
   }
 
   &__image__list {
-    margin-top: 0.8rem;
-    gap: 1rem;
-    height: auto;
-    display: flex;
-    justify-content: start;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    overflow-x: scroll;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
 
     &__container {
-      overflow: hidden;
       border-radius: 8px;
       width: 100px;
     }

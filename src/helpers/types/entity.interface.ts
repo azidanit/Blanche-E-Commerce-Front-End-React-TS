@@ -28,6 +28,14 @@ export interface ICategory {
   url: string;
 }
 
+export interface ICategoryItem {
+  id: number;
+  name: string;
+  slug: string;
+  image_url: string;
+  children: ICategoryItem[] | null;
+}
+
 export interface IImage {
   image_url: string;
 }
@@ -131,7 +139,7 @@ export interface IProductDetail {
   unit_sold: number;
   total_stock: number;
   is_archived: boolean;
-  avg_rating: number;
+  rating: IRating;
   weight: number;
   dimension: IDimension;
   variants: IVariant;

@@ -1,4 +1,4 @@
-import { ICategory, IProduct } from './entity.interface';
+import { ICategory, ICategoryItem, IProduct } from './entity.interface';
 export interface IGetProductListResponse {
   products: IProduct[];
   total_data: number;
@@ -20,6 +20,8 @@ export interface IGetProductListRequest {
 }
 
 export type IGetCategoriesResponse = ICategory[];
+
+export type IGetCategoryAncestorsResponse = ICategoryItem;
 
 export interface IGetCategoriesRequest {
   level?: number;

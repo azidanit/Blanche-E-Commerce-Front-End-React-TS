@@ -1,18 +1,37 @@
 import { Skeleton } from 'antd';
 import classNames from 'classnames';
 import React, { useState } from 'react';
-import { setActiveImage } from '../../../../app/features/product/productSlice';
+import { setProductInfo } from '../../../../app/features/product/productSlice';
 import { useAppDispatch } from '../../../../app/hooks';
 import useProduct from '../../../../hooks/useProduct';
 import { Image } from '../../../atoms';
+import ModalGallery from '../ModalGallery';
 import style from './index.module.scss';
 
 const ProductGallery: React.FC = () => {
-  const { images, activeImage, isLoading } = useProduct();
+  const { product, activeImage, isLoading } = useProduct();
   const dispatch = useAppDispatch();
 
+  const [isModalOpen, setIsModalOpen] = useState(true);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
   const handleActiveImage = (image: string) => {
-    dispatch(setActiveImage(image));
+    dispatch(
+      setProductInfo({
+        activeImage: image,
+      }),
+    );
   };
 
   return (
@@ -25,11 +44,12 @@ const ProductGallery: React.FC = () => {
             src={activeImage as string}
             alt="active image"
             className={style.product__gallery__image__active__item}
+            onClick={showModal}
           />
         )}
       </div>
       <div className={style.product__gallery__image__list}>
-        {images?.map((image, index) =>
+        {product?.images?.map((image, index) =>
           isLoading ? (
             <Skeleton key={image} />
           ) : (
@@ -51,6 +71,12 @@ const ProductGallery: React.FC = () => {
           ),
         )}
       </div>
+      <ModalGallery
+        isModalOpen={isModalOpen}
+        handleOk={handleOk}
+        handleCancel={handleCancel}
+        img={activeImage as string}
+      />
     </div>
   );
 };

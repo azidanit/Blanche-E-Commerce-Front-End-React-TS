@@ -3,21 +3,15 @@ import ProductVariantItem from './ProductVariantItem';
 import style from './index.module.scss';
 import useProduct from '../../../../../hooks/useProduct';
 import { useAppDispatch } from '../../../../../app/hooks';
-import {
-  setActiveImage,
-  setImages,
-  setPrice,
-  setStock,
-  setVariant,
-} from '../../../../../app/features/product/productSlice';
+import { setProductInfo } from '../../../../../app/features/product/productSlice';
 import { useGetProductVariantBySlugQuery } from '../../../../../app/features/product/productApiSlice';
 import { useParams } from 'react-router-dom';
 
 const ProductVariant: React.FC = () => {
   const { store, slug } = useParams();
-  const { images, activeImage } = useProduct();
 
-  const [variantImages, setVariantImages] = useState<string[]>([]);
+  const { activeImage: img } = useProduct();
+
   const {
     data: variants,
     error,
@@ -39,27 +33,21 @@ const ProductVariant: React.FC = () => {
   };
 
   useEffect(() => {
-    setVariantImages(variants?.variant_items.map((item) => item.image) || []);
-    dispatch(setImages(images?.concat(variantImages)));
-  }, [variants]);
-
-  useEffect(() => {
     if (
       optionValue.length === variants?.variant_options.length &&
       optionValue[0] !== undefined &&
       optionValue[1] !== undefined
     ) {
-      dispatch(setVariant(variants?.variant_items[id]));
-      dispatch(setPrice(variants?.variant_items[id].price));
-
       dispatch(
-        setActiveImage(
-          variants?.variant_items[id].image
+        setProductInfo({
+          variant: variants?.variant_items[id],
+          price: variants?.variant_items[id].price,
+          activeImage: variants?.variant_items[id].image
             ? variants?.variant_items[id].image
-            : activeImage,
-        ),
+            : img,
+          stock: variants?.variant_items[id].stock,
+        }),
       );
-      dispatch(setStock(variants?.variant_items[id].stock));
     }
   }, [optionValue]);
 

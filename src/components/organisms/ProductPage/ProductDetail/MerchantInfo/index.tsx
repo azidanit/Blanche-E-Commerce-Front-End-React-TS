@@ -11,7 +11,7 @@ const MerchantInfo: React.FC = () => {
     data: merchant,
     error: merchantError,
     isLoading: merchantLoading,
-  } = useGetMerchantInfoQuery(JSON.stringify(store));
+  } = useGetMerchantInfoQuery(store as string);
 
   return (
     <div className={style.merchant__info}>
@@ -23,9 +23,9 @@ const MerchantInfo: React.FC = () => {
           {merchant?.name}
         </Link>
         <p>{merchant?.address.city}</p>
-        <p>
+        <div>
           <Rate disabled count={merchant?.avg_rating} /> {merchant?.avg_rating}
-        </p>
+        </div>
       </div>
     </div>
   );

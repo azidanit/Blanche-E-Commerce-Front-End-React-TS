@@ -1,8 +1,15 @@
-.product__page {
-  margin-top: 5rem;
-  width: 100%;
-  display: grid;
-  grid-template-columns: 6.5fr 2.3fr;
-  gap: 1rem;
-  align-items: start;
+.product {
+  &__page {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 6.5fr 2.3fr;
+    gap: 1rem;
+    align-items: start;
+
+    &__lists {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+  }
 }
