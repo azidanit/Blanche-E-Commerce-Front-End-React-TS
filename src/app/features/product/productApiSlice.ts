@@ -1,4 +1,11 @@
 import {
+  IGetCategoriesRequest,
+  IGetCategoriesResponse,
+  IGetCategoryAncestorsResponse,
+  IGetProductListRequest,
+  IGetProductListResponse,
+} from '../../../helpers/types';
+import {
   IProductRequest,
   IProductResponse,
   IVariantProductResponse,
@@ -30,8 +37,38 @@ export const productApi = apiSlice.injectEndpoints({
       transformErrorResponse: (response) => response.data,
       providesTags: ['Product Variant'],
     }),
+    getProducts: build.query<IGetProductListResponse, IGetProductListRequest>({
+      query: (params) => {
+        return { url: 'products', method: 'GET', params };
+      },
+      transformResponse: (response: { data: IGetProductListResponse }) =>
+        response.data,
+      transformErrorResponse: (response) => response.data,
+    }),
+    getCategories: build.query<IGetCategoriesResponse, IGetCategoriesRequest>({
+      query: (params) => {
+        return { url: 'categories', method: 'GET', params };
+      },
+      transformResponse: (response: { data: IGetCategoriesResponse }) =>
+        response.data,
+      transformErrorResponse: (response) => response.data,
+    }),
+    getCategoryAncestorsBySlug: build.query<
+      IGetCategoryAncestorsResponse,
+      string
+    >({
+      query: (slug) => {
+        return { url: `categories/${slug}/ancestors`, method: 'GET' };
+      },
+      transformResponse: (response: { data: IGetCategoryAncestorsResponse }) =>
+        response.data,
+      transformErrorResponse: (response) => response.data,
+    }),
   }),
 });
 
-export const { useGetProductBySlugQuery, useGetProductVariantBySlugQuery } =
-  productApi;
+export const {
+  useGetProductBySlugQuery,
+  useGetProductVariantBySlugQuery,
+  useGetCategoryAncestorsBySlugQuery,
+} = productApi;

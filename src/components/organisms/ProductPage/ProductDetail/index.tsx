@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Row, Col, Divider } from 'antd';
 import style from './index.module.scss';
 import ProductDescription from './ProductDescription';
 import MerchantInfo from './MerchantInfo';
 import ProductGallery from '../ProductGallery.tsx';
-import { Container } from '../../../molecules';
 import ProductInfo from './ProductInfo';
 import ProductVariant from './ProductVariant';
 

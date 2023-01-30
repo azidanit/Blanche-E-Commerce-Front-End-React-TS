@@ -4,19 +4,22 @@ import React, { useEffect, useState } from 'react';
 import { toRupiah } from '../../../../helpers/toRupiah';
 import { ICartItem } from '../../../../helpers/types';
 import useProduct from '../../../../hooks/useProduct';
-import { Button, Card } from '../../../atoms';
+import { Alert, Button, Card } from '../../../atoms';
 import { CartItem, InputQuantity } from '../../../molecules';
 import style from './index.module.scss';
 
 const CardSummary: React.FC = () => {
-  const { product, stock, price, images, isLoading } = useProduct();
+  const { product, stock, price, isLoading, variant } = useProduct();
 
   const [quantity, setQuantity] = useState(1);
+
+  const [error, setError] = useState('');
+
   const [totalPrice, setTotalPrice] = useState(
     price ? price : product?.max_real_price,
   );
   const item: ICartItem = {
-    imgUrl: images?.[0] ? images[0] : '',
+    imgUrl: product?.images?.[0] ? product?.images[0] : '',
     title: product?.title ? product.title : '',
     quantity: quantity,
     price: price ? price : 0,
@@ -53,6 +56,8 @@ const CardSummary: React.FC = () => {
             handleDecrement={handleDecrement}
             handleIncrement={handleIncrement}
             handleChange={handleChange}
+            disabledIncrement={quantity >= (stock as number)}
+            disableDecrement={quantity <= 1 || quantity > (stock as number)}
           />
           <p>
             Stock: <span>{stock}</span>
@@ -63,6 +68,9 @@ const CardSummary: React.FC = () => {
           <span>Total</span>
           <p>{toRupiah(totalPrice)}</p>
         </div>
+        {variant == undefined && (
+          <Alert message="Please select variant!" type="error" />
+        )}
       </Skeleton>
       <div className={style.card__summary__button}>
         {isLoading ? (
@@ -72,10 +80,21 @@ const CardSummary: React.FC = () => {
           </>
         ) : (
           <>
-            <Button type="primary" size="large" block>
+            <Button
+              type="primary"
+              size="large"
+              block
+              disabled={variant == undefined}
+            >
               Add to Cart
             </Button>
-            <Button type="primary" size="large" ghost block>
+            <Button
+              type="primary"
+              size="large"
+              ghost
+              disabled={variant == undefined}
+              block
+            >
               Buy Now
             </Button>
           </>

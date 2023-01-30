@@ -8,6 +8,8 @@ interface InputQuantityProps {
   handleChange: (value: valueType | null) => void;
   handleDecrement: () => void;
   handleIncrement: () => void;
+  disabledIncrement?: boolean;
+  disableDecrement?: boolean;
 }
 
 const InputQuantity: React.FC<InputQuantityProps> = ({
@@ -15,6 +17,8 @@ const InputQuantity: React.FC<InputQuantityProps> = ({
   handleChange,
   handleDecrement,
   handleIncrement,
+  disabledIncrement,
+  disableDecrement,
 }) => {
   const addonIncrement = (
     <Button
@@ -22,6 +26,7 @@ const InputQuantity: React.FC<InputQuantityProps> = ({
       className={style.input__quantity__button}
       style={{ borderRadius: 0 }}
       onClick={handleIncrement}
+      disabled={disabledIncrement}
     >
       +
     </Button>
@@ -32,6 +37,7 @@ const InputQuantity: React.FC<InputQuantityProps> = ({
       className={style.input__quantity__button}
       style={{ borderRadius: 0 }}
       onClick={handleDecrement}
+      disabled={disableDecrement}
     >
       -
     </Button>

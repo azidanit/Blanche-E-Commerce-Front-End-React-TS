@@ -11,6 +11,7 @@ import Arrow from './Arrow';
 import RadioButtonGroup from './RadioButtonGroup';
 import Tabs from './Tabs';
 import CartItem from './CartButton/CartItem';
+import Modal from './Modal';
 
 export {
   AuthSectionLeft,
@@ -26,4 +27,5 @@ export {
   InputQuantity,
   RadioButtonGroup,
   CartItem,
+  Modal,
 };

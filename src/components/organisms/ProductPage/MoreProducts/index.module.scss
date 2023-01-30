@@ -1,0 +1,9 @@
+@use 'src/styles/variables' as *;
+
+.seller__products {
+  &__header {
+    font-weight: $text-bold;
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+}

@@ -35,5 +35,5 @@ export {
   Rate,
   Badge,
   RadioButton,
-  Select
+  Select,
 };

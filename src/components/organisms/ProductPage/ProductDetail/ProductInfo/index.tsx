@@ -7,7 +7,7 @@ import style from './index.module.scss';
 import ProductPrice from './ProductPrice';
 
 const ProductInfo: React.FC = () => {
-  const { product, isLoading } = useProduct();
+  const { product, variant, isLoading } = useProduct();
 
   return (
     <div className={style.product__info}>
@@ -15,7 +15,8 @@ const ProductInfo: React.FC = () => {
         <h3>{product?.title}</h3>
         <div className={style.product__info__rating}>
           <span>Sold : {product?.unit_sold}</span>
-          <Rate value={product?.avg_rating} disabled />
+          <Rate value={product?.rating?.avg_rating} disabled /> (
+          {product?.rating?.count})
         </div>
         <ProductPrice />
       </Skeleton>
