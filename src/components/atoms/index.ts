@@ -16,6 +16,7 @@ import Rate from './Rate';
 import Badge from './Badge';
 import RadioButton from './RadioButton';
 import Select from './Select';
+import TextArea from './TextArea';
 import DatePicker from './DatePicker';
 
 export {
@@ -37,5 +38,6 @@ export {
   Badge,
   RadioButton,
   Select,
+  TextArea,
   DatePicker,
 };

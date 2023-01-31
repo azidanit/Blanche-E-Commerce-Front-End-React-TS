@@ -44,6 +44,7 @@ const Nav: React.FC = () => {
       search: createSearchParams({ q: value }).toString(),
     });
   };
+
   return (
     <Header className={style.header}>
       <nav className={style.nav}>
@@ -73,7 +74,7 @@ const Nav: React.FC = () => {
             type="primary"
             size="small"
             ghost
-            onClick={() => navigate('/login')}
+            onClick={() => navigate('/register')}
           >
             Register
           </Button>

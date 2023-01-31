@@ -9,18 +9,12 @@ import { Button, Card } from '../../../atoms';
 import { CartItem, InputQuantity } from '../../../molecules';
 import style from './index.module.scss';
 
-const CartSummary: React.FC = () => {
+const CartSummaryMobile: React.FC = () => {
   const isLoading = false;
   return (
-    <Card className={style.cart__summary}>
+    <div className={style.cart__summary}>
       <Skeleton loading={false}>
         <div className={style.cart__summary__description}>
-          <p>Ringkasan Belanja</p>
-          <div className={style.cart__summary__description__total}>
-            <p>Total Harga (26 barang)</p>
-            <p>{toRupiah(106200)}</p>
-          </div>
-          <Divider />
           <div className={style.cart__summary__description__total}>
             <p>Total Harga</p>
             <p>{toRupiah(106200)}</p>
@@ -34,14 +28,14 @@ const CartSummary: React.FC = () => {
           </>
         ) : (
           <>
-            <Button type="primary" size="large" block>
+            <Button type="primary" size="middle" block>
               Checkout
             </Button>
           </>
         )}
       </div>
-    </Card>
+    </div>
   );
 };
 
-export default CartSummary;
+export default CartSummaryMobile;

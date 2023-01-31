@@ -1,17 +1,16 @@
 @use 'src/styles/variables' as *;
 
 .input__quantity {
+  max-width: 150px;
   &__button {
-    width: 30px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #fff;
+    width: 10px;
+    border: none;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    font-size: 1.15rem;
+    background-color: transparent;
+    font-size: 1.3rem;
     font-weight: $text-regular;
-    transition: all 0.3s ease;
   }
 }

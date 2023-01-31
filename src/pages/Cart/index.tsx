@@ -1,6 +1,10 @@
 import { Col, Row } from 'antd';
 import React from 'react';
-import { CartSummary, ListCartStoreItem } from '../../components';
+import {
+  CartSummary,
+  CartSummaryMobile,
+  ListCartStoreItem,
+} from '../../components';
 import useMediaQuery from '../../hooks/useMediaQuery';
 import style from './index.module.scss';
 
@@ -14,10 +18,12 @@ const Cart: React.FC = () => {
         <Col lg={16} xl={17}>
           <ListCartStoreItem />
         </Col>
-        {!isMobile && (
+        {!isMobile ? (
           <Col lg={8} xl={7}>
             <CartSummary />
           </Col>
+        ) : (
+          <CartSummaryMobile />
         )}
       </Row>
     </div>
