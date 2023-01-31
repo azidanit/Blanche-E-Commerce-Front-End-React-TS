@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layout } from 'antd';
-import { Logo, Search } from '../../atoms';
+import { Button, Logo, Search } from '../../atoms';
 import style from './index.module.scss';
 import CartButton from '../CartButton';
 import {
@@ -9,6 +9,7 @@ import {
   useSearchParams,
 } from 'react-router-dom';
 import { useAppDispatch } from '../../../app/hooks';
+import Container from '../Container';
 import { setSearch } from '../../../app/features/home/paramsSlice';
 
 const { Header } = Layout;
@@ -51,8 +52,32 @@ const Nav: React.FC = () => {
           onSearch={onSearch}
           placeholder="Search on blanche"
           defaultValue={searchParams.get('q') || ''}
+        />{' '}
+        <CartButton
+          total={total}
+          items={items}
+          onClick={() => navigate('/cart')}
         />
-        <CartButton total={total} items={items} />
+        <div
+          className={style.header__button}
+          style={{ display: 'flex', gap: 10 }}
+        >
+          <Button
+            type="primary"
+            size="small"
+            onClick={() => navigate('/login')}
+          >
+            Login
+          </Button>
+          <Button
+            type="primary"
+            size="small"
+            ghost
+            onClick={() => navigate('/login')}
+          >
+            Register
+          </Button>
+        </div>
       </nav>
     </Header>
   );

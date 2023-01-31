@@ -58,7 +58,7 @@ const SecondStep: React.FC<SecondStepProps> = ({
         >
           <Button
             type="primary"
-            size="large"
+            size="middle"
             htmlType="submit"
             block
             disabled={step !== 1}
@@ -68,7 +68,7 @@ const SecondStep: React.FC<SecondStepProps> = ({
           </Button>
           <Button
             type="primary"
-            size="large"
+            size="middle"
             htmlType="submit"
             ghost
             block

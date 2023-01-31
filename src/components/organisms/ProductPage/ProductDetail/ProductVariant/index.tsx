@@ -23,7 +23,7 @@ const ProductVariant: React.FC = () => {
 
   const [optionValue, setOptionValues] = useState<number[]>([]);
   const length = variants?.variant_options?.[0]?.type.length || 0;
-  const id = optionValue[1] + optionValue[0] * length;
+  const id = optionValue[0] + (optionValue[1] ? optionValue[1] : 0) * length;
   const dispatch = useAppDispatch();
 
   const handleChange = (index: number, value: number) => {
@@ -35,13 +35,14 @@ const ProductVariant: React.FC = () => {
   useEffect(() => {
     if (
       optionValue.length === variants?.variant_options.length &&
-      optionValue[0] !== undefined &&
-      optionValue[1] !== undefined
+      optionValue[0] !== undefined
     ) {
       dispatch(
         setProductInfo({
+          isRangePrice: false,
           variant: variants?.variant_items[id],
           price: variants?.variant_items[id].price,
+          discountPrice: variants?.variant_items[id].discount_price,
           activeImage: variants?.variant_items[id].image
             ? variants?.variant_items[id].image
             : img,

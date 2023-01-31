@@ -1,11 +1,12 @@
 import React from 'react';
 import { toRupiah } from '../../../../../helpers/toRupiah';
 import useProduct from '../../../../../hooks/useProduct';
-import StrikethroughText from '../../../../StrikethroughText';
+import { StrikethroughText } from '../../../../atoms';
 import style from './index.module.scss';
 
 const ProductPrice: React.FC = () => {
-  const { product, isDiscount, isRangePrice, price } = useProduct();
+  const { product, isDiscount, isRangePrice, price, discountPrice } =
+    useProduct();
 
   return (
     <div className={style.product__info__price}>
@@ -32,9 +33,7 @@ const ProductPrice: React.FC = () => {
               />
             </>
           ) : (
-            <StrikethroughText
-              text={`${toRupiah(product?.max_discount_price)}`}
-            />
+            <StrikethroughText text={`${toRupiah(Number(discountPrice))}`} />
           )}
         </div>
       )}

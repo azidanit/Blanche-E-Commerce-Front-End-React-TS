@@ -1,0 +1,38 @@
+@use 'src/styles/variables' as *;
+.profile__section {
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h6 {
+      font-size: 1.5rem;
+      font-weight: $text-bold;
+    }
+  }
+  &__avatar {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    box-shadow: $box-shadow;
+    align-items: center;
+  }
+
+  &__tab {
+    display: flex;
+    gap: 2rem;
+    line-height: 2rem;
+    font-size: 1rem;
+    &__attr {
+      color: $gray;
+    }
+
+    &__value {
+      &__item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+    }
+  }
+}

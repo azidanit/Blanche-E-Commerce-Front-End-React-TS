@@ -1,24 +1,28 @@
 @use '../../../styles/variables.scss' as *;
 
-.cart__button {
-  display: inline-block;
-  padding: 1rem 0.25rem;
-
-  &:hover {
-    cursor: pointer;
-  }
-
-  &__icon {
-    font-size: 1.5rem;
-    color: $gray;
-  }
-
-  &__total {
-    color: white;
-  }
-
-  &__container {
-    position: relative;
+.cart {
+  border: 0;
+  background-color: transparent;
+  &__button {
     display: inline-block;
+    padding: 1rem 0.25rem;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &__icon {
+      font-size: 1.5rem;
+      color: $gray;
+    }
+
+    &__total {
+      color: white;
+    }
+
+    &__container {
+      position: relative;
+      display: inline-block;
+    }
   }
 }

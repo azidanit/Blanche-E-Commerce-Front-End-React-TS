@@ -1,0 +1,8 @@
+@use 'src/styles/variables' as *;
+.cart__page {
+  h5 {
+    font-size: 2.5rem;
+    margin: 1.8rem 0;
+    font-weight: $text-bold;
+  }
+}

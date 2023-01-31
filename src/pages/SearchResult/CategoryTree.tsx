@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { Tree } from '../../components';
 import style from './index.module.scss';
 
-const Category: React.FC = () => {
+const CategoryTree: React.FC = () => {
   const { data, isLoading } = useGetCategoriesQuery({});
   const [categories, setCategories] = React.useState<DataNode[]>([]);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -69,4 +69,4 @@ const Category: React.FC = () => {
   );
 };
 
-export default Category;
+export default CategoryTree;

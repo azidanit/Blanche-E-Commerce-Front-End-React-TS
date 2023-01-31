@@ -76,3 +76,4 @@ export interface RegisterMerchantFirstStepProps {
 export interface RegisterMerchantSecondStepProps {
   address_id: number;
 }
+

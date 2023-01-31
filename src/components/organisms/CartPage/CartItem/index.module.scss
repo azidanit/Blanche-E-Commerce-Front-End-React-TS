@@ -1,0 +1,55 @@
+@use 'src/styles/variables' as *;
+.cart__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+
+  &__details {
+    display: flex;
+    align-items: center;
+
+    &__item {
+      p {
+        font-size: 1rem;
+
+        &:first-child {
+          font-weight: $text-regular;
+        }
+      }
+    }
+  }
+
+  &__bottom {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  &__title {
+    font-size: 1.1rem;
+    font-weight: $text-regular;
+    margin-bottom: 10px;
+  }
+
+  &__price {
+    font-size: 1.2rem;
+    font-weight: $text-bold;
+    justify-content: start;
+
+    &__img {
+      width: 100px;
+      height: 100px;
+      margin-right: 20px;
+    }
+
+    &__details {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100px;
+      align-items: start;
+    }
+  }
+}

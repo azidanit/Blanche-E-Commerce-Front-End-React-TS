@@ -8,6 +8,7 @@ const initialState = {
     isDiscount: false,
     isRangePrice: false,
     price: null,
+    discountPrice: null,
     stock: null,
     activeImage: null,
     isLoading: false,

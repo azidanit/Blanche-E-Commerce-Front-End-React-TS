@@ -1,0 +1,36 @@
+@use 'src/styles/variables' as *;
+.card__address {
+  box-shadow: $box-shadow;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  &__active {
+    background-color: $primary-10;
+    border: 1px solid $primary-60;
+  }
+
+  &:hover {
+    background-color: $primary-10;
+    border: 1px solid $primary-60;
+  }
+
+  &__title {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    p {
+      font-size: 1rem;
+      font-weight: $text-medium;
+      color: $gray;
+    }
+  }
+
+  &__content {
+    li {
+      &:first-child {
+        font-size: 1.1rem;
+        font-weight: $text-medium;
+      }
+    }
+  }
+}

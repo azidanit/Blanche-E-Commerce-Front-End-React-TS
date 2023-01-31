@@ -7,6 +7,14 @@
   width: 100%;
   margin-top: 1rem;
 
+  a {
+    color: $primary-70;
+    font-size: 1rem;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
   &__title {
     display: flex;
     align-items: center;
