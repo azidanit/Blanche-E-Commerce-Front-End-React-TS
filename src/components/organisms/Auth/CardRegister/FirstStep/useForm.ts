@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import { useCheckEmailMutation } from '../../../../../app/features/auth/authApiSlice';
-import { setEmail } from '../../../../../app/features/auth/registerSlice';
-import { useAppDispatch } from '../../../../../app/hooks';
 import {
   FormReturnAuth,
   RegisterFirstStepProps,
@@ -16,7 +14,6 @@ const useForm = ({
 }: useFormProps): FormReturnAuth<RegisterFirstStepProps> => {
   const [error, setError] = useState<Error>();
   const [checkEmail, { isLoading }] = useCheckEmailMutation();
-  const dispatch = useAppDispatch();
 
   const handleSubmit = async (values: RegisterFirstStepProps) => {
     try {
@@ -28,7 +25,6 @@ const useForm = ({
       if (!data.is_available) {
         throw new Error('Email is already used.');
       }
-      dispatch(setEmail(data.email));
       onNext(data.email);
     } catch (error) {
       setError(error as Error);

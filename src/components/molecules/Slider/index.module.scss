@@ -1,3 +1,5 @@
+@use './../../../styles/variables.scss' as *;
+
 .slider {
   position: relative;
 
@@ -8,6 +10,7 @@
   }
 
   &__arrow {
+    font-weight: $text-bold;
     opacity: 0;
   }
 

@@ -1,7 +1,7 @@
 import { Steps } from 'antd';
 import React, { useState } from 'react';
 import { Card } from '../../../atoms';
-import FirstStep from './FisrtStep';
+import FirstStep from './FirstStep';
 import style from './index.module.scss';
 import SecondStep from './SecondStep';
 

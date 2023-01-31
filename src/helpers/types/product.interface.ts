@@ -1,4 +1,5 @@
-import { ICategory, ICategoryItem, IProduct } from './entity.interface';
+import { ICategory, ICategoryItem, IProduct, ICity } from './entity.interface';
+
 export interface IGetProductListResponse {
   products: IProduct[];
   total_data: number;
@@ -9,7 +10,8 @@ export interface IGetProductListResponse {
 export interface IGetProductListRequest {
   merchant_id?: number;
   category_id?: number;
-  search?: string;
+  seller_city_id?: string;
+  q?: string;
   sort_by?: string;
   sort_dir?: string;
   min_price?: number;
@@ -25,4 +27,8 @@ export type IGetCategoryAncestorsResponse = ICategoryItem;
 
 export interface IGetCategoriesRequest {
   level?: number;
+}
+
+export interface IGetCitiesResponse {
+  cities: ICity[];
 }

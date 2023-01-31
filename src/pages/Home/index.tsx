@@ -1,5 +1,5 @@
 import React from 'react';
-import { Nav, CategorySlider, SEO } from '../../components';
+import { CategorySlider, SEO } from '../../components';
 import HomeProductList from '../../components/organisms/HomeProductList';
 import style from './index.module.scss';
 
