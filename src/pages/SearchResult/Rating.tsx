@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { setParams } from '../../app/features/home/paramsSlice';
 
 const options = [...Array(4)].map((val, index) => {
-  const value = index + 2;
+  const value = 5 - index;
   return {
     value: value.toString(),
     children: (

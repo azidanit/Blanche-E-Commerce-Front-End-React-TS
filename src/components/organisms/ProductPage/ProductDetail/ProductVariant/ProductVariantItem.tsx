@@ -21,7 +21,6 @@ const ProductVariantItem: React.FC<ProductVariantItemProps> = ({
   const onChange = (e: RadioChangeEvent) => {
     setValue(e.target.value);
     const value = item.type.findIndex((item) => item === e.target.value);
-
     handleChange(index, value);
   };
 

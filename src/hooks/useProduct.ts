@@ -11,6 +11,7 @@ export interface ProductState {
   stock: number | null;
   activeImage: string | null;
   isLoading: boolean;
+  discountPrice: number | null;
 }
 
 export default function useProduct(): ProductState {

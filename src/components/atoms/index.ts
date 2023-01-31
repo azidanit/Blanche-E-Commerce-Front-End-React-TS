@@ -16,6 +16,7 @@ import Rate from './Rate';
 import Badge from './Badge';
 import RadioButton from './RadioButton';
 import Select from './Select';
+import DatePicker from './DatePicker';
 
 export {
   Logo,
@@ -36,4 +37,5 @@ export {
   Badge,
   RadioButton,
   Select,
+  DatePicker,
 };

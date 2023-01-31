@@ -1,5 +1,7 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useState } from 'react';
-import { ShoppingFilled } from '@ant-design/icons';
+import { BuildTwoTone, ShoppingFilled } from '@ant-design/icons';
 import style from './index.module.scss';
 import CartMenu from './CartMenu';
 import { Badge } from '../../atoms';
@@ -8,9 +10,10 @@ import { ICartItem } from '../../../helpers/types';
 interface CartButtonProps {
   total: number;
   items: ICartItem[];
+  onClick: () => void;
 }
 
-const CartButton: React.FC<CartButtonProps> = ({ total, items }) => {
+const CartButton: React.FC<CartButtonProps> = ({ total, items, onClick }) => {
   const [showDetails, setShowDetails] = useState(false);
   return (
     <div
@@ -20,6 +23,8 @@ const CartButton: React.FC<CartButtonProps> = ({ total, items }) => {
       onMouseLeave={() => {
         setShowDetails(false);
       }}
+      onClick={onClick}
+      className={style.cart}
     >
       <div className={style.cart__button}>
         <div className={style.cart__button__container}>

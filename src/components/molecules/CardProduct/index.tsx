@@ -27,7 +27,7 @@ const CardProduct: React.FC<CardProductProps> = ({ product }) => {
   }, [product]);
   return (
     <Card className={style.card__product}>
-      <Link to={`${product.slug}`}>
+      <Link to={`/${product.slug}`}>
         <Image
           src={product.thumbnail_img}
           alt={product.title}

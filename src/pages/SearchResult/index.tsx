@@ -1,8 +1,8 @@
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useGetProductsQuery } from '../../app/features/home/homeApiSlice';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { Filter, ListCardProduct, Pagination, SEO } from '../../components';
+import { useAppSelector } from '../../app/hooks';
+import { Filter, SEO } from '../../components';
 import Sort from './Sort';
 import style from './index.module.scss';
 import { IPanel } from './options';
@@ -10,13 +10,12 @@ import { isEmpty } from 'lodash';
 import Price from './Price';
 import Rating from './Rating';
 import SellerLocation from './SellerLocation';
-import Category from './Category';
-import { Alert, PaginationProps, Skeleton } from 'antd';
+import CategoryTree from './CategoryTree';
+import { Alert } from 'antd';
 import './override.scss';
 import classNames from 'classnames';
-import { setParams } from '../../app/features/home/paramsSlice';
 import { capitalizeFirstLetter } from '../../helpers/capitalizeFirstLetter';
-import ItemNotFound from '../../components/molecules/ItemNotFound';
+import Content from './Content';
 
 const panels: IPanel[] = [
   {
@@ -36,7 +35,7 @@ const panels: IPanel[] = [
   },
   {
     header: 'Categories',
-    children: <Category />,
+    children: <CategoryTree />,
     key: 'category',
   },
 ];
@@ -44,20 +43,14 @@ const panels: IPanel[] = [
 const limit = 4;
 
 const SearchResult: React.FC = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const params = useAppSelector((state) => state.params);
-  const dispatch = useAppDispatch();
   const { data, isLoading, isError, error } = useGetProductsQuery(
     { ...params.search, limit },
     {
       skip: isEmpty(params.search),
     },
   );
-  const onChange: PaginationProps['onChange'] = (page) => {
-    dispatch(setParams({ page }));
-    searchParams.set('page', page.toString());
-    setSearchParams(searchParams);
-  };
 
   return (
     <>
@@ -101,30 +94,7 @@ const SearchResult: React.FC = () => {
             )}
             <Sort />
           </div>
-          <Skeleton loading={isLoading}>
-            {data?.total_data ? (
-              <>
-                <ListCardProduct data={data} />
-                <div className={style.sr__content__pagination}>
-                  {data.total_data > limit && (
-                    <Pagination
-                      onChange={onChange}
-                      total={data.total_data}
-                      showQuickJumper
-                      pageSize={limit}
-                      defaultCurrent={params.search.page}
-                      className={style.sr__content__pagination__pagination}
-                    />
-                  )}
-                </div>
-              </>
-            ) : (
-              <ItemNotFound
-                title="Sorry, your product is not found"
-                body="Try to change your search keyword or remove some filters."
-              />
-            )}
-          </Skeleton>
+          <Content data={data} isLoading={isLoading} limit={limit} />
         </div>
       </div>
     </>

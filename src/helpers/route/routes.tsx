@@ -10,6 +10,8 @@ const Register = lazy(() => import('../../pages/Auth/Register'));
 const MerchantRegister = lazy(
   () => import('../../pages/Auth/MerchantRegister'),
 );
+const Cart = lazy(() => import('../../pages/Cart'));
+const Profile = lazy(() => import('../../pages/Profile'));
 
 export const router = createBrowserRouter([
   {
@@ -22,7 +24,12 @@ export const router = createBrowserRouter([
         children: [],
       },
       {
-        path: 'product/:store/:slug',
+        path: '/profile',
+        element: <Profile />,
+        children: [],
+      },
+      {
+        path: '/:store/:slug',
         element: <ProductDetail />,
         children: [],
       },
@@ -31,10 +38,14 @@ export const router = createBrowserRouter([
         element: <MerchantRegister />,
         children: [],
       },
+
+      {
+        path: '/cart',
+        element: <Cart />,
+      },
       {
         path: 'search',
         element: <SearchResult />,
-        children: [],
       },
     ],
   },

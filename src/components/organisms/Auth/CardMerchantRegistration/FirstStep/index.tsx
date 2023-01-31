@@ -48,7 +48,7 @@ const FirstStep: React.FC<FirstStepProps> = ({ step, handleNext }) => {
           />
         )} */}
           <div className="card__first__step__button">
-            <Button type="primary" size="large" htmlType="submit" block>
+            <Button type="primary" size="middle" htmlType="submit" block>
               Next
             </Button>
           </div>

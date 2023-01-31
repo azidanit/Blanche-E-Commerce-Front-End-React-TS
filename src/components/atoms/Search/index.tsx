@@ -24,7 +24,7 @@ const Search: React.FC<SearchProps> = ({
     <ASearch
       placeholder={placeholder}
       onSearch={onSearch}
-      size="large"
+      size="middle"
       className={classProps}
       enterButton
       defaultValue={defaultValue}

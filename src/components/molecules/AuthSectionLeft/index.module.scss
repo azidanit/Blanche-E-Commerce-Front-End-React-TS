@@ -8,6 +8,14 @@
   max-width: 40vw;
   width: 100%;
 
+  @media screen and (max-width: 1400px) {
+    padding: 0 3rem;
+  }
+
+  @media screen and (max-width: 950px) {
+    padding: 0 2rem;
+  }
+
   background: -moz-linear-gradient(
     181deg,
     rgba(0, 173, 239, 1) 0%,
@@ -102,11 +110,28 @@
     padding: 2.5rem;
     border-radius: 0.5rem;
 
+    @media screen and (max-width: 1400px) {
+      padding: 2rem;
+    }
+
+    @media screen and (max-width: 950px) {
+      padding: 1rem;
+    }
     h5 {
       font-size: 4rem;
       line-height: 5rem;
       font-weight: $text-bold;
       color: white;
+
+      @media screen and (max-width: 1400px) {
+        font-size: 3rem;
+        line-height: 4rem;
+      }
+
+      @media screen and (max-width: 950px) {
+        font-size: 2.5rem;
+        line-height: 3rem;
+      }
 
       span {
         color: $primary-80;

@@ -60,6 +60,7 @@ export interface IVariantItem {
   id: number;
   is_archived: boolean;
   image: string;
+  discount_price: number;
   price: number;
   stock: number;
 }
