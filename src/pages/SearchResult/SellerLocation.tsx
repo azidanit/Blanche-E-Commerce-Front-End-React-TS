@@ -5,8 +5,8 @@ import { useSearchParams } from 'react-router-dom';
 import { useGetCitiesQuery } from '../../app/features/home/homeApiSlice';
 import { setParams } from '../../app/features/home/paramsSlice';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { Checkbox } from '../../components';
-import { IOption } from '../../components/molecules/Checkbox';
+import { CheckboxGroup } from '../../components';
+import { IOption } from '../../components/molecules/CheckboxGroup';
 import style from './index.module.scss';
 
 const SellerLocation: React.FC = () => {
@@ -51,7 +51,7 @@ const SellerLocation: React.FC = () => {
   return (
     <Skeleton loading={isLoading}>
       {options && (
-        <Checkbox
+        <CheckboxGroup
           options={options}
           onChange={onChange}
           value={selectedValues}

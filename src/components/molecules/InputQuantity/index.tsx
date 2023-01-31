@@ -21,26 +21,24 @@ const InputQuantity: React.FC<InputQuantityProps> = ({
   disableDecrement,
 }) => {
   const addonIncrement = (
-    <Button
-      shape="default"
+    <button
       className={style.input__quantity__button}
       style={{ borderRadius: 0 }}
       onClick={handleIncrement}
       disabled={disabledIncrement}
     >
       +
-    </Button>
+    </button>
   );
   const addonDecrement = (
-    <Button
-      shape="default"
+    <button
       className={style.input__quantity__button}
       style={{ borderRadius: 0 }}
       onClick={handleDecrement}
       disabled={disableDecrement}
     >
       -
-    </Button>
+    </button>
   );
 
   return (
@@ -49,6 +47,7 @@ const InputQuantity: React.FC<InputQuantityProps> = ({
       addonBefore={addonDecrement}
       onChange={handleChange}
       defaultValue={100}
+      className={style.input__quantity}
       value={value}
     />
   );

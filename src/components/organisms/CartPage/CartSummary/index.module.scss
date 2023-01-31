@@ -5,17 +5,12 @@
   max-width: 350px;
   width: 95%;
   border-radius: 1.1rem;
-  padding: 0;
-  &__header {
-    padding: 1rem 1rem 0 1rem;
-  }
 
   &__button {
-    padding: 1rem;
+    margin-top: 1rem;
   }
 
   &__description {
-    padding: 0 1rem;
     p {
       font-size: 1.2rem;
       font-weight: $text-medium;

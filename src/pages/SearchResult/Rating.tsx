@@ -1,7 +1,7 @@
 import { StarFilled } from '@ant-design/icons';
 import React, { useEffect, useState } from 'react';
 import style from './index.module.scss';
-import { Checkbox } from '../../components';
+import { CheckboxGroup } from '../../components';
 import { CheckboxValueType } from 'antd/es/checkbox/Group';
 import { useSearchParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
@@ -46,7 +46,7 @@ const Rating: React.FC = () => {
     dispatch(setParams({ min_rating: lastValue }));
   };
   return (
-    <Checkbox
+    <CheckboxGroup
       options={options}
       onChange={onChange}
       value={[selectedValue?.toString() as string]}

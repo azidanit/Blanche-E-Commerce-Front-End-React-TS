@@ -12,6 +12,7 @@ import RadioButtonGroup from './RadioButtonGroup';
 import Tabs from './Tabs';
 import CartItem from './CartButton/CartItem';
 import Filter from './Filter';
+import CheckboxGroup from './CheckboxGroup';
 import Checkbox from './Checkbox';
 import Tree from './Tree';
 import Modal from './Modal';
@@ -32,8 +33,9 @@ export {
   RadioButtonGroup,
   CartItem,
   Filter,
-  Checkbox,
+  CheckboxGroup,
   Tree,
   Modal,
+  Checkbox,
   Pagination,
 };
