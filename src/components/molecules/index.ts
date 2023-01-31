@@ -11,7 +11,11 @@ import Arrow from './Arrow';
 import RadioButtonGroup from './RadioButtonGroup';
 import Tabs from './Tabs';
 import CartItem from './CartButton/CartItem';
+import Filter from './Filter';
+import Checkbox from './Checkbox';
+import Tree from './Tree';
 import Modal from './Modal';
+import Pagination from './Pagination';
 
 export {
   AuthSectionLeft,
@@ -27,5 +31,9 @@ export {
   InputQuantity,
   RadioButtonGroup,
   CartItem,
+  Filter,
+  Checkbox,
+  Tree,
   Modal,
+  Pagination,
 };

@@ -3,9 +3,13 @@ import { Layout } from 'antd';
 import { Logo, Search } from '../../atoms';
 import style from './index.module.scss';
 import CartButton from '../CartButton';
+import {
+  createSearchParams,
+  useNavigate,
+  useSearchParams,
+} from 'react-router-dom';
 import { useAppDispatch } from '../../../app/hooks';
-import { setSearch } from '../../../app/features/home/searchSlice';
-import Container from '../Container';
+import { setSearch } from '../../../app/features/home/paramsSlice';
 
 const { Header } = Layout;
 
@@ -28,15 +32,26 @@ const items = [
 ];
 
 const Nav: React.FC = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const onSearch = (value: string) => {
+  const [searchParams] = useSearchParams();
+
+  const onSearch = async (value: string) => {
     dispatch(setSearch(value));
+    navigate({
+      pathname: '/search',
+      search: createSearchParams({ q: value }).toString(),
+    });
   };
   return (
     <Header className={style.header}>
       <nav className={style.nav}>
         <Logo className={style.nav__logo} size="small" />
-        <Search onSearch={onSearch} />
+        <Search
+          onSearch={onSearch}
+          placeholder="Search on blanche"
+          defaultValue={searchParams.get('q') || ''}
+        />
         <CartButton total={total} items={items} />
       </nav>
     </Header>

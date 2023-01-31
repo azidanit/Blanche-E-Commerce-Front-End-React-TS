@@ -179,8 +179,10 @@ export interface IMerchantInfo {
 }
 
 export interface ICategory {
+  id: number;
   name: string;
   url: string;
+  slug: string;
 }
 
 export interface IRating {
@@ -234,4 +236,10 @@ export interface IProductDetail {
   dimension: IDimension;
   variants: IVariant;
   merchant: IMerchantInfo;
+}
+
+export interface ICity {
+  id: number;
+  ro_id: number;
+  name: string;
 }

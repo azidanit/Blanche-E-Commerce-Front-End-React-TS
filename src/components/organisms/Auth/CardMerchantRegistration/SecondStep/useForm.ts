@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useCheckEmailMutation } from '../../../../../app/features/auth/authApiSlice';
-import { setEmail } from '../../../../../app/features/auth/registerSlice';
 import { useAppDispatch } from '../../../../../app/hooks';
 import {
   FormReturnAuth,

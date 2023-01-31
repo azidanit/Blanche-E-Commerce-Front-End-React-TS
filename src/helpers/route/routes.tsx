@@ -1,6 +1,7 @@
 import React, { lazy } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import AppLayout from '../../components/layouts/AppLayout';
+import SearchResult from '../../pages/SearchResult';
 
 const Home = lazy(() => import('../../pages/Home'));
 const Login = lazy(() => import('../../pages/Auth/Login'));
@@ -28,6 +29,11 @@ export const router = createBrowserRouter([
       {
         path: '/merchant-register',
         element: <MerchantRegister />,
+        children: [],
+      },
+      {
+        path: 'search',
+        element: <SearchResult />,
         children: [],
       },
     ],

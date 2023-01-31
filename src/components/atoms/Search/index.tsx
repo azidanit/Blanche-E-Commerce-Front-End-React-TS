@@ -7,6 +7,7 @@ interface SearchProps {
   onSearch: (value: string) => void;
   className?: string;
   placeholder?: string;
+  defaultValue?: string;
 }
 
 const { Search: ASearch } = AInput;
@@ -15,6 +16,7 @@ const Search: React.FC<SearchProps> = ({
   onSearch,
   className,
   placeholder = '',
+  defaultValue = '',
 }) => {
   const classProps = classNames(style.search, className);
 
@@ -25,6 +27,7 @@ const Search: React.FC<SearchProps> = ({
       size="large"
       className={classProps}
       enterButton
+      defaultValue={defaultValue}
     />
   );
 };

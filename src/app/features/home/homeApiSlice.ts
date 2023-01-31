@@ -1,6 +1,7 @@
 import {
   IGetCategoriesRequest,
   IGetCategoriesResponse,
+  IGetCitiesResponse,
   IGetProductListRequest,
   IGetProductListResponse,
 } from '../../../helpers/types';
@@ -24,7 +25,16 @@ const homeApiSlice = apiSlice.injectEndpoints({
         response.data,
       transformErrorResponse: (response) => response.data,
     }),
+    getCities: build.query<IGetCitiesResponse, void>({
+      query: () => {
+        return { url: 'cities', method: 'GET' };
+      },
+      transformResponse: (response: { data: IGetCitiesResponse }) =>
+        response.data,
+      transformErrorResponse: (response) => response.data,
+    }),
   }),
 });
 
-export const { useGetProductsQuery, useGetCategoriesQuery } = homeApiSlice;
+export const { useGetProductsQuery, useGetCategoriesQuery, useGetCitiesQuery } =
+  homeApiSlice;

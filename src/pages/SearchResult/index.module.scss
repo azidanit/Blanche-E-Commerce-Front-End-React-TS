@@ -1,0 +1,88 @@
+@use '../../styles/variables' as *;
+
+.sort {
+  min-width: 175px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  &__text {
+    font-weight: $text-bold;
+  }
+
+  &__select {
+    min-width: 175px;
+    font-size: 12rem;
+  }
+}
+
+.rating {
+  &__item {
+    &__count {
+      margin-right: 0.25rem;
+    }
+    &__star {
+      color: orange;
+    }
+  }
+}
+
+.location {
+  max-height: 200px;
+  overflow: scroll;
+}
+
+.sr {
+  display: flex;
+  margin: 2rem 0;
+  gap: 2rem;
+
+  &__title {
+    font-weight: $text-bold;
+    margin-bottom: 1rem;
+  }
+
+  &__left {
+    min-width: 250px;
+  }
+
+  &__filter {
+    box-shadow: $box-shadow;
+    padding: 0;
+    min-width: 200px;
+  }
+
+  &__content {
+    padding: 1.5rem 0;
+    flex: 1;
+
+    &__header {
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+
+      &__result {
+        span {
+          font-weight: $text-bold;
+        }
+      }
+    }
+
+    &__pagination {
+      margin-top: 1rem;
+
+      &__pagination {
+        text-align: right;
+      }
+    }
+  }
+}
+
+.price,
+.tree,
+.rating,
+.location {
+  padding: 0 0.5rem;
+}
