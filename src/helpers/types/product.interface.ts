@@ -45,3 +45,8 @@ export interface IGetCategoriesRequest {
 export interface IGetCitiesResponse {
   cities: ICity[];
 }
+
+export interface IGetRecommendedProductsRequest {
+  page?: number;
+  limit?: number;
+}

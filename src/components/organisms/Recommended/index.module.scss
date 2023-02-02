@@ -1,0 +1,23 @@
+@use '../../../styles/variables.scss' as *;
+
+.recommended {
+  padding: 1.5rem 0;
+  &__header {
+    margin-bottom: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+
+    &__title {
+      font-weight: $text-bold;
+      font-size: 1.5rem;
+    }
+    &__link {
+      font-weight: $text-bold;
+      color: $primary-60;
+      &:hover {
+        color: $primary-80;
+      }
+    }
+  }
+}

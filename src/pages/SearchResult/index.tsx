@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { useAppSelector } from '../../app/hooks';
 import { ProductContent, SEO } from '../../components';
 import { FilterProduct } from '../../components';
 import style from './index.module.scss';
@@ -7,15 +7,12 @@ import { isEmpty } from 'lodash';
 import { useGetProductsQuery } from '../../app/features/home/homeApiSlice';
 import { useSearchParams } from 'react-router-dom';
 import { Key } from 'rc-tree-select/lib/interface';
-import { setParams } from '../../app/features/home/paramsSlice';
-import { parseSearchParams } from '../../helpers/parseSearchParams';
 
 const limit = 4;
 
 const SearchResult: React.FC = () => {
   const params = useAppSelector((state) => state.params);
   const [searchParams, setSearchParams] = useSearchParams();
-  const dispatch = useAppDispatch();
   const { data, isLoading, isError, error } = useGetProductsQuery(
     { ...params.search, limit },
     {
@@ -29,10 +26,6 @@ const SearchResult: React.FC = () => {
   useEffect(() => {
     setSelectedCategory(params.search.cat);
   }, [params.search.cat, params.search.q]);
-
-  useEffect(() => {
-    dispatch(setParams(parseSearchParams(searchParams)));
-  }, [searchParams]);
 
   const onSelectCategory = (selectedKeysValue: Key[]) => {
     searchParams.delete('page');

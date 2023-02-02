@@ -5,6 +5,7 @@ import style from './index.module.scss';
 import CartButton from '../CartButton';
 import {
   createSearchParams,
+  useLocation,
   useNavigate,
   useSearchParams,
 } from 'react-router-dom';

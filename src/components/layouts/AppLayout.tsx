@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { Outlet, useSearchParams } from 'react-router-dom';
-import { setSearch } from '../../app/features/home/paramsSlice';
+import { setParams } from '../../app/features/home/paramsSlice';
 import { useAppDispatch } from '../../app/hooks';
+import { parseSearchParams } from '../../helpers/parseSearchParams';
 import useMediaQuery from '../../hooks/useMediaQuery';
 import { Container, Nav } from '../molecules';
 
@@ -11,7 +12,7 @@ const AppLayout = (): JSX.Element => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(setSearch(searchParams.get('q') || ''));
+    dispatch(setParams(parseSearchParams(searchParams)));
   }, [searchParams]);
 
   return (

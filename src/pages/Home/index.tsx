@@ -1,6 +1,5 @@
 import React from 'react';
-import { CategorySlider, SEO } from '../../components';
-import HomeProductList from '../../components/organisms/HomeProductList';
+import { CategorySlider, Recommended, SEO } from '../../components';
 import style from './index.module.scss';
 
 const Home: React.FC = () => {
@@ -9,7 +8,7 @@ const Home: React.FC = () => {
       <SEO title="The Best Ecommerce Around" description="Home page" />
       <div className={style.home}>
         <CategorySlider />
-        <HomeProductList />
+        <Recommended />
       </div>
     </>
   );
