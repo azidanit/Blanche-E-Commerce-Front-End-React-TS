@@ -6,7 +6,7 @@ import Form from './Form';
 import Nav from './Nav';
 import CardProduct from './CardProduct';
 import ListCardProduct from './ListCardProduct';
-import Slider from './Slider';
+import Carousel from './Carousel';
 import Arrow from './Arrow';
 import RadioButtonGroup from './RadioButtonGroup';
 import Tabs from './Tabs';
@@ -27,7 +27,7 @@ export {
   Nav,
   CardProduct,
   ListCardProduct,
-  Slider,
+  Carousel,
   Arrow,
   InputQuantity,
   RadioButtonGroup,

@@ -1,10 +1,10 @@
 @use './../../../styles/variables.scss' as *;
 
-.slider {
+.carousel {
   position: relative;
 
   &:hover {
-    .slider__arrow {
+    .carousel__arrow {
       opacity: 100%;
     }
   }
