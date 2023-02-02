@@ -1,7 +1,6 @@
 import React, { lazy } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import AppLayout from '../../components/layouts/AppLayout';
-import SearchResult from '../../pages/SearchResult';
 
 const Home = lazy(() => import('../../pages/Home'));
 const Login = lazy(() => import('../../pages/Auth/Login'));
@@ -13,6 +12,8 @@ const MerchantRegister = lazy(
 const Cart = lazy(() => import('../../pages/Cart'));
 const Profile = lazy(() => import('../../pages/Profile'));
 const Category = lazy(() => import('../../pages/Category'));
+const Recommendation = lazy(() => import('../../pages/Recommendation'));
+const SearchResult = lazy(() => import('../../pages/SearchResult'));
 
 export const router = createBrowserRouter([
   {
@@ -51,6 +52,10 @@ export const router = createBrowserRouter([
       {
         path: '/c/:category',
         element: <Category />,
+      },
+      {
+        path: '/recommendation',
+        element: <Recommendation />,
       },
     ],
   },

@@ -1,8 +1,6 @@
-import { PaginationProps, Skeleton } from 'antd';
+import { Skeleton } from 'antd';
 import React from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { setParams } from '../../../app/features/home/paramsSlice';
-import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import { useAppSelector } from '../../../app/hooks';
 import {
   Alert,
   ListCardProduct,
@@ -30,14 +28,6 @@ const Content: React.FC<ContentProps> = ({
   limit,
 }) => {
   const params = useAppSelector((state) => state.params);
-  const dispatch = useAppDispatch();
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const onChange: PaginationProps['onChange'] = (page) => {
-    dispatch(setParams({ page }));
-    searchParams.set('page', page.toString());
-    setSearchParams(searchParams);
-  };
 
   return (
     <div className={style.content}>
@@ -70,11 +60,8 @@ const Content: React.FC<ContentProps> = ({
             <div className={style.content__pagination}>
               {data.total_data > limit && (
                 <Pagination
-                  onChange={onChange}
                   total={data.total_data}
                   pageSize={limit}
-                  defaultCurrent={Number(params.search.page) || 1}
-                  current={Number(params.search.page) || 1}
                   className={style.content__pagination__pagination}
                   showSizeChanger={false}
                 />
