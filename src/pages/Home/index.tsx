@@ -1,5 +1,5 @@
 import React from 'react';
-import { CategorySlider, Recommended, SEO } from '../../components';
+import { CategoryCarousel, Recommended, SEO } from '../../components';
 import style from './index.module.scss';
 
 const Home: React.FC = () => {
@@ -7,7 +7,7 @@ const Home: React.FC = () => {
     <>
       <SEO title="The Best Ecommerce Around" description="Home page" />
       <div className={style.home}>
-        <CategorySlider />
+        <CategoryCarousel />
         <Recommended />
       </div>
     </>

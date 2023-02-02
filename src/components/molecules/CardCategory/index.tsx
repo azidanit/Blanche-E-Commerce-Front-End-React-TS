@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ICategory } from '../../../helpers/types';
 import { Card, Image } from '../../atoms';
@@ -13,16 +13,9 @@ const CardCategory: React.FC<CardCategoryProps> = ({ category }) => {
   const handleClick = () => {
     navigate(`/c/${category.slug}`);
   };
-  const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
   return (
-    <Card
-      className={`${style.cc} ${mounted ? style.cc__mounted : ''}`}
-      onClick={handleClick}
-    >
+    <Card className={style.cc} onClick={handleClick}>
       <Image
         src={category.image_url}
         alt={category.name}

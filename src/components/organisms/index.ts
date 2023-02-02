@@ -3,7 +3,7 @@ export * from './Auth';
 export * from './CartPage';
 
 import UserAddress from './UserAddress';
-import CategorySlider from './CategorySlider';
+import CategoryCarousel from './CategoryCarousel';
 import ListCartStoreItem from './CartPage/ListCartStoreItem';
 import FilterProduct from './FilterProduct';
 import SortProduct from './SortProduct';
@@ -13,7 +13,7 @@ import ResetFilterProduct from './ResetFilterProduct';
 import Recommended from './Recommended';
 
 export {
-  CategorySlider,
+  CategoryCarousel,
   ProfilePage,
   UserAddress,
   ListCartStoreItem,
