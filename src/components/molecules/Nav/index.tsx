@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Layout } from 'antd';
 import { Button, Logo, Search } from '../../atoms';
 import style from './index.module.scss';
@@ -8,9 +8,7 @@ import {
   useNavigate,
   useSearchParams,
 } from 'react-router-dom';
-import { useAppDispatch } from '../../../app/hooks';
-import Container from '../Container';
-import { setSearch } from '../../../app/features/home/paramsSlice';
+import { useAppSelector } from '../../../app/hooks';
 
 const { Header } = Layout;
 
@@ -34,15 +32,24 @@ const items = [
 
 const Nav: React.FC = () => {
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
+  const params = useAppSelector((state) => state.params);
+  const [search, setSearch] = useState('');
   const [searchParams] = useSearchParams();
 
-  const onSearch = async (value: string) => {
-    dispatch(setSearch(value));
+  useEffect(() => {
+    const search = params.search.q;
+    setSearch(search || '');
+  }, [params.search.q, searchParams]);
+
+  const onSearch = (value: string) => {
     navigate({
       pathname: '/search',
       search: createSearchParams({ q: value }).toString(),
     });
+  };
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
   };
 
   return (
@@ -52,7 +59,9 @@ const Nav: React.FC = () => {
         <Search
           onSearch={onSearch}
           placeholder="Search on blanche"
-          defaultValue={searchParams.get('q') || ''}
+          defaultValue={params.search.q}
+          onChange={onChange}
+          value={search}
         />{' '}
         <CartButton
           total={total}

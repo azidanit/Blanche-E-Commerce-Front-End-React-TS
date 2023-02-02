@@ -19,7 +19,6 @@ const MoreProducts: React.FC<MoreProductsProps> = ({
   const { data } = useGetProductsQuery({
     limit: limit,
     merchant_id: merchant_id,
-    category_id: category_id,
   });
   return (
     <div className={style.seller__products}>

@@ -1,11 +1,10 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import style from './index.module.scss';
 import { Space } from 'antd';
-import { Input } from '../../components';
-import { toRupiahWithoutSymbol } from '../../helpers/toRupiah';
+import { Input } from '../../atoms';
+import { toRupiahWithoutSymbol } from '../../../helpers/toRupiah';
 import { useSearchParams } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { setParams } from '../../app/features/home/paramsSlice';
+import { useAppSelector } from '../../../app/hooks';
 
 interface IInputState {
   value: number | undefined;
@@ -31,10 +30,9 @@ const initialInputState: IMaxmin_price = {
   },
 };
 
-const Price: React.FC = () => {
+const FilterPrice: React.FC = () => {
   const [inputState, setInputState] = useState(initialInputState);
   const [searchParams, setSearchParams] = useSearchParams();
-  const dispatch = useAppDispatch();
   const params = useAppSelector((state) => state.params);
 
   useEffect(() => {
@@ -56,19 +54,17 @@ const Price: React.FC = () => {
         formattedValue: maxPrice ? toRupiahWithoutSymbol(maxPrice) : undefined,
       },
     }));
-  }, [params.search.q]);
+  }, [params.search.q, params.search.min_price, params.search.max_price]);
 
   const onBlur = (key: 'min_price' | 'max_price', type: 'blur' | 'enter') => {
     const val = inputState[key].value;
     if (!val) {
       searchParams.delete(key);
       setSearchParams(searchParams);
-      dispatch(setParams({ [key]: undefined }));
       return;
     }
     searchParams.set(key, val.toString());
     setSearchParams(searchParams);
-    dispatch(setParams({ [key]: val }));
     setInputState((prevValue) => ({
       ...prevValue,
       [key]: {
@@ -101,6 +97,7 @@ const Price: React.FC = () => {
   };
 
   const onFocus = (key: 'min_price' | 'max_price') => {
+    searchParams.delete('page');
     setInputState((prevValue) => ({
       ...prevValue,
       [key]: {
@@ -164,4 +161,4 @@ const Price: React.FC = () => {
   );
 };
 
-export default Price;
+export default FilterPrice;

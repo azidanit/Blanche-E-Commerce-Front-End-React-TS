@@ -12,6 +12,7 @@ const MerchantRegister = lazy(
 );
 const Cart = lazy(() => import('../../pages/Cart'));
 const Profile = lazy(() => import('../../pages/Profile'));
+const Category = lazy(() => import('../../pages/Category'));
 
 export const router = createBrowserRouter([
   {
@@ -44,8 +45,12 @@ export const router = createBrowserRouter([
         element: <Cart />,
       },
       {
-        path: 'search',
+        path: '/search',
         element: <SearchResult />,
+      },
+      {
+        path: '/c/:category',
+        element: <Category />,
       },
     ],
   },

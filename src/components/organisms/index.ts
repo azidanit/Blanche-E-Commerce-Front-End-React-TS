@@ -5,5 +5,19 @@ export * from './CartPage';
 import UserAddress from './UserAddress';
 import CategorySlider from './CategorySlider';
 import ListCartStoreItem from './CartPage/ListCartStoreItem';
+import FilterProduct from './FilterProduct';
+import SortProduct from './SortProduct';
+import ProductContent from './ProductContent';
 import ProfilePage from './ProfilePage';
-export { CategorySlider, ProfilePage, UserAddress, ListCartStoreItem };
+import ResetFilterProduct from './ResetFilterProduct';
+
+export {
+  CategorySlider,
+  ProfilePage,
+  UserAddress,
+  ListCartStoreItem,
+  FilterProduct,
+  SortProduct,
+  ProductContent,
+  ResetFilterProduct,
+};
