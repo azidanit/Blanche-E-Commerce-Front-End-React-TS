@@ -10,6 +10,7 @@ import SortProduct from './SortProduct';
 import ProductContent from './ProductContent';
 import ProfilePage from './ProfilePage';
 import ResetFilterProduct from './ResetFilterProduct';
+import Recommended from './Recommended';
 
 export {
   CategorySlider,
@@ -20,4 +21,5 @@ export {
   SortProduct,
   ProductContent,
   ResetFilterProduct,
+  Recommended,
 };

@@ -1,14 +1,11 @@
-import { isEmpty } from 'lodash';
 import { Key } from 'rc-tree-select/lib/interface';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router';
-import { useSearchParams } from 'react-router-dom';
 import { useGetProductsQuery } from '../../app/features/home/homeApiSlice';
 import { setParams } from '../../app/features/home/paramsSlice';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { FilterProduct, ProductContent, SEO } from '../../components';
 import { capitalizeFirstLetter } from '../../helpers/capitalizeFirstLetter';
-import { parseSearchParams } from '../../helpers/parseSearchParams';
 import style from './index.module.scss';
 
 const limit = 4;
@@ -18,28 +15,24 @@ const Category: React.FC = () => {
   const location = useLocation();
   const params = useAppSelector((state) => state.params);
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
   const [selectedCategory, setSelectedCategory] = useState<undefined | string>(
     undefined,
   );
+  const lasturl = location.pathname.split('/').slice(-1)[0];
   const { data, isLoading, isError, error } = useGetProductsQuery(
-    { ...params.search, limit },
+    { ...params.search, limit, cat: lasturl },
     {
-      skip: isEmpty(params.search),
+      skip: !param.category,
     },
   );
   const dispatch = useAppDispatch();
 
+  useEffect(() => {}, []);
+
   useEffect(() => {
     setSelectedCategory(param.category);
     dispatch(setParams({ cat: param.category }));
-  }, []);
-
-  useEffect(() => {
-    dispatch(
-      setParams({ ...parseSearchParams(searchParams), cat: param.category }),
-    );
-  }, [searchParams]);
+  }, [param.category]);
 
   const onSelectCategory = (selectedKeysValue: Key[]) => {
     if (!selectedKeysValue.length) return;

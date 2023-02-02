@@ -1,13 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { IGetProductListRequest } from '../../../helpers/types';
-import { parseSearchParams } from '../../../helpers/parseSearchParams';
 
 interface SearchState {
   search: IGetProductListRequest;
 }
 
 const initialState: SearchState = {
-  search: parseSearchParams(new URLSearchParams(location.search)),
+  search: {},
 };
 
 export const searchSlice = createSlice({
@@ -19,6 +18,9 @@ export const searchSlice = createSlice({
     },
     setSearch: (state, action) => {
       state.search = { q: action.payload };
+    },
+    clearQ: (state) => {
+      state.search = { ...state.search, q: undefined };
     },
   },
 });
