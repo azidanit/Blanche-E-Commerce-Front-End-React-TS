@@ -1,101 +1,78 @@
-import React from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { useGetProductsQuery } from '../../app/features/home/homeApiSlice';
-import { useAppSelector } from '../../app/hooks';
-import { Filter, SEO } from '../../components';
-import Sort from './Sort';
+import React, { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { ProductContent, SEO } from '../../components';
+import { FilterProduct } from '../../components';
 import style from './index.module.scss';
-import { IPanel } from './options';
 import { isEmpty } from 'lodash';
-import Price from './Price';
-import Rating from './Rating';
-import SellerLocation from './SellerLocation';
-import CategoryTree from './CategoryTree';
-import { Alert } from 'antd';
-import './override.scss';
-import classNames from 'classnames';
-import { capitalizeFirstLetter } from '../../helpers/capitalizeFirstLetter';
-import Content from './Content';
-
-const panels: IPanel[] = [
-  {
-    header: 'Seller Location',
-    children: <SellerLocation />,
-    key: 'location',
-  },
-  {
-    header: 'Price',
-    children: <Price />,
-    key: 'price',
-  },
-  {
-    header: 'Minimum Rating',
-    children: <Rating />,
-    key: 'rating',
-  },
-  {
-    header: 'Categories',
-    children: <CategoryTree />,
-    key: 'category',
-  },
-];
+import { useGetProductsQuery } from '../../app/features/home/homeApiSlice';
+import { useSearchParams } from 'react-router-dom';
+import { Key } from 'rc-tree-select/lib/interface';
+import { setParams } from '../../app/features/home/paramsSlice';
+import { parseSearchParams } from '../../helpers/parseSearchParams';
 
 const limit = 4;
 
 const SearchResult: React.FC = () => {
-  const [searchParams] = useSearchParams();
   const params = useAppSelector((state) => state.params);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const dispatch = useAppDispatch();
   const { data, isLoading, isError, error } = useGetProductsQuery(
     { ...params.search, limit },
     {
       skip: isEmpty(params.search),
     },
   );
+  const [selectedCategory, setSelectedCategory] = useState<undefined | string>(
+    undefined,
+  );
+
+  useEffect(() => {
+    setSelectedCategory(params.search.cat);
+  }, [params.search.cat, params.search.q]);
+
+  useEffect(() => {
+    dispatch(setParams(parseSearchParams(searchParams)));
+  }, [searchParams]);
+
+  const onSelectCategory = (selectedKeysValue: Key[]) => {
+    searchParams.delete('page');
+    if (!selectedKeysValue.length) {
+      searchParams.delete('cat');
+      setSearchParams(searchParams);
+      setSelectedCategory(undefined);
+      return;
+    }
+    const cat = selectedKeysValue[0].toString();
+    searchParams.set('cat', cat);
+    setSearchParams(searchParams);
+    setSelectedCategory(cat);
+  };
 
   return (
     <>
       <SEO
         title={
-          data?.total_data
-            ? `Result for ${searchParams.get('q') || 'all'}`
+          params.search.q
+            ? `Result for ${params.search.q || 'all'}`
             : 'The Best Ecommerce Around'
         }
-        description="Login page"
+        description="Search page"
       />
       <div className={style.sr}>
         <div className={style.sr__left}>
           <p className={style.sr__title}>Filter</p>
-          <Filter
-            panels={panels}
-            defaultActiveKey={panels.map((panel) => panel.key)}
-            className={classNames(style.sr__filter, 'filter')}
-            ghost
+          <FilterProduct
+            onSelectCategory={onSelectCategory}
+            selectedCategory={selectedCategory}
           />
         </div>
-        <div className={style.sr__content}>
-          <div className={style.sr__content__header}>
-            <p className={style.sr__content__header__result}>
-              {isLoading ? (
-                <>Loading, please wait...</>
-              ) : (
-                <>
-                  Showing {data?.total_data} results for{' '}
-                  <span>{params.search.q || 'all'}</span>
-                </>
-              )}
-            </p>
-            {isError && (
-              <Alert
-                message={capitalizeFirstLetter((error as Error)?.message)}
-                type="error"
-                showIcon
-                className={style.card__login__alert}
-              />
-            )}
-            <Sort />
-          </div>
-          <Content data={data} isLoading={isLoading} limit={limit} />
-        </div>
+        <ProductContent
+          data={data}
+          isLoading={isLoading}
+          isError={isError}
+          error={error as Error}
+          limit={limit}
+        />
       </div>
     </>
   );

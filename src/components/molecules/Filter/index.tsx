@@ -2,10 +2,16 @@ import React from 'react';
 import { Collapse } from 'antd';
 import style from './index.module.scss';
 import classNames from 'classnames';
-import { IPanel } from '../../../pages/SearchResult/options';
+
 import { Card } from '../../atoms';
 
 const { Panel } = Collapse;
+
+export interface IPanel {
+  header: string;
+  children: React.ReactNode;
+  key: string;
+}
 
 interface CollapseProps {
   defaultActiveKey: string[];
@@ -13,6 +19,7 @@ interface CollapseProps {
   onChange?: (key: string | string[]) => void;
   panels: IPanel[];
   ghost?: boolean;
+  resetChildren?: React.ReactNode;
 }
 
 const Filter: React.FC<CollapseProps> = ({
@@ -21,6 +28,7 @@ const Filter: React.FC<CollapseProps> = ({
   onChange,
   panels,
   ghost,
+  resetChildren,
 }) => {
   const classProps = classNames(style.filter, className);
 
@@ -37,6 +45,7 @@ const Filter: React.FC<CollapseProps> = ({
           </Panel>
         ))}
       </Collapse>
+      {resetChildren}
     </Card>
   );
 };

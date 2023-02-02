@@ -1,12 +1,12 @@
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { setParams } from '../../app/features/home/paramsSlice';
-import { useAppDispatch } from '../../app/hooks';
-import { Select } from '../../components';
+import { setParams } from '../../../app/features/home/paramsSlice';
+import { useAppDispatch } from '../../../app/hooks';
+import { Select } from '../../../components';
 import style from './index.module.scss';
 import { mappedSortOptions, sortOptions } from './options';
 
-const Sort: React.FC = () => {
+const SortProduct: React.FC = () => {
   const dispatch = useAppDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -27,7 +27,7 @@ const Sort: React.FC = () => {
   };
   return (
     <div className={style.sort}>
-      <p className={style.sort__text}>Sort By: </p>
+      <p className={style.sort__text}>Sort: </p>
       <Select
         defaultValue={
           !searchParams.get('ob')
@@ -45,4 +45,4 @@ const Sort: React.FC = () => {
   );
 };
 
-export default Sort;
+export default SortProduct;

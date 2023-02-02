@@ -50,9 +50,3 @@ export const mappedSortOptions: IMappedSortOptions = {
     sort_by: 'min_discount_price',
   },
 };
-
-export interface IPanel {
-  header: string;
-  children: React.ReactNode;
-  key: string;
-}

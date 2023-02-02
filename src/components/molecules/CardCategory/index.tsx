@@ -11,7 +11,7 @@ interface CardCategoryProps {
 const CardCategory: React.FC<CardCategoryProps> = ({ category }) => {
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate(`/${category.slug}`);
+    navigate(`/c/${category.slug}`);
   };
   const [mounted, setMounted] = useState(false);
 
