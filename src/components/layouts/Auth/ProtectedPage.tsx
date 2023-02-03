@@ -4,9 +4,9 @@ import { useAppSelector } from '../../../app/hooks';
 
 const ProtectedPage = (): JSX.Element => {
   const location = useLocation();
-  const { user } = useAppSelector((state) => state.auth);
+  const { user, isLoggedIn } = useAppSelector((state) => state.auth);
 
-  if (!user) {
+  if (!user && !isLoggedIn) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 

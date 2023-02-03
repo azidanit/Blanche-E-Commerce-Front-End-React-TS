@@ -17,3 +17,9 @@ export type IProductRequest = {
   slug: string;
   store: string;
 };
+
+export interface IErrorResponse {
+  message: string;
+  status: number;
+  code: number;
+}

@@ -1,10 +1,8 @@
 @use 'src/styles/variables' as *;
 .cart__item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
-  width: 100%;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
   border-bottom: 1px solid $primary-20;
   padding: 1rem 0;
 
@@ -18,9 +16,10 @@
   }
 
   &__img {
-    min-width: 80px;
-    height: 100px;
-    margin-right: 8px;
+    width: 80px;
+    margin: 0 0 0 8px;
+    border-radius: 0.7rem;
+    overflow: hidden;
 
     @media screen and (max-width: 768px) {
       margin-right: 0.4rem;
@@ -30,10 +29,15 @@
   &__details {
     display: flex;
     align-items: center;
+    justify-self: flex-start;
+    max-width: max-content;
+    gap: 1.5rem;
+    width: 100%;
 
     &__item {
       p {
         font-size: 1rem;
+        width: 100%;
 
         @media screen and (max-width: 768px) {
           font-size: 0.8rem;
@@ -77,7 +81,7 @@
   }
 
   &__price {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-weight: $text-bold;
   }
 }

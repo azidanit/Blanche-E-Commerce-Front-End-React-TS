@@ -36,7 +36,7 @@ const Product = (): JSX.Element => {
     dispatch(
       setProductInfo({
         product: data,
-        isDiscount: data?.min_real_price !== data?.max_real_price,
+        isDiscount: data?.min_real_price !== data?.min_discount_price,
         isRangePrice: data?.min_real_price !== data?.max_real_price,
         price: !isRangePrice ? data?.min_real_price : 0,
         stock: variant === null ? data?.total_stock : variant.stock,

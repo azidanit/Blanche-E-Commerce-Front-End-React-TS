@@ -1,12 +1,12 @@
 import React from 'react';
 import { textTruncate } from '../../../../helpers/textTruncate';
 import { toRupiah } from '../../../../helpers/toRupiah';
-import { ICartItem } from '../../../../helpers/types';
+import { ICartItemEx } from '../../../../helpers/types';
 import { Image } from '../../../atoms';
 import style from './index.module.scss';
 
 interface CartItemProps {
-  item: ICartItem;
+  item: ICartItemEx;
 }
 
 const CartItem: React.FC<CartItemProps> = ({ item }) => {

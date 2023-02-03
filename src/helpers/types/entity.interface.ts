@@ -1,4 +1,4 @@
-export interface ICartItem {
+export interface ICartItemEx {
   slug?: string;
   title: string;
   imgUrl: string;

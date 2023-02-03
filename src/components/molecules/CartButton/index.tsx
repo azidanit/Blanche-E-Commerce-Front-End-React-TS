@@ -5,13 +5,15 @@ import { BuildTwoTone, ShoppingFilled } from '@ant-design/icons';
 import style from './index.module.scss';
 import CartMenu from './CartMenu';
 import { Badge } from '../../atoms';
-import { ICartItem } from '../../../helpers/types';
+import { ICartItemEx } from '../../../helpers/types';
 
 interface CartButtonProps {
   total: number;
-  items: ICartItem[];
+  items: ICartItemEx[];
   onClick: () => void;
 }
+
+
 
 const CartButton: React.FC<CartButtonProps> = ({ total, items, onClick }) => {
   const [showDetails, setShowDetails] = useState(false);

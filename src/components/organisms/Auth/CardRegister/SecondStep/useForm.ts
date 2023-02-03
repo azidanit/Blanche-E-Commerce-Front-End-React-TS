@@ -36,15 +36,8 @@ const useForm = ({
         password: password.trim(),
         fullname,
       };
-      await register(body)
-        .unwrap()
-        .then(() => {
-          const { data: profile } = useGetProfileQuery();
+      await register(body);
 
-          dispatch(setUser(profile));
-
-          dispatch(setIsLoggedIn(true));
-        });
       navigate(from, { replace: true });
     } catch (error) {
       setError(error as Error);

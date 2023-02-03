@@ -1,28 +1,59 @@
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { CheckboxValueType } from 'antd/es/checkbox/Group';
 import React, { useState } from 'react';
-import { Card } from '../../../atoms';
+import { useUpdateCartItemMutation } from '../../../../app/features/cart/cartApiSlice';
+import { ICart, ICartItem } from '../../../../helpers/types';
+import { Avatar, Card } from '../../../atoms';
 import { Checkbox, CheckboxGroup } from '../../../molecules';
-import CartItem from '../CartItem';
+import CartItemPage from '../CartItemPage';
 import style from './index.module.scss';
 
-const CartStoreItem: React.FC = () => {
-  const options = [...Array(4)].map((val, index) => {
-    const value = index + 2;
+interface CartStoreItemProps {
+  cart: ICart;
+}
+
+const CartStoreItem: React.FC<CartStoreItemProps> = ({ cart }) => {
+  const [updateCartItem, { isSuccess, isLoading, isError }] =
+    useUpdateCartItemMutation();
+
+  const options = cart.items.map((item) => {
     return {
-      value: value.toString(),
-      children: <CartItem />,
+      value: item.cart_item_id?.toString() || '0',
+      children: <CartItemPage item={item} key={item.name} />,
     };
   });
 
-  const [checkedList, setCheckedList] = useState<CheckboxValueType[]>(['1']);
+  const [checkedList, setCheckedList] = useState<CheckboxValueType[]>(
+    cart.items
+      .filter((item) => item.is_checked)
+      .map((item) => {
+        const index = item.cart_item_id ? item.cart_item_id : 0;
+        return index.toString();
+      }),
+  );
   const [indeterminate, setIndeterminate] = useState(false);
-  const [checkAll, setCheckAll] = useState(false);
+  const [checkAll, setCheckAll] = useState(
+    cart.items.filter((item) => item.is_checked).length === cart.items.length,
+  );
 
-  const onChange = (list: CheckboxValueType[]) => {
+  const onChange = (list: CheckboxValueType[], item: ICartItem) => {
     setCheckedList(list);
     setIndeterminate(!!list.length && list.length < options.length);
-    setCheckAll(list.length === options.length);
+    // setCheckAll(list.length === options.length);
+    // cart_item_id?: number | null;
+    // quantity?: number | null;
+    // notes?: string;
+    // is_checked?: boolean;
+    try {
+      updateCartItem({
+        cart_item_id: item.cart_item_id,
+        quantity: item.quantity,
+        notes: item.notes,
+        is_checked: list.includes(item.cart_item_id?.toString() || '0'),
+      }).unwrap();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const onCheckAllChange = (e: CheckboxChangeEvent) => {
@@ -30,8 +61,6 @@ const CartStoreItem: React.FC = () => {
     setIndeterminate(false);
     setCheckAll(e.target.checked);
   };
-
-  const selectedValues = ['2', '3'];
 
   return (
     <Card className={style.cart__store__item}>
@@ -41,14 +70,14 @@ const CartStoreItem: React.FC = () => {
           onChange={onCheckAllChange}
           checked={checkAll}
         />
-        <h6>Tokokotoku</h6>
+        <Avatar src={cart.merchant_image} size={60} />
+        <h6>{cart.merchant_name}</h6>
       </div>
       <div className={style.cart__store__item__body}>
         <CheckboxGroup
           options={options}
-          onChange={onChange}
+          onChange={() => onChange(checkedList, cart.items[0])}
           value={checkedList}
-          defaultValue={selectedValues}
           className={style.cart}
         />
       </div>
