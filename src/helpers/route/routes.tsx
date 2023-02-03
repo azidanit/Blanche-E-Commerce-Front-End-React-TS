@@ -26,12 +26,10 @@ export const router = createBrowserRouter([
           {
             path: '/profile',
             element: <Profile />,
-            children: [],
           },
           {
             path: '/merchant-register',
             element: <MerchantRegister />,
-            children: [],
           },
 
           {

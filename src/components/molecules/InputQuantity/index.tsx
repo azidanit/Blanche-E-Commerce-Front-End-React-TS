@@ -3,6 +3,8 @@ import { valueType } from 'antd/es/statistic/utils';
 import React from 'react';
 import { Button, InputNumber } from '../../atoms';
 import style from './index.module.scss';
+import './override.scss';
+import classNames from 'classnames';
 
 interface InputQuantityProps extends InputNumberProps {
   value: number;
@@ -49,7 +51,7 @@ const InputQuantity: React.FC<InputQuantityProps> = ({
       addonBefore={addonDecrement}
       onChange={handleChange}
       defaultValue={100}
-      className={style.input__quantity}
+      className={classNames(style.input__quantity, 'input-qty')}
       value={value}
       {...props}
     />

@@ -1,15 +1,15 @@
-import { DollarOutlined } from '@ant-design/icons';
 import { Divider, Skeleton, Space } from 'antd';
-import { valueType } from 'antd/es/statistic/utils';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { toRupiah } from '../../../../helpers/toRupiah';
-import { ICartItem } from '../../../../helpers/types';
-import useProduct from '../../../../hooks/useProduct';
 import { Button, Card } from '../../../atoms';
-import { CartItem, InputQuantity } from '../../../molecules';
 import style from './index.module.scss';
 
-const CartSummary: React.FC = () => {
+export interface CartSummaryProps {
+  quantity: number | undefined;
+  total: number | undefined;
+}
+
+const CartSummary: React.FC<CartSummaryProps> = ({ quantity, total }) => {
   const isLoading = false;
   return (
     <Card className={style.cart__summary}>
@@ -17,13 +17,13 @@ const CartSummary: React.FC = () => {
         <div className={style.cart__summary__description}>
           <p>Ringkasan Belanja</p>
           <div className={style.cart__summary__description__total}>
-            <p>Total Harga (26 barang)</p>
-            <p>{toRupiah(106200)}</p>
+            <p>Total Harga ({quantity} barang)</p>
+            <p>{toRupiah(total)}</p>
           </div>
           <Divider />
           <div className={style.cart__summary__description__total}>
             <p>Total Harga</p>
-            <p>{toRupiah(106200)}</p>
+            <p>{toRupiah(total)}</p>
           </div>
         </div>
       </Skeleton>

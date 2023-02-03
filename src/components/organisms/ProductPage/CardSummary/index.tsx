@@ -1,8 +1,11 @@
-import { Divider, Skeleton, Space } from 'antd';
+import { Divider, notification, Skeleton, Space } from 'antd';
 import { valueType } from 'antd/es/statistic/utils';
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useCreateCartsMutation } from '../../../../app/features/cart/cartApiSlice';
 import { toRupiah } from '../../../../helpers/toRupiah';
-import { ICartItem } from '../../../../helpers/types';
+import { ICartItemEx } from '../../../../helpers/types';
+import { IErrorResponse } from '../../../../helpers/types/response.interface';
 import useProduct from '../../../../hooks/useProduct';
 import { Alert, Button, Card } from '../../../atoms';
 import { CartItem, InputQuantity } from '../../../molecules';
@@ -14,12 +17,19 @@ const CardSummary: React.FC = () => {
 
   const [quantity, setQuantity] = useState(1);
 
+  const [addToCart, { isLoading: isLoadingAddToCart }] =
+    useCreateCartsMutation();
+
   const [error, setError] = useState('');
+  const [errorAddToCart, setErrorAddToCart] = useState<
+    IErrorResponse | Error
+  >();
+  const navigate = useNavigate();
 
   const [totalPrice, setTotalPrice] = useState(
     price ? price : product?.max_real_price,
   );
-  const item: ICartItem = {
+  const item: ICartItemEx = {
     imgUrl: product?.images?.[0] ? product?.images[0] : '',
     title: product?.title ? product.title : '',
     quantity: quantity,
@@ -42,6 +52,47 @@ const CardSummary: React.FC = () => {
     }
   };
 
+  const handleCheckQty = () => {
+    if (quantity > Number(stock)) {
+      setError('Quantity is more than stock');
+    } else if (variant == undefined && isHaveVariant) {
+      setError('Please select variant');
+    } else {
+      setError('');
+    }
+  };
+
+  const handleSubmit = async () => {
+    //todo check if have variant
+
+    try {
+      const body = {
+        product_id: product?.id ? product.id : 0,
+        quantity: quantity ? quantity : 0,
+        variant_item_id: variant?.id ? variant.id : undefined,
+      };
+      await addToCart(body).unwrap();
+      notification.success({
+        message: 'Success',
+        description: 'Product added to cart',
+      });
+    } catch (err) {
+      const error = err as IErrorResponse;
+      setErrorAddToCart(error);
+      if (error.message === 'Unauthorized') {
+        navigate('/login');
+
+        notification.error({
+          message: 'Error',
+          description: 'Please login first',
+        });
+      }
+
+      if (error.code !== 400) {
+        setErrorAddToCart(new Error('Something went wrong'));
+      }
+    }
+  };
   useEffect(() => {
     setTotalPrice(quantity * (price as number));
   }, [quantity, price]);
@@ -57,24 +108,21 @@ const CardSummary: React.FC = () => {
             handleDecrement={handleDecrement}
             handleIncrement={handleIncrement}
             handleChange={handleChange}
+            size="middle"
             disabledIncrement={quantity >= (stock as number)}
             disableDecrement={quantity <= 1 || quantity > (stock as number)}
             min={1}
-            onBlur={() => {
-              if (quantity > Number(stock)) {
-                setError('Quantity is more than stock');
-              } else if (variant == undefined && isHaveVariant) {
-                setError('Please select variant');
-              } else {
-                setError('');
-              }
-            }}
+            onBlur={handleCheckQty}
+            onPressEnter={handleCheckQty}
           />
           <p>
             Stock: <span>{stock}</span>
           </p>
         </div>
-        {error && <Alert message={error} type="error" showIcon />}
+        {error && <Alert message={error} type="error" />}
+        {errorAddToCart && variant && (
+          <Alert message={errorAddToCart.message} type="error" showIcon />
+        )}
         <Divider />
         <div className={style.card__summary__total}>
           <span>Total</span>
@@ -93,7 +141,9 @@ const CardSummary: React.FC = () => {
               type="primary"
               size="large"
               block
+              onClick={handleSubmit}
               disabled={!variant && isHaveVariant}
+              loading={isLoadingAddToCart}
             >
               Add to Cart
             </Button>

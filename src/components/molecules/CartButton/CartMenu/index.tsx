@@ -3,10 +3,10 @@ import { Card } from '../../../atoms';
 import CartItem from '../CartItem';
 import style from './index.module.scss';
 import { Link } from 'react-router-dom';
-import { ICartItem } from '../../../../helpers/types';
+import { ICartItemEx } from '../../../../helpers/types';
 
 type CardMenuProps = {
-  items: ICartItem[];
+  items: ICartItemEx[];
   total: number;
 } & React.HTMLAttributes<HTMLDivElement>;
 
