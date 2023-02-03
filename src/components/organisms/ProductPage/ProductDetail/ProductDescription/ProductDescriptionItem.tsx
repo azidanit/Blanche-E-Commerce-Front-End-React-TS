@@ -1,8 +1,11 @@
-import React from 'react';
+import { Divider } from 'antd';
+import React, { useState } from 'react';
 import useProduct from '../../../../../hooks/useProduct';
+import style from './index.module.scss';
 
 const ProductDescriptionItem: React.FC = () => {
   const { product } = useProduct();
+  const [showFullText, setShowFullText] = useState(false);
 
   return (
     <ul>
@@ -18,9 +21,20 @@ const ProductDescriptionItem: React.FC = () => {
         <span>Category</span>
         <p>{product?.category?.name}</p>
       </li>
-      <li>
+      <li className={style.desc}>
         <span>Description:</span>
-        <p>{product?.description}</p>
+        <p>
+          {showFullText
+            ? product?.description
+            : product?.description?.substring(0, 200)}
+        </p>
+        <Divider style={{ margin: 0 }}>
+          {!showFullText && product?.description ? (
+            <button onClick={() => setShowFullText(true)}>Show more</button>
+          ) : (
+            <button onClick={() => setShowFullText(false)}>Show less</button>
+          )}
+        </Divider>
       </li>
     </ul>
   );

@@ -1,9 +1,10 @@
+import { InputNumberProps } from 'antd';
 import { valueType } from 'antd/es/statistic/utils';
 import React from 'react';
 import { Button, InputNumber } from '../../atoms';
 import style from './index.module.scss';
 
-interface InputQuantityProps {
+interface InputQuantityProps extends InputNumberProps {
   value: number;
   handleChange: (value: valueType | null) => void;
   handleDecrement: () => void;
@@ -19,6 +20,7 @@ const InputQuantity: React.FC<InputQuantityProps> = ({
   handleIncrement,
   disabledIncrement,
   disableDecrement,
+  ...props
 }) => {
   const addonIncrement = (
     <button
@@ -49,6 +51,7 @@ const InputQuantity: React.FC<InputQuantityProps> = ({
       defaultValue={100}
       className={style.input__quantity}
       value={value}
+      {...props}
     />
   );
 };

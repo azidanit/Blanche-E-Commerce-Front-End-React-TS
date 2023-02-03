@@ -12,7 +12,7 @@ const ProductGallery: React.FC = () => {
   const { product, activeImage, isLoading } = useProduct();
   const dispatch = useAppDispatch();
 
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const showModal = () => {
     setIsModalOpen(true);

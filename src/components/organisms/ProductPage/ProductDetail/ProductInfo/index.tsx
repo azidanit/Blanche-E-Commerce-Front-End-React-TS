@@ -12,7 +12,9 @@ const ProductInfo: React.FC = () => {
   return (
     <div className={style.product__info}>
       <Skeleton loading={isLoading}>
-        <h3>{product?.title}</h3>
+        <h3>
+          {product?.title} <br /> {variant?.key}{' '}
+        </h3>
         <div className={style.product__info__rating}>
           <span>Sold : {product?.unit_sold}</span>
           <Rate value={product?.rating?.avg_rating} disabled /> (

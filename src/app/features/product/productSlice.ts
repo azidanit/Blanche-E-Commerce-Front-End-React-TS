@@ -12,6 +12,7 @@ const initialState = {
     stock: null,
     activeImage: null,
     isLoading: false,
+    isHaveVariant: false,
   },
 };
 

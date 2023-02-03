@@ -24,7 +24,7 @@ const MerchantInfo: React.FC = () => {
         </Link>
         <p>{merchant?.address.city}</p>
         <div>
-          <Rate disabled count={merchant?.avg_rating} /> {merchant?.avg_rating}
+          <Rate disabled value={merchant?.avg_rating} /> {merchant?.avg_rating}
         </div>
       </div>
     </div>

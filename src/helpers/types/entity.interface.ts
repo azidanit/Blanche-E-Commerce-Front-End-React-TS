@@ -60,6 +60,7 @@ export interface IVariantItem {
   id: number;
   is_archived: boolean;
   image: string;
+  key: string;
   discount_price: number;
   price: number;
   stock: number;
@@ -106,6 +107,11 @@ export interface ICategory {
   merchant: IMerchant;
 }
 
+export interface ICategoryProduct {
+  name: string;
+  url: string;
+}
+
 export interface IMerchantInfo {
   id: number;
   domain: string;
@@ -130,7 +136,7 @@ export interface IProductDetail {
   max_real_price: number;
   min_discount_price: number;
   max_discount_price: number;
-  category: ICategory;
+  category: ICategoryProduct;
   images: string[];
   is_used: boolean;
   SKU: string;
@@ -179,13 +185,6 @@ export interface IMerchantInfo {
   image_url: string;
 }
 
-export interface ICategory {
-  id: number;
-  name: string;
-  url: string;
-  slug: string;
-}
-
 export interface IRating {
   avg_rating: number;
   count: number;
@@ -222,7 +221,7 @@ export interface IProductDetail {
   max_real_price: number;
   min_discount_price: number;
   max_discount_price: number;
-  category: ICategory;
+  category: ICategoryProduct;
   images: string[];
   is_used: boolean;
   SKU: string;

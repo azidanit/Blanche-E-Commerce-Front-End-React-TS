@@ -11,8 +11,9 @@
       color: $primary-100;
     }
     &__radio {
-      display: flex;
+      display: grid;
       gap: 1rem;
+      grid-template-columns: repeat(3, 1fr);
     }
   }
 }
