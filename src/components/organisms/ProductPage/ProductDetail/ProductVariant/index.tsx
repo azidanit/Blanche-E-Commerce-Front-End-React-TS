@@ -22,8 +22,10 @@ const ProductVariant: React.FC = () => {
   });
 
   const [optionValue, setOptionValues] = useState<number[]>([]);
-  const length = variants?.variant_options?.[0]?.type.length || 0;
-  const id = optionValue[0] + (optionValue[1] ? optionValue[1] : 0) * length;
+  // const length = variants?.variant_options?.[0]?.type.length || 0;
+  const length = variants?.variant_options?.[1]?.type.length || 0;
+  // const id = optionValue[0] + (optionValue[1] ? optionValue[1] : 0) * length;
+  const id = (optionValue[1] ? optionValue[1] : 0) + optionValue[0] * length;
   const dispatch = useAppDispatch();
 
   const handleChange = (index: number, value: number) => {
@@ -31,6 +33,22 @@ const ProductVariant: React.FC = () => {
     newOptionValue[index] = value;
     setOptionValues(newOptionValue);
   };
+
+  useEffect(() => {
+    if (variants && variants.variant_options.length > 0) {
+      dispatch(
+        setProductInfo({
+          isHaveVariant: true,
+        }),
+      );
+    } else {
+      dispatch(
+        setProductInfo({
+          isHaveVariant: false,
+        }),
+      );
+    }
+  }, [variants]);
 
   useEffect(() => {
     if (

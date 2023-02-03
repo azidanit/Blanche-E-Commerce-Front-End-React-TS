@@ -18,7 +18,7 @@ const ProductDetail: React.FC = () => {
         description={`Sell ${product ? product.title : 'Product'}`}
       />
       <Row className={style.product__detail} gutter={[32, 16]}>
-        <Col xs={24} sm={24} md={24} lg={10} xl={11}>
+        <Col xs={24} sm={24} md={24} lg={10} xl={10}>
           <ProductGallery />
         </Col>
         <Col
@@ -26,7 +26,7 @@ const ProductDetail: React.FC = () => {
           sm={24}
           md={24}
           lg={14}
-          xl={13}
+          xl={14}
           className={style.product__detail__item}
         >
           <ProductInfo />

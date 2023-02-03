@@ -5,6 +5,7 @@
     grid-template-columns: 6.5fr 2.3fr;
     gap: 1rem;
     align-items: start;
+    position: relative;
 
     &__lists {
       display: flex;

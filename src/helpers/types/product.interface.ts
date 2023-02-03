@@ -8,7 +8,7 @@ export interface IGetProductListResponse {
 }
 
 export interface IGetProductListRequest {
-  merchant_id?: number;
+  merchant?: string;
   cat?: string;
   seller_city_id?: string;
   q?: string;

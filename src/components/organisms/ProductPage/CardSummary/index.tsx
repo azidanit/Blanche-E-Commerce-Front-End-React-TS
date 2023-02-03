@@ -9,7 +9,8 @@ import { CartItem, InputQuantity } from '../../../molecules';
 import style from './index.module.scss';
 
 const CardSummary: React.FC = () => {
-  const { product, stock, price, isLoading, variant } = useProduct();
+  const { product, stock, price, isLoading, variant, isHaveVariant } =
+    useProduct();
 
   const [quantity, setQuantity] = useState(1);
 
@@ -58,19 +59,27 @@ const CardSummary: React.FC = () => {
             handleChange={handleChange}
             disabledIncrement={quantity >= (stock as number)}
             disableDecrement={quantity <= 1 || quantity > (stock as number)}
+            min={1}
+            onBlur={() => {
+              if (quantity > Number(stock)) {
+                setError('Quantity is more than stock');
+              } else if (variant == undefined && isHaveVariant) {
+                setError('Please select variant');
+              } else {
+                setError('');
+              }
+            }}
           />
           <p>
             Stock: <span>{stock}</span>
           </p>
         </div>
+        {error && <Alert message={error} type="error" showIcon />}
         <Divider />
         <div className={style.card__summary__total}>
           <span>Total</span>
           <p>{toRupiah(totalPrice)}</p>
         </div>
-        {variant == undefined && (
-          <Alert message="Please select variant!" type="error" />
-        )}
       </Skeleton>
       <div className={style.card__summary__button}>
         {isLoading ? (
@@ -84,7 +93,7 @@ const CardSummary: React.FC = () => {
               type="primary"
               size="large"
               block
-              disabled={variant == undefined}
+              disabled={!variant && isHaveVariant}
             >
               Add to Cart
             </Button>
@@ -92,7 +101,7 @@ const CardSummary: React.FC = () => {
               type="primary"
               size="large"
               ghost
-              disabled={variant == undefined}
+              disabled={!variant && isHaveVariant}
               block
             >
               Buy Now

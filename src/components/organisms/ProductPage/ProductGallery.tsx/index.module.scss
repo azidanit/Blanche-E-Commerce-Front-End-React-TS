@@ -1,12 +1,16 @@
 .product__gallery {
   &__image__active {
-    min-height: 220px;
+    min-height: 250px;
+    max-height: 380px;
     overflow: hidden;
+    background-position: center;
+    object-fit: contain;
     border-radius: 16px;
 
     &__item {
       object-fit: contain;
       width: 100%;
+      min-width: 350px;
       height: 100%;
       cursor: pointer;
     }
@@ -23,13 +27,14 @@
     overflow-x: scroll;
 
     &::-webkit-scrollbar {
-      display: none;
     }
 
     &__container {
       overflow: hidden;
       border-radius: 8px;
-      width: 100px;
+      min-width: 80px;
+      width: 80px;
+      object-fit: contain;
     }
 
     &__item {

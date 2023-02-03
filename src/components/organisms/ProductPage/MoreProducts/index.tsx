@@ -1,25 +1,14 @@
 import React from 'react';
-import { useGetProductsQuery } from '../../../../app/features/home/homeApiSlice';
+import { IGetProductListResponse } from '../../../../helpers/types';
 import { ListCardProduct } from '../../../molecules';
 import style from './index.module.scss';
 
 interface MoreProductsProps {
-  limit?: number;
-  merchant_id?: number;
-  category_id?: number;
-  title?: string;
+  title: string;
+  data: IGetProductListResponse | undefined;
 }
 
-const MoreProducts: React.FC<MoreProductsProps> = ({
-  limit = 6,
-  merchant_id,
-  category_id,
-  title,
-}) => {
-  const { data } = useGetProductsQuery({
-    limit: limit,
-    merchant_id: merchant_id,
-  });
+const MoreProducts: React.FC<MoreProductsProps> = ({ title, data }) => {
   return (
     <div className={style.seller__products}>
       <h2 className={style.seller__products__header}>{title}</h2>

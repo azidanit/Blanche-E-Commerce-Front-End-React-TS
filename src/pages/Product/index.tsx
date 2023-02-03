@@ -1,6 +1,7 @@
 import { Col, Row } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useGetProductsQuery } from '../../app/features/home/homeApiSlice';
 import { useGetMerchantInfoQuery } from '../../app/features/merchant/merchantApiSlice';
 import { useGetProductBySlugQuery } from '../../app/features/product/productApiSlice';
 import { setProductInfo } from '../../app/features/product/productSlice';
@@ -26,6 +27,12 @@ const Product = (): JSX.Element => {
   const { isRangePrice, variant } = useProduct();
 
   useEffect(() => {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    });
+
     dispatch(
       setProductInfo({
         product: data,
@@ -35,9 +42,21 @@ const Product = (): JSX.Element => {
         stock: variant === null ? data?.total_stock : variant.stock,
         activeImage: data?.images?.[0],
         isLoading: isLoading,
+        variant: null,
+        discountPrice: null,
       }),
     );
   }, [data]);
+
+  const { data: similarProducts } = useGetProductsQuery({
+    limit: 6,
+    cat: data?.category?.url,
+  });
+
+  const { data: sellerProducts } = useGetProductsQuery({
+    limit: 6,
+    merchant: store as string,
+  });
 
   return (
     <div className={style.product}>
@@ -48,14 +67,8 @@ const Product = (): JSX.Element => {
       </div>
 
       <div className={style.product__page__lists}>
-        <MoreProducts
-          title="More from this store"
-          merchant_id={data?.merchant_id}
-        />
-        <MoreProducts
-          title="Similar Products"
-          category_id={data?.category_id}
-        />
+        <MoreProducts title="More from this store" data={sellerProducts} />
+        <MoreProducts title="Similar Products" data={similarProducts} />
       </div>
     </div>
   );
