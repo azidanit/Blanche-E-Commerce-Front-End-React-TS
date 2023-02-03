@@ -21,3 +21,14 @@ export interface ErrorEditProfile {
   phone_number: string;
   profile_picture: string;
 }
+
+export interface IGetProfileResponse {
+  id: number;
+  fullname: string;
+  email: string;
+  phone: string;
+  birth_date: string;
+  gender: string;
+  profile_picture: string;
+  username: string;
+}

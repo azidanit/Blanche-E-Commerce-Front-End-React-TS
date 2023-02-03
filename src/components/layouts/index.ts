@@ -1,3 +1,3 @@
-import AuthLayout from './Auth';
+import AuthLayoutPage from './Auth';
 
-export { AuthLayout };
+export { AuthLayoutPage as AuthLayout };

@@ -8,7 +8,7 @@ interface AuthProps {
   children: React.ReactNode;
 }
 
-const AuthLayout: React.FC<AuthProps> = ({ children }) => {
+const AuthLayoutPage: React.FC<AuthProps> = ({ children }) => {
   const isMobile = useMediaQuery('(max-width: 768px)');
 
   return (
@@ -25,4 +25,4 @@ const AuthLayout: React.FC<AuthProps> = ({ children }) => {
   );
 };
 
-export default AuthLayout;
+export default AuthLayoutPage;

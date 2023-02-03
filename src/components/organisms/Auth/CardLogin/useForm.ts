@@ -1,7 +1,14 @@
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useLoginMutation } from '../../../../app/features/auth/authApiSlice';
-import { setAccessToken } from '../../../../app/features/auth/authSlice';
+import {
+  setIsLoggedIn,
+  setUser,
+} from '../../../../app/features/auth/authSlice';
+import {
+  useGetProfileQuery,
+  useLazyGetProfileQuery,
+} from '../../../../app/features/profile/profileApiSlice';
 import { useAppDispatch } from '../../../../app/hooks';
 import { FormReturnAuth, LoginProps } from '../../../../helpers/types';
 
@@ -10,7 +17,6 @@ function useForm(): FormReturnAuth<LoginProps> {
   const from = location.state?.from?.pathname || '/';
   const navigate = useNavigate();
   const [login, { isError, isLoading }] = useLoginMutation();
-  const dispatch = useAppDispatch();
   const [error, setError] = useState<Error>();
 
   const handleSubmit = async (values: LoginProps) => {
@@ -20,8 +26,7 @@ function useForm(): FormReturnAuth<LoginProps> {
         password: values.password.trim(),
       };
 
-      const data = await login(body).unwrap();
-      dispatch(setAccessToken(data.access_token));
+      await login(body).unwrap();
       navigate(from, { replace: true });
     } catch (error) {
       setError(error as Error);

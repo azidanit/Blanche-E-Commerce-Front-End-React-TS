@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useRegisterMutation } from '../../../../../app/features/auth/authApiSlice';
-import { setAccessToken } from '../../../../../app/features/auth/authSlice';
+import {
+  setIsLoggedIn,
+  setUser,
+} from '../../../../../app/features/auth/authSlice';
+import { useGetProfileQuery } from '../../../../../app/features/profile/profileApiSlice';
 import { useAppDispatch } from '../../../../../app/hooks';
 import {
   FormReturnAuth,
@@ -20,6 +24,7 @@ const useForm = ({
   const navigate = useNavigate();
   const [error, setError] = useState<Error>();
   const [register, { isLoading, isError }] = useRegisterMutation();
+
   const dispatch = useAppDispatch();
 
   const handleSubmit = async (values: RegisterSecondStepProps) => {
@@ -31,8 +36,15 @@ const useForm = ({
         password: password.trim(),
         fullname,
       };
-      const data = await register(body).unwrap();
-      dispatch(setAccessToken(data.access_token));
+      await register(body)
+        .unwrap()
+        .then(() => {
+          const { data: profile } = useGetProfileQuery();
+
+          dispatch(setUser(profile));
+
+          dispatch(setIsLoggedIn(true));
+        });
       navigate(from, { replace: true });
     } catch (error) {
       setError(error as Error);

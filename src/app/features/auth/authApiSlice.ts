@@ -7,6 +7,7 @@ import {
   RegisterFirstStepProps,
   IRegisterResponse,
   IRegisterRequest,
+  IRefreshResponse,
 } from '../../../helpers/types';
 import { apiSlice } from '../../api/apiSlice';
 
@@ -46,6 +47,19 @@ const authApi = apiSlice.injectEndpoints({
         response.data,
       transformErrorResponse: (response) => response.data,
     }),
+    logout: build.mutation<void, void>({
+      query: () => ({ url: '/logout', method: 'POST' }),
+      transformResponse: (response: { data: void }) => response.data,
+      transformErrorResponse: (response) => response.data,
+      invalidatesTags: ['User'],
+    }),
+    refresh: build.query<IRefreshResponse, void>({
+      query: () => ({ url: '/refresh', method: 'GET' }),
+      transformResponse: (response: { data: IRefreshResponse }) => {
+        return response.data;
+      },
+      transformErrorResponse: (response) => response.data,
+    }),
   }),
 });
 
@@ -54,4 +68,7 @@ export const {
   useCheckEmailMutation,
   useCheckUsernameMutation,
   useRegisterMutation,
+  useLogoutMutation,
+  useLazyRefreshQuery,
+  useRefreshQuery,
 } = authApi;

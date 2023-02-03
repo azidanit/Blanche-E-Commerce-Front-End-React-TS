@@ -1,13 +1,13 @@
 import React from 'react';
 import { CardLogin, SEO } from '../../../components';
-import { AuthLayout } from '../../../components/layouts';
+import AuthLayoutPage from '../../../components/layouts/Auth';
 
 const Login: React.FC = () => {
   return (
-    <AuthLayout>
+    <AuthLayoutPage>
       <SEO title="Login" description="Login page" />
       <CardLogin />
-    </AuthLayout>
+    </AuthLayoutPage>
   );
 };
 

@@ -9,7 +9,9 @@ import {
   useNavigate,
   useSearchParams,
 } from 'react-router-dom';
-import { useAppSelector } from '../../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import { useLogoutMutation } from '../../../app/features/auth/authApiSlice';
+import { logout, setUser } from '../../../app/features/auth/authSlice';
 
 const { Header } = Layout;
 
@@ -37,6 +39,10 @@ const Nav: React.FC = () => {
   const [search, setSearch] = useState('');
   const [searchParams] = useSearchParams();
 
+  const { user } = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
+  const [logOut, { isError, isLoading }] = useLogoutMutation();
+
   useEffect(() => {
     const search = params.search.q;
     setSearch(search || '');
@@ -51,6 +57,11 @@ const Nav: React.FC = () => {
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
+  };
+
+  const handleLogout = async () => {
+    await logOut().unwrap();
+    dispatch(logout());
   };
 
   return (
@@ -73,21 +84,29 @@ const Nav: React.FC = () => {
           className={style.header__button}
           style={{ display: 'flex', gap: 10 }}
         >
-          <Button
-            type="primary"
-            size="small"
-            onClick={() => navigate('/login')}
-          >
-            Login
-          </Button>
-          <Button
-            type="primary"
-            size="small"
-            ghost
-            onClick={() => navigate('/register')}
-          >
-            Register
-          </Button>
+          {!user ? (
+            <>
+              <Button
+                type="primary"
+                size="small"
+                onClick={() => navigate('/login')}
+              >
+                Login
+              </Button>
+              <Button
+                type="primary"
+                size="small"
+                ghost
+                onClick={() => navigate('/register')}
+              >
+                Register
+              </Button>
+            </>
+          ) : (
+            <Button onClick={handleLogout} loading={isLoading}>
+              Logout
+            </Button>
+          )}
         </div>
       </nav>
     </Header>
