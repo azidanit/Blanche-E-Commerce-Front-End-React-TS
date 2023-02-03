@@ -77,3 +77,6 @@ export interface RegisterMerchantSecondStepProps {
   address_id: number;
 }
 
+export interface IRefreshResponse {
+  access_token: string;
+}

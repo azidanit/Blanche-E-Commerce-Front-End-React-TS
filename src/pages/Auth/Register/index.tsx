@@ -1,14 +1,14 @@
 import React from 'react';
 import { SEO } from '../../../components';
-import { AuthLayout } from '../../../components/layouts';
+import AuthLayoutPage from '../../../components/layouts/Auth';
 import CardRegister from '../../../components/organisms/Auth/CardRegister';
 
 const Register: React.FC = () => {
   return (
-    <AuthLayout>
+    <AuthLayoutPage>
       <SEO title="Register" description="Register page" />
       <CardRegister />
-    </AuthLayout>
+    </AuthLayoutPage>
   );
 };
 

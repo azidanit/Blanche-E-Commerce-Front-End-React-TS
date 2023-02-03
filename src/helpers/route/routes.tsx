@@ -1,5 +1,6 @@
 import React, { lazy } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
+import ProtectedPage from '../../components/layouts/Auth/ProtectedPage';
 import AppLayout from '../../components/layouts/AppLayout';
 
 const Home = lazy(() => import('../../pages/Home'));
@@ -17,17 +18,31 @@ const SearchResult = lazy(() => import('../../pages/SearchResult'));
 
 export const router = createBrowserRouter([
   {
-    path: '/',
     element: <AppLayout />,
     children: [
       {
-        path: '',
-        element: <Home />,
-        children: [],
+        element: <ProtectedPage />,
+        children: [
+          {
+            path: '/profile',
+            element: <Profile />,
+            children: [],
+          },
+          {
+            path: '/merchant-register',
+            element: <MerchantRegister />,
+            children: [],
+          },
+
+          {
+            path: '/cart',
+            element: <Cart />,
+          },
+        ],
       },
       {
-        path: '/profile',
-        element: <Profile />,
+        path: '',
+        element: <Home />,
         children: [],
       },
       {
@@ -35,16 +50,7 @@ export const router = createBrowserRouter([
         element: <ProductDetail />,
         children: [],
       },
-      {
-        path: '/merchant-register',
-        element: <MerchantRegister />,
-        children: [],
-      },
 
-      {
-        path: '/cart',
-        element: <Cart />,
-      },
       {
         path: '/search',
         element: <SearchResult />,
@@ -59,15 +65,12 @@ export const router = createBrowserRouter([
       },
     ],
   },
-
   {
     path: '/login',
     element: <Login />,
-    children: [],
   },
   {
     path: '/register',
     element: <Register />,
-    children: [],
   },
 ]);

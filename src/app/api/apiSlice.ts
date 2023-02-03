@@ -1,7 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-
+import { logout } from '../features/auth/authSlice';
 const baseQuery = fetchBaseQuery({
   baseUrl: process.env.REACT_APP_API_URL,
+  credentials: 'include',
 });
 
 const baseQueryWithReauth: typeof baseQuery = async (
@@ -10,21 +11,18 @@ const baseQueryWithReauth: typeof baseQuery = async (
   extraOptions,
 ) => {
   let result = await baseQuery(args, api, extraOptions);
+
   if (result.error) {
     const { status } = result.error;
     if (status === 403) {
-      const refreshResult = await baseQuery('/auth/refresh', api, extraOptions);
-      if (refreshResult.error) {
-        //TODO CALL LOGOUT API
-        // api.dispatch(logOut());
-      } else {
-        //TODO CALL LOGIN API
-        // api.dispatch(logIn());
-        result = await baseQuery(args, api, extraOptions);
-      }
+      window.location.href = '/';
     } else if (status === 401) {
-      //TODO CALL REFRESH TOKEN API
-      // api.dispatch(logOut());
+      const refreshResult = await baseQuery('/refresh', api, extraOptions);
+      result = await baseQuery(args, api, extraOptions);
+      if (refreshResult.error) {
+        api.dispatch(logout());
+      }
+      return result;
     }
   }
   return result;
@@ -32,6 +30,6 @@ const baseQueryWithReauth: typeof baseQuery = async (
 
 export const apiSlice = createApi({
   baseQuery: baseQueryWithReauth,
-  tagTypes: ['Product', 'Product Variant', 'Merchant'],
+  tagTypes: ['Product', 'Product Variant', 'Merchant', 'User'],
   endpoints: () => ({}),
 });
