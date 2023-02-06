@@ -35,10 +35,10 @@ export type IGetSubdistrictsByDistrictIdResponse = {
 };
 
 export interface SelectedInput {
-  province: string | null;
-  city: string | null;
-  district: string | null;
-  subDistrict: string | null;
+  province: string | undefined;
+  city: string | undefined;
+  district: string | undefined;
+  subDistrict: string | undefined;
 }
 
 export interface OptionType {
@@ -68,6 +68,9 @@ export interface FormReturnAddress<T> {
   values?: T;
   selectedInput: SelectedInput;
   option: OptionType;
-  setOption: (value: OptionType) => void;
-  handleChangeSelect: (value: string, name: string) => void;
+  setOption: React.Dispatch<React.SetStateAction<OptionType>>;
+  handleChangeProvince: (province: string) => void;
+  handleChangeCity: (city: string) => void;
+  handleChangeDistrict: (district: string) => void;
+  handleChangeSubDistrict: (subDistrict: string) => void;
 }

@@ -3,6 +3,7 @@
   box-shadow: $box-shadow;
   display: flex;
   flex-direction: column;
+  cursor: pointer;
   gap: 0.7rem;
   &__active {
     background-color: $primary-10;
