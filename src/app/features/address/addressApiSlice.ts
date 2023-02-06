@@ -8,7 +8,7 @@ import { apiSlice } from '../../api/apiSlice';
 
 export const addressApi = apiSlice.injectEndpoints({
   endpoints: (build) => ({
-    getProvinces: build.query({
+    getProvinces: build.query<IGetProvincesResponse, void>({
       query: () => ({
         url: '/provinces',
         method: 'GET',

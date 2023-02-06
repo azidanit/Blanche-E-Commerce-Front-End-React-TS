@@ -4,7 +4,7 @@ import { Form } from '../../../molecules';
 import Modal from '../../../molecules/Modal';
 import style from './index.module.scss';
 import { rules } from './validation';
-import useForm from './useForm';
+import useForms from './useForm';
 import TextArea from 'antd/es/input/TextArea';
 import { Space } from 'antd';
 import {
@@ -13,7 +13,7 @@ import {
   useGetProvincesQuery,
   useGetSubDistrictByDistrictIdQuery,
 } from '../../../../app/features/address/addressApiSlice';
-import { DefaultOptionType } from 'antd/es/select';
+import { Form as AForm } from 'antd';
 
 interface AddAddressProps {
   isModalOpen: boolean;
@@ -21,72 +21,97 @@ interface AddAddressProps {
   handleCancel: () => void;
 }
 
+const { useForm } = AForm;
 const AddAddress: React.FC<AddAddressProps> = ({
   isModalOpen,
   handleOk,
   handleCancel,
 }) => {
-  const { handleSubmit, selectedInput, handleChangeSelect, setOption, option } =
-    useForm();
+  const {
+    handleSubmit,
+    selectedInput,
+    handleChangeCity,
+    handleChangeDistrict,
+    handleChangeProvince,
+    handleChangeSubDistrict,
+    setOption,
+    option,
+  } = useForms();
+
+  const [form] = useForm();
 
   const { data: provinces, isLoading: isLoadingProvinces } =
-    useGetProvincesQuery({
-      refetchOnMountOrArgChange: true,
-    });
+    useGetProvincesQuery();
 
   const { data: cities, isLoading: isLoadingCities } =
     useGetCitiesByProvinceIdQuery(Number(selectedInput.province), {
       skip: !selectedInput.province,
-      refetchOnMountOrArgChange: true,
     });
 
   const { data: districts, isLoading: isLoadingDistricts } =
     useGetDistrictByCityIdQuery(Number(selectedInput.city), {
       skip: !selectedInput.city,
-      refetchOnMountOrArgChange: true,
     });
 
   const { data: subdistrict, isLoading: isLoadingSubdstricts } =
     useGetSubDistrictByDistrictIdQuery(Number(selectedInput.district), {
-      skip: !selectedInput.city,
-      refetchOnMountOrArgChange: true,
+      skip: !selectedInput.district,
     });
 
   useEffect(() => {
-    const data = provinces?.provinces.map((item) => {
-      return { value: item.id, label: item.name };
-    });
-    setOption({
-      ...option,
-      provinces: data,
-    });
+    if (provinces) {
+      const data = provinces.provinces.map((item) => {
+        return { value: item.id, label: item.name };
+      });
+      setOption((prevValue) => ({ ...prevValue, provinces: data }));
+    }
   }, [provinces]);
 
   useEffect(() => {
-    const data = cities?.cities.map((item) => {
-      return { value: item.id, label: item.name };
-    });
-    const dataDistricts = districts?.districts.map((item) => {
-      return { value: item.id, label: item.name };
-    });
-    const dataSubdistrict = subdistrict?.sub_districts.map((item) => {
-      return { value: item.id, label: item.name };
-    });
+    if (cities) {
+      const data = cities.cities.map((item) => {
+        return { value: item.id, label: item.name };
+      });
+      setOption((prevValue) => ({ ...prevValue, cities: data }));
+    }
+  }, [cities]);
 
-    setOption({
-      ...option,
-      cities: data,
-      districts: dataDistricts,
-      subDistrict: dataSubdistrict,
-    });
-  }, [
-    cities,
-    districts,
-    subdistrict,
-    selectedInput.province,
-    selectedInput.city,
-    selectedInput.district,
-  ]);
+  useEffect(() => {
+    if (districts) {
+      const data = districts.districts.map((item) => {
+        return { value: item.id, label: item.name };
+      });
+      setOption((prevValue) => ({ ...prevValue, districts: data }));
+    }
+  }, [districts]);
+
+  useEffect(() => {
+    if (subdistrict) {
+      const data = subdistrict.sub_districts.map((item) => {
+        return { value: item.id, label: item.name };
+      });
+      setOption((prevValue) => ({ ...prevValue, subDistrict: data }));
+    }
+  }, [subdistrict]);
+
+  const reset = (key: string) => {
+    form.setFieldsValue({ [key]: null });
+  };
+
+  const onSelectProvince = () => {
+    reset('city');
+    reset('district');
+    reset('subDistrict');
+  };
+
+  const onSelectCity = () => {
+    reset('district');
+    reset('subDistrict');
+  };
+
+  const onSelectDistrict = () => {
+    reset('subDistrict');
+  };
 
   return (
     <Modal
@@ -103,6 +128,7 @@ const AddAddress: React.FC<AddAddressProps> = ({
           layout="vertical"
           onFinish={handleSubmit}
           autoComplete="off"
+          form={form}
         >
           <Space>
             <FormLabel label="Name " name="name" rules={rules.name}>
@@ -126,10 +152,13 @@ const AddAddress: React.FC<AddAddressProps> = ({
                   .toLowerCase()
                   .includes(input.toLowerCase());
               }}
-              onChange={(value) => handleChangeSelect(value, 'province')}
+              onChange={(value) => {
+                handleChangeProvince(value);
+              }}
+              onSelect={onSelectProvince}
               loading={isLoadingProvinces}
               value={selectedInput.province}
-              options={option.provinces ? option.provinces : undefined}
+              options={option.provinces ? option.provinces : []}
             />
           </FormLabel>
           <FormLabel label="City" name="city">
@@ -144,8 +173,11 @@ const AddAddress: React.FC<AddAddressProps> = ({
               }}
               loading={isLoadingCities}
               value={selectedInput.city}
-              onChange={(value) => handleChangeSelect(value, 'city')}
-              options={option.cities ? option.cities : undefined}
+              onChange={(value) => {
+                handleChangeCity(value);
+              }}
+              onSelect={onSelectCity}
+              options={option.cities ? option.cities : []}
             />
           </FormLabel>
           <FormLabel label="District" name="district">
@@ -161,11 +193,14 @@ const AddAddress: React.FC<AddAddressProps> = ({
               }}
               value={selectedInput.district}
               loading={isLoadingDistricts}
-              onChange={(value) => handleChangeSelect(value, 'district')}
-              options={option.districts ? option.districts : undefined}
+              onChange={(value) => {
+                handleChangeDistrict(value);
+              }}
+              onSelect={onSelectDistrict}
+              options={option.districts ? option.districts : []}
             />
           </FormLabel>
-          <FormLabel label="Sub District" name="subdistrict">
+          <FormLabel label="Sub District" name="subDistrict">
             <Select
               showSearch
               placeholder="Select Sub District"
@@ -178,8 +213,10 @@ const AddAddress: React.FC<AddAddressProps> = ({
               }}
               value={selectedInput.subDistrict}
               loading={isLoadingSubdstricts}
-              onChange={(value) => handleChangeSelect(value, 'subdistrict')}
-              options={option.subDistrict ? option.subDistrict : undefined}
+              onChange={(value) => {
+                handleChangeSubDistrict(value);
+              }}
+              options={option.subDistrict ? option.subDistrict : []}
             />
           </FormLabel>
           <FormLabel label="More Details" name="details">
