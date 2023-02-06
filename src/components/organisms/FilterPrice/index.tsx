@@ -36,27 +36,26 @@ const FilterPrice: React.FC = () => {
   const params = useAppSelector((state) => state.params);
 
   useEffect(() => {
-    const minPrice = params.search.min_price;
-    setInputState((prevValue) => ({
-      ...prevValue,
-      min_price: {
-        ...prevValue.min_price,
-        value: minPrice,
-        formattedValue: minPrice ? toRupiahWithoutSymbol(minPrice) : undefined,
-      },
-    }));
-    const maxPrice = params.search.max_price;
-    setInputState((prevValue) => ({
-      ...prevValue,
-      max_price: {
-        ...prevValue.max_price,
-        value: maxPrice,
-        formattedValue: maxPrice ? toRupiahWithoutSymbol(maxPrice) : undefined,
-      },
-    }));
-  }, [params.search.q, params.search.min_price, params.search.max_price]);
+    const keys: ('min_price' | 'max_price')[] = ['min_price', 'max_price'];
+    keys.forEach((key) => {
+      setInputState((prevValue) => ({
+        ...prevValue,
+        [key]: {
+          ...prevValue[key],
+          value: params.search[key],
+          formattedValue: params.search[key]
+            ? toRupiahWithoutSymbol(params.search[key])
+            : undefined,
+        },
+      }));
+    });
+  }, [params.search.min_price, params.search.max_price]);
 
-  const onBlur = (key: 'min_price' | 'max_price', type: 'blur' | 'enter') => {
+  const onBlurOrEnter = (
+    key: 'min_price' | 'max_price',
+    type: 'blur' | 'enter',
+  ) => {
+    searchParams.delete('page');
     const val = inputState[key].value;
     if (!val) {
       searchParams.delete(key);
@@ -86,18 +85,20 @@ const FilterPrice: React.FC = () => {
     e: ChangeEvent<HTMLInputElement>,
     key: 'min_price' | 'max_price',
   ) => {
-    const value = e.target.value;
+    let str = e.target.value;
+    str = str.replace(/[^0-9]/g, '');
+    const amount = str != '' ? parseInt(str) : undefined;
     setInputState((prevValue) => ({
       ...prevValue,
       [key]: {
         ...prevValue[key],
-        value: value ? parseInt(value) : undefined,
+        value: amount,
+        formattedValue: toRupiahWithoutSymbol(amount),
       },
     }));
   };
 
   const onFocus = (key: 'min_price' | 'max_price') => {
-    searchParams.delete('page');
     setInputState((prevValue) => ({
       ...prevValue,
       [key]: {
@@ -113,22 +114,19 @@ const FilterPrice: React.FC = () => {
         addonBefore="Rp"
         placeholder="Minimum Price"
         onBlur={() => {
-          onBlur('min_price', 'blur');
+          onBlurOrEnter('min_price', 'blur');
         }}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') {
-            onBlur('min_price', 'enter');
-          }
+        onPressEnter={() => {
+          onBlurOrEnter('min_price', 'enter');
         }}
-        onChange={(value) => {
-          onChange(value, 'min_price');
+        onChange={(e) => {
+          onChange(e, 'min_price');
         }}
         value={
           inputState.min_price.focus
             ? inputState.min_price.value
             : inputState.min_price.formattedValue
         }
-        defaultValue={inputState.min_price.formattedValue}
         onFocus={() => onFocus('min_price')}
         type="text"
         size="middle"
@@ -137,22 +135,19 @@ const FilterPrice: React.FC = () => {
         addonBefore="Rp"
         placeholder="Maximum Price"
         onBlur={() => {
-          onBlur('max_price', 'blur');
+          onBlurOrEnter('max_price', 'blur');
         }}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') {
-            onBlur('max_price', 'enter');
-          }
+        onPressEnter={() => {
+          onBlurOrEnter('max_price', 'enter');
         }}
-        onChange={(value) => {
-          onChange(value, 'max_price');
+        onChange={(e) => {
+          onChange(e, 'max_price');
         }}
         value={
           inputState.max_price.focus
             ? inputState.max_price.value
             : inputState.max_price.formattedValue
         }
-        defaultValue={inputState.max_price.formattedValue}
         onFocus={() => onFocus('max_price')}
         type="text"
         size="middle"

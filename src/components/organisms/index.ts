@@ -1,5 +1,6 @@
 export * from './ProductPage';
 export * from './Auth';
+export * from './SellerPage';
 export * from './CartPage';
 
 import UserAddress from './UserAddress';
@@ -11,6 +12,7 @@ import ProductContent from './ProductContent';
 import ProfilePage from './ProfilePage';
 import ResetFilterProduct from './ResetFilterProduct';
 import Recommended from './Recommended';
+import UserSealabsPay from './UserSealabsPay';
 
 export {
   CategoryCarousel,
@@ -22,4 +24,5 @@ export {
   ProductContent,
   ResetFilterProduct,
   Recommended,
+  UserSealabsPay,
 };

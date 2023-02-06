@@ -9,7 +9,7 @@ import { setIsLoggedIn, setUser } from '../../app/features/auth/authSlice';
 import { skipToken } from '@reduxjs/toolkit/dist/query';
 
 const AppLayout = (): JSX.Element => {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useAppDispatch();
 
   const { user } = useAppSelector((state) => state.auth);
@@ -20,8 +20,6 @@ const AppLayout = (): JSX.Element => {
     dispatch(setUser(profile));
     dispatch(setIsLoggedIn(true));
   }, [profile]);
-
-  useEffect(() => {});
 
   useEffect(() => {
     dispatch(setParams(parseSearchParams(searchParams)));

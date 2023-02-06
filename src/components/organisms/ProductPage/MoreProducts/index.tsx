@@ -1,6 +1,7 @@
 import React from 'react';
 import { IGetProductListResponse } from '../../../../helpers/types';
 import { ListCardProduct } from '../../../molecules';
+import useForm from '../../Auth/CardMerchantRegistration/SecondStep/useForm';
 import style from './index.module.scss';
 
 interface MoreProductsProps {

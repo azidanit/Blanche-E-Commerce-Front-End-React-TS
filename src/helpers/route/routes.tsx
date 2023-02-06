@@ -10,6 +10,7 @@ const Register = lazy(() => import('../../pages/Auth/Register'));
 const MerchantRegister = lazy(
   () => import('../../pages/Auth/MerchantRegister'),
 );
+const Seller = lazy(() => import('../../pages/Seller'));
 const Cart = lazy(() => import('../../pages/Cart'));
 const Profile = lazy(() => import('../../pages/Profile'));
 const Category = lazy(() => import('../../pages/Category'));
@@ -46,6 +47,16 @@ export const router = createBrowserRouter([
       {
         path: '/:store/:slug',
         element: <ProductDetail />,
+        children: [],
+      },
+      {
+        path: '/merchant-register',
+        element: <MerchantRegister />,
+        children: [],
+      },
+      {
+        path: '/:store',
+        element: <Seller />,
         children: [],
       },
 

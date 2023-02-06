@@ -1,3 +1,5 @@
+import { ISealabsPayAccounts } from './entity.interface';
+
 export interface EditProfileProps {
   name: string;
   birthdate: string;
@@ -32,3 +34,15 @@ export interface IGetProfileResponse {
   profile_picture: string;
   username: string;
 }
+
+export type IGetSealabsPayAccountsResponse = ISealabsPayAccounts[];
+
+export interface IAddSealabsPayAccountRequest {
+  card_number: string;
+  name_on_card: string;
+  active_date: Date;
+}
+
+export type IAddSealabsPayAccountResponse = {
+  id: number;
+} & IAddSealabsPayAccountRequest;

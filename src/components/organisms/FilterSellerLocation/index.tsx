@@ -31,6 +31,7 @@ const SellerLocation: React.FC = () => {
   }, [data]);
 
   const onChange = (values: string[]) => {
+    searchParams.delete('page');
     if (!values.length) {
       searchParams.delete('seller_city_id');
       setSearchParams(searchParams);
@@ -44,7 +45,7 @@ const SellerLocation: React.FC = () => {
   useEffect(() => {
     const locations = params.search.seller_city_id?.split(',');
     setSelectedValues(locations);
-  }, [params.search.q, params.search.seller_city_id]);
+  }, [params.search.seller_city_id]);
 
   return (
     <Skeleton loading={isLoading}>

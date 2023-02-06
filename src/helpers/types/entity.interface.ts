@@ -243,3 +243,10 @@ export interface ICity {
   ro_id: number;
   name: string;
 }
+
+export interface ISealabsPayAccounts {
+  id: number;
+  card_number: string;
+  name_on_card: string;
+  active_date: string;
+}
