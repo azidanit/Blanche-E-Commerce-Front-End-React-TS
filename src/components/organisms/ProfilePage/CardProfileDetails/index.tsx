@@ -4,6 +4,7 @@ import { Card } from '../../../atoms';
 import { Tabs } from '../../../molecules';
 import AddressSection from '../AddressSection';
 import ProfileSection from '../ProfileSection';
+import SealabsPaySection from '../SealabsPaySection';
 import style from './index.module.scss';
 
 const CardProfileDetails: React.FC = () => {
@@ -21,14 +22,14 @@ const CardProfileDetails: React.FC = () => {
     {
       key: '3',
       label: `Sealabs Pay`,
-      children: <AddressSection />,
+      children: <SealabsPaySection />,
     },
   ];
 
   return (
     <Card className={style.card__profile__details}>
       <Tabs
-        defaultActiveKey="2"
+        defaultActiveKey="3"
         items={items}
         className={style.card__profile__details__tab}
         size="large"

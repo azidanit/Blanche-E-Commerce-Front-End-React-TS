@@ -1,6 +1,7 @@
 import { Key } from 'rc-tree-select/lib/interface';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router';
+import { useSearchParams } from 'react-router-dom';
 import { useGetProductsQuery } from '../../app/features/home/homeApiSlice';
 import { setParams } from '../../app/features/home/paramsSlice';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
@@ -15,9 +16,6 @@ const Category: React.FC = () => {
   const location = useLocation();
   const params = useAppSelector((state) => state.params);
   const navigate = useNavigate();
-  const [selectedCategory, setSelectedCategory] = useState<undefined | string>(
-    undefined,
-  );
   const lasturl = location.pathname.split('/').slice(-1)[0];
   const { data, isLoading, isError, error } = useGetProductsQuery(
     { ...params.search, limit, cat: lasturl },
@@ -26,21 +24,15 @@ const Category: React.FC = () => {
     },
   );
   const dispatch = useAppDispatch();
-
-  useEffect(() => {}, []);
-
-  useEffect(() => {
-    setSelectedCategory(param.category);
-    dispatch(setParams({ cat: param.category }));
-  }, [param.category]);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const onSelectCategory = (selectedKeysValue: Key[]) => {
+    searchParams.delete('page');
+    setSearchParams(searchParams);
     if (!selectedKeysValue.length) return;
     const cat = selectedKeysValue[0].toString();
     const url = location.pathname.split('/').slice(0, -1).join('/');
     navigate(`${url}/${cat}`);
-    dispatch(setParams({ cat }));
-    setSelectedCategory(cat);
   };
 
   return (
@@ -56,7 +48,7 @@ const Category: React.FC = () => {
           <p className={style.category__title}>Filter</p>
           <FilterProduct
             onSelectCategory={onSelectCategory}
-            selectedCategory={selectedCategory}
+            selectedCategory={param.category}
           />
         </div>
         <ProductContent

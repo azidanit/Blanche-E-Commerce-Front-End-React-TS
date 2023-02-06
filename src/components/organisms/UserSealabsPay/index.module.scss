@@ -1,0 +1,29 @@
+@use '../../../styles/variables' as *;
+
+.usp {
+  padding: 0.5rem 0;
+  &__info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+
+    &__number {
+      font-weight: $text-bold;
+      font-size: 1rem;
+    }
+    &__name {
+      color: $gray;
+      font-weight: $text-medium;
+      font-size: 1rem;
+    }
+    &__active {
+      color: $gray;
+      font-size: 1rem;
+      span {
+        font-weight: $text-bold;
+      }
+    }
+  }
+}

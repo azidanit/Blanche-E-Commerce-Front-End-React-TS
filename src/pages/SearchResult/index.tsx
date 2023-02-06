@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useAppSelector } from '../../app/hooks';
 import { ProductContent, SEO } from '../../components';
 import { FilterProduct } from '../../components';
@@ -19,26 +19,17 @@ const SearchResult: React.FC = () => {
       skip: isEmpty(params.search),
     },
   );
-  const [selectedCategory, setSelectedCategory] = useState<undefined | string>(
-    undefined,
-  );
-
-  useEffect(() => {
-    setSelectedCategory(params.search.cat);
-  }, [params.search.cat, params.search.q]);
 
   const onSelectCategory = (selectedKeysValue: Key[]) => {
     searchParams.delete('page');
     if (!selectedKeysValue.length) {
       searchParams.delete('cat');
       setSearchParams(searchParams);
-      setSelectedCategory(undefined);
       return;
     }
     const cat = selectedKeysValue[0].toString();
     searchParams.set('cat', cat);
     setSearchParams(searchParams);
-    setSelectedCategory(cat);
   };
 
   return (
@@ -56,7 +47,7 @@ const SearchResult: React.FC = () => {
           <p className={style.sr__title}>Filter</p>
           <FilterProduct
             onSelectCategory={onSelectCategory}
-            selectedCategory={selectedCategory}
+            selectedCategory={params.search.cat}
           />
         </div>
         <ProductContent

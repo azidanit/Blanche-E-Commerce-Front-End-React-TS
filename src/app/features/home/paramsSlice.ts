@@ -19,9 +19,6 @@ export const searchSlice = createSlice({
     setSearch: (state, action) => {
       state.search = { q: action.payload };
     },
-    clearQ: (state) => {
-      state.search = { ...state.search, q: undefined };
-    },
   },
 });
 
