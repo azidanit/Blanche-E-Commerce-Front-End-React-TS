@@ -6,7 +6,6 @@ import { parseSearchParams } from '../../helpers/parseSearchParams';
 import { Container, Nav } from '../molecules';
 import { useGetProfileQuery } from '../../app/features/profile/profileApiSlice';
 import { setIsLoggedIn, setUser } from '../../app/features/auth/authSlice';
-import { skipToken } from '@reduxjs/toolkit/dist/query';
 
 const AppLayout = (): JSX.Element => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -14,7 +13,7 @@ const AppLayout = (): JSX.Element => {
 
   const { user } = useAppSelector((state) => state.auth);
 
-  const { data: profile, isLoading, isSuccess } = useGetProfileQuery();
+  const { data: profile, isLoading } = useGetProfileQuery();
 
   useEffect(() => {
     dispatch(setUser(profile));

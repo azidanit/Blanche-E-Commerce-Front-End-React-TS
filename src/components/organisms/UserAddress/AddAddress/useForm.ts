@@ -1,15 +1,19 @@
-import { useState } from 'react';
+import { notification } from 'antd';
+import { MouseEvent, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useAddUserAddressMutation } from '../../../../app/features/address/userAddressApiSlice';
 import {
   AddAddressProps,
   FormReturnAddress,
+  ICreateUserAddressRequest,
   OptionType,
   SelectedInput,
 } from '../../../../helpers/types';
 
-function useForm(): FormReturnAddress<AddAddressProps> {
-  const location = useLocation();
+function useForm(handleOk: () => void): FormReturnAddress<AddAddressProps> {
   const [error, setError] = useState<Error>();
+  const [createAddress, { isLoading, isError, isSuccess }] =
+    useAddUserAddressMutation();
   const [option, setOption] = useState<OptionType>({
     provinces: undefined,
     cities: undefined,
@@ -58,10 +62,23 @@ function useForm(): FormReturnAddress<AddAddressProps> {
   };
 
   const handleSubmit = async (values: AddAddressProps) => {
-    console.log('asd');
+    const body: ICreateUserAddressRequest = {
+      phone: values.phone,
+      name: values.name,
+      label: values.label,
+      province_id: Number(selectedInput.province),
+      city_id: Number(selectedInput.city),
+      district_id: Number(selectedInput.district),
+      subdistrict_id: Number(selectedInput.subDistrict),
+      details: values.details,
+    };
     try {
-      console.log(values);
-      // navigate(from, { replace: true });
+      await createAddress(body).unwrap();
+      notification.success({
+        message: 'Success',
+        description: 'Address has been added',
+      });
+      handleOk();
     } catch (error) {
       setError(error as Error);
     }
@@ -77,6 +94,8 @@ function useForm(): FormReturnAddress<AddAddressProps> {
     selectedInput,
     setOption,
     option,
+    isLoading,
+    isError,
   };
 }
 

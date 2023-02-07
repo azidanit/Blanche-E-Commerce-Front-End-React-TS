@@ -17,6 +17,8 @@ import Checkbox from './Checkbox';
 import Tree from './Tree';
 import Modal from './Modal';
 import Pagination from './Pagination';
+import ModalHeader from './ModalHeader';
+import Popconfirm from './Popconfirm';
 
 export {
   AuthSectionLeft,
@@ -24,6 +26,7 @@ export {
   Container,
   Form,
   Tabs,
+  Popconfirm,
   Nav,
   CardProduct,
   ListCardProduct,
@@ -38,4 +41,5 @@ export {
   Modal,
   Checkbox,
   Pagination,
+  ModalHeader,
 };

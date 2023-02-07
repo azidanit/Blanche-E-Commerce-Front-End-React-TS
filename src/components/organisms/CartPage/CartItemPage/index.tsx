@@ -6,12 +6,12 @@ import { Button, Image, StrikethroughText, TextArea } from '../../../atoms';
 import { InputQuantity } from '../../../molecules';
 import style from './index.module.scss';
 import { RiDeleteBinLine } from 'react-icons/ri';
-import { ICartItem } from '../../../../helpers/types';
 import {
   useDeleteCartItemMutation,
   useUpdateCartItemMutation,
 } from '../../../../app/features/cart/cartApiSlice';
 import { notification } from 'antd';
+import { ICartItem } from '../../../../helpers/types/cart.interface';
 
 interface CartItemProps {
   item: ICartItem;

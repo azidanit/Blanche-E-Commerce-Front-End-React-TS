@@ -1,5 +1,6 @@
 import { PlusCircleOutlined } from '@ant-design/icons';
 import React, { useState } from 'react';
+import { AddAddressProps } from '../../../../helpers/types';
 import { Button } from '../../../atoms';
 import UserAddress from '../../UserAddress';
 import AddAddress from '../../UserAddress/AddAddress';
@@ -22,16 +23,26 @@ const AddressSection: React.FC = () => {
 
   return (
     <div className={style.address__section}>
-      <Button
-        size="large"
-        type="primary"
-        ghost
-        style={{ marginBottom: 12 }}
-        onClick={showModal}
-      >
-        <PlusCircleOutlined />
-        Add New Address
-      </Button>
+      <div className={style.address__section__header}>
+        <div className={style.address__section__header__left}>
+          <h1 className={style.address__section__header__left__title}>
+            User Address
+          </h1>
+          <p className={style.address__section__header__left__info}>
+            See all of your address here.
+          </p>
+        </div>
+        <Button
+          size="large"
+          type="primary"
+          ghost
+          style={{ marginBottom: 12 }}
+          onClick={showModal}
+        >
+          <PlusCircleOutlined />
+          Add New Address
+        </Button>
+      </div>
       <UserAddress />
       <AddAddress
         isModalOpen={isModalOpen}

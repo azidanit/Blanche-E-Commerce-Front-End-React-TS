@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { FormLabel, Input, Select } from '../../../atoms';
-import { Form } from '../../../molecules';
+import { Alert, FormLabel, Input, Select } from '../../../atoms';
+import { Form, ModalHeader } from '../../../molecules';
 import Modal from '../../../molecules/Modal';
 import style from './index.module.scss';
 import { rules } from './validation';
@@ -14,15 +14,16 @@ import {
   useGetSubDistrictByDistrictIdQuery,
 } from '../../../../app/features/address/addressApiSlice';
 import { Form as AForm } from 'antd';
+import { capitalizeFirstLetter } from '../../../../helpers/capitalizeFirstLetter';
 
-interface AddAddressProps {
+interface AddAddressPageProps {
   isModalOpen: boolean;
   handleOk: () => void;
   handleCancel: () => void;
 }
 
 const { useForm } = AForm;
-const AddAddress: React.FC<AddAddressProps> = ({
+const AddAddress: React.FC<AddAddressPageProps> = ({
   isModalOpen,
   handleOk,
   handleCancel,
@@ -36,7 +37,10 @@ const AddAddress: React.FC<AddAddressProps> = ({
     handleChangeSubDistrict,
     setOption,
     option,
-  } = useForms();
+    isLoading,
+    isError,
+    error,
+  } = useForms(handleOk);
 
   const [form] = useForm();
 
@@ -115,21 +119,29 @@ const AddAddress: React.FC<AddAddressProps> = ({
 
   return (
     <Modal
-      title="Add User Address"
       open={isModalOpen}
-      onOk={handleOk}
+      onOk={() => {
+        form
+          .validateFields()
+          .then((values) => {
+            handleSubmit(values);
+            form.resetFields();
+          })
+          .catch((info) => {
+            console.log('Validate Failed:', info);
+          });
+      }}
       centered
       onCancel={handleCancel}
       width={600}
+      confirmLoading={isLoading}
     >
+      <ModalHeader
+        title="Add user address"
+        info="Add address to manage where your product will delivered to."
+      />
       <div className={style.edit__profile}>
-        <Form
-          name="basic"
-          layout="vertical"
-          onFinish={handleSubmit}
-          autoComplete="off"
-          form={form}
-        >
+        <Form name="basic" layout="vertical" onFinish={handleOk} form={form}>
           <Space>
             <FormLabel label="Name " name="name" rules={rules.name}>
               <Input placeholder="Name" />
@@ -138,10 +150,10 @@ const AddAddress: React.FC<AddAddressProps> = ({
               <Input placeholder="Phone" />
             </FormLabel>
           </Space>
-          <FormLabel label="Label Address" name="label" rules={rules.phone}>
+          <FormLabel label="Label Address" name="label" rules={rules.label}>
             <Input placeholder="Label Address" />
           </FormLabel>
-          <FormLabel label="Province" name="province">
+          <FormLabel label="Province" name="province" rules={rules.province}>
             <Select
               showSearch
               placeholder="Select Province"
@@ -161,7 +173,7 @@ const AddAddress: React.FC<AddAddressProps> = ({
               options={option.provinces ? option.provinces : []}
             />
           </FormLabel>
-          <FormLabel label="City" name="city">
+          <FormLabel label="City" name="city" rules={rules.city}>
             <Select
               showSearch
               placeholder="Select City"
@@ -177,10 +189,11 @@ const AddAddress: React.FC<AddAddressProps> = ({
                 handleChangeCity(value);
               }}
               onSelect={onSelectCity}
+              disabled={!selectedInput.province}
               options={option.cities ? option.cities : []}
             />
           </FormLabel>
-          <FormLabel label="District" name="district">
+          <FormLabel label="District" name="district" rules={rules.district}>
             <Select
               showSearch
               placeholder="Select district"
@@ -197,10 +210,15 @@ const AddAddress: React.FC<AddAddressProps> = ({
                 handleChangeDistrict(value);
               }}
               onSelect={onSelectDistrict}
+              disabled={!selectedInput.city}
               options={option.districts ? option.districts : []}
             />
           </FormLabel>
-          <FormLabel label="Sub District" name="subDistrict">
+          <FormLabel
+            label="Sub District"
+            name="subDistrict"
+            rules={rules.subDistrict}
+          >
             <Select
               showSearch
               placeholder="Select Sub District"
@@ -216,20 +234,22 @@ const AddAddress: React.FC<AddAddressProps> = ({
               onChange={(value) => {
                 handleChangeSubDistrict(value);
               }}
+              disabled={!selectedInput.district}
               options={option.subDistrict ? option.subDistrict : []}
             />
           </FormLabel>
           <FormLabel label="More Details" name="details">
             <TextArea />
           </FormLabel>
-          {/* {isError && (
+          {isError && (
             <Alert
               message={capitalizeFirstLetter(error?.message)}
               type="error"
               showIcon
+              closable
               className={style.card__login__alert}
             />
-          )} */}
+          )}
         </Form>
       </div>
     </Modal>

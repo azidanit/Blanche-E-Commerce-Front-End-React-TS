@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
-import { FormLabel, Input, Select } from '../../../atoms';
-import { Form } from '../../../molecules';
+import React, { useEffect, useState } from 'react';
+import { Alert, FormLabel, Input, Select } from '../../../atoms';
+import { Form, ModalHeader } from '../../../molecules';
 import Modal from '../../../molecules/Modal';
 import style from './index.module.scss';
 import { rules } from './validation';
@@ -14,18 +14,22 @@ import {
   useGetSubDistrictByDistrictIdQuery,
 } from '../../../../app/features/address/addressApiSlice';
 import { Form as AForm } from 'antd';
+import { initialValueType } from '../CardAddress';
+import { capitalizeFirstLetter } from '../../../../helpers/capitalizeFirstLetter';
 
-interface EditAddressProps {
+interface EditAddressPageProps {
   isModalOpen: boolean;
   handleOk: () => void;
   handleCancel: () => void;
+  data: initialValueType;
 }
 
 const { useForm } = AForm;
-const EditAddress: React.FC<EditAddressProps> = ({
+const EditAddress: React.FC<EditAddressPageProps> = ({
   isModalOpen,
   handleOk,
   handleCancel,
+  data,
 }) => {
   const {
     handleSubmit,
@@ -36,9 +40,26 @@ const EditAddress: React.FC<EditAddressProps> = ({
     handleChangeSubDistrict,
     setOption,
     option,
-  } = useForms();
+    isError,
+    isLoading,
+    error,
+    setSelectedInput,
+  } = useForms(handleOk, data);
 
   const [form] = useForm();
+
+  useEffect(() => {
+    form.setFieldsValue(data);
+
+    if (setSelectedInput) {
+      setSelectedInput({
+        province: data.province_id.toString(),
+        city: data.city_id.toString(),
+        district: data.district_id.toString(),
+        subDistrict: data.subdistrict_id.toString(),
+      });
+    }
+  }, [data, form]);
 
   const { data: provinces, isLoading: isLoadingProvinces } =
     useGetProvincesQuery();
@@ -115,21 +136,23 @@ const EditAddress: React.FC<EditAddressProps> = ({
 
   return (
     <Modal
-      title="Add User Address"
       open={isModalOpen}
-      onOk={handleOk}
+      onOk={() => {
+        form.validateFields().then((values) => {
+          handleSubmit(values);
+
+          form.resetFields();
+        });
+      }}
       centered
       onCancel={handleCancel}
       width={600}
+      confirmLoading={isLoading}
+      okButtonProps={{ loading: isLoading }}
     >
+      <ModalHeader title="Edit user address" />
       <div className={style.edit__profile}>
-        <Form
-          name="basic"
-          layout="vertical"
-          onFinish={handleSubmit}
-          autoComplete="off"
-          form={form}
-        >
+        <Form layout="vertical" onFinish={handleOk} form={form}>
           <Space>
             <FormLabel label="Name " name="name" rules={rules.name}>
               <Input placeholder="Name" />
@@ -138,10 +161,10 @@ const EditAddress: React.FC<EditAddressProps> = ({
               <Input placeholder="Phone" />
             </FormLabel>
           </Space>
-          <FormLabel label="Label Address" name="label" rules={rules.phone}>
+          <FormLabel label="Label Address" name="label" rules={rules.label}>
             <Input placeholder="Label Address" />
           </FormLabel>
-          <FormLabel label="Province" name="province">
+          <FormLabel label="Province" name="province" rules={rules.province}>
             <Select
               showSearch
               placeholder="Select Province"
@@ -161,7 +184,7 @@ const EditAddress: React.FC<EditAddressProps> = ({
               options={option.provinces ? option.provinces : []}
             />
           </FormLabel>
-          <FormLabel label="City" name="city">
+          <FormLabel label="City" name="city" rules={rules.city}>
             <Select
               showSearch
               placeholder="Select City"
@@ -180,7 +203,7 @@ const EditAddress: React.FC<EditAddressProps> = ({
               options={option.cities ? option.cities : []}
             />
           </FormLabel>
-          <FormLabel label="District" name="district">
+          <FormLabel label="District" name="district" rules={rules.district}>
             <Select
               showSearch
               placeholder="Select district"
@@ -200,7 +223,11 @@ const EditAddress: React.FC<EditAddressProps> = ({
               options={option.districts ? option.districts : []}
             />
           </FormLabel>
-          <FormLabel label="Sub District" name="subDistrict">
+          <FormLabel
+            label="Sub District"
+            name="subDistrict"
+            rules={rules.subDistrict}
+          >
             <Select
               showSearch
               placeholder="Select Sub District"
@@ -222,14 +249,14 @@ const EditAddress: React.FC<EditAddressProps> = ({
           <FormLabel label="More Details" name="details">
             <TextArea />
           </FormLabel>
-          {/* {isError && (
+          {isError && (
             <Alert
               message={capitalizeFirstLetter(error?.message)}
               type="error"
               showIcon
               className={style.card__login__alert}
             />
-          )} */}
+          )}
         </Form>
       </div>
     </Modal>
