@@ -13,6 +13,7 @@ import ProfilePage from './ProfilePage';
 import ResetFilterProduct from './ResetFilterProduct';
 import Recommended from './Recommended';
 import UserSealabsPay from './UserSealabsPay';
+import FilterSellerProduct from './FilterSellerProduct';
 
 export {
   CategoryCarousel,
@@ -25,4 +26,5 @@ export {
   ResetFilterProduct,
   Recommended,
   UserSealabsPay,
+  FilterSellerProduct,
 };

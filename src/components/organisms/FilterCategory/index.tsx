@@ -5,22 +5,29 @@ import React, { useEffect } from 'react';
 import { useGetCategoriesQuery } from '../../../app/features/home/homeApiSlice';
 import { Tree } from '../..';
 import style from './index.module.scss';
+import { ICategory } from '../../../helpers/types';
 
 interface FilterCategoryProps {
   onSelectCategory: (selectedKeysValue: Key[]) => void;
   selectedCategory: string | undefined;
+  categoriesData?: ICategory[];
 }
 
 const FilterCategory: React.FC<FilterCategoryProps> = ({
   onSelectCategory,
   selectedCategory,
+  categoriesData,
 }) => {
-  const { data, isLoading } = useGetCategoriesQuery({});
+  const { data, isLoading } = useGetCategoriesQuery(
+    {},
+    { skip: Boolean(categoriesData) },
+  );
   const [categories, setCategories] = React.useState<DataNode[]>([]);
 
   useEffect(() => {
-    if (data) {
-      const newCategories = data.map((category) => ({
+    const newData = categoriesData || data;
+    if (newData) {
+      const newCategories = newData.map((category) => ({
         title: category.name,
         key: category.slug,
         children: category.children?.map((subCategory) => ({
@@ -34,7 +41,7 @@ const FilterCategory: React.FC<FilterCategoryProps> = ({
       }));
       setCategories(newCategories);
     }
-  }, [data]);
+  }, [data, categoriesData]);
 
   return (
     <Skeleton loading={isLoading}>

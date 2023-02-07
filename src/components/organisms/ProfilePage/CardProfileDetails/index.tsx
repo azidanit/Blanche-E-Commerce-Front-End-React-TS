@@ -11,12 +11,12 @@ const CardProfileDetails: React.FC = () => {
   const items: TabsProps['items'] = [
     {
       key: '1',
-      label: `User Profile`,
+      label: `Profile`,
       children: <ProfileSection />,
     },
     {
       key: '2',
-      label: `Addresess`,
+      label: `Address`,
       children: <AddressSection />,
     },
     {
@@ -29,7 +29,7 @@ const CardProfileDetails: React.FC = () => {
   return (
     <Card className={style.card__profile__details}>
       <Tabs
-        defaultActiveKey="3"
+        defaultActiveKey="1"
         items={items}
         className={style.card__profile__details__tab}
         size="large"

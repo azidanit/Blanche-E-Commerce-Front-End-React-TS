@@ -1,24 +1,24 @@
 @use 'src/styles/variables.scss' as *;
 
 .product__lists {
-  &__header {
-    font-weight: $text-bold;
-    font-size: 1.25rem;
-    margin-bottom: 1rem;
-  }
+  &__all {
+    &__title {
+      font-weight: $text-bold;
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+    }
+    &__results {
+      display: flex;
+      gap: 2rem;
 
-  &__title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    p {
-      font-size: 1.1rem;
-      font-weight: $text-medium;
-      text-decoration: underline;
-
-      &:hover {
-        cursor: pointer;
+      &__left {
+        min-width: 250px;
       }
     }
+  }
+
+  &__divider {
+    margin-top: 2.5rem;
+    margin-bottom: 2rem;
   }
 }

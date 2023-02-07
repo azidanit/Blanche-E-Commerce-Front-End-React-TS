@@ -1,5 +1,25 @@
-@use 'src/styles/variables' as *;
+@use '../../../../styles/variables.scss' as *;
 
 .card__profile {
   box-shadow: $box-shadow;
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    &__details {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+
+      &__name {
+        font-weight: $text-bold;
+      }
+
+      &__member {
+        font-size: 0.75rem;
+        color: $gray;
+      }
+    }
+  }
 }

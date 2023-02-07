@@ -4,34 +4,67 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-    h6 {
-      font-size: 1.5rem;
-      font-weight: $text-bold;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+    &__left {
+      h6 {
+        font-size: 1.5rem;
+        font-weight: $text-bold;
+      }
+      &__info {
+        color: $gray;
+      }
     }
   }
   &__avatar {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+    text-align: center;
     box-shadow: $box-shadow;
-    align-items: center;
+
+    &__photo {
+      margin: 0 auto;
+      margin-bottom: 1rem;
+      display: block;
+      width: 250px;
+      height: 250px;
+    }
+
+    &__button {
+      max-width: 280px;
+    }
   }
 
   &__tab {
-    display: flex;
-    gap: 2rem;
-    line-height: 2rem;
-    font-size: 1rem;
-    &__attr {
-      color: $gray;
+    &:not(:last-child) {
+      margin-bottom: 0.75rem;
+    }
+    &__header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      &__title {
+        font-size: 1.25rem;
+        font-weight: $text-bold;
+      }
+      &__button {
+        color: $primary-70;
+        font-weight: $text-bold;
+      }
     }
 
-    &__value {
+    &__flex {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      font-size: 1rem;
+
       &__item {
         display: flex;
         align-items: center;
         gap: 1rem;
+        &__label {
+          color: $gray;
+          min-width: 100px;
+        }
       }
     }
   }

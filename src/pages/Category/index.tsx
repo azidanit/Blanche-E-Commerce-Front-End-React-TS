@@ -3,13 +3,12 @@ import React from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router';
 import { useSearchParams } from 'react-router-dom';
 import { useGetProductsQuery } from '../../app/features/home/homeApiSlice';
-import { setParams } from '../../app/features/home/paramsSlice';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { FilterProduct, ProductContent, SEO } from '../../components';
 import { capitalizeFirstLetter } from '../../helpers/capitalizeFirstLetter';
 import style from './index.module.scss';
 
-const limit = 4;
+const limit = 30;
 
 const Category: React.FC = () => {
   const param = useParams();
@@ -23,7 +22,6 @@ const Category: React.FC = () => {
       skip: !param.category,
     },
   );
-  const dispatch = useAppDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const onSelectCategory = (selectedKeysValue: Key[]) => {
