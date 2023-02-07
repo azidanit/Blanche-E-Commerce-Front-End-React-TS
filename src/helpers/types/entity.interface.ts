@@ -249,6 +249,7 @@ export interface ISealabsPayAccounts {
   card_number: string;
   name_on_card: string;
   active_date: string;
+  is_default: boolean;
 }
 
 export interface IDetails {

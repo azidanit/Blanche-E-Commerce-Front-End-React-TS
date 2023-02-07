@@ -79,6 +79,14 @@ export const profileApi = apiSlice.injectEndpoints({
       transformErrorResponse: (response) => response.data,
       invalidatesTags: [{ type: 'SLP', id: 'LIST' }],
     }),
+    patchDefaultSealabsPayAccount: build.mutation<null, number>({
+      query: (id) => ({
+        url: `/users/slp-accounts/${id}/default`,
+        method: 'PATCH',
+      }),
+      transformErrorResponse: (response) => response.data,
+      invalidatesTags: (result, error, id) => [{ type: 'SLP', id }],
+    }),
   }),
 });
 
@@ -88,6 +96,7 @@ export const {
   useGetSealabsPayAccountQuery,
   useDeleteSealabsPayAccountMutation,
   useAddSealabsPayAccountMutation,
+  usePatchDefaultSealabsPayAccountMutation,
   usePatchProfileMutation,
   usePatchProfileDetailsMutation,
 } = profileApi;

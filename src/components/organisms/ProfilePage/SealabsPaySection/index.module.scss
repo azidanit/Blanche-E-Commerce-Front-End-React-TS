@@ -18,8 +18,18 @@
     }
   }
   &__list {
+    margin-bottom: 0.25rem;
+    &__info {
+      margin: 0;
+      margin-bottom: 0.25rem;
+      color: $gray;
+    }
     &__divider {
-      margin: 1rem 0;
+      margin: 0.5rem 0;
+    }
+    &__header {
+      font-size: 1.25rem;
+      font-weight: $text-bold;
     }
   }
 }
