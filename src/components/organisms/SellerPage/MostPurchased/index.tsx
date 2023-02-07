@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useGetProductsQuery } from '../../../../app/features/home/homeApiSlice';
 import { ListCardProduct } from '../../../molecules';
 import style from './index.module.scss';
@@ -19,7 +19,9 @@ const MostPurchased: React.FC = () => {
         <h2 className={style.most__purchased__header}>
           Most Purchased Product
         </h2>
-        <p>View all</p>
+        <Link to="/products" className={style.most__purchased__link}>
+          View all
+        </Link>
       </div>
       {data && <ListCardProduct data={data} />}
     </div>

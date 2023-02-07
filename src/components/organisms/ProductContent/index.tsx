@@ -31,14 +31,15 @@ const Content: React.FC<ContentProps> = ({
 
   return (
     <div className={style.content}>
-      {isError ? (
+      {isError && error && (
         <Alert
           message={capitalizeFirstLetter((error as Error)?.message)}
           type="error"
           showIcon
           className={style.alert}
         />
-      ) : (
+      )}
+      {Boolean(data?.products.length) && (
         <div className={style.content__header}>
           <p className={style.content__header__result}>
             {isLoading ? (
@@ -54,7 +55,7 @@ const Content: React.FC<ContentProps> = ({
         </div>
       )}
       <Skeleton loading={isLoading}>
-        {!isError && data?.total_data ? (
+        {!isError && data?.total_data && Boolean(data?.products.length) ? (
           <>
             <ListCardProduct data={data} />
             <div className={style.content__pagination}>

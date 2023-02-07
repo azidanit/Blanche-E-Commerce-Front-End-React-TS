@@ -1,14 +1,26 @@
 import React from 'react';
 import useMediaQuery from '../../../../hooks/useMediaQuery';
-import { Avatar, Card } from '../../../atoms';
+import { Avatar, Button, Card } from '../../../atoms';
 import style from './index.module.scss';
 
-const CardAvatar: React.FC = () => {
+interface CardAvatarProps {
+  src: string;
+}
+
+const CardAvatar: React.FC<CardAvatarProps> = ({ src }) => {
   const isMobile = useMediaQuery('(max-width: 768px)');
 
   return (
     <Card className={style.profile__section__avatar}>
-      <Avatar size={!isMobile ? 280 : 180} />
+      <Avatar
+        shape="square"
+        className={style.profile__section__avatar__photo}
+        src={src}
+        alt="profile"
+      />
+      <Button className={style.profile__section__avatar__button} block>
+        Edit photo
+      </Button>
     </Card>
   );
 };

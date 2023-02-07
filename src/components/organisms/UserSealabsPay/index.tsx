@@ -1,5 +1,5 @@
 import React from 'react';
-import { yearMonthToString } from '../../../helpers/parseDate';
+import { dateToYearMonth } from '../../../helpers/parseDate';
 import { Button } from '../../atoms';
 import style from './index.module.scss';
 
@@ -20,11 +20,13 @@ const UserSealabsPay: React.FC<UserSealabsPayProps> = ({
     <div className={style.usp}>
       <div className={style.usp__info}>
         <div>
-          <p className={style.usp__info__number}>Card Number - {cardNumber}</p>
+          <p className={style.usp__info__number}>
+            Card Number - {cardNumber.match(/[0-9]{1,4}/g)?.join(' ')}
+          </p>
           <p className={style.usp__info__name}>{nameOnCard}</p>
         </div>
         <p className={style.usp__info__active}>
-          Active until <span>{yearMonthToString(new Date(activeDate))}</span>
+          Active until <span>{dateToYearMonth(new Date(activeDate))}</span>
         </p>
       </div>
       <Button onClick={onDelete} className={style.usp__info__delete} danger>

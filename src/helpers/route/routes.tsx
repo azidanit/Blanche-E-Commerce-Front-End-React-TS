@@ -59,7 +59,11 @@ export const router = createBrowserRouter([
         element: <Seller />,
         children: [],
       },
-
+      {
+        path: '/:store/products',
+        element: <Seller />,
+        children: [],
+      },
       {
         path: '/search',
         element: <SearchResult />,

@@ -250,3 +250,14 @@ export interface ISealabsPayAccounts {
   name_on_card: string;
   active_date: string;
 }
+
+export interface IDetails {
+  name: string;
+  phone: string;
+  birthdate: Date;
+  gender: string;
+}
+
+export interface IAccount {
+  email: string;
+}
