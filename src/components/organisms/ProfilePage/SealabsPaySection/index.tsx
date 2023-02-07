@@ -47,6 +47,7 @@ const SealabsPaySection: React.FC = () => {
             onClick={onClick}
             className={style.sps__header__add}
             type="primary"
+            size="large"
           >
             Add new account
           </Button>

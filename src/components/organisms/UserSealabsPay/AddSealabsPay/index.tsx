@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAddSealabsPayAccountMutation } from '../../../../app/features/profile/profileApiSlice';
 import { FormLabel, Input } from '../../../atoms';
-import { Form, Modal } from '../../../molecules';
+import { Form, Modal, ModalHeader } from '../../../molecules';
 import style from './index.module.scss';
 
 interface AddSealabsPayProps {
@@ -177,13 +177,11 @@ const AddSealabsPay: React.FC<AddSealabsPayProps> = ({
       width={600}
       confirmLoading={isLoading}
     >
-      <div className={style.asp__header}>
-        <h5 className={style.asp__header__title}>Add Sealabs Pay Account</h5>
-        <p className={style.asp__header__info}>
-          Add your Sealabs Pay account that you want to use for payment in the
-          future.
-        </p>
-      </div>
+      <ModalHeader
+        title="Add Sealabs Pay Account"
+        info="Add your Sealabs Pay account that you want to use for payment in the
+          future."
+      />
       <Form name="basic" layout="vertical" autoComplete="off" preserve={false}>
         <FormLabel
           label="Card Number"

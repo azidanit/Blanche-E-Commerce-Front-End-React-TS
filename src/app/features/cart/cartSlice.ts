@@ -1,6 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ICart, ICartItem } from '../../../helpers/types';
-
 const initialState: any = {
   carts: [
     {

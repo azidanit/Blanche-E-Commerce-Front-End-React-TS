@@ -5,22 +5,40 @@ export const rules = {
       message: 'Name is required',
     },
   ],
-  birthdate: [
-    {
-      required: true,
-      message: 'Birthdate is required',
-    },
-  ],
   phone: [
     {
       required: true,
-      message: 'Phone number is required',
+      message: 'Phone is required',
     },
   ],
-  gender: [
+  label: [
     {
       required: true,
-      message: 'gender is required',
+      message: 'Label is required',
+    },
+  ],
+  province: [
+    {
+      required: true,
+      message: 'Province is required',
+    },
+  ],
+  city: [
+    {
+      required: true,
+      message: 'City is required',
+    },
+  ],
+  district: [
+    {
+      required: true,
+      message: 'District is required',
+    },
+  ],
+  subDistrict: [
+    {
+      required: true,
+      message: 'Sub District is required',
     },
   ],
 };

@@ -1,15 +1,22 @@
+import { notification } from 'antd';
 import { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useUpdateUserAddressMutation } from '../../../../app/features/address/userAddressApiSlice';
 import {
   AddAddressProps,
   FormReturnAddress,
+  IUpdateUserAddressRequest,
   OptionType,
   SelectedInput,
 } from '../../../../helpers/types';
+import { initialValueType } from '../CardAddress';
 
-function useForm(): FormReturnAddress<AddAddressProps> {
-  const location = useLocation();
+function useForm(
+  handleOk: () => void,
+  data: initialValueType,
+): FormReturnAddress<AddAddressProps> {
   const [error, setError] = useState<Error>();
+  const [updateUserAddress, { isLoading, isError, isSuccess }] =
+    useUpdateUserAddressMutation();
   const [option, setOption] = useState<OptionType>({
     provinces: undefined,
     cities: undefined,
@@ -18,11 +25,13 @@ function useForm(): FormReturnAddress<AddAddressProps> {
   });
 
   const [selectedInput, setSelectedInput] = useState<SelectedInput>({
-    province: undefined,
-    city: undefined,
-    district: undefined,
-    subDistrict: undefined,
+    province: data.province_id.toString(),
+    city: data.city_id.toString(),
+    district: data.district_id.toString(),
+    subDistrict: data.subdistrict_id.toString(),
   });
+
+  
 
   const handleChangeProvince = (province: string) => {
     setSelectedInput({
@@ -58,10 +67,24 @@ function useForm(): FormReturnAddress<AddAddressProps> {
   };
 
   const handleSubmit = async (values: AddAddressProps) => {
-    console.log('asd');
+    const body: IUpdateUserAddressRequest = {
+      id: Number(data.id),
+      phone: values.phone,
+      name: values.name,
+      label: values.label,
+      province_id: Number(selectedInput.province),
+      city_id: Number(selectedInput.city),
+      district_id: Number(selectedInput.district),
+      subdistrict_id: Number(selectedInput.subDistrict),
+      details: values.details,
+    };
     try {
-      console.log(values);
-      // navigate(from, { replace: true });
+      await updateUserAddress(body).unwrap();
+      notification.success({
+        message: 'Success',
+        description: 'Address successfully updated',
+      });
+      handleOk();
     } catch (error) {
       setError(error as Error);
     }
@@ -77,6 +100,9 @@ function useForm(): FormReturnAddress<AddAddressProps> {
     selectedInput,
     setOption,
     option,
+    isLoading,
+    isError,
+    setSelectedInput,
   };
 }
 

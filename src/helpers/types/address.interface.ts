@@ -1,4 +1,6 @@
 import { DefaultOptionType } from 'antd/es/select';
+import { MouseEvent } from 'react';
+import { AddAddressProps } from './user.address.interface';
 
 export interface IProvinces {
   id: number;
@@ -48,20 +50,8 @@ export interface OptionType {
   subDistrict: DefaultOptionType[] | undefined;
 }
 
-export interface AddAddressProps {
-  province?: string;
-  city?: string;
-  district?: string;
-  subDistrict?: string;
-  address?: string;
-  zipCode?: string;
-  label?: string;
-  name?: string;
-  contact?: string;
-}
-
 export interface FormReturnAddress<T> {
-  handleSubmit: (values: T) => void;
+  handleSubmit: (values: AddAddressProps) => void;
   isLoading?: boolean;
   isError?: boolean;
   error?: Error;
@@ -73,4 +63,6 @@ export interface FormReturnAddress<T> {
   handleChangeCity: (city: string) => void;
   handleChangeDistrict: (district: string) => void;
   handleChangeSubDistrict: (subDistrict: string) => void;
+  isSuccess?: boolean;
+  setSelectedInput?: (value: SelectedInput) => void;
 }
