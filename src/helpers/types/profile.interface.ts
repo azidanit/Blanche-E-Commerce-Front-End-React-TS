@@ -1,27 +1,32 @@
 import { ISealabsPayAccounts } from './entity.interface';
 
-export interface EditProfileProps {
+export interface EditDetailsProps {
   name: string;
   birthdate: string;
   gender: string;
   phone_number: string;
-  profile_picture: string;
 }
 
-export interface IEditProfileRequest {
+export interface EditAccountProps {
+  email: string;
+}
+
+export interface IEditDetailsRequest {
   name?: string;
   birthdate?: string;
   gender?: string;
   phone_number?: string;
-  profile_picture?: string;
 }
 
-export interface ErrorEditProfile {
+export interface IEditAccountRequest {
+  email?: string;
+}
+
+export interface ErrorEditDetails {
   name: string;
   birthdate: string;
   gender: string;
   phone_number: string;
-  profile_picture: string;
 }
 
 export interface IGetProfileResponse {
@@ -29,7 +34,7 @@ export interface IGetProfileResponse {
   fullname: string;
   email: string;
   phone: string;
-  birth_date: string;
+  birth_date: Date;
   gender: string;
   profile_picture: string;
   username: string;

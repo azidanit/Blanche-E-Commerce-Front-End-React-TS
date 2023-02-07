@@ -1,0 +1,11 @@
+.header {
+  .ant-btn {
+    padding: 0;
+    border: none;
+    min-width: 0;
+
+    &:hover {
+      background: none;
+    }
+  }
+}
