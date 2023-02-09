@@ -6,7 +6,6 @@ import Details from './Details';
 import Account from './Account';
 import { useGetProfileQuery } from '../../../../app/features/profile/profileApiSlice';
 import { IAccount, IDetails } from '../../../../helpers/types';
-import { capitalizeFirstLetter } from '../../../../helpers/capitalizeFirstLetter';
 
 const ProfileSection: React.FC = () => {
   const { data, isLoading } = useGetProfileQuery();
@@ -16,13 +15,10 @@ const ProfileSection: React.FC = () => {
   useEffect(() => {
     if (data) {
       const newDetails = {
-        name: data.fullname
-          .split(' ')
-          .map((name) => capitalizeFirstLetter(name))
-          .join(' '),
+        name: data.fullname,
         phone: data.phone,
         birthdate: data.birth_date,
-        gender: capitalizeFirstLetter(data.gender),
+        gender: data.gender,
       };
       setDetails(newDetails);
       const newAccount = {

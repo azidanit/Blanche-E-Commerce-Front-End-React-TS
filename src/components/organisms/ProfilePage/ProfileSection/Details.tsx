@@ -8,7 +8,7 @@ import { IDetails } from '../../../../helpers/types';
 import { capitalizeFirstLetter } from '../../../../helpers/capitalizeFirstLetter';
 import { dateToDayMonthYear } from '../../../../helpers/parseDate';
 
-type IItem = { label: string; key: string; value: string };
+type IItem = { label: string; key: string; value: string | undefined };
 
 interface DetailsProps {
   details: IDetails;
@@ -32,12 +32,16 @@ const Details: React.FC<DetailsProps> = ({ details }) => {
       const birthdate = {
         label: 'Birthdate',
         key: 'birthdate',
-        value: dateToDayMonthYear(new Date(details.birthdate)),
+        value: details.birthdate
+          ? dateToDayMonthYear(new Date(details.birthdate))
+          : undefined,
       };
       const gender = {
         label: 'Gender',
         key: 'gender',
-        value: capitalizeFirstLetter(details.gender),
+        value: details.gender
+          ? capitalizeFirstLetter(details.gender)
+          : undefined,
       };
       setItems([name, phone, birthdate, gender]);
     }

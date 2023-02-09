@@ -1,23 +1,23 @@
+import dayjs from 'dayjs';
 import { useState } from 'react';
 import { usePatchProfileDetailsMutation } from '../../../../app/features/profile/profileApiSlice';
 import { EditDetailsProps, FormReturnAuth } from '../../../../helpers/types';
 
-interface useFormProps {
-  handleOk: () => void;
-}
-
-function useForm({ handleOk }: useFormProps): FormReturnAuth<EditDetailsProps> {
+function useForm(): FormReturnAuth<EditDetailsProps> {
   const [error, setError] = useState<Error>();
   const [patch, { isError, isLoading }] = usePatchProfileDetailsMutation();
 
   const handleSubmit = async (values: EditDetailsProps) => {
     try {
       const formData = new FormData();
-      for (const [key, value] of Object.entries(values)) {
-        formData.append(key, value);
-      }
+      formData.append('fullname', values.fullname);
+      formData.append('phone', values.phone);
+      formData.append('gender', values.gender);
+      formData.append(
+        'birth_date',
+        dayjs(values.birth_date, 'YYYY-MM-DD').toISOString(),
+      );
       await patch(formData).unwrap();
-      handleOk();
     } catch (error) {
       setError(error as Error);
     }
