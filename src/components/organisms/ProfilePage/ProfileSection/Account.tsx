@@ -16,10 +16,9 @@ const Account: React.FC<AccountProps> = ({ account }) => {
   const [items, setItems] = useState<IItem[]>();
 
   useEffect(() => {
-    if (account) {
-      const email = { label: 'Email', key: 'email', value: account.email };
-      setItems([email]);
-    }
+    if (!account) return;
+    const email = { label: 'Email', key: 'email', value: account.email };
+    setItems([email]);
   }, [account]);
 
   const showModal = () => {

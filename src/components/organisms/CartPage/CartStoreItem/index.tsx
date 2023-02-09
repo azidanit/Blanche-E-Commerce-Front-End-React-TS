@@ -13,8 +13,7 @@ interface CartStoreItemProps {
 }
 
 const CartStoreItem: React.FC<CartStoreItemProps> = ({ cart }) => {
-  const [updateCartItem, { isSuccess, isLoading, isError }] =
-    useUpdateCartItemMutation();
+  const [updateCartItem, { isLoading, isError }] = useUpdateCartItemMutation();
 
   const options = cart.items.map((item) => {
     return {

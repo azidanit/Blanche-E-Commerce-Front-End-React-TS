@@ -21,13 +21,12 @@ const SellerLocation: React.FC = () => {
   const params = useAppSelector((state) => state.params);
 
   useEffect(() => {
-    if (data) {
-      const newOptions = data.cities.map((city) => ({
-        value: city.id.toString(),
-        label: city.name,
-      }));
-      setOptions(newOptions);
-    }
+    if (!data) return;
+    const newOptions = data.cities.map((city) => ({
+      value: city.id.toString(),
+      label: city.name,
+    }));
+    setOptions(newOptions);
   }, [data]);
 
   const onChange = (values: string[]) => {

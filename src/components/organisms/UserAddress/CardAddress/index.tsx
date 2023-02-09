@@ -36,7 +36,7 @@ const CardAddress: React.FC<CardAddressProps> = ({ data }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [error, setError] = useState<Error>();
 
-  const [setDefaultAddress, { isSuccess, isError, isLoading }] =
+  const [setDefaultAddress, { isError, isLoading }] =
     useSetDefaultAddressMutation();
 
   const [initialValue, setInitialValue] = useState<initialValueType>({
@@ -56,11 +56,7 @@ const CardAddress: React.FC<CardAddressProps> = ({ data }) => {
   });
   const [
     deleteAddress,
-    {
-      isSuccess: successDelete,
-      isLoading: isLoadingDelete,
-      isError: isErrorDelete,
-    },
+    { isLoading: isLoadingDelete, isError: isErrorDelete },
   ] = useDeleteUserAddressMutation();
 
   const showModal = () => {
@@ -121,12 +117,10 @@ const CardAddress: React.FC<CardAddressProps> = ({ data }) => {
   const handleDeleteAddress = async () => {
     try {
       await deleteAddress(data?.id).unwrap();
-      if (successDelete) {
-        notification.success({
-          message: 'Success',
-          description: 'Delete address success',
-        });
-      }
+      notification.success({
+        message: 'Success',
+        description: 'Delete address success',
+      });
     } catch (e) {
       const error = e as Error;
       setError(error);
