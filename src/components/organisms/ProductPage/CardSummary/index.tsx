@@ -4,11 +4,12 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCreateCartsMutation } from '../../../../app/features/cart/cartApiSlice';
 import { toRupiah } from '../../../../helpers/toRupiah';
-import { ICartItemEx } from '../../../../helpers/types';
+import { ICartItem } from '../../../../helpers/types';
 import { IErrorResponse } from '../../../../helpers/types/response.interface';
 import useProduct from '../../../../hooks/useProduct';
 import { Alert, Button, Card } from '../../../atoms';
-import { CartItem, InputQuantity } from '../../../molecules';
+import { InputQuantity } from '../../../molecules';
+import CartItem from './CartItem';
 import style from './index.module.scss';
 
 const CardSummary: React.FC = () => {
@@ -29,12 +30,6 @@ const CardSummary: React.FC = () => {
   const [totalPrice, setTotalPrice] = useState(
     price ? price : product?.max_real_price,
   );
-  const item: ICartItemEx = {
-    imgUrl: product?.images?.[0] ? product?.images[0] : '',
-    title: product?.title ? product.title : '',
-    quantity: quantity,
-    price: price ? price : 0,
-  };
 
   const handleChange = (value: valueType | null) => {
     setQuantity(value as number);
@@ -63,8 +58,6 @@ const CardSummary: React.FC = () => {
   };
 
   const handleSubmit = async () => {
-    //todo check if have variant
-
     try {
       const body = {
         product_id: product?.id ? product.id : 0,
@@ -101,7 +94,7 @@ const CardSummary: React.FC = () => {
     <Card className={style.card__summary}>
       <Skeleton loading={isLoading}>
         <h6>Order Summary</h6>
-        <CartItem item={item} />
+        <CartItem quantity={quantity} />
         <div className={style.card__summary__quantity}>
           <InputQuantity
             value={quantity}

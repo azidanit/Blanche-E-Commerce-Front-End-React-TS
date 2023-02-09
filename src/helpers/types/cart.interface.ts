@@ -29,6 +29,11 @@ export interface ICartResponse {
   total: number | undefined;
 }
 
+export interface ICartHomeResponse {
+  carts: ICartItem[] | undefined;
+  total: number | undefined;
+}
+
 export interface ICreateCartRequest {
   product_id: number | null;
   variant_item_id?: number | null;

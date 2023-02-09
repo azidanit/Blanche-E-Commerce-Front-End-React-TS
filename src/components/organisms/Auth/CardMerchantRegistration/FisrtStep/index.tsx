@@ -18,19 +18,21 @@ interface FirstStepProps {
   handleNext: (store: string, domain: string) => void;
 }
 
-interface StateProps {
-  value: string;
-  validateStatus?: ValidateStatus;
-  errorMsg?: string | null;
-}
-
 const FirstStep: React.FC<FirstStepProps> = ({ step, handleNext }) => {
   const [checkName] = useCheckStoreNameMutation();
   const [checkDomain] = useCheckDomainMutation();
 
-  const [name, setName] = useState<StateProps>({ value: '' });
+  const [name, setName] = useState<{
+    value: string;
+    validateStatus?: ValidateStatus;
+    errorMsg?: string | null;
+  }>({ value: '' });
 
-  const [domain, setDomain] = useState<StateProps>({ value: '' });
+  const [domain, setDomain] = useState<{
+    value: string;
+    validateStatus?: ValidateStatus;
+    errorMsg?: string | null;
+  }>({ value: '' });
 
   const validateName = async (
     name: string,
@@ -109,7 +111,7 @@ const FirstStep: React.FC<FirstStepProps> = ({ step, handleNext }) => {
     if (!data.is_available) {
       return {
         validateStatus: 'error',
-        errorMsg: 'domain is already taken.',
+        errorMsg: 'doamin is already taken.',
       };
     }
     return {

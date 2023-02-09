@@ -8,6 +8,17 @@
   max-width: 400px;
   background-color: white;
 
+  &__notfound {
+    box-shadow: none !important;
+    gap: 0rem;
+    padding: 0;
+
+    p {
+      font-size: 1rem;
+      font-weight: $text-regular;
+    }
+  }
+
   &:hover {
     cursor: pointer;
   }

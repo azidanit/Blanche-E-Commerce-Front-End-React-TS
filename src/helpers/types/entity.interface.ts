@@ -1,13 +1,5 @@
 import { IMerchantInfo } from './merchant.interface';
 
-export interface ICartItemEx {
-  slug?: string;
-  title: string;
-  imgUrl: string;
-  price: number;
-  quantity: number;
-}
-
 export interface IUser {
   id?: number;
   fullname?: string;
