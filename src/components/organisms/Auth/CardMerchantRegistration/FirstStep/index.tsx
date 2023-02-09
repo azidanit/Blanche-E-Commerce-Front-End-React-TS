@@ -1,18 +1,159 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Alert, Button, Card, FormLabel, Input } from '../../../../atoms';
+import { ValidateStatus } from 'antd/es/form/FormItem';
+import { debounce } from 'lodash';
+import React, { useState } from 'react';
+import {
+  useCheckDomainMutation,
+  useCheckStoreNameMutation,
+} from '../../../../../app/features/merchant/merchantApiSlice';
+import {
+  ICheckDomainRequest,
+  ICheckStoreNameRequest,
+} from '../../../../../helpers/types';
+import { Button, FormLabel, Input } from '../../../../atoms';
 import { Form } from '../../../../molecules';
 import style from './index.module.scss';
-import useForm from './useForm';
-import { rules } from './validation';
 
 interface FirstStepProps {
   step: number;
-  handleNext: () => void;
+  handleNext: (store: string, domain: string) => void;
+}
+
+interface StateProps {
+  value: string;
+  validateStatus?: ValidateStatus;
+  errorMsg?: string | null;
 }
 
 const FirstStep: React.FC<FirstStepProps> = ({ step, handleNext }) => {
-  const { handleSubmit, values } = useForm({ handleNext });
+  const [checkName] = useCheckStoreNameMutation();
+  const [checkDomain] = useCheckDomainMutation();
+
+  const [name, setName] = useState<StateProps>({ value: '' });
+
+  const [domain, setDomain] = useState<StateProps>({ value: '' });
+
+  const validateName = async (
+    name: string,
+  ): Promise<{
+    validateStatus?: ValidateStatus;
+    errorMsg?: string | null;
+  }> => {
+    if (!name) {
+      return {
+        validateStatus: 'error',
+        errorMsg: 'Please enter your name!',
+      };
+    }
+
+    if (name.length < 8) {
+      return {
+        validateStatus: 'error',
+        errorMsg: 'name must be at least 8 characters long.',
+      };
+    }
+
+    if (name.length > 32) {
+      return {
+        validateStatus: 'error',
+        errorMsg: 'name must be at most 32 characters long.',
+      };
+    }
+
+    const body: ICheckStoreNameRequest = {
+      name,
+    };
+    const data = await checkName(body).unwrap();
+    if (!data.is_available) {
+      return {
+        validateStatus: 'error',
+        errorMsg: 'name is already taken.',
+      };
+    }
+    return {
+      validateStatus: 'success',
+      errorMsg: null,
+    };
+  };
+
+  const validateDomain = async (
+    domain: string,
+  ): Promise<{
+    validateStatus?: ValidateStatus;
+    errorMsg?: string | null;
+  }> => {
+    if (!domain) {
+      return {
+        validateStatus: 'error',
+        errorMsg: 'Please enter your domain!',
+      };
+    }
+
+    if (domain.length < 8) {
+      return {
+        validateStatus: 'error',
+        errorMsg: 'domain must be at least 8 characters long.',
+      };
+    }
+
+    if (domain.length > 16) {
+      return {
+        validateStatus: 'error',
+        errorMsg: 'domain must be at most 16 characters long.',
+      };
+    }
+
+    const body: ICheckDomainRequest = {
+      domain,
+    };
+    const data = await checkDomain(body).unwrap();
+    if (!data.is_available) {
+      return {
+        validateStatus: 'error',
+        errorMsg: 'domain is already taken.',
+      };
+    }
+    return {
+      validateStatus: 'success',
+      errorMsg: null,
+    };
+  };
+
+  const handleChangeName = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setName({
+      validateStatus: 'validating',
+      errorMsg: null,
+      value,
+    });
+    const result = await validateName(value);
+    setName({
+      ...result,
+      value,
+    });
+  };
+
+  const handleChangeDomain = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setDomain({
+      validateStatus: 'validating',
+      errorMsg: null,
+      value,
+    });
+    const result = await validateDomain(value);
+    setDomain({
+      ...result,
+      value,
+    });
+  };
+
+  const handleSubmit = () => {
+    if (
+      name.validateStatus === 'success' &&
+      domain.validateStatus === 'success'
+    ) {
+      handleNext(name.value, domain.value);
+    }
+  };
 
   return (
     <div className={style.card__first__step}>
@@ -25,38 +166,54 @@ const FirstStep: React.FC<FirstStepProps> = ({ step, handleNext }) => {
         >
           <FormLabel
             label="Store Name"
-            name="store"
-            rules={rules.store}
-            initialValue={values?.store}
+            name="name"
+            initialValue={name.value}
+            validateStatus={name.validateStatus}
+            help={name.errorMsg || ''}
+            hasFeedback
+            required
           >
-            <Input placeholder="store name" />
+            <Input
+              placeholder="store name"
+              onChange={debounce(handleChangeName, 500)}
+            />
           </FormLabel>
           <FormLabel
             label="Domain Name"
             name="domain"
-            rules={rules.domain}
-            initialValue={values?.domain}
+            initialValue={domain.value}
+            validateStatus={domain.validateStatus}
+            help={domain.errorMsg || ''}
+            hasFeedback
+            required
           >
-            <Input placeholder="blanche.com/domain" />
+            <Input
+              placeholder="blanche.com/domain"
+              onChange={debounce(handleChangeDomain, 500)}
+            />
           </FormLabel>
-          {/* {isError && (
-          <Alert
-            message={capitalizeFirstLetter(error?.message)}
-            type="error"
-            showIcon
-            className={style.card__first__step__alert}
-          />
-        )} */}
+
           <div className="card__first__step__button">
-            <Button type="primary" size="middle" htmlType="submit" block>
+            <Button
+              type="primary"
+              size="large"
+              htmlType="submit"
+              block
+              disabled={
+                !(
+                  name.validateStatus === 'success' &&
+                  domain.validateStatus === 'success'
+                )
+              }
+            >
               Next
             </Button>
           </div>
         </Form>
       ) : (
         <ul>
-          <li>Store : {values?.store}</li>
-          <li>Domain : {values?.domain}</li>
+          <li>Store : {name.value}</li>
+          <li>Domain : {domain.value}</li>
         </ul>
       )}
     </div>

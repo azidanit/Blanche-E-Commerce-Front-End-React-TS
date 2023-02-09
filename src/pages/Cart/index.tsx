@@ -14,8 +14,6 @@ const Cart: React.FC = () => {
   const { data: carts, isLoading } = useGetCartsQuery();
   const isMobile = useMediaQuery('(max-width: 768px)');
 
-  console.log(carts);
-
   return (
     <Skeleton loading={isLoading} active>
       <div className={style.cart__page}>

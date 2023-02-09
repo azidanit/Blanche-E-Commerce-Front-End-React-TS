@@ -1,4 +1,4 @@
-import { IMerchantInfo, IProductDetail, IVariant } from './entity.interface';
+import { IProductDetail, IVariant } from './entity.interface';
 
 export interface IUser {
   id?: number;
@@ -12,7 +12,6 @@ export interface IUser {
 
 export type IProductResponse = IProductDetail;
 export type IVariantProductResponse = IVariant;
-export type IMerchantInfoResponse = IMerchantInfo;
 export type IProductRequest = {
   slug: string;
   store: string;

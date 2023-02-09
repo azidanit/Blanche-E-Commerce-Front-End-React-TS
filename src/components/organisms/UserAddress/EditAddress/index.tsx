@@ -6,7 +6,7 @@ import style from './index.module.scss';
 import { rules } from './validation';
 import useForms from './useForm';
 import TextArea from 'antd/es/input/TextArea';
-import { Space } from 'antd';
+import { notification, Space } from 'antd';
 import {
   useGetCitiesByProvinceIdQuery,
   useGetDistrictByCityIdQuery,

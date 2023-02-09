@@ -1,3 +1,4 @@
+import { notification } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useAddSealabsPayAccountMutation } from '../../../../app/features/profile/profileApiSlice';
 import { FormLabel, Input } from '../../../atoms';
@@ -164,7 +165,10 @@ const AddSealabsPay: React.FC<AddSealabsPayProps> = ({
       await submit(body).unwrap();
       handleOk();
     } catch (err) {
-      console.log(err);
+      notification.error({
+        message: 'Error',
+        description: 'Failed to add Sealabs Pay account',
+      });
     }
   };
 

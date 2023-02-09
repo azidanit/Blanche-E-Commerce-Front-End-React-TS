@@ -16,7 +16,7 @@ const MerchantInfo: React.FC = () => {
   return (
     <Card className={style.merchant__info}>
       <Link to={`/${merchant?.domain}`}>
-        <Avatar size={50} src={merchant?.image_url} alt={merchant?.name} />
+        <Avatar size={50} src={merchant?.image} alt={merchant?.name} />
       </Link>
       <div className={style.merchant__info__desc}>
         <Link

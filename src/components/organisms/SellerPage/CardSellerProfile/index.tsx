@@ -19,11 +19,7 @@ const CardSellerProfile: React.FC = () => {
   return (
     <Card className={style.card__seller__profile}>
       <div className={style.card__seller__profile__desc}>
-        <Avatar
-          size={isMobile ? 50 : 100}
-          src={data?.image_url}
-          alt={data?.name}
-        />
+        <Avatar size={isMobile ? 50 : 100} src={data?.image} alt={data?.name} />
         <div className={style.card__seller__profile__desc__info}>
           <p className={style.card__seller__profile__desc__link}>
             {data?.name}
