@@ -4,6 +4,7 @@ import { useGetCartsQuery } from '../../app/features/cart/cartApiSlice';
 import {
   CartSummary,
   CartSummaryMobile,
+  ItemNotFound,
   ListCartStoreItem,
 } from '../../components';
 import { ICart } from '../../helpers/types';
@@ -13,6 +14,18 @@ import style from './index.module.scss';
 const Cart: React.FC = () => {
   const { data: carts, isLoading } = useGetCartsQuery();
   const isMobile = useMediaQuery('(max-width: 768px)');
+
+  if (!carts) {
+    return (
+      <ItemNotFound
+        className={style.cart__page__empty}
+        imageClassName={style.cart__page__empty__image}
+        src="/assets/svg/Empty.svg"
+        title="Your cart is empty"
+        body={"Looks like you haven't added any item to your cart yet."}
+      />
+    );
+  }
 
   return (
     <Skeleton loading={isLoading} active>

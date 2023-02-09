@@ -19,6 +19,7 @@ import Modal from './Modal';
 import Pagination from './Pagination';
 import ModalHeader from './ModalHeader';
 import Popconfirm from './Popconfirm';
+import ItemNotFound from './ItemNotFound';
 
 export {
   AuthSectionLeft,
@@ -42,4 +43,5 @@ export {
   Checkbox,
   Pagination,
   ModalHeader,
+  ItemNotFound,
 };

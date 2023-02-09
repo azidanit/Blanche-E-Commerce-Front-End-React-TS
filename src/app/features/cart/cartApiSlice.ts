@@ -1,4 +1,5 @@
 import {
+  ICartHomeResponse,
   ICartResponse,
   ICreateCartRequest,
   IDeleteSelectedCartRequest,
@@ -26,7 +27,7 @@ const cartApi = apiSlice.injectEndpoints({
       }),
       transformResponse: (response: { data: ICartResponse }) => response.data,
       transformErrorResponse: (response) => response.data,
-      invalidatesTags: ['Cart'],
+      invalidatesTags: ['Cart', 'CartHome'],
     }),
     updateCarts: build.mutation<ICartResponse, IUpdateCartRequest[]>({
       query: (body) => ({
@@ -36,7 +37,7 @@ const cartApi = apiSlice.injectEndpoints({
       }),
       transformResponse: (response: { data: ICartResponse }) => response.data,
       transformErrorResponse: (response) => response.data,
-      invalidatesTags: ['Cart'],
+      invalidatesTags: ['Cart', 'CartHome'],
     }),
     updateCartItem: build.mutation<ICartResponse, IUpdateCartItemRequest>({
       query: (body) => ({
@@ -46,7 +47,7 @@ const cartApi = apiSlice.injectEndpoints({
       }),
       transformResponse: (response: { data: ICartResponse }) => response.data,
       transformErrorResponse: (response) => response.data,
-      invalidatesTags: ['Cart'],
+      invalidatesTags: ['Cart', 'CartHome'],
     }),
     deleteCartItem: build.mutation<ICartResponse, number>({
       query: (cart_item_id) => ({
@@ -55,7 +56,7 @@ const cartApi = apiSlice.injectEndpoints({
       }),
       transformResponse: (response: { data: ICartResponse }) => response.data,
       transformErrorResponse: (response) => response.data,
-      invalidatesTags: ['Cart'],
+      invalidatesTags: ['Cart', 'CartHome'],
     }),
     deleteSelectedCart: build.mutation<
       ICartResponse,
@@ -70,6 +71,16 @@ const cartApi = apiSlice.injectEndpoints({
       transformErrorResponse: (response) => response.data,
       invalidatesTags: ['Cart'],
     }),
+    getCartHome: build.query<ICartHomeResponse, void>({
+      query: () => ({
+        url: '/carts/home',
+        method: 'GET',
+      }),
+      transformResponse: (response: { data: ICartHomeResponse }) =>
+        response.data,
+      transformErrorResponse: (response) => response.data,
+      providesTags: ['CartHome'],
+    }),
   }),
 });
 
@@ -80,4 +91,5 @@ export const {
   useUpdateCartItemMutation,
   useDeleteCartItemMutation,
   useDeleteSelectedCartMutation,
+  useGetCartHomeQuery,
 } = cartApi;

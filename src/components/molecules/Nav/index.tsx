@@ -5,33 +5,14 @@ import style from './index.module.scss';
 import CartButton from '../CartButton';
 import {
   createSearchParams,
-  useLocation,
   useNavigate,
   useSearchParams,
 } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { useLogoutMutation } from '../../../app/features/auth/authApiSlice';
-import { logout, setUser } from '../../../app/features/auth/authSlice';
+import { logout } from '../../../app/features/auth/authSlice';
 
 const { Header } = Layout;
-
-const total = 11;
-const items = [
-  {
-    slug: 'product-1',
-    title: 'Product 1',
-    imgUrl: 'https://via.placeholder.com/150',
-    price: 100000,
-    quantity: 1,
-  },
-  {
-    slug: 'product-2',
-    title: 'fresh care 1box 12 pcs - hijoasd',
-    imgUrl: 'https://via.placeholder.com/150',
-    price: 50000,
-    quantity: 10,
-  },
-];
 
 const Nav: React.FC = () => {
   const navigate = useNavigate();
@@ -41,7 +22,7 @@ const Nav: React.FC = () => {
 
   const { user } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
-  const [logOut, { isError, isLoading }] = useLogoutMutation();
+  const [logOut, { isLoading }] = useLogoutMutation();
 
   useEffect(() => {
     const search = params.search.q;
@@ -79,11 +60,7 @@ const Nav: React.FC = () => {
           onChange={onChange}
           value={search}
         />{' '}
-        <CartButton
-          total={total}
-          items={items}
-          onClick={() => navigate('/cart')}
-        />
+        <CartButton onClick={() => navigate('/cart')} />
         <div
           className={style.header__button}
           style={{ display: 'flex', gap: 10 }}
