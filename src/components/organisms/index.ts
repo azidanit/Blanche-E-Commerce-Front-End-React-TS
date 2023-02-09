@@ -13,6 +13,7 @@ import ProfilePage from './ProfilePage';
 import ResetFilterProduct from './ResetFilterProduct';
 import Recommended from './Recommended';
 import UserSealabsPay from './UserSealabsPay';
+import WalletPage from './WalletPage';
 import FilterSellerProduct from './FilterSellerProduct';
 
 export {
@@ -26,5 +27,6 @@ export {
   ResetFilterProduct,
   Recommended,
   UserSealabsPay,
+  WalletPage,
   FilterSellerProduct,
 };

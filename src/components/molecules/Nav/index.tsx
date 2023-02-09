@@ -64,6 +64,10 @@ const Nav: React.FC = () => {
     dispatch(logout());
   };
 
+  const handleWallet = () => {
+    navigate('/wallet');
+  };
+
   return (
     <Header className={style.header}>
       <nav className={style.nav}>
@@ -103,9 +107,12 @@ const Nav: React.FC = () => {
               </Button>
             </>
           ) : (
-            <Button onClick={handleLogout} loading={isLoading}>
-              Logout
-            </Button>
+            <>
+              <Button onClick={handleWallet}>My Wallet</Button>
+              <Button onClick={handleLogout} loading={isLoading}>
+                Logout
+              </Button>
+            </>
           )}
         </div>
       </nav>
