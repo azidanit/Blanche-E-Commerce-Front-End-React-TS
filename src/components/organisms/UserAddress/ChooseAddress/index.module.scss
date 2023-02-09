@@ -3,9 +3,15 @@
   padding: 0;
   min-height: 7rem;
   border: 1px solid #e5e5e5;
-  padding: 0.7rem;
+  padding: 1rem;
   border-radius: 0.5rem;
   text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  p {
+    margin-bottom: 0.3rem;
+  }
 
   &__modal {
     &__radio {
@@ -20,9 +26,21 @@
   }
   &__info {
     h6 {
-      font-size: 1rem;
+      font-size: 1.1rem;
       font-weight: $text-medium;
       margin-bottom: 0.5rem;
+    }
+
+    &__content {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+
+      p {
+        font-size: 0.9rem;
+        font-weight: $text-medium;
+        color: $gray;
+      }
     }
 
     display: flex;
