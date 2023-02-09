@@ -21,9 +21,7 @@ const Recommendation: React.FC = () => {
         description="Recommendation page"
       />
       <div className={style.recommendation}>
-        <h1 className={style.recommendation__title}>
-          Our Recommendations for You
-        </h1>
+        <h1 className={style.recommendation__title}>Our Recommendation</h1>
         <Skeleton loading={isLoading}>
           {data && (
             <>
