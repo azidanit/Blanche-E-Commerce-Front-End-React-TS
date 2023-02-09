@@ -1,7 +1,5 @@
 import { NamePath } from 'antd/es/form/interface';
-// username 8-16
-// password 8-32
-// fullname 2-32
+
 export const rules = {
   fullname: [
     { required: true, message: 'Please input your fullname.' },

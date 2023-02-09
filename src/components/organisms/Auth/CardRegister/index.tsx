@@ -33,7 +33,7 @@ const CardRegister: React.FC = () => {
       </div>
       {step === 2 && (
         <p className={style.card__register__email}>
-          You are registering with <span>{email}</span>
+          You are registering using <span>{email.toLowerCase()}</span>
         </p>
       )}
       {renderForm()}
