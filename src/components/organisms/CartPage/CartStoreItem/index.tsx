@@ -1,3 +1,4 @@
+import { notification } from 'antd';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { CheckboxValueType } from 'antd/es/checkbox/Group';
 import React, { useState } from 'react';
@@ -39,11 +40,6 @@ const CartStoreItem: React.FC<CartStoreItemProps> = ({ cart }) => {
   const onChange = (list: CheckboxValueType[], item: ICartItem) => {
     setCheckedList(list);
     setIndeterminate(!!list.length && list.length < options.length);
-    // setCheckAll(list.length === options.length);
-    // cart_item_id?: number | null;
-    // quantity?: number | null;
-    // notes?: string;
-    // is_checked?: boolean;
     try {
       updateCartItem({
         cart_item_id: item.cart_item_id,
@@ -52,7 +48,10 @@ const CartStoreItem: React.FC<CartStoreItemProps> = ({ cart }) => {
         is_checked: list.includes(item.cart_item_id?.toString() || '0'),
       }).unwrap();
     } catch (err) {
-      console.log(err);
+      notification.error({
+        message: 'Error',
+        description: 'Failed to update cart item',
+      });
     }
   };
 

@@ -1,6 +1,5 @@
 import { notification } from 'antd';
-import { MouseEvent, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import { useAddUserAddressMutation } from '../../../../app/features/address/userAddressApiSlice';
 import {
   AddAddressProps,

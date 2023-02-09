@@ -6,4 +6,5 @@ export * from './address.interface';
 export * from './cart.interface';
 export * from './wallet.interface';
 export * from './user.address.interface';
+export * from './merchant.interface';
 export * from './params.interface';

@@ -31,8 +31,6 @@ function useForm(
     subDistrict: data.subdistrict_id.toString(),
   });
 
-  
-
   const handleChangeProvince = (province: string) => {
     setSelectedInput({
       province,

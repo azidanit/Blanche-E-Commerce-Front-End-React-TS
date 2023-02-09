@@ -1,3 +1,5 @@
+import { IMerchantInfo } from './merchant.interface';
+
 export interface ICartItemEx {
   slug?: string;
   title: string;
@@ -112,21 +114,6 @@ export interface ICategoryProduct {
   url: string;
 }
 
-export interface IMerchantInfo {
-  id: number;
-  domain: string;
-  name: string;
-  address: {
-    province: string;
-    city: string;
-  };
-  avg_rating: number;
-  join_date: string;
-  num_of_product: number;
-  num_of_sale: number;
-  num_of_review: number;
-  image_url: string;
-}
 export interface IProductDetail {
   id: number;
   merchant_id: number;
@@ -170,19 +157,6 @@ export interface IProduct {
 export interface IAddress {
   province: string;
   city: string;
-}
-
-export interface IMerchantInfo {
-  id: number;
-  name: string;
-  domain: string;
-  address: IAddress;
-  avg_rating: number;
-  join_date: string;
-  num_of_product: number;
-  num_of_sale: number;
-  num_of_review: number;
-  image_url: string;
 }
 
 export interface IRating {

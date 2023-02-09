@@ -23,6 +23,7 @@ export interface FormReturnAuth<T> {
   isError?: boolean;
   error?: Error;
   values?: T;
+  handleClick?: () => void;
 }
 
 export interface RegisterFirstStepProps {

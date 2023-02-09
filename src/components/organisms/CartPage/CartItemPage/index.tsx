@@ -35,7 +35,10 @@ const CartItemPage: React.FC<CartItemProps> = ({ item }) => {
         is_checked: item.is_checked,
       }).unwrap();
     } catch (err) {
-      console.log(err);
+      notification.error({
+        message: 'Error',
+        description: 'Failed to update cart item',
+      });
     }
   };
 
@@ -49,7 +52,10 @@ const CartItemPage: React.FC<CartItemProps> = ({ item }) => {
         is_checked: item.is_checked,
       }).unwrap();
     } catch (err) {
-      console.log(err);
+      notification.error({
+        message: 'Error',
+        description: 'Failed to update cart item',
+      });
     }
   };
 

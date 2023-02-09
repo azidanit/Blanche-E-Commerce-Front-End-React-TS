@@ -7,13 +7,17 @@ import SecondStep from './SecondStep';
 
 const CardMerchantRegistration: React.FC = () => {
   const [step, setStep] = useState(0);
+  const [store, setStore] = useState('');
+  const [domain, setDomain] = useState('');
 
-  const handleNext = () => {
-    setStep(step + 1);
+  const handleNext = (store: string, domain: string) => {
+    setStep((prevStep) => (prevStep === 0 ? prevStep + 1 : prevStep));
+    setStore(store);
+    setDomain(domain);
   };
 
   const handleBack = () => {
-    setStep(step - 1);
+    setStep((prevStep) => (prevStep > 0 ? prevStep - 1 : prevStep));
   };
 
   return (
@@ -33,7 +37,8 @@ const CardMerchantRegistration: React.FC = () => {
             description: (
               <SecondStep
                 step={step}
-                handleNext={handleNext}
+                store={store}
+                domain={domain}
                 handleBack={handleBack}
               />
             ),

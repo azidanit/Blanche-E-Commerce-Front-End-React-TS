@@ -14,13 +14,15 @@ interface SecondStepProps {
   email: string;
 }
 
+interface StateProps {
+  value: string;
+  validateStatus?: ValidateStatus;
+  errorMsg?: string | null;
+}
+
 const SecondStep: React.FC<SecondStepProps> = ({ email }) => {
   const { handleSubmit, isError, error } = useForm({ email });
-  const [username, setUsername] = useState<{
-    value: string;
-    validateStatus?: ValidateStatus;
-    errorMsg?: string | null;
-  }>({ value: '' });
+  const [username, setUsername] = useState<StateProps>({ value: '' });
   const [checkUsername, { isLoading }] = useCheckUsernameMutation();
 
   const validateUsername = async (
