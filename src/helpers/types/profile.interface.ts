@@ -1,10 +1,10 @@
 import { ISealabsPayAccounts } from './entity.interface';
 
 export interface EditDetailsProps {
-  name: string;
-  birthdate: string;
+  fullname: string;
+  birth_date: string;
   gender: string;
-  phone_number: string;
+  phone: string;
 }
 
 export interface EditAccountProps {

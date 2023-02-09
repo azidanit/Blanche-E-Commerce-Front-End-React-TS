@@ -37,14 +37,24 @@ const EditDetails: React.FC<EditDetailsProps> = ({
   handleCancel,
   details,
 }) => {
-  const { handleSubmit, error, isLoading, isError } = useForm({ handleOk });
+  const { handleSubmit, error, isLoading, isError } = useForm();
   const [form] = Aform.useForm();
   const isMobile = useMediaQuery('(max-width: 768px)');
+
+  const onOk = async () => {
+    try {
+      const values = await form.validateFields();
+      await handleSubmit(values);
+      handleOk();
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <Modal
       open={isModalOpen}
-      onOk={form.submit}
+      onOk={onOk}
       centered
       onCancel={handleCancel}
       width={600}
@@ -64,8 +74,10 @@ const EditDetails: React.FC<EditDetailsProps> = ({
           initialValues={{
             fullname: details.name,
             phone: details.phone,
-            gender: details.gender,
-            birthdate: dayjs(details.birthdate),
+            gender: details.gender !== '-' ? details.gender : undefined,
+            birth_date: details.birthdate
+              ? dayjs(details.birthdate)
+              : undefined,
           }}
           onFinish={handleSubmit}
           autoComplete="off"
@@ -77,7 +89,7 @@ const EditDetails: React.FC<EditDetailsProps> = ({
           </FormLabel>
           <FormLabel
             label="Birth Date"
-            name="birthdate"
+            name="birth_date"
             rules={rules.birthdate}
           >
             <DatePicker format="DD-MM-YYYY" />

@@ -15,7 +15,6 @@ const SealabsPaySection: React.FC = () => {
   const [deleteAccount] = useDeleteSealabsPayAccountMutation();
   const [patchDefault] = usePatchDefaultSealabsPayAccountMutation();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  console.log(data);
 
   const onClick = () => {
     setIsModalOpen(true);
