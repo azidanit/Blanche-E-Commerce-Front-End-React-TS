@@ -11,8 +11,7 @@ import {
 
 function useForm(handleOk: () => void): FormReturnAddress<AddAddressProps> {
   const [error, setError] = useState<Error>();
-  const [createAddress, { isLoading, isError, isSuccess }] =
-    useAddUserAddressMutation();
+  const [createAddress, { isLoading, isError }] = useAddUserAddressMutation();
   const [option, setOption] = useState<OptionType>({
     provinces: undefined,
     cities: undefined,
@@ -95,6 +94,7 @@ function useForm(handleOk: () => void): FormReturnAddress<AddAddressProps> {
     option,
     isLoading,
     isError,
+    setSelectedInput,
   };
 }
 

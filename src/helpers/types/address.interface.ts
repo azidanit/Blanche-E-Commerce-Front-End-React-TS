@@ -63,6 +63,5 @@ export interface FormReturnAddress<T> {
   handleChangeCity: (city: string) => void;
   handleChangeDistrict: (district: string) => void;
   handleChangeSubDistrict: (subDistrict: string) => void;
-  isSuccess?: boolean;
-  setSelectedInput?: (value: SelectedInput) => void;
+  setSelectedInput: (value: SelectedInput) => void;
 }

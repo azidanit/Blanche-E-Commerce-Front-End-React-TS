@@ -19,7 +19,7 @@ interface CartItemProps {
 
 const CartItemPage: React.FC<CartItemProps> = ({ item }) => {
   const [quantity, setQuantity] = useState(1);
-  const [deleteCart, { isSuccess, isLoading }] = useDeleteCartItemMutation();
+  const [deleteCart, { isLoading }] = useDeleteCartItemMutation();
   const [updateCartItem] = useUpdateCartItemMutation();
 
   const handleChange = (value: valueType | null) => {
@@ -62,13 +62,10 @@ const CartItemPage: React.FC<CartItemProps> = ({ item }) => {
   const handleDelete = async () => {
     try {
       await deleteCart(item.cart_item_id).unwrap();
-
-      if (isSuccess) {
-        notification.success({
-          message: 'Success',
-          description: 'Item deleted from cart',
-        });
-      }
+      notification.success({
+        message: 'Success',
+        description: 'Item deleted from cart',
+      });
     } catch (err) {
       notification.error({
         message: 'Error',

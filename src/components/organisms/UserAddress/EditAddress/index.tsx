@@ -50,15 +50,13 @@ const EditAddress: React.FC<EditAddressPageProps> = ({
 
   useEffect(() => {
     form.setFieldsValue(data);
-
-    if (setSelectedInput) {
-      setSelectedInput({
-        province: data.province_id.toString(),
-        city: data.city_id.toString(),
-        district: data.district_id.toString(),
-        subDistrict: data.subdistrict_id.toString(),
-      });
-    }
+    setSelectedInput({
+      province: data.province_id.toString(),
+      city: data.city_id.toString(),
+      district: data.district_id.toString(),
+      subDistrict: data.subdistrict_id.toString(),
+    });
+    // }
   }, [data, form]);
 
   const { data: provinces, isLoading: isLoadingProvinces } =

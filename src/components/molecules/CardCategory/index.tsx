@@ -4,7 +4,7 @@ import { ICategory } from '../../../helpers/types';
 import { Card, Image } from '../../atoms';
 import style from './index.module.scss';
 
-interface CardCategoryProps {
+export interface CardCategoryProps {
   category: ICategory;
 }
 

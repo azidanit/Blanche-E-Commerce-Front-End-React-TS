@@ -13,19 +13,18 @@ const ProfileSection: React.FC = () => {
   const [account, setAccount] = useState<IAccount>();
 
   useEffect(() => {
-    if (data) {
-      const newDetails = {
-        name: data.fullname,
-        phone: data.phone,
-        birthdate: data.birth_date,
-        gender: data.gender,
-      };
-      setDetails(newDetails);
-      const newAccount = {
-        email: data.email,
-      };
-      setAccount(newAccount);
-    }
+    if (!data) return;
+    const newDetails = {
+      name: data.fullname,
+      phone: data.phone,
+      birthdate: data.birth_date,
+      gender: data.gender,
+    };
+    setDetails(newDetails);
+    const newAccount = {
+      email: data.email,
+    };
+    setAccount(newAccount);
   }, [data]);
 
   return (

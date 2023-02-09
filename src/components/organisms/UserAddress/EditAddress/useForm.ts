@@ -15,7 +15,7 @@ function useForm(
   data: initialValueType,
 ): FormReturnAddress<AddAddressProps> {
   const [error, setError] = useState<Error>();
-  const [updateUserAddress, { isLoading, isError, isSuccess }] =
+  const [updateUserAddress, { isLoading, isError }] =
     useUpdateUserAddressMutation();
   const [option, setOption] = useState<OptionType>({
     provinces: undefined,

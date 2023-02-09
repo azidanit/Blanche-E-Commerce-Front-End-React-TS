@@ -1,16 +1,19 @@
 @use './../../../styles/variables.scss' as *;
 
-.carousel {
-  position: relative;
-
+.wrapper {
   &:hover {
     .carousel__arrow {
       opacity: 100%;
     }
   }
+}
+
+.carousel {
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
 
   &__arrow {
-    font-weight: $text-bold;
     opacity: 0;
   }
 
@@ -21,7 +24,11 @@
     gap: 1rem;
   }
 
+  &__left {
+    left: 20px;
+  }
+
   &__right {
-    right: 0;
+    right: 20px;
   }
 }
