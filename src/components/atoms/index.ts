@@ -18,6 +18,7 @@ import RadioButton from './RadioButton';
 import Select from './Select';
 import TextArea from './TextArea';
 import DatePicker from './DatePicker';
+import Tag from './Tag';
 
 export {
   Logo,
@@ -40,4 +41,5 @@ export {
   Select,
   TextArea,
   DatePicker,
+  Tag,
 };

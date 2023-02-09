@@ -8,21 +8,24 @@ type ImageProps = {
   src: string;
   alt: string;
   className?: string;
+  imageClassName?: string;
   onClick?: () => void;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 const Image: React.FC<ImageProps> = ({
   className,
+  imageClassName,
   src,
   onClick,
   alt,
   ...props
 }) => {
   const classProps = classNames(className, style.image);
+  const classImageProps = classNames(imageClassName, style.image__img);
 
   return (
     <div className={classProps} onClick={onClick} {...props}>
-      <img className={style.image__img} src={src} alt={alt} />
+      <img className={classImageProps} src={src} alt={alt} />
     </div>
   );
 };

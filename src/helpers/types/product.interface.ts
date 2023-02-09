@@ -52,3 +52,9 @@ export interface IGetRecommendedProductsRequest {
 }
 
 export type IGetMerchantCategoriesResponse = ICategory[];
+
+export interface IGetTransactionListRequest {
+  status?: string;
+  limit?: number;
+  page?: number;
+}

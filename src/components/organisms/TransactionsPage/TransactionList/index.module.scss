@@ -1,0 +1,17 @@
+@use '../../../../styles/variables.scss' as *;
+
+.tl {
+  box-shadow: $box-shadow;
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  &__pagination {
+    margin-top: 0.5rem;
+    text-align: right;
+  }
+}
