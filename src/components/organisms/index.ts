@@ -15,6 +15,7 @@ import Recommended from './Recommended';
 import UserSealabsPay from './UserSealabsPay';
 import WalletPage from './WalletPage';
 import FilterSellerProduct from './FilterSellerProduct';
+import TransactionsPage from './TransactionsPage';
 
 export {
   CategoryCarousel,
@@ -29,4 +30,5 @@ export {
   UserSealabsPay,
   WalletPage,
   FilterSellerProduct,
+  TransactionsPage,
 };

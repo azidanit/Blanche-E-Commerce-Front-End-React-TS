@@ -5,6 +5,7 @@ import registerReducer from './features/auth/registerSlice';
 import productReducer from './features/product/productSlice';
 import paramsReducer from './features/home/paramsSlice';
 import cartReducer from './features/cart/cartSlice';
+import transactionsReducer from './features/transactions/transactionsSlice';
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     params: paramsReducer,
     register: registerReducer,
     cart: cartReducer,
+    transactions: transactionsReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware),

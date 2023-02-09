@@ -263,6 +263,16 @@ export interface IAccount {
   email: string;
 }
 
+export interface ITransaction {
+  id: number;
+  invoice_id: string;
+  total: number;
+  status: string;
+  shop_name: string;
+  issued_at: Date;
+  product: Partial<IProduct>;
+}
+
 export interface IDetails {
   name: string;
   phone: string;

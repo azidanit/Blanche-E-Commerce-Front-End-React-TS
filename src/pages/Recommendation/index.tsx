@@ -5,7 +5,7 @@ import { useAppSelector } from '../../app/hooks';
 import { ListCardProduct, Pagination, SEO } from '../../components';
 import style from './index.module.scss';
 
-const limit = 20;
+const limit = 30;
 
 const Recommendation: React.FC = () => {
   const params = useAppSelector((state) => state.params);
@@ -28,8 +28,8 @@ const Recommendation: React.FC = () => {
           {data && (
             <>
               <ListCardProduct data={data} />
-              <div className={style.recommendation__pagination}>
-                {data.total_data > limit && (
+              {data.total_data > limit && (
+                <div className={style.recommendation__pagination}>
                   <Pagination
                     total={data.total_data}
                     pageSize={limit}
@@ -37,8 +37,8 @@ const Recommendation: React.FC = () => {
                     showSizeChanger={false}
                     size="default"
                   />
-                )}
-              </div>
+                </div>
+              )}
             </>
           )}
         </Skeleton>

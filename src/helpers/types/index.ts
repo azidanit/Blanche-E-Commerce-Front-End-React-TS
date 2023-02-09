@@ -5,5 +5,5 @@ export * from './profile.interface';
 export * from './address.interface';
 export * from './cart.interface';
 export * from './wallet.interface';
-
 export * from './user.address.interface';
+export * from './params.interface';

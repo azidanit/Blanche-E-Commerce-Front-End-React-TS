@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { IGetProductListRequest } from '../../../helpers/types';
+import { IParams } from '../../../helpers/types';
 
 interface SearchState {
-  search: IGetProductListRequest;
+  search: IParams;
 }
 
 const initialState: SearchState = {

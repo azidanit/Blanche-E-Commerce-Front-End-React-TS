@@ -1,5 +1,5 @@
 import { mappedSortOptions } from '../components/organisms/SortProduct/options';
-import { IGetProductListRequest } from './types';
+import { IParams } from './types';
 
 const searchParamsKeys = [
   'merchant_id',
@@ -11,11 +11,10 @@ const searchParamsKeys = [
   'min_rating',
   'limit',
   'page',
+  'status',
 ];
 
-export const parseSearchParams = (
-  searchParams: URLSearchParams,
-): IGetProductListRequest => {
+export const parseSearchParams = (searchParams: URLSearchParams): IParams => {
   const params: { [key: string]: string } = {};
   const ob = searchParams.get('ob');
   if (ob) {

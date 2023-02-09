@@ -16,6 +16,7 @@ const Profile = lazy(() => import('../../pages/Profile'));
 const Category = lazy(() => import('../../pages/Category'));
 const Recommendation = lazy(() => import('../../pages/Recommendation'));
 const SearchResult = lazy(() => import('../../pages/SearchResult'));
+const Transactions = lazy(() => import('../../pages/Transactions'));
 const Wallet = lazy(() => import('../../pages/Wallet'));
 
 export const router = createBrowserRouter([
@@ -43,6 +44,10 @@ export const router = createBrowserRouter([
             element: <Wallet />,
           },
         ],
+      },
+      {
+        path: '/transactions',
+        element: <Transactions />,
       },
       {
         path: '',
