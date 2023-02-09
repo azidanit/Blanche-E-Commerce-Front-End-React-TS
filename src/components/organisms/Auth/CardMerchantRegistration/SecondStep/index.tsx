@@ -63,38 +63,44 @@ const SecondStep: React.FC<SecondStepProps> = ({
     setIsModalOpen(false);
   };
 
-  const [address, setAddress] = useState<IUserAddress | undefined>(data?.[0]);
+  const [defaultAddress, setDefaultAddress] = useState<IUserAddress>();
+  const [addresses, setAddresses] = useState<IUserAddress[]>([]);
 
   useEffect(() => {
-    setAddress(
+    if (!data) return;
+
+    setDefaultAddress(
       data?.filter((item: IUserAddress) => item.is_default)[0] || data?.[0],
     );
+    setAddresses(data);
   }, [data]);
 
   const handleSetAddress = (value: IUserAddress | undefined) => {
-    setAddress(value);
+    setDefaultAddress(value);
     setIsModalOpen(false);
   };
 
   const { handleSubmit, isLoading, isError, error } = useForm({
     store,
     domain,
-    address,
+    address: defaultAddress,
     countDown,
   });
 
   return (
     <Form className={style.card__second__step} onFinish={handleSubmit}>
       {(data ? data : []).length > 0 ? (
-        <ChooseAddress
-          data={data}
-          handleSetAddress={handleSetAddress}
-          address={address}
-          showModal={showModal}
-          handleCancel={handleCancel}
-          isModalOpen={isModalOpen}
-          disabled={step !== 1}
-        />
+        defaultAddress && (
+          <ChooseAddress
+            data={addresses}
+            handleSetAddress={handleSetAddress}
+            address={defaultAddress}
+            showModal={showModal}
+            handleCancel={handleCancel}
+            isModalOpen={isModalOpen}
+            disabled={step !== 1}
+          />
+        )
       ) : (
         <div className={style.card__second__step__add}>
           <Alert type="warning" message="You don't have any address yet" />

@@ -8,13 +8,13 @@ import style from './index.module.scss';
 import ModalAddress from './ModalAddress';
 
 interface ChooseAddessProps {
-  data: IGetUserAddressResponse | undefined;
-  handleSetAddress: (data: IUserAddress | undefined) => void;
-  address: IUserAddress | undefined;
+  data: IGetUserAddressResponse;
+  handleSetAddress: (data: IUserAddress) => void;
+  address: IUserAddress;
   showModal: () => void;
   handleCancel: () => void;
   isModalOpen: boolean;
-  disabled: boolean;
+  disabled?: boolean;
 }
 
 const ChooseAddress: React.FC<ChooseAddessProps> = ({
@@ -24,7 +24,6 @@ const ChooseAddress: React.FC<ChooseAddessProps> = ({
   handleSetAddress,
   isModalOpen,
   address,
-  disabled,
 }) => {
   return (
     <>
@@ -33,17 +32,15 @@ const ChooseAddress: React.FC<ChooseAddessProps> = ({
         <div className={style.choose__address__info}>
           <div className={style.choose__address__info__content}>
             <h6>
-              {address?.label} - {address?.name}({address?.phone})
+              {address.label} - {address.name}({address.phone})
             </h6>
             <p>
-              {address?.province_name}, {address?.city_name},
-              {address?.district_name}
+              {address.province_name}, {address.city_name},
+              {address.district_name}
             </p>
           </div>
 
-          <Button onClick={showModal} disabled={disabled}>
-            Change Address
-          </Button>
+          <Button onClick={showModal}>Change Address</Button>
         </div>
       </div>
       <ModalAddress

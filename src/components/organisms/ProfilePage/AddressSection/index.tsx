@@ -1,9 +1,7 @@
 import { PlusCircleOutlined } from '@ant-design/icons';
 import React, { useState } from 'react';
-import { AddAddressProps } from '../../../../helpers/types';
+import { AddAddress, UserAddress } from '../../..';
 import { Button } from '../../../atoms';
-import UserAddress from '../../UserAddress';
-import AddAddress from '../../UserAddress/AddAddress';
 import style from './index.module.scss';
 
 const AddressSection: React.FC = () => {
