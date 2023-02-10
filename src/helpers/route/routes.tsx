@@ -20,6 +20,7 @@ const Checkout = lazy(() => import('../../pages/Checkout'));
 const Transactions = lazy(() => import('../../pages/Transactions'));
 const Wallet = lazy(() => import('../../pages/Wallet'));
 const TransactionDetails = lazy(() => import('../../pages/TransactionDetails'));
+const TopupWallet = lazy(() => import('../../pages/TopupWallet'));
 
 export const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ export const router = createBrowserRouter([
           {
             path: '/wallet',
             element: <Wallet />,
+          },
+          {
+            path: '/wallet/topup',
+            element: <TopupWallet />,
           },
         ],
       },

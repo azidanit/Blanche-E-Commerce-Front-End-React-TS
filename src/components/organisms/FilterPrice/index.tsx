@@ -87,13 +87,13 @@ const FilterPrice: React.FC = () => {
   ) => {
     let str = e.target.value;
     str = str.replace(/[^0-9]/g, '');
-    const amount = str != '' ? parseInt(str) : undefined;
+    const amount = str !== '' ? parseInt(str) : undefined;
     setInputState((prevValue) => ({
       ...prevValue,
       [key]: {
         ...prevValue[key],
         value: amount,
-        formattedValue: toRupiahWithoutSymbol(amount),
+        formattedValue: amount ? toRupiahWithoutSymbol(amount) : '',
       },
     }));
   };

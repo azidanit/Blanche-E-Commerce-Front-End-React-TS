@@ -4,6 +4,7 @@ import {
   MdOutlineAccountBalance,
   MdOutlineAccountBalanceWallet,
 } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
 import { toRupiah } from '../../../../helpers/toRupiah';
 import { IGetWalletDetailsResponse } from '../../../../helpers/types';
 import { Button } from '../../../atoms';
@@ -14,6 +15,11 @@ interface WalletInfoProps {
 }
 
 const WalletInfo: React.FC<WalletInfoProps> = ({ data }) => {
+  const navigate = useNavigate();
+  const onClick = () => {
+    navigate('topup');
+  };
+
   return (
     <>
       <div className={style.wi__flex}>
@@ -39,7 +45,9 @@ const WalletInfo: React.FC<WalletInfoProps> = ({ data }) => {
             </div>
           </div>
         </div>
-        <Button type="primary">Top Up</Button>
+        <Button type="primary" onClick={onClick}>
+          Top Up
+        </Button>
       </div>
       <Divider />
       <p className={style.wi__pin}>
