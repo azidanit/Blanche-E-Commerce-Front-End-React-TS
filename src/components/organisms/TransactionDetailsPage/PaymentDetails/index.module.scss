@@ -1,2 +1,9 @@
+@use '../../../../styles/variables.scss' as *;
+
 .pd {
+  &__title {
+    font-size: 1.25rem;
+    font-weight: $text-bold;
+    margin-bottom: 1.5rem;
+  }
 }

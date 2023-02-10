@@ -44,20 +44,20 @@ const list = [
   },
 ];
 
-const ProductList: React.FC = () => {
+const ProductDetails: React.FC = () => {
   return (
-    <div className={style.pl}>
-      <div className={style.pl__header}>
-        <h3 className={style.pl__header__title}>Product Details</h3>
-        <div className={style.pl__header__store}>
+    <div className={style.pd}>
+      <div className={style.pd__header}>
+        <h3 className={style.pd__header__title}>Product Details</h3>
+        <div className={style.pd__header__store}>
           <MdOutlineStorefront
             size={20}
             className={style.ct__header__store__icon}
           />
-          <p className={style.pl__header__store__name}>Toko Ryan Daniel</p>
+          <p className={style.pd__header__store__name}>Toko Ryan Daniel</p>
         </div>
       </div>
-      <div className={style.pl__list}>
+      <div className={style.pd__list}>
         {list.map((item) => (
           <DetailProduct transaction={item} key={item.id} />
         ))}
@@ -66,4 +66,4 @@ const ProductList: React.FC = () => {
   );
 };
 
-export default ProductList;
+export default ProductDetails;
