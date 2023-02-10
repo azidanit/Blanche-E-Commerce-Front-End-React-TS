@@ -19,6 +19,7 @@ const SearchResult = lazy(() => import('../../pages/SearchResult'));
 const Checkout = lazy(() => import('../../pages/Checkout'));
 const Transactions = lazy(() => import('../../pages/Transactions'));
 const Wallet = lazy(() => import('../../pages/Wallet'));
+const TransactionDetails = lazy(() => import('../../pages/TransactionDetails'));
 
 export const router = createBrowserRouter([
   {
@@ -53,6 +54,10 @@ export const router = createBrowserRouter([
       {
         path: '/transactions',
         element: <Transactions />,
+      },
+      {
+        path: '/transactions/:id',
+        element: <TransactionDetails />,
       },
       {
         path: '',
