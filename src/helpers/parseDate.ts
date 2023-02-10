@@ -34,3 +34,12 @@ export const dateToDayMonthStringYear = (
     months[date.getMonth()]
   }${separator}${date.getFullYear()}`;
 };
+
+export const dateToMinuteHourMonthStringDayYear = (
+  date: Date,
+  separator = '-',
+): string => {
+  return `${date.getDate()}${separator}${
+    months[date.getMonth()]
+  }${separator}${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
+};

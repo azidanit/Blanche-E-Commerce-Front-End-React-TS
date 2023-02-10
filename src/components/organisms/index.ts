@@ -16,6 +16,7 @@ import UserSealabsPay from './UserSealabsPay';
 import WalletPage from './WalletPage';
 import FilterSellerProduct from './FilterSellerProduct';
 import TransactionsPage from './TransactionsPage';
+import TransactionDetailsPage from './TransactionDetailsPage';
 
 export {
   CategoryCarousel,
@@ -31,4 +32,5 @@ export {
   WalletPage,
   FilterSellerProduct,
   TransactionsPage,
+  TransactionDetailsPage,
 };
