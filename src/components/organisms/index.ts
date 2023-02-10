@@ -2,8 +2,9 @@ export * from './ProductPage';
 export * from './Auth';
 export * from './SellerPage';
 export * from './CartPage';
+export * from './UserAddress';
+export * from './CheckoutPage';
 
-import UserAddress from './UserAddress';
 import CategoryCarousel from './CategoryCarousel';
 import ListCartStoreItem from './CartPage/ListCartStoreItem';
 import FilterProduct from './FilterProduct';
@@ -21,7 +22,6 @@ import TransactionDetailsPage from './TransactionDetailsPage';
 export {
   CategoryCarousel,
   ProfilePage,
-  UserAddress,
   ListCartStoreItem,
   FilterProduct,
   SortProduct,

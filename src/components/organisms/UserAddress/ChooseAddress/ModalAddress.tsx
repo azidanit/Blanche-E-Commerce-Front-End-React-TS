@@ -1,21 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Modal from '../../../molecules/Modal';
 import CardAddress from './CardAddress';
 import {
   IGetUserAddressResponse,
-  IUser,
   IUserAddress,
 } from '../../../../helpers/types';
 import style from './index.module.scss';
-import { RadioButtonGroup } from '../../..';
+import { ModalHeader } from '../../..';
 import { Radio } from 'antd';
 
 interface ModalAddressPageProps {
   isModalOpen: boolean;
   handleCancel: () => void;
-  data: IGetUserAddressResponse | undefined;
-  defaultAddress: IUserAddress | undefined;
-  handleSetAddress: (data: IUserAddress | undefined) => void;
+  data: IGetUserAddressResponse;
+  defaultAddress: IUserAddress;
+  handleSetAddress: (data: IUserAddress) => void;
 }
 
 const ModalAddress: React.FC<ModalAddressPageProps> = ({
@@ -25,9 +24,7 @@ const ModalAddress: React.FC<ModalAddressPageProps> = ({
   defaultAddress,
   handleSetAddress,
 }) => {
-  const [address, setAddress] = useState<IUserAddress | undefined>(
-    defaultAddress,
-  );
+  const [address, setAddress] = useState<IUserAddress>(defaultAddress);
 
   const handleChange = (e: any) => {
     setAddress(e.target.value);
@@ -35,7 +32,6 @@ const ModalAddress: React.FC<ModalAddressPageProps> = ({
 
   return (
     <Modal
-      title="Choose Address"
       open={isModalOpen}
       centered
       onCancel={handleCancel}
@@ -43,6 +39,7 @@ const ModalAddress: React.FC<ModalAddressPageProps> = ({
       className={style.choose__address__modal}
       width={600}
     >
+      <ModalHeader title="Choose Address" />
       <Radio.Group
         className={style.choose__address__modal__radio}
         onChange={handleChange}

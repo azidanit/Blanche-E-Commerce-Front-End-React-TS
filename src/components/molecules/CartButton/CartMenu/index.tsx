@@ -3,20 +3,29 @@ import { Card } from '../../../atoms';
 import CartItem from '../CartItem';
 import style from './index.module.scss';
 import { Link } from 'react-router-dom';
-import { ICartItemEx } from '../../../../helpers/types';
+import { ICartItem } from '../../../../helpers/types';
+import ItemNotFound from '../../ItemNotFound';
 
 type CardMenuProps = {
-  items: ICartItemEx[];
-  total: number;
+  items: ICartItem[] | undefined;
+  total: number | undefined;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 const CardMenu: React.FC<CardMenuProps> = ({ items, total, ...props }) => {
   return (
     <Card className={style.cart__menu} {...props}>
       <div className={style.cart__menu__list}>
-        {items.map((item, index) => (
-          <CartItem item={item} key={`product-${index}`} />
+        {items?.map((item, index) => (
+          <CartItem item={item && item} key={`product-${index}`} />
         ))}
+
+        {!items && (
+          <ItemNotFound
+            title="There is no product on you cart"
+            src="/assets/svg/Empty.svg"
+            className={style.cart__menu__notfound}
+          />
+        )}
       </div>
       <div className={style.cart__menu__action}>
         <p className={style.cart__menu__action__total}>

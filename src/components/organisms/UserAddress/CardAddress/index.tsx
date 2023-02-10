@@ -36,9 +36,6 @@ const CardAddress: React.FC<CardAddressProps> = ({ data }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [error, setError] = useState<Error>();
 
-  const [setDefaultAddress, { isError, isLoading }] =
-    useSetDefaultAddressMutation();
-
   const [initialValue, setInitialValue] = useState<initialValueType>({
     id: 0,
     name: '',
@@ -54,6 +51,9 @@ const CardAddress: React.FC<CardAddressProps> = ({ data }) => {
     subdistrict_id: 0,
     details: '',
   });
+
+  const [setDefaultAddress, { isSuccess, isError, isLoading }] =
+    useSetDefaultAddressMutation();
   const [
     deleteAddress,
     { isLoading: isLoadingDelete, isError: isErrorDelete },
