@@ -1,6 +1,8 @@
 import {
   ICreatePinRequest,
   IGetWalletDetailsResponse,
+  ITopupWalletRequest,
+  ITopupWalletResponse,
 } from '../../../helpers/types';
 import { apiSlice } from '../../api/apiSlice';
 
@@ -26,7 +28,22 @@ export const walletApi = apiSlice.injectEndpoints({
       transformErrorResponse: (response) => response.data,
       invalidatesTags: ['Wallet'],
     }),
+    topUpWallet: build.mutation<ITopupWalletResponse, ITopupWalletRequest>({
+      query: (body) => ({
+        url: '/users/wallet/topup',
+        method: 'POST',
+        body,
+      }),
+      transformResponse: (response: { data: ITopupWalletResponse }) =>
+        response.data,
+      transformErrorResponse: (response) => response.data,
+      invalidatesTags: ['Wallet'],
+    }),
   }),
 });
 
-export const { useGetWalletDetailsQuery, useCreatePinMutation } = walletApi;
+export const {
+  useGetWalletDetailsQuery,
+  useCreatePinMutation,
+  useTopUpWalletMutation,
+} = walletApi;

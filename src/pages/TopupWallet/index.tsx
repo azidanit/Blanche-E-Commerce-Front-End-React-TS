@@ -1,11 +1,15 @@
-import React, { ChangeEvent, useState } from 'react';
-import { Card, Input, Modal, ModalHeader } from '../../components';
+import React, { ChangeEvent, Fragment, useState } from 'react';
+import { Card, FormLabel, Input, Modal, ModalHeader } from '../../components';
 import style from './index.module.scss';
-import { Button, Divider, Radio, RadioChangeEvent } from 'antd';
+import { Button, Divider, message, Radio, RadioChangeEvent } from 'antd';
 import { useGetSealabsPayAccountQuery } from '../../app/features/profile/profileApiSlice';
 import classNames from 'classnames';
 import './override.scss';
 import { toRupiahWithoutSymbol } from '../../helpers/toRupiah';
+import { useTopUpWalletMutation } from '../../app/features/wallet/walletApiSlice';
+import TopupIframe from '../../components/organisms/TopupIframe';
+import { ValidateStatus } from 'antd/es/form/FormItem';
+import { capitalizeFirstLetter } from '../../helpers/capitalizeFirstLetter';
 
 const { Group } = Radio;
 
@@ -24,17 +28,38 @@ const TopupWallet: React.FC = () => {
   const [inputState, setInputState] = useState(initialInputState);
   const [selectedAcc, setSelectedAcc] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isIFrameOpen, setIsIFrameOpen] = useState(false);
+  const [src, setSrc] = useState('');
+  const [topup] = useTopUpWalletMutation();
+  const [status, setStatus] = useState<ValidateStatus>('');
+  const [errorInput, setErrorInput] = useState('');
 
   const showModal = () => {
     setIsModalOpen(true);
   };
 
-  const handleOk = () => {
-    setIsModalOpen(false);
+  const handleOk = async () => {
+    try {
+      const body = {
+        amount: Number(inputState.value),
+        slp_card_number: selectedAcc.toString(),
+      };
+      const data = await topup(body).unwrap();
+      setSrc(data.slp_redirect_url);
+      setIsIFrameOpen(true);
+    } catch (err) {
+      message.error(capitalizeFirstLetter((err as Error).message));
+    } finally {
+      setIsModalOpen(false);
+    }
   };
 
   const handleCancel = () => {
     setIsModalOpen(false);
+  };
+
+  const handleFrameCancel = () => {
+    setIsIFrameOpen(false);
   };
 
   const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -45,6 +70,23 @@ const TopupWallet: React.FC = () => {
       value: amount,
       formattedValue: amount ? toRupiahWithoutSymbol(amount) : '',
     });
+    if (!amount) {
+      setErrorInput('Amount must be filled');
+      setStatus('error');
+      return;
+    }
+    if (amount < 10000) {
+      setErrorInput('Amount must be more than 10.000');
+      setStatus('error');
+      return;
+    }
+    if (amount > 2000000) {
+      setErrorInput('Amount must be less than 2.000.000');
+      setStatus('error');
+      return;
+    }
+    setErrorInput('');
+    setStatus('success');
   };
 
   const onChangeRadio = (e: RadioChangeEvent) => {
@@ -58,38 +100,47 @@ const TopupWallet: React.FC = () => {
         <Card className={style.tw__card}>
           <div className={style.tw__amount}>
             <h4 className={style.tw__card__subtitle}>Amount</h4>
-            <Input
-              addonBefore="Rp"
-              onChange={onChangeInput}
-              value={inputState.formattedValue}
-            />
+            <FormLabel help={errorInput} validateStatus={status}>
+              <Input
+                addonBefore="Rp"
+                onChange={onChangeInput}
+                value={inputState.formattedValue}
+              />
+            </FormLabel>
           </div>
-          <div>
-            <h4 className={style.tw__card__subtitle}>Pay with:</h4>
-            {data && (
-              <Group
-                name="group"
-                className={classNames(style.tw__radio, 'topup__radio')}
-                onChange={onChangeRadio}
-              >
-                {data.map((item, index) => (
-                  <div key={item.id} className={style.tw__radio__item}>
-                    <Radio value={item.id}>
-                      <p className={style.tw__radio__item__name}>
-                        {item.name_on_card}
-                      </p>
-                      <p className={style.tw__radio__item__number}>
-                        {item.card_number.match(/.{1,4}/g)?.join(' ') || ''}
-                      </p>
-                    </Radio>
-                    {index < data.length - 1 && (
-                      <Divider className={style.tw__divider} />
-                    )}
-                  </div>
-                ))}
-              </Group>
-            )}
-          </div>
+          {inputState.value && (
+            <div className={style.tw__card__list}>
+              <h4 className={style.tw__card__subtitle}>Pay with:</h4>
+              {data && (
+                <Group
+                  name="group"
+                  className={classNames(style.tw__radio, 'topup__radio')}
+                  onChange={onChangeRadio}
+                >
+                  {data.map((item, index) => (
+                    <Fragment key={item.id}>
+                      <div className={style.tw__radio__item}>
+                        <Radio
+                          value={item.card_number}
+                          className={style.tw__radio__item__group}
+                        >
+                          <p className={style.tw__radio__item__name}>
+                            {item.name_on_card}
+                          </p>
+                          <p className={style.tw__radio__item__number}>
+                            {item.card_number.match(/.{1,4}/g)?.join(' ') || ''}
+                          </p>
+                        </Radio>
+                      </div>
+                      {index < data.length - 1 && (
+                        <Divider className={style.tw__divider} />
+                      )}
+                    </Fragment>
+                  ))}
+                </Group>
+              )}
+            </div>
+          )}
           <Button
             className={style.tw__button}
             type="primary"
@@ -112,6 +163,15 @@ const TopupWallet: React.FC = () => {
           title="Confirm Payment"
           info="Are you sure you want to top up your wallet?"
         />
+      </Modal>
+      <Modal
+        open={isIFrameOpen}
+        footer={null}
+        width={800}
+        onCancel={handleFrameCancel}
+        destroyOnClose
+      >
+        <TopupIframe src={src} />
       </Modal>
     </>
   );
