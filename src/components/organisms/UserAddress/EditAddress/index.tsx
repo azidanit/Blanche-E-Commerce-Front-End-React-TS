@@ -64,17 +64,17 @@ const EditAddress: React.FC<EditAddressPageProps> = ({
 
   const { data: cities, isLoading: isLoadingCities } =
     useGetCitiesByProvinceIdQuery(Number(selectedInput.province), {
-      skip: !selectedInput.province,
+      skip: !selectedInput.province || selectedInput.province === '0',
     });
 
   const { data: districts, isLoading: isLoadingDistricts } =
     useGetDistrictByCityIdQuery(Number(selectedInput.city), {
-      skip: !selectedInput.city,
+      skip: !selectedInput.city || selectedInput.city === '0',
     });
 
   const { data: subdistrict, isLoading: isLoadingSubdstricts } =
     useGetSubDistrictByDistrictIdQuery(Number(selectedInput.district), {
-      skip: !selectedInput.district,
+      skip: !selectedInput.district || selectedInput.district === '0',
     });
 
   useEffect(() => {
