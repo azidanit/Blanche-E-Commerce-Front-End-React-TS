@@ -1,5 +1,9 @@
 import React from 'react';
-import { AddressCheckout, OrderSummary } from '../../components';
+import {
+  AddressCheckout,
+  OrderSummary,
+  VoucherMarketplace,
+} from '../../components';
 import style from './index.module.scss';
 
 const Checkout = (): JSX.Element => {
@@ -9,6 +13,7 @@ const Checkout = (): JSX.Element => {
         <AddressCheckout />
       </div>
       <div className={style.checkout__page__summary}>
+        <VoucherMarketplace />
         <OrderSummary />
       </div>
     </div>

@@ -1,17 +1,19 @@
 import classNames from 'classnames';
-import React, { useState } from 'react';
-import { Badge, Button, Card } from '../../../atoms';
+import React from 'react';
+import { Badge, Card } from '../../../atoms';
 import style from './index.module.scss';
 import { IUserAddress } from '../../../../helpers/types';
-import { notification } from 'antd';
-import ModalAddress from './ModalAddress';
 
 interface CardAddressProps {
   data: IUserAddress;
+  address: IUserAddress;
 }
 
-const CardAddress: React.FC<CardAddressProps> = ({ data }) => {
-  const classProps = classNames(style.card__address);
+const CardAddress: React.FC<CardAddressProps> = ({ data, address }) => {
+  const classProps = classNames(
+    style.card__address,
+    data?.id === address?.id && style.card__address__active,
+  );
 
   return (
     <Card className={classProps}>

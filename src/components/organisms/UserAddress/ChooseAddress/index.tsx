@@ -24,11 +24,12 @@ const ChooseAddress: React.FC<ChooseAddessProps> = ({
   handleSetAddress,
   isModalOpen,
   address,
+  disabled,
 }) => {
   return (
     <>
       <div className={style.choose__address}>
-        <p>Choose Address</p>
+        <p>Address</p>
         <div className={style.choose__address__info}>
           <div className={style.choose__address__info__content}>
             <h6>
@@ -40,7 +41,14 @@ const ChooseAddress: React.FC<ChooseAddessProps> = ({
             </p>
           </div>
 
-          <Button onClick={showModal}>Change Address</Button>
+          <Button
+            type="primary"
+            onClick={showModal}
+            disabled={disabled}
+            size="large"
+          >
+            Change Address
+          </Button>
         </div>
       </div>
       <ModalAddress

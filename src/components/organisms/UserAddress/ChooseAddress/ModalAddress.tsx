@@ -54,7 +54,7 @@ const ModalAddress: React.FC<ModalAddressPageProps> = ({
                 value={item}
                 className={style.choose__address__radio__item}
               >
-                <CardAddress data={item} />
+                <CardAddress data={item} address={address} />
               </Radio>
             ))
             .concat(
@@ -62,7 +62,7 @@ const ModalAddress: React.FC<ModalAddressPageProps> = ({
                 ?.filter((item: IUserAddress) => !item.is_default)
                 .map((item: IUserAddress) => (
                   <Radio key={item.id} value={item}>
-                    <CardAddress data={item} />
+                    <CardAddress data={item} address={address} />
                   </Radio>
                 )),
             )}
