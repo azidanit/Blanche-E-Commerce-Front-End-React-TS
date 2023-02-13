@@ -13,9 +13,11 @@ const FormLabel: React.FC<FormItemProps> = ({
   return (
     <Form.Item
       label={
-        <label className={classProps} style={{ fontSize: 18 }}>
-          {label}
-        </label>
+        label && (
+          <label className={classProps} style={{ fontSize: 18 }}>
+            {label}
+          </label>
+        )
       }
       {...props}
     >
