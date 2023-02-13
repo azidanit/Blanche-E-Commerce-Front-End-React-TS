@@ -12,7 +12,7 @@ interface CardAddressProps {
 const CardAddress: React.FC<CardAddressProps> = ({ data, address }) => {
   const classProps = classNames(
     style.card__address,
-    data?.id === address?.id && style.card__address__active,
+    data?.id === address?.id ? style.card__address__active : '',
   );
 
   return (

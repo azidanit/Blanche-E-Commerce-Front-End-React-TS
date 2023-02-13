@@ -1,8 +1,8 @@
 import React from 'react';
 import {
   AddressCheckout,
+  ListProductStore,
   OrderSummary,
-  VoucherMarketplace,
 } from '../../components';
 import style from './index.module.scss';
 
@@ -11,9 +11,9 @@ const Checkout = (): JSX.Element => {
     <div className={style.checkout__page}>
       <div className={style.checkout__page__info}>
         <AddressCheckout />
+        <ListProductStore />
       </div>
       <div className={style.checkout__page__summary}>
-        <VoucherMarketplace />
         <OrderSummary />
       </div>
     </div>

@@ -7,9 +7,9 @@
   flex-direction: column;
   gap: 1rem;
   h5 {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: $text-bold;
-    margin-bottom: 1rem;
+    margin-bottom: 0.8rem;
   }
 
   &__content {
@@ -21,13 +21,13 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0 0 1rem 0;
+      padding: 0 0 0.5rem 0;
       border-bottom: 1px dashed $primary-30;
 
       span {
         &:last-child {
           font-weight: $text-bold;
-          font-size: 1.1rem;
+          font-size: 1rem;
         }
       }
     }
@@ -36,7 +36,8 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 1.4rem;
+      margin: 0.4rem 0;
+      font-size: 1.1rem;
       font-weight: $text-bold;
       span {
         &:first-child {
@@ -44,5 +45,14 @@
         }
       }
     }
+  }
+
+  @media screen and (max-width: 768px) {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background-color: white;
+    width: 100vw;
+    gap: 0.3rem;
   }
 }
