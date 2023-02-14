@@ -1,0 +1,10 @@
+.merchant__Layout {
+  &__header {
+    background-color: white !important;
+  }
+
+  &__content {
+    height: 100%;
+    min-height: 100vh;
+  }
+}

@@ -19,6 +19,7 @@ import WalletPage from './WalletPage';
 import FilterSellerProduct from './FilterSellerProduct';
 import TransactionsPage from './TransactionsPage';
 import TransactionDetailsPage from './TransactionDetailsPage';
+import ListCardOrder from './Merchant/Order/ListCardOrder';
 
 export {
   CategoryCarousel,
@@ -34,4 +35,5 @@ export {
   FilterSellerProduct,
   TransactionsPage,
   TransactionDetailsPage,
+  ListCardOrder,
 };
