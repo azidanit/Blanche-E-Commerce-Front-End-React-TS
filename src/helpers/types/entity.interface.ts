@@ -229,16 +229,6 @@ export interface IAccount {
   email: string;
 }
 
-export interface ITransaction {
-  id: number;
-  invoice_id: string;
-  total: number;
-  status: string;
-  shop_name: string;
-  issued_at: Date;
-  product: Partial<IProduct>;
-}
-
 export interface IDetails {
   name: string;
   phone: string;
@@ -248,6 +238,34 @@ export interface IDetails {
 
 export interface IAccount {
   email: string;
+}
+
+export interface ITransaction {
+  invoice_code: string;
+  merchant: {
+    name: string;
+    domain: string;
+    city: string;
+  };
+  product_overview: {
+    product: {
+      discount_price: number;
+      image: string;
+      name: string;
+      product_slug: string;
+      real_price: number;
+      variant_name: string;
+    };
+    total_product: number;
+  };
+  transaction_status: {
+    on_canceled_at: Date | null;
+    on_delivered_at: Date | null;
+    on_completed_at: Date | null;
+    on_processed_at: Date | null;
+    on_waited_at: Date;
+  };
+  total_price: number;
 }
 
 export interface IProductOverview {

@@ -56,14 +56,14 @@ export const router = createBrowserRouter([
             element: <TopupWallet />,
           },
           {
+            path: '/transactions',
+            element: <Transactions />,
+          },
+          {
             path: '/transactions/:invoice',
             element: <TransactionDetails />,
           },
         ],
-      },
-      {
-        path: '/transactions',
-        element: <Transactions />,
       },
       {
         path: '',

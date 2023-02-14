@@ -1,14 +1,23 @@
-import { IGetTransactionDetailsResponse } from '../../../helpers/types';
+import {
+  IGetTransactionListRequest,
+  IGetTransactionListResponse,
+  IGetTransactionDetailsResponse,
+} from '../../../helpers/types';
 import { apiSlice } from '../../api/apiSlice';
 
 export const transactionsApi = apiSlice.injectEndpoints({
   endpoints: (build) => ({
-    getTransactions: build.query<any, void>({
-      query: () => ({
+    getTransactions: build.query<
+      IGetTransactionListResponse,
+      IGetTransactionListRequest
+    >({
+      query: (params) => ({
         url: '/users/transactions',
         method: 'GET',
+        params,
       }),
-      transformResponse: (response: { data: any }) => response.data,
+      transformResponse: (response: { data: IGetTransactionListResponse }) =>
+        response.data,
       transformErrorResponse: (response) => response.data,
       providesTags: ['Transaction'],
     }),
