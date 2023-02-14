@@ -26,7 +26,8 @@ const CartSummaryMobile: React.FC<CartSummaryProps> = ({ total, quantity }) => {
           </>
         ) : (
           <>
-            <Button type="primary" size="middle" block>
+            {total === 0 && <p>Please select product to checkout!</p>}
+            <Button type="primary" size="middle" block disabled={total === 0}>
               Checkout
             </Button>
           </>

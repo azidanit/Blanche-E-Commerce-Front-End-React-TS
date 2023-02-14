@@ -1,85 +1,87 @@
-import { notification } from 'antd';
+import { notification, Skeleton, Spin } from 'antd';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
-import { CheckboxValueType } from 'antd/es/checkbox/Group';
-import React, { useState } from 'react';
-import { useUpdateCartItemMutation } from '../../../../app/features/cart/cartApiSlice';
+import React, { useEffect, useState } from 'react';
+import { useUpdateCartsMutation } from '../../../../app/features/cart/cartApiSlice';
 import { ICart, ICartItem } from '../../../../helpers/types';
+import useMediaQuery from '../../../../hooks/useMediaQuery';
 import { Avatar, Card } from '../../../atoms';
-import { Checkbox, CheckboxGroup } from '../../../molecules';
+import { Checkbox } from '../../../molecules';
 import CartItemPage from '../CartItemPage';
 import style from './index.module.scss';
 
 interface CartStoreItemProps {
   cart: ICart;
+  isLoading: boolean;
 }
 
-const CartStoreItem: React.FC<CartStoreItemProps> = ({ cart }) => {
-  const [updateCartItem, { isLoading, isError }] = useUpdateCartItemMutation();
+const CartStoreItem: React.FC<CartStoreItemProps> = ({ cart, isLoading }) => {
+  const isMobile = useMediaQuery('(max-width: 768px)');
+
+  const [updateCarts, { isLoading: isLoadingUpdateCarts }] =
+    useUpdateCartsMutation();
+
+  const [checkAll, setCheckAll] = useState<boolean>();
+
+  useEffect(() => {
+    setCheckAll(
+      cart.items.filter((item) => item.is_checked).length === cart.items.length,
+    );
+  }, [cart.items]);
 
   const options = cart.items.map((item) => {
     return {
       value: item.cart_item_id?.toString() || '0',
-      children: <CartItemPage item={item} key={item.name} />,
+      children: (
+        <CartItemPage item={item} key={item.name} isLoading={isLoading} />
+      ),
     };
   });
 
-  const [checkedList, setCheckedList] = useState<CheckboxValueType[]>(
-    cart.items
-      .filter((item) => item.is_checked)
-      .map((item) => {
-        const index = item.cart_item_id ? item.cart_item_id : 0;
-        return index.toString();
-      }),
-  );
-  const [indeterminate, setIndeterminate] = useState(false);
-  const [checkAll, setCheckAll] = useState(
-    cart.items.filter((item) => item.is_checked).length === cart.items.length,
-  );
+  const onCheckAllChange = (e: CheckboxChangeEvent) => {
+    const cartIds = options.map((o) => o.value);
 
-  const onChange = (list: CheckboxValueType[], item: ICartItem) => {
-    setCheckedList(list);
-    setIndeterminate(!!list.length && list.length < options.length);
+    const body = cartIds.map((id) => {
+      return {
+        cart_item_id: Number(id),
+        is_checked: e.target.checked,
+      };
+    });
+
     try {
-      updateCartItem({
-        cart_item_id: item.cart_item_id,
-        quantity: item.quantity,
-        notes: item.notes,
-        is_checked: list.includes(item.cart_item_id?.toString() || '0'),
-      }).unwrap();
+      updateCarts(body).unwrap();
     } catch (err) {
+      const e = err as Error;
+
       notification.error({
         message: 'Error',
-        description: 'Failed to update cart item',
+        description: e.message,
       });
     }
   };
 
-  const onCheckAllChange = (e: CheckboxChangeEvent) => {
-    setCheckedList(e.target.checked ? options.map((o) => o.value) : []);
-    setIndeterminate(false);
-    setCheckAll(e.target.checked);
-  };
+  useEffect(() => {
+    setCheckAll(
+      cart.items.filter((item) => item.is_checked).length === cart.items.length,
+    );
+  }, [cart.items]);
 
   return (
-    <Card className={style.cart__store__item}>
-      <div className={style.cart__store__item__header}>
-        <Checkbox
-          indeterminate={indeterminate}
-          onChange={onCheckAllChange}
-          checked={checkAll}
-        />
-        <Avatar src={cart.merchant_image} size={60} />
-        <h6>{cart.merchant_name}</h6>
-      </div>
-      <div className={style.cart__store__item__body}>
-        <CheckboxGroup
-          options={options}
-          onChange={() => onChange(checkedList, cart.items[0])}
-          value={checkedList}
-          className={style.cart}
-        />
-      </div>
-    </Card>
+    <Spin spinning={isLoadingUpdateCarts}>
+      <Card className={style.cart__store__item}>
+        <div className={style.cart__store__item__header}>
+          <Checkbox onChange={onCheckAllChange} checked={checkAll} />
+          <Avatar src={cart.merchant_image} size={isMobile ? 30 : 60} />
+          <h6>{cart.merchant_name}</h6>
+        </div>
+        <div className={style.cart__store__item__body}>
+          {cart?.items?.map((item: ICartItem) => {
+            return (
+              <CartItemPage item={item} key={item.name} isLoading={isLoading} />
+            );
+          })}
+        </div>
+      </Card>
+    </Spin>
   );
 };
 

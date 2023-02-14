@@ -58,14 +58,10 @@ const cartApi = apiSlice.injectEndpoints({
       transformErrorResponse: (response) => response.data,
       invalidatesTags: ['Cart', 'CartHome'],
     }),
-    deleteSelectedCart: build.mutation<
-      ICartResponse,
-      IDeleteSelectedCartRequest
-    >({
-      query: (body) => ({
+    deleteSelectedCart: build.mutation<ICartResponse, void>({
+      query: () => ({
         url: `/carts`,
         method: 'DELETE',
-        body,
       }),
       transformResponse: (response: { data: ICartResponse }) => response.data,
       transformErrorResponse: (response) => response.data,

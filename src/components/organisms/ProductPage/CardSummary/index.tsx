@@ -18,7 +18,7 @@ const CardSummary: React.FC = () => {
 
   const [quantity, setQuantity] = useState(1);
 
-  const [addToCart, { isLoading: isLoadingAddToCart }] =
+  const [addToCart, { isLoading: isLoadingAddToCart, isError }] =
     useCreateCartsMutation();
 
   const [error, setError] = useState('');
@@ -72,6 +72,7 @@ const CardSummary: React.FC = () => {
     } catch (err) {
       const error = err as IErrorResponse;
       setErrorAddToCart(error);
+
       if (error.message === 'Unauthorized') {
         navigate('/login');
 
@@ -80,14 +81,12 @@ const CardSummary: React.FC = () => {
           description: 'Please login first',
         });
       }
-
-      if (error.code !== 400) {
-        setErrorAddToCart(new Error('Something went wrong'));
-      }
     }
   };
   useEffect(() => {
     setTotalPrice(quantity * (price as number));
+    setErrorAddToCart(undefined);
+    setError('');
   }, [quantity, price]);
 
   return (
@@ -112,10 +111,25 @@ const CardSummary: React.FC = () => {
             Stock: <span>{stock}</span>
           </p>
         </div>
-        {error && <Alert message={error} type="error" />}
+        {error && <Alert message={error} type="error" showIcon closable />}
         {errorAddToCart && variant && (
-          <Alert message={errorAddToCart.message} type="error" showIcon />
+          <Alert
+            message={errorAddToCart.message}
+            type="error"
+            showIcon
+            closable
+          />
         )}
+
+        {errorAddToCart && isError && (
+          <Alert
+            message={errorAddToCart.message}
+            type="error"
+            showIcon
+            closable
+          />
+        )}
+
         <Divider />
         <div className={style.card__summary__total}>
           <span>Total</span>

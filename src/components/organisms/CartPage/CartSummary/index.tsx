@@ -34,7 +34,8 @@ const CartSummary: React.FC<CartSummaryProps> = ({ quantity, total }) => {
           </>
         ) : (
           <>
-            <Button type="primary" size="large" block>
+            {total === 0 && <p>Please select product to checkout!</p>}
+            <Button type="primary" size="large" block disabled={total === 0}>
               Checkout
             </Button>
           </>

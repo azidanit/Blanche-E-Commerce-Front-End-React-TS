@@ -10,6 +10,9 @@
 
   &__button {
     margin-top: 1rem;
+    p {
+      color: $gray;
+    }
   }
 
   &__description {

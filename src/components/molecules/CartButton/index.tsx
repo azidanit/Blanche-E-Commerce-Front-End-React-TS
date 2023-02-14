@@ -33,13 +33,13 @@ const CartButton: React.FC<CartButtonProps> = ({ onClick }) => {
     >
       <div className={style.cart__button}>
         <div className={style.cart__button__container}>
-          <Badge className={style.cart__button__total} count={carts?.total}>
+          <Badge className={style.cart__button__total} count={carts?.quantity}>
             <ShoppingFilled className={style.cart__button__icon} />
           </Badge>
         </div>
       </div>
       {showDetails && (
-        <CartMenu items={carts?.carts?.slice(0, 3)} total={carts?.total} />
+        <CartMenu items={carts?.carts?.slice(0, 3)} total={carts?.quantity} />
       )}
     </button>
   );

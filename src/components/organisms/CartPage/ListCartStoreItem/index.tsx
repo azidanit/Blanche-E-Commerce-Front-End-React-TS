@@ -7,13 +7,23 @@ import style from './index.module.scss';
 
 interface ListCartStoreItemProps {
   carts: ICart[] | undefined;
+  isLoading: boolean;
 }
 
-const ListCartStoreItem: React.FC<ListCartStoreItemProps> = ({ carts }) => {
+const ListCartStoreItem: React.FC<ListCartStoreItemProps> = ({
+  carts,
+  isLoading,
+}) => {
   return (
     <div className={style.list__cart__store__item}>
       {carts?.map((cart: ICart) => {
-        return <CartStoreItem key={cart.merchant_id} cart={cart} />;
+        return (
+          <CartStoreItem
+            key={cart.merchant_id}
+            cart={cart}
+            isLoading={isLoading}
+          />
+        );
       })}
     </div>
   );
