@@ -1,5 +1,6 @@
-import { Skeleton } from 'antd';
+import { Divider, Skeleton } from 'antd';
 import React from 'react';
+import { CardWallet } from '../../..';
 import { useGetProfileQuery } from '../../../../app/features/profile/profileApiSlice';
 import { Avatar, Card } from '../../../atoms';
 import style from './index.module.scss';
@@ -10,7 +11,7 @@ const CardProfile: React.FC = () => {
     <Skeleton loading={isLoading}>
       <Card className={style.card__profile}>
         <div className={style.card__profile__header}>
-          <Avatar size="large" src={data?.profile_picture} />
+          <Avatar size={60} src={data?.profile_picture} />
           <div className={style.card__profile__header__details}>
             <h3 className={style.card__profile__header__details__name}>
               {data?.fullname}
@@ -20,6 +21,8 @@ const CardProfile: React.FC = () => {
             </p>
           </div>
         </div>
+        <Divider />
+        <CardWallet />
       </Card>
     </Skeleton>
   );

@@ -14,6 +14,8 @@ const Modal: React.FC<AModalProps> = ({
   className,
   onOk,
   onCancel,
+  okText = 'OK',
+  cancelText = 'Cancel',
   ...props
 }) => {
   const classProps = classNames(className, style.modal);
@@ -31,10 +33,10 @@ const Modal: React.FC<AModalProps> = ({
           ghost
           onClick={onCancel}
         >
-          Cancel
+          {cancelText}
         </Button>,
         <Button key="submit" type="primary" size="middle" onClick={onOk}>
-          OK
+          {okText}
         </Button>,
       ]}
       {...props}

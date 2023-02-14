@@ -73,7 +73,7 @@ const CardAddress: React.FC<CardAddressProps> = ({ data }) => {
 
   const classProps = classNames(
     style.card__address,
-    data?.is_default && style.card__address__active,
+    data?.is_default ? style.card__address__active : '',
   );
 
   useEffect(() => {

@@ -7,6 +7,7 @@ import VoucherMarketplace from '../VoucherMarkeplace';
 import Summary from './Summary';
 import useMediaQuery from '../../../../hooks/useMediaQuery';
 import SummaryMobile from './SummaryMobile';
+import { ModalPayment } from '../../Payment';
 
 const OrderSummary: React.FC = () => {
   const { data } = useGetUserAddressQuery();
@@ -19,6 +20,10 @@ const OrderSummary: React.FC = () => {
   };
 
   const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleOk = () => {
     setIsModalOpen(false);
   };
 
@@ -41,9 +46,14 @@ const OrderSummary: React.FC = () => {
         <span>$ 100</span>
       </div>
       <Divider style={{ margin: 0 }} />
-      <Button size="large" type="primary">
+      <Button size="large" type="primary" onClick={showModal}>
         Choose Payment Method
       </Button>
+      <ModalPayment
+        isModalOpen={isModalOpen}
+        handleCancel={handleCancel}
+        handleOk={handleOk}
+      />
     </Card>
   );
 };

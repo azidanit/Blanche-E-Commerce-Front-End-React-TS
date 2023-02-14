@@ -20,6 +20,7 @@ import Pagination from './Pagination';
 import ModalHeader from './ModalHeader';
 import Popconfirm from './Popconfirm';
 import ItemNotFound from './ItemNotFound';
+import CardWallet from './MenuProfile/CardWallet';
 
 export {
   AuthSectionLeft,
@@ -44,4 +45,5 @@ export {
   Pagination,
   ModalHeader,
   ItemNotFound,
+  CardWallet,
 };

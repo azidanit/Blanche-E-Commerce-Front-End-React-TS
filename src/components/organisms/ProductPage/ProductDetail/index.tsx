@@ -3,7 +3,7 @@ import { Row, Col, Divider } from 'antd';
 import style from './index.module.scss';
 import ProductDescription from './ProductDescription';
 import MerchantInfo from './MerchantInfo';
-import ProductGallery from '../ProductGallery.tsx';
+import ProductGallery from '../ProductGallery';
 import ProductInfo from './ProductInfo';
 import ProductVariant from './ProductVariant';
 import { SEO } from '../../../atoms';
