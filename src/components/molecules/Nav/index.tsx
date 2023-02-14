@@ -11,6 +11,8 @@ import {
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { useLogoutMutation } from '../../../app/features/auth/authApiSlice';
 import { logout } from '../../../app/features/auth/authSlice';
+import MenuProfile from '../MenuProfile';
+import MenuMerchant from '../MenuMerchant';
 
 const { Header } = Layout;
 
@@ -85,7 +87,7 @@ const Nav: React.FC = () => {
             </>
           ) : (
             <>
-              <Button onClick={handleWallet}>My Wallet</Button>
+              <MenuProfile />
               <Button onClick={handleLogout} loading={isLoading}>
                 Logout
               </Button>

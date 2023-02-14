@@ -7,7 +7,7 @@ import {
 } from '../../../../helpers/types';
 import style from './index.module.scss';
 import { ModalHeader } from '../../..';
-import { Radio } from 'antd';
+import { Radio, RadioChangeEvent } from 'antd';
 
 interface ModalAddressPageProps {
   isModalOpen: boolean;
@@ -26,7 +26,7 @@ const ModalAddress: React.FC<ModalAddressPageProps> = ({
 }) => {
   const [address, setAddress] = useState<IUserAddress>(defaultAddress);
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: RadioChangeEvent) => {
     setAddress(e.target.value);
   };
 
