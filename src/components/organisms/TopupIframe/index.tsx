@@ -16,7 +16,6 @@ const TopupIframe: React.FC<TopupIframeProps> = ({ src }) => {
     const url = location.href;
     const urlSearchParams = new URLSearchParams(url?.split('?')[1]);
     const urlSearchParamsObj = Object.fromEntries(urlSearchParams);
-    console.log('urlSearchParamsObj', urlSearchParamsObj.status);
     if (!urlSearchParamsObj.status) return;
     setTimeout(() => {
       navigate('/wallet');

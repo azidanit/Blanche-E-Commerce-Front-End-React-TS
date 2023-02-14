@@ -1,4 +1,13 @@
-import { ICategory, ICategoryItem, IProduct, ICity } from './entity.interface';
+import {
+  ICategory,
+  ICategoryItem,
+  IProduct,
+  ICity,
+  IPaymentDetails,
+  IProductDetails,
+  IShippingDetails,
+  ITransactionStatus,
+} from './entity.interface';
 
 export interface IGetProductListResponse {
   products: IProduct[];
@@ -57,4 +66,12 @@ export interface IGetTransactionListRequest {
   status?: string;
   limit?: number;
   page?: number;
+}
+
+export interface IGetTransactionDetailsResponse {
+  invoice_code: string;
+  payment_details: IPaymentDetails;
+  product_details: IProductDetails;
+  shipping_details: IShippingDetails;
+  transaction_status: ITransactionStatus;
 }

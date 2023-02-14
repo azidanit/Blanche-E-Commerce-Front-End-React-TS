@@ -249,3 +249,66 @@ export interface IDetails {
 export interface IAccount {
   email: string;
 }
+
+export interface IProductOverview {
+  name: string;
+  image: string;
+  real_price: number;
+  variant_name: string;
+  quantity: number;
+  discount_price: number;
+  product_slug: string;
+  notes: string;
+}
+
+export interface IPaymentDetails {
+  method: {
+    account_related_number: number;
+    name: string;
+  };
+  summary: {
+    delivery_fee: number;
+    marketplace_voucher_nominal: number;
+    merchant_voucher_nominal: number;
+    subtotal: number;
+    total: number;
+  };
+}
+
+export interface IProductDetails {
+  merchant: {
+    domain: string;
+    name: string;
+  };
+  products: IProductOverview[];
+}
+
+export interface IShippingDetails {
+  address: {
+    city_name: string;
+    details: string;
+    district_name: string;
+    label: string;
+    name: string;
+    phone: string;
+    province_name: string;
+    subdistrict_name: string;
+    zip_code: string;
+  };
+  delivery_option: {
+    courier_name: string;
+    receipt_number?: string;
+  };
+  transaction_delivery_status: {
+    on_delivered_at: Date | null;
+    on_delivery_at: Date | null;
+  };
+}
+
+export interface ITransactionStatus {
+  on_canceled_at: Date | null;
+  on_completed_at: Date | null;
+  on_delivered_at: Date | null;
+  on_processed_at: Date | null;
+  on_waited_at: Date;
+}
