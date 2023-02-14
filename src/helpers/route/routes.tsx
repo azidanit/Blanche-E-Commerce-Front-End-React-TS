@@ -55,15 +55,15 @@ export const router = createBrowserRouter([
             path: '/wallet/topup',
             element: <TopupWallet />,
           },
+          {
+            path: '/transactions/:invoice',
+            element: <TransactionDetails />,
+          },
         ],
       },
       {
         path: '/transactions',
         element: <Transactions />,
-      },
-      {
-        path: '/transactions/:id',
-        element: <TransactionDetails />,
       },
       {
         path: '',

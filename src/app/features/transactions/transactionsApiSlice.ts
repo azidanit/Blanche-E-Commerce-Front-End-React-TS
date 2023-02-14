@@ -1,4 +1,4 @@
-import {} from '../../../helpers/types';
+import { IGetTransactionDetailsResponse } from '../../../helpers/types';
 import { apiSlice } from '../../api/apiSlice';
 
 export const transactionsApi = apiSlice.injectEndpoints({
@@ -12,7 +12,18 @@ export const transactionsApi = apiSlice.injectEndpoints({
       transformErrorResponse: (response) => response.data,
       providesTags: ['Transaction'],
     }),
+    getTransactionDetails: build.query<IGetTransactionDetailsResponse, string>({
+      query: (slug) => ({
+        url: `/users/transactions/${slug}`,
+        method: 'GET',
+      }),
+      transformResponse: (response: { data: IGetTransactionDetailsResponse }) =>
+        response.data,
+      transformErrorResponse: (response) => response.data,
+      providesTags: ['Transaction'],
+    }),
   }),
 });
 
-export const { useGetTransactionsQuery } = transactionsApi;
+export const { useGetTransactionsQuery, useGetTransactionDetailsQuery } =
+  transactionsApi;
