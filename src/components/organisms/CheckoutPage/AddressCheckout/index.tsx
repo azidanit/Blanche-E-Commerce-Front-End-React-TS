@@ -1,15 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { useGetUserAddressQuery } from '../../../../app/features/address/userAddressApiSlice';
-import { IUserAddress } from '../../../../helpers/types';
+import { ICheckoutResponse, IUserAddress } from '../../../../helpers/types';
 import { Card } from '../../../atoms';
 import { ChooseAddress } from '../../UserAddress';
 import style from './index.module.scss';
 import { IoLocationSharp } from 'react-icons/io5';
+import { useCheckoutSummaryMutation } from '../../../../app/features/checkout/checkoutApiSlice';
+import { message } from 'antd';
+import { capitalizeFirstLetter } from '../../../../helpers/capitalizeFirstLetter';
 
-const AddressCheckout: React.FC = () => {
+interface AddressCheckoutProps {
+  order: ICheckoutResponse;
+  handleSetOrderSummary: (order: ICheckoutResponse) => void;
+}
+
+const AddressCheckout: React.FC<AddressCheckoutProps> = ({
+  order,
+  handleSetOrderSummary,
+}) => {
   const { data } = useGetUserAddressQuery();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [checkoutSummary] = useCheckoutSummaryMutation();
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -31,9 +44,21 @@ const AddressCheckout: React.FC = () => {
     setAddresses(data);
   }, [data]);
 
-  const handleSetAddress = (value: IUserAddress) => {
+  const handleSetAddress = async (value: IUserAddress) => {
     setDefaultAddress(value);
     setIsModalOpen(false);
+
+    try {
+      const data = await checkoutSummary({
+        order_code: order.order_code,
+        address_id: value.id,
+      }).unwrap();
+      handleSetOrderSummary(data);
+    } catch (e) {
+      const err = e as Error;
+
+      message.error(capitalizeFirstLetter(err.message));
+    }
   };
 
   return (

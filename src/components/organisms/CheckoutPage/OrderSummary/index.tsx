@@ -8,8 +8,19 @@ import Summary from './Summary';
 import useMediaQuery from '../../../../hooks/useMediaQuery';
 import SummaryMobile from './SummaryMobile';
 import { ModalPayment } from '../../Payment';
+import { ICheckoutResponse } from '../../../../helpers/types';
+import { toRupiah } from '../../../../helpers/toRupiah';
 
-const OrderSummary: React.FC = () => {
+interface OrderSummaryProps {
+  order: ICheckoutResponse;
+
+  handleSetOrderSummary: (order: ICheckoutResponse) => void;
+}
+
+const OrderSummary: React.FC<OrderSummaryProps> = ({
+  order,
+  handleSetOrderSummary,
+}) => {
   const { data } = useGetUserAddressQuery();
   const isMobile = useMediaQuery('(max-width: 768px)');
 
@@ -33,17 +44,17 @@ const OrderSummary: React.FC = () => {
       <Divider style={{ margin: 0 }} />
 
       {isMobile ? (
-        <SummaryMobile />
+        <SummaryMobile order={order} />
       ) : (
         <>
           <h5>Order Summary</h5>
-          <Summary />
+          <Summary order={order} />
         </>
       )}
 
       <div className={style.order__summary__content__total}>
         <span>Total</span>
-        <span>$ 100</span>
+        <span>{toRupiah(order.total)}</span>
       </div>
       <Divider style={{ margin: 0 }} />
       <Button size="large" type="primary" onClick={showModal}>

@@ -5,29 +5,29 @@ import { RiDeleteBinLine } from 'react-icons/ri';
 import { Image, StrikethroughText } from '../../../../atoms';
 import { textTruncate } from '../../../../../helpers/textTruncate';
 import { toRupiah } from '../../../../../helpers/toRupiah';
+import { IOrderItem } from '../../../../../helpers/types';
 
-const ProductItem: React.FC = () => {
+interface ProductItemProps {
+  item: IOrderItem;
+}
+
+const ProductItem: React.FC<ProductItemProps> = ({ item }) => {
   return (
     <div className={style.product__item}>
       <div className={style.product__item__details__item}>
         <div className={style.product__item__details__item__desc}>
           <Image
-            src="https://www.soco.id/cdn-cgi/image/w=96,format=auto,dpr=1.45/https://images.soco.id/8c965d4d-c284-4269-bd61-24865dfe5664-18407960361-1629981551709.png"
+            src={item.image}
             alt="cart-img"
             className={style.product__item__img}
           />
           <div className={style.desc}>
+            <p>{textTruncate(item.name, 60)}</p>
             <p>
-              {textTruncate(
-                ' Perum Pesona Aluna 1 Blok A8 Babakan Limbangan Peuntas sukaraja kab sukabumi, Sukaraja,',
-                60,
-              )}
-            </p>
-            <p>
-              Variant : <span>Black</span>
+              Variant : <span>{item.variant_name}</span>
             </p>
             <div className={style.product__item__details__item__qty}>
-              <p>3pcs</p>
+              <p>{item.quantity}pcs</p>
             </div>
           </div>
         </div>
@@ -36,12 +36,15 @@ const ProductItem: React.FC = () => {
       <div className={style.product__item__details__info}>
         <div className={style.product__item__details__info__price}>
           <p className={style.product__item__price}>
-            {toRupiah(Number(2000000))}
+            {toRupiah(Number(item.real_price))}
           </p>
-          <StrikethroughText
-            className={style.product__item__disc__price}
-            text={toRupiah(Number(40000))}
-          />
+          {item.discount_price !== 0 &&
+            item.discount_price !== item.real_price && (
+              <StrikethroughText
+                className={style.product__item__disc__price}
+                text={toRupiah(Number(item.discount_price))}
+              />
+            )}
         </div>
       </div>
     </div>
