@@ -7,6 +7,7 @@ import {
   IProductDetails,
   IShippingDetails,
   ITransactionStatus,
+  ITransaction,
 } from './entity.interface';
 
 export interface IGetProductListResponse {
@@ -63,9 +64,18 @@ export interface IGetRecommendedProductsRequest {
 export type IGetMerchantCategoriesResponse = ICategory[];
 
 export interface IGetTransactionListRequest {
-  status?: string;
-  limit?: number;
+  q?: string;
+  start_date?: string;
+  end_date?: string;
   page?: number;
+  limit?: number;
+}
+
+export interface IGetTransactionListResponse {
+  transactions: ITransaction[];
+  total_data: number;
+  total_page: number;
+  current_page: number;
 }
 
 export interface IGetTransactionDetailsResponse {

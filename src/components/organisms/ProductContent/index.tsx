@@ -58,16 +58,16 @@ const Content: React.FC<ContentProps> = ({
         {!isError && data?.total_data && Boolean(data?.products.length) ? (
           <>
             <ListCardProduct data={data} />
-            <div className={style.content__pagination}>
-              {data.total_data > limit && (
+            {data.total_data > limit && (
+              <div className={style.content__pagination}>
                 <Pagination
                   total={data.total_data}
                   pageSize={limit}
                   className={style.content__pagination__pagination}
                   showSizeChanger={false}
                 />
-              )}
-            </div>
+              </div>
+            )}
           </>
         ) : (
           <ItemNotFound
