@@ -2,9 +2,12 @@ export interface ICartItem {
   cart_item_id: number;
   discount_price: number;
   product_id: number;
+  product_slug: string;
   variant_item_id: number;
+  variant_name: string;
   merchant_id: number;
   merchant_name: string;
+  merchant_domain: string;
   merchant_image: string;
   image: string;
   name: string;
@@ -31,7 +34,7 @@ export interface ICartResponse {
 
 export interface ICartHomeResponse {
   carts: ICartItem[] | undefined;
-  total: number | undefined;
+  quantity: number | undefined;
 }
 
 export interface ICreateCartRequest {
@@ -41,8 +44,8 @@ export interface ICreateCartRequest {
 }
 
 export interface IUpdateCartRequest {
-  cart_item_id: number | null;
-  ic_checked: boolean;
+  cart_item_id: number | undefined;
+  is_checked: boolean;
 }
 
 export interface IUpdateCartItemRequest {

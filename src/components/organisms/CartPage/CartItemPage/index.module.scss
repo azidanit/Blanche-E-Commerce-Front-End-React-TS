@@ -1,10 +1,30 @@
 @use 'src/styles/variables' as *;
 .cart__item {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 2rem;
-  border-bottom: 1px solid $primary-20;
-  padding: 1rem 0;
+  padding: 1rem 1rem 0.3rem 1rem;
+  border-radius: 1rem;
+  gap: 1rem;
+  width: 100%;
+  border: 1px solid rgba(128, 128, 128, 0.219) !important;
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    padding: 0.5rem;
+  }
+
+  &__qty {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    flex-direction: column;
+    p {
+      color: red;
+    }
+  }
+
+  &__invalid {
+    background-color: rgba(255, 0, 0, 0.048);
+    border: 1px solid rgba(255, 0, 0, 0.219);
+  }
 
   &:last-child {
     border: none;
@@ -27,25 +47,52 @@
   }
 
   &__details {
-    display: flex;
+    display: grid;
+    grid-template-columns: 5fr 3fr;
     align-items: center;
-    justify-self: flex-start;
-    max-width: max-content;
     gap: 1.5rem;
-    width: 100%;
 
-    &__item {
-      p {
-        font-size: 1rem;
-        width: 100%;
+    @media screen and (max-width: 768px) {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
 
-        @media screen and (max-width: 768px) {
-          font-size: 0.8rem;
+    &__desc {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      width: 100%;
+
+      @media screen and (max-width: 768px) {
+        gap: 0.5rem;
+      }
+
+      &__item {
+        p {
+          font-size: 1rem;
+          width: 100%;
+
+          @media screen and (max-width: 768px) {
+            font-size: 0.8rem;
+          }
+
+          &:first-child {
+            font-weight: $text-regular;
+          }
         }
+      }
+    }
 
-        &:first-child {
-          font-weight: $text-regular;
-        }
+    &__action {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      width: 100%;
+      justify-content: flex-end;
+
+      @media screen and (max-width: 768px) {
+        justify-content: flex-start;
+        margin-bottom: 0rem;
       }
     }
   }
@@ -54,6 +101,7 @@
     display: flex;
     align-items: center;
     gap: 1rem;
+    margin-top: 1rem;
 
     &__notes {
       button {
@@ -68,16 +116,18 @@
         color: $primary-70;
       }
       @media screen and (max-width: 768px) {
-        margin-left: 1rem;
         font-size: 0.8rem;
       }
     }
   }
 
   &__title {
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: $text-regular;
-    margin-bottom: 10px;
+
+    @media screen and (max-width: 768px) {
+      font-size: 0.8rem;
+    }
   }
 
   &__price {
