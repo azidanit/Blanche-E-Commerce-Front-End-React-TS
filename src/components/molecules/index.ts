@@ -20,6 +20,8 @@ import Pagination from './Pagination';
 import ModalHeader from './ModalHeader';
 import Popconfirm from './Popconfirm';
 import ItemNotFound from './ItemNotFound';
+import Menu from './Menu';
+import Sidebar from './Sidebar';
 import CardWallet from './MenuProfile/CardWallet';
 
 export {
@@ -45,5 +47,6 @@ export {
   Pagination,
   ModalHeader,
   ItemNotFound,
+  Menu,
   CardWallet,
 };

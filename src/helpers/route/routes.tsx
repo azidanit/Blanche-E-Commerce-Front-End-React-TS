@@ -2,6 +2,7 @@ import React, { lazy } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import ProtectedPage from '../../components/layouts/Auth/ProtectedPage';
 import AppLayout from '../../components/layouts/AppLayout';
+import MerchantLayout from '../../components/layouts/Merchant/MerchantLayout';
 
 const Home = lazy(() => import('../../pages/Home'));
 const Login = lazy(() => import('../../pages/Auth/Login'));
@@ -21,6 +22,7 @@ const Transactions = lazy(() => import('../../pages/Transactions'));
 const Wallet = lazy(() => import('../../pages/Wallet'));
 const TransactionDetails = lazy(() => import('../../pages/TransactionDetails'));
 const TopupWallet = lazy(() => import('../../pages/TopupWallet'));
+const Order = lazy(() => import('../../pages/Merchant/Order'));
 const TopupStatus = lazy(() => import('../../pages/TopupStatus'));
 
 export const router = createBrowserRouter([
@@ -101,6 +103,15 @@ export const router = createBrowserRouter([
       {
         path: '/recommendation',
         element: <Recommendation />,
+      },
+    ],
+  },
+  {
+    element: <MerchantLayout />,
+    children: [
+      {
+        path: '/merchant',
+        element: <Order />,
       },
     ],
   },
