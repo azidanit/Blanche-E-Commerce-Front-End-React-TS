@@ -119,11 +119,19 @@ const Cart: React.FC = () => {
           />
         </Col>
         {!isMobile ? (
-          <Col md={24} lg={8} xl={7}>
-            <CartSummary quantity={carts?.quantity} total={carts?.total} />
+          <Col lg={8} xl={7}>
+            <CartSummary
+              carts={carts?.carts ? carts?.carts : []}
+              quantity={carts?.quantity ? carts?.quantity : 0}
+              total={carts?.total ? carts?.total : 0}
+            />
           </Col>
         ) : (
-          <CartSummaryMobile quantity={carts?.quantity} total={carts?.total} />
+          <CartSummaryMobile
+            carts={carts?.carts ? carts?.carts : []}
+            quantity={carts?.quantity ? carts?.quantity : 0}
+            total={carts?.total ? carts?.total : 0}
+          />
         )}
       </Row>
     </div>
