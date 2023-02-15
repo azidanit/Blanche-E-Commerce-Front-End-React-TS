@@ -1,0 +1,12 @@
+@use '../../../../../styles/variables.scss' as *;
+
+.pi {
+  box-shadow: $box-shadow;
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem;
+
+  &__title {
+    font-size: 1.25rem;
+    font-weight: $text-bold;
+  }
+}

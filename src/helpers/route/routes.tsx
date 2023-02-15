@@ -24,6 +24,7 @@ const TransactionDetails = lazy(() => import('../../pages/TransactionDetails'));
 const TopupWallet = lazy(() => import('../../pages/TopupWallet'));
 const Order = lazy(() => import('../../pages/Merchant/Order'));
 const TopupStatus = lazy(() => import('../../pages/TopupStatus'));
+const Product = lazy(() => import('../../pages/Merchant/Product'));
 
 export const router = createBrowserRouter([
   {
@@ -112,6 +113,10 @@ export const router = createBrowserRouter([
       {
         path: '/merchant',
         element: <Order />,
+      },
+      {
+        path: '/merchant/gege',
+        element: <Product />,
       },
     ],
   },
