@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { MdCheckCircleOutline, MdOutlineCancel } from 'react-icons/md';
 
 import style from './index.module.scss';
-import classNames from 'classnames';
+import { Image } from '../../components';
 
 const TopupStatus: React.FC = () => {
   const navigate = useNavigate();
@@ -21,17 +20,11 @@ const TopupStatus: React.FC = () => {
 
   return (
     <div className={style.ts}>
-      {isSuccess ? (
-        <MdCheckCircleOutline
-          size={128}
-          className={classNames(style.ts__icon, style.ts__icon__success)}
-        />
-      ) : (
-        <MdOutlineCancel
-          size={128}
-          className={classNames(style.ts__icon, style.ts__icon__error)}
-        />
-      )}
+      <Image
+        src={isSuccess ? '/assets/svg/success.svg' : '/assets/svg/Broken.svg'}
+        alt="success"
+        className={style.ts__img}
+      />
       <h2 className={style.ts__title}>
         Top Up {isSuccess ? 'Success' : 'Failed'}
       </h2>
