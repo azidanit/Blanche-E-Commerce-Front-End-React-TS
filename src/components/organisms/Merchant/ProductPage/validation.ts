@@ -69,4 +69,27 @@ export const rules = {
       },
     }),
   ],
+  variantPrice: [
+    {
+      required: true,
+      message: 'Please input variant price!',
+    },
+  ],
+  variantStock: [
+    {
+      required: true,
+      message: 'Please input variant stock!',
+    },
+  ],
+  variantSku: [
+    {
+      required: false,
+    },
+  ],
+  variantWeight: [
+    {
+      required: true,
+      message: 'Please input variant weight!',
+    },
+  ],
 };

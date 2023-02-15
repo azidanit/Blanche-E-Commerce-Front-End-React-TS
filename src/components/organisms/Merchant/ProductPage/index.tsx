@@ -11,9 +11,7 @@ import { useForm } from 'antd/es/form/Form';
 
 const ProductPage: React.FC = () => {
   const [form] = useForm();
-  const onFinishForm = () => {
-    console.log('onFinishForm');
-  };
+  const onFinishForm = () => {};
 
   return (
     <div className={style.pp}>
