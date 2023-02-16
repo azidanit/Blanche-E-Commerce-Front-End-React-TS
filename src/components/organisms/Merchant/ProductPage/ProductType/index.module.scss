@@ -1,0 +1,39 @@
+@use '../../../../../styles/variables.scss' as *;
+
+.pt {
+  box-shadow: $box-shadow;
+
+  &__title {
+    font-weight: $text-bold;
+    font-size: 1.25rem;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+
+  &__dimension {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+
+    > * {
+      flex: 1;
+    }
+  }
+
+  &__input {
+    width: 100%;
+  }
+
+  &__sub {
+    margin-top: 1rem;
+    font-weight: $text-bold;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+}

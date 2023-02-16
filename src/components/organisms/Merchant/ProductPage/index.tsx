@@ -8,6 +8,7 @@ import ProductMedia from './ProductMedia';
 import ProductDetails from './ProductDetails';
 import ProductVariants from './ProductVariants';
 import { useForm } from 'antd/es/form/Form';
+import ProductType from './ProductType';
 
 const ProductPage: React.FC = () => {
   const [form] = useForm();
@@ -25,17 +26,13 @@ const ProductPage: React.FC = () => {
         <ProductMedia />
         <ProductInfo />
         <ProductDetails />
-        <ProductVariants />
-        <FormLabel label="Price" name="price" rules={rules.price}>
-          <InputNumber placeholder="ex: 1000000" />
-        </FormLabel>
-        <FormLabel label="Stock" name="stock" rules={rules.stock}>
-          <InputNumber placeholder="ex: 100" />
-        </FormLabel>
-        <FormLabel label="SKU" name="sku" rules={rules.sku}>
-          <Input placeholder="ex: 123456789" />
-        </FormLabel>
-        <Button htmlType="submit">Submit</Button>
+        <ProductType />
+        <div className={style.pp__action}>
+          <Button htmlType="submit" type="primary">
+            Submit
+          </Button>
+          <Button htmlType="reset">Reset</Button>
+        </div>
       </Form>
     </div>
   );

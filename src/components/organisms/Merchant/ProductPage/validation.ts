@@ -20,24 +20,8 @@ export const rules = {
   ],
   condition: [
     {
-      required: false,
-    },
-  ],
-  price: [
-    {
       required: true,
-      message: 'Please input product price!',
-    },
-  ],
-  stock: [
-    {
-      required: true,
-      message: 'Please input product stock!',
-    },
-  ],
-  sku: [
-    {
-      required: false,
+      message: 'Please select product condition!',
     },
   ],
   images: [
@@ -69,24 +53,24 @@ export const rules = {
       },
     }),
   ],
-  variantPrice: [
+  price: [
     {
       required: true,
       message: 'Please input variant price!',
     },
   ],
-  variantStock: [
+  stock: [
     {
       required: true,
       message: 'Please input variant stock!',
     },
   ],
-  variantSku: [
+  sku: [
     {
       required: false,
     },
   ],
-  variantWeight: [
+  weight: [
     {
       required: true,
       message: 'Please input variant weight!',

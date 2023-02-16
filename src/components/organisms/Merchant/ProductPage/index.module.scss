@@ -1,4 +1,11 @@
 @use '../../../../styles/variables.scss' as *;
 
 .pp {
+  &__action {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-direction: row-reverse;
+    margin-top: 1rem;
+  }
 }
