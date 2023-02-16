@@ -56,7 +56,6 @@ const EditAddress: React.FC<EditAddressPageProps> = ({
       district: data.district_id.toString(),
       subDistrict: data.subdistrict_id.toString(),
     });
-    // }
   }, [data, form]);
 
   const { data: provinces, isLoading: isLoadingProvinces } =

@@ -8,6 +8,7 @@ import { Menu } from '../..';
 import style from './index.module.scss';
 import { Logo, LogoIcon } from '../../atoms';
 import { Layout } from 'antd';
+import { Link } from 'react-router-dom';
 
 interface SidebarProps {
   collapsed: boolean;
@@ -17,12 +18,12 @@ const items = [
   {
     key: '1',
     icon: <UserOutlined />,
-    label: 'nav 1',
+    label: <Link to="/merchant">nav 1</Link>,
   },
   {
     key: '2',
     icon: <VideoCameraOutlined />,
-    label: 'nav 2',
+    label: <Link to="/merchant/gege">nav 2</Link>,
   },
   {
     key: '3',
