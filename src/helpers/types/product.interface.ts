@@ -85,3 +85,34 @@ export interface IGetTransactionDetailsResponse {
   shipping_details: IShippingDetails;
   transaction_status: ITransactionStatus;
 }
+
+export interface ICreateProductRequest {
+  name: string;
+  price: number;
+  category_id: number;
+  description: string;
+  is_used: boolean;
+  SKU: string;
+  images: string[];
+  total_stock: number;
+  is_archived: boolean;
+  weight: number;
+  dimension: {
+    width: number;
+    height: number;
+    length: number;
+  };
+  variant: {
+    variant_options: {
+      name: string;
+      type: string[];
+    }[];
+    variant_items: {
+      key: string;
+      images: string[];
+      price: number;
+      discount_price: number;
+      stock: number;
+    }[];
+  };
+}
