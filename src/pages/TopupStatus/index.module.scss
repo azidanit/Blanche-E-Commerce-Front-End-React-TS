@@ -7,16 +7,9 @@
   justify-content: center;
   height: 800px;
 
-  &__icon {
+  &__img {
+    width: 400px;
     margin-bottom: 1rem;
-
-    &__success {
-      color: $success;
-    }
-
-    &__error {
-      color: $red;
-    }
   }
 
   &__title {
