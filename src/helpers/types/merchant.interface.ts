@@ -39,3 +39,20 @@ export interface ICheckStoreNameRequest {
 export interface ICheckDomainRequest {
   domain: string;
 }
+
+export interface IShippingOption {
+  courier_name: string;
+  courier_code: string;
+}
+
+export interface IGetShippingOptionsResponse {
+  delivery_options: IShippingOption[];
+  total: number;
+}
+
+export interface IGetMerchantShippingOptionsResponse {
+  delivery_options: IShippingOption[];
+  total: number;
+  merchant_domain: string;
+  merchant_name: string;
+}
