@@ -1,18 +1,18 @@
 import React from 'react';
 import style from './index.module.scss';
-import { Button, Form, FormLabel, Input } from '../../..';
-import { rules } from './validation';
-import { InputNumber } from 'antd';
+import { Button, Form } from '../../..';
 import ProductInfo from './ProductInfo';
 import ProductMedia from './ProductMedia';
 import ProductDetails from './ProductDetails';
-import ProductVariants from './ProductVariants';
 import { useForm } from 'antd/es/form/Form';
 import ProductType from './ProductType';
+import ProductShipping from './ProductShipping';
 
 const ProductPage: React.FC = () => {
   const [form] = useForm();
-  const onFinishForm = () => {};
+  const onFinishForm = (values: any) => {
+    console.log('form', values);
+  };
 
   return (
     <div className={style.pp}>
@@ -22,11 +22,13 @@ const ProductPage: React.FC = () => {
         autoComplete="off"
         onFinish={onFinishForm}
         form={form}
+        className={style.pp__form}
       >
         <ProductMedia />
         <ProductInfo />
         <ProductDetails />
         <ProductType />
+        <ProductShipping />
         <div className={style.pp__action}>
           <Button htmlType="submit" type="primary">
             Submit

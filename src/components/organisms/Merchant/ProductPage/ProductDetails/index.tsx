@@ -9,11 +9,21 @@ const conditions = ['New', 'Used'];
 const ProductDetails: React.FC = () => {
   return (
     <Card className={style.pd}>
-      <h2 className={style.pd__title}>Product Details</h2>
-      <FormLabel label="Condition" name="condition" rules={rules.condition}>
+      <div className={style.pd__header}>
+        <h2 className={style.pd__title}>Product Details</h2>
+        <p className={style.pd__info}>
+          Describe your product correctly so that the customer can understand
+          your product easily.
+        </p>
+      </div>
+      <FormLabel
+        label="Product Condition"
+        name="condition"
+        rules={rules.condition}
+      >
         <Radio.Group>
           {conditions.map((condition) => (
-            <Radio key={condition} value={condition}>
+            <Radio key={condition} value={condition.toLowerCase()}>
               {condition}
             </Radio>
           ))}

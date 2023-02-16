@@ -26,7 +26,13 @@ const ProductMedia: React.FC = () => {
 
   return (
     <Card className={style.pm}>
-      <h2 className={style.pm__title}>Product Media</h2>
+      <div className={style.pm__header}>
+        <h2 className={style.pm__title}>Product Media</h2>
+        <p className={style.pm__info}>
+          Upload the product media to attract user attention. You can upload
+          multiple media.
+        </p>
+      </div>
       <FormLabel label="Product Image" name="images" rules={rules.images}>
         <Upload
           name="file"

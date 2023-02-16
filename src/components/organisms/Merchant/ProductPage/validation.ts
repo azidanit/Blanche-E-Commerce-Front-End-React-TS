@@ -33,10 +33,12 @@ export const rules = {
   firstVariant: [
     { min: 3, message: 'Variant group must be at least 3 characters long.' },
     { max: 16, message: 'Variant group must be at most 16 characters long.' },
+    { required: true, message: 'Please input first variant!' },
   ],
   secondVariant: [
     { min: 3, message: 'Variant group must be at least 3 characters long.' },
     { max: 16, message: 'Variant group must be at most 16 characters long.' },
+    { required: true, message: 'Please input first variant!' },
     ({
       getFieldValue,
     }: {
@@ -53,27 +55,51 @@ export const rules = {
       },
     }),
   ],
+  variantType: [
+    {
+      required: true,
+      message: 'Please create variant type!',
+    },
+  ],
   price: [
     {
       required: true,
-      message: 'Please input variant price!',
+      message: 'Please input price!',
     },
   ],
   stock: [
     {
       required: true,
-      message: 'Please input variant stock!',
-    },
-  ],
-  sku: [
-    {
-      required: false,
+      message: 'Please input stock!',
     },
   ],
   weight: [
     {
       required: true,
-      message: 'Please input variant weight!',
+      message: 'Please input weight!',
+    },
+  ],
+  length: [
+    {
+      required: true,
+      message: 'Please input length!',
+    },
+  ],
+  width: [
+    {
+      required: true,
+      message: 'Please input width!',
+    },
+  ],
+  height: [
+    {
+      required: true,
+      message: 'Please input height!',
+    },
+  ],
+  status: [
+    {
+      required: false,
     },
   ],
 };

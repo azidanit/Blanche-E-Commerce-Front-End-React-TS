@@ -11,11 +11,24 @@ interface Row {
   key: string;
   price: React.ReactNode;
   stock: React.ReactNode;
-  sku: React.ReactNode;
-  weight: React.ReactNode;
   firstVariant?: string;
   secondVariant?: string;
 }
+
+const defaultOptions = [
+  {
+    label: 'Type 1',
+    value: 'type1',
+  },
+  {
+    label: 'Type 2',
+    value: 'type2',
+  },
+  {
+    label: 'Type 3',
+    value: 'type3',
+  },
+];
 
 const defaultColumns: ColumnsType<Row> = [
   {
@@ -27,16 +40,6 @@ const defaultColumns: ColumnsType<Row> = [
     title: 'Stock',
     dataIndex: 'stock',
     key: 'stock',
-  },
-  {
-    title: 'SKU',
-    dataIndex: 'sku',
-    key: 'sku',
-  },
-  {
-    title: 'Weight',
-    dataIndex: 'weight',
-    key: 'weight',
   },
 ];
 
@@ -51,16 +54,14 @@ const ProductVariants: React.FC = () => {
   const secondSelect: string[] = Form.useWatch('secondSelect', form);
 
   useEffect(() => {
-    let prevValue = [...columns];
-    prevValue = prevValue.filter((item) => item.key !== 'firstVariant');
-    prevValue = prevValue.filter((item) => item.key !== 'secondVariant');
+    let newArr: ColumnsType<Row> = [];
     if (firstVariant && firstVariant.length >= 3) {
       const newColumns = {
         title: firstVariant.toString(),
         dataIndex: 'firstVariant',
         key: 'firstVariant',
       };
-      prevValue = [newColumns, ...prevValue];
+      newArr = [newColumns, ...defaultColumns];
     }
     if (
       secondVariant &&
@@ -74,9 +75,9 @@ const ProductVariants: React.FC = () => {
         dataIndex: 'secondVariant',
         key: 'secondVariant',
       };
-      prevValue = [newColumns, ...prevValue];
+      newArr = [newArr[0], newColumns, ...defaultColumns];
     }
-    setColumns(prevValue);
+    setColumns(newArr);
   }, [firstVariant, secondVariant, firstSelect, secondSelect, isSecondVariant]);
 
   useEffect(() => {
@@ -90,7 +91,7 @@ const ProductVariants: React.FC = () => {
         firstVariant: item,
         price: (
           <FormLabel
-            name={`variantPrice-${index}`}
+            name={['variantItems', index, 'price']}
             rules={rules.price}
             preserve={false}
           >
@@ -99,36 +100,18 @@ const ProductVariants: React.FC = () => {
         ),
         stock: (
           <FormLabel
-            name={`variantStock-${index}`}
+            name={['variantItems', index, 'stock']}
             rules={rules.stock}
             preserve={false}
           >
             <InputNumber min={0} placeholder="Stock" />
           </FormLabel>
         ),
-        sku: (
-          <FormLabel
-            name={`variantSKU-${index}`}
-            rules={rules.sku}
-            preserve={false}
-          >
-            <Input placeholder="SKU" size="small" />
-          </FormLabel>
-        ),
-        weight: (
-          <FormLabel
-            name={`variantWeight-${index}`}
-            rules={rules.weight}
-            preserve={false}
-          >
-            <InputNumber min={1} placeholder="Weight" addonAfter="g" />
-          </FormLabel>
-        ),
       }));
       setDataSource(res);
       return;
     }
-    console.log(secondSelect);
+
     if (
       firstSelect &&
       firstVariant.length >= 3 &&
@@ -139,12 +122,16 @@ const ProductVariants: React.FC = () => {
       firstSelect.forEach((firstItem, firstIndex) =>
         secondSelect.forEach((secondItem, secondIndex) => {
           res.push({
-            key: `${firstItem}-${secondItem}`,
+            key: `${firstIndex}-${secondIndex}`,
             firstVariant: firstItem,
             secondVariant: secondItem,
             price: (
               <FormLabel
-                name={`variantPrice-${firstIndex}${secondIndex}`}
+                name={[
+                  'variantItems',
+                  firstIndex * secondSelect.length + secondIndex,
+                  'price',
+                ]}
                 rules={rules.price}
                 preserve={false}
               >
@@ -153,29 +140,15 @@ const ProductVariants: React.FC = () => {
             ),
             stock: (
               <FormLabel
-                name={`variantStock-${firstIndex}${secondIndex}`}
+                name={[
+                  'variantItems',
+                  firstIndex * secondSelect.length + secondIndex,
+                  'stock',
+                ]}
                 rules={rules.stock}
                 preserve={false}
               >
                 <InputNumber min={0} placeholder="Stock" />
-              </FormLabel>
-            ),
-            sku: (
-              <FormLabel
-                name={`variantSKU-${firstIndex}${secondIndex}`}
-                rules={rules.sku}
-                preserve={false}
-              >
-                <Input placeholder="SKU" size="small" />
-              </FormLabel>
-            ),
-            weight: (
-              <FormLabel
-                name={`variantWeight-${firstIndex}${secondIndex}`}
-                rules={rules.weight}
-                preserve={false}
-              >
-                <InputNumber min={0} placeholder="Weight" />
               </FormLabel>
             ),
           });
@@ -191,24 +164,30 @@ const ProductVariants: React.FC = () => {
 
   return (
     <div className={classNames(style.pv, 'pv')}>
-      <h2 className={style.pv__title}>Product Variants</h2>
-      <FormLabel
-        name="firstVariant"
-        label="Variant 1"
-        validateTrigger="onBlur"
-        rules={rules.firstVariant}
-        preserve={false}
-      >
-        <Input placeholder="ex: Size or Color" size="small" />
-      </FormLabel>
-      {firstVariant && firstVariant.length >= 3 && (
-        <FormLabel name="firstSelect" preserve={false}>
-          <Select
-            mode="tags"
-            placeholder="Type and press enter to add a new variant"
-          />
+      <div>
+        <FormLabel
+          name="firstVariant"
+          label="Variant 1"
+          validateTrigger="onBlur"
+          rules={rules.firstVariant}
+          preserve={false}
+        >
+          <Input placeholder="ex: Size or Color" size="small" />
         </FormLabel>
-      )}
+        {firstVariant && firstVariant.length >= 3 && (
+          <FormLabel
+            name="firstSelect"
+            rules={rules.variantType}
+            preserve={false}
+          >
+            <Select
+              mode="tags"
+              placeholder="Type and press enter to add new variant type"
+              options={defaultOptions}
+            />
+          </FormLabel>
+        )}
+      </div>
       <Divider dashed />
       {isSecondVariant ? (
         <>
@@ -221,10 +200,15 @@ const ProductVariants: React.FC = () => {
             <Input placeholder="ex: Size or Color" size="small" />
           </FormLabel>
           {secondVariant && secondVariant.length >= 3 && (
-            <FormLabel name="secondSelect" preserve={false}>
+            <FormLabel
+              name="secondSelect"
+              rules={rules.variantType}
+              preserve={false}
+            >
               <Select
                 mode="tags"
-                placeholder="Type and press enter to add a new variant"
+                placeholder="Type and press enter to add new variant type"
+                options={defaultOptions}
               />
             </FormLabel>
           )}

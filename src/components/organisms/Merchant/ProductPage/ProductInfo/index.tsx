@@ -1,7 +1,7 @@
 import { Cascader } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useGetCategoriesQuery } from '../../../../../app/features/home/homeApiSlice';
-import { Card, FormLabel, Input, TextArea } from '../../../../atoms';
+import { Card, FormLabel, Input } from '../../../../atoms';
 import { rules } from '../validation';
 import style from './index.module.scss';
 
@@ -34,7 +34,13 @@ const ProductInfo: React.FC = () => {
 
   return (
     <Card className={style.pi}>
-      <h2 className={style.pi__title}>Product Information</h2>
+      <div className={style.pi__header}>
+        <h2 className={style.pi__title}>Product Information</h2>
+        <p className={style.pi__info}>
+          Choose the right name and category for your product to make it easy
+          for the customers.
+        </p>
+      </div>
       <FormLabel label="Product Name" name="name" rules={rules.name}>
         <Input
           placeholder="ex: Apple iPhone 12 Pro Max 256GB"
@@ -45,7 +51,7 @@ const ProductInfo: React.FC = () => {
       </FormLabel>
       <FormLabel
         label="Product Category"
-        name="category"
+        name="category_id"
         rules={rules.category}
       >
         <Cascader placeholder="Choose category" options={categories} />

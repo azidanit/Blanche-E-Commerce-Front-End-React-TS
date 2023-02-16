@@ -1,12 +1,11 @@
 import React from 'react';
-import { FormLabel, Input, InputNumber } from '../../../../atoms';
+import { FormLabel, InputNumber } from '../../../../atoms';
 import { rules } from '../validation';
 import style from './index.module.scss';
 
 const ProductAttribute: React.FC = () => {
   return (
     <div className={style.pa}>
-      <h2 className={style.pa__title}>Product Attribute</h2>
       <FormLabel
         label="Price"
         name="price"
@@ -31,9 +30,6 @@ const ProductAttribute: React.FC = () => {
           min={0}
           placeholder="ex: 100"
         />
-      </FormLabel>
-      <FormLabel label="SKU" name="sku" rules={rules.sku} preserve={false}>
-        <Input placeholder="ex: 123456789" />
       </FormLabel>
     </div>
   );
