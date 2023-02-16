@@ -4,6 +4,8 @@ import {
   ICheckStoreNameRequest,
   ICheckStoreNameResponse,
   ICreateMerchantRequest,
+  IGetMerchantShippingOptionsResponse,
+  IGetShippingOptionsResponse,
   IMerchantInfoResponse,
 } from '../../../helpers/types';
 import { IGetMerchantCategoriesResponse } from '../../../helpers/types';
@@ -61,6 +63,15 @@ export const merchantApi = apiSlice.injectEndpoints({
         body,
       }),
       transformResponse: (response: { data: ICheckDomainResponse }) =>
+        response.data,
+      transformErrorResponse: (response) => response.data,
+    }),
+    getShippingOptions: build.query<IGetShippingOptionsResponse, void>({
+      query: () => ({
+        url: '/deliveries',
+        method: 'GET',
+      }),
+      transformResponse: (response: { data: IGetShippingOptionsResponse }) =>
         response.data,
       transformErrorResponse: (response) => response.data,
     }),

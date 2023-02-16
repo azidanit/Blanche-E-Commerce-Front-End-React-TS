@@ -28,7 +28,7 @@ const items = [
   {
     key: '3',
     icon: <UploadOutlined />,
-    label: 'nav 3',
+    label: <Link to="/merchant/shipping">nav 3</Link>,
   },
 ];
 const { Sider } = Layout;

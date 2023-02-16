@@ -54,7 +54,7 @@ const ProductVariants: React.FC = () => {
   const secondSelect: string[] = Form.useWatch('secondSelect', form);
 
   useEffect(() => {
-    let newArr: ColumnsType<Row> = [];
+    let newArr: ColumnsType<Row> = defaultColumns;
     if (firstVariant && firstVariant.length >= 3) {
       const newColumns = {
         title: firstVariant.toString(),
