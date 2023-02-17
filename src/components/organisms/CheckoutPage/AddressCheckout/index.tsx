@@ -1,28 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { useGetUserAddressQuery } from '../../../../app/features/address/userAddressApiSlice';
-import { ICheckoutResponse, IUserAddress } from '../../../../helpers/types';
-import { Card } from '../../../atoms';
+import { IUserAddress } from '../../../../helpers/types';
+import { Alert, Card } from '../../../atoms';
 import { ChooseAddress } from '../../UserAddress';
 import style from './index.module.scss';
 import { IoLocationSharp } from 'react-icons/io5';
-import { useCheckoutSummaryMutation } from '../../../../app/features/checkout/checkoutApiSlice';
-import { message } from 'antd';
-import { capitalizeFirstLetter } from '../../../../helpers/capitalizeFirstLetter';
 
 interface AddressCheckoutProps {
-  order: ICheckoutResponse;
-  handleSetOrderSummary: (order: ICheckoutResponse) => void;
+  handleChangeAddress: (address: IUserAddress) => void;
+  errorAddress: string;
 }
 
 const AddressCheckout: React.FC<AddressCheckoutProps> = ({
-  order,
-  handleSetOrderSummary,
+  handleChangeAddress,
+  errorAddress,
 }) => {
   const { data } = useGetUserAddressQuery();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const [checkoutSummary] = useCheckoutSummaryMutation();
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -37,28 +32,18 @@ const AddressCheckout: React.FC<AddressCheckoutProps> = ({
   useEffect(() => {
     if (!data) return;
 
-    setDefaultAddress(
-      data.filter((item: IUserAddress) => item.is_default)[0] || data[0],
-    );
+    const defaultAddress =
+      data.filter((item: IUserAddress) => item.is_default)[0] || data[0];
+    handleChangeAddress(defaultAddress);
+    setDefaultAddress(defaultAddress);
 
     setAddresses(data);
   }, [data]);
 
   const handleSetAddress = async (value: IUserAddress) => {
     setDefaultAddress(value);
+    handleChangeAddress(value);
     setIsModalOpen(false);
-
-    try {
-      const data = await checkoutSummary({
-        order_code: order.order_code,
-        address_id: value.id,
-      }).unwrap();
-      handleSetOrderSummary(data);
-    } catch (e) {
-      const err = e as Error;
-
-      message.error(capitalizeFirstLetter(err.message));
-    }
   };
 
   return (
@@ -76,6 +61,9 @@ const AddressCheckout: React.FC<AddressCheckoutProps> = ({
           handleCancel={handleCancel}
           isModalOpen={isModalOpen}
         />
+      )}
+      {errorAddress && (
+        <Alert message={errorAddress} type="error" showIcon closable />
       )}
     </Card>
   );

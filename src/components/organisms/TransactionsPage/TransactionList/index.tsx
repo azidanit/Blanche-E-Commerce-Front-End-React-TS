@@ -7,7 +7,7 @@ import CardTransaction from '../CardTransaction';
 import FilterStatus from '../FilterStatus';
 import style from './index.module.scss';
 
-const limit = 1;
+const limit = 10;
 
 const TransactionList: React.FC = () => {
   const params = useAppSelector((state) => state.params);

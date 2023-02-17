@@ -6,6 +6,22 @@
   width: 95%;
   border-radius: 1.1rem;
 
+  &__modal {
+    text-align: center;
+
+    &__header {
+      h5 {
+        font-size: 1.4rem;
+      }
+    }
+
+    &__footer {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+    }
+  }
+
   &__button {
     margin-top: 1rem;
     p {

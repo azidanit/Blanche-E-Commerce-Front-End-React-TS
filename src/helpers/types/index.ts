@@ -8,4 +8,5 @@ export * from './user.address.interface';
 export * from './merchant.interface';
 export * from './wallet.interface';
 export * from './params.interface';
+export * from './marketplace.interface';
 export * from './checkout.interface';

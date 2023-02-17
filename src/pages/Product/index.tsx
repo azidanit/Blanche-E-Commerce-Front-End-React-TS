@@ -38,12 +38,18 @@ const Product = (): JSX.Element => {
         product: data,
         isDiscount: data?.min_real_price !== data?.min_discount_price,
         isRangePrice: data?.min_real_price !== data?.max_real_price,
-        price: !isRangePrice ? data?.min_real_price : 0,
+        price:
+          data?.min_real_price !== data?.min_discount_price
+            ? data?.min_real_price
+            : data?.min_discount_price,
         stock: variant === null ? data?.total_stock : variant.stock,
         activeImage: data?.images?.[0],
         isLoading: isLoading,
         variant: null,
-        discountPrice: null,
+        discountPrice:
+          data?.min_real_price !== data?.min_discount_price
+            ? data?.min_discount_price
+            : null,
       }),
     );
   }, [data]);
@@ -67,8 +73,12 @@ const Product = (): JSX.Element => {
       </div>
 
       <div className={style.product__page__lists}>
-        <MoreProducts title="More from this store" data={sellerProducts} />
-        <MoreProducts title="Similar Products" data={similarProducts} />
+        {Boolean(sellerProducts?.products.length) && (
+          <MoreProducts title="More from this store" data={sellerProducts} />
+        )}
+        {Boolean(similarProducts?.products.length) && (
+          <MoreProducts title="Similar Products" data={similarProducts} />
+        )}
       </div>
     </div>
   );

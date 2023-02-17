@@ -1,12 +1,14 @@
 import { Divider, notification, Skeleton, Space } from 'antd';
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCheckoutMutation } from '../../../../app/features/checkout/checkoutApiSlice';
 import { capitalizeFirstLetter } from '../../../../helpers/capitalizeFirstLetter';
 import { toRupiah } from '../../../../helpers/toRupiah';
 import { ICart, ICheckoutRequest } from '../../../../helpers/types';
+import { IErrorResponse } from '../../../../helpers/types/response.interface';
 import { Button, Card } from '../../../atoms';
 import style from './index.module.scss';
+import ModalWarning from './ModalWarning';
 
 export interface CartSummaryProps {
   quantity: number;
@@ -22,6 +24,21 @@ const CartSummary: React.FC<CartSummaryProps> = ({
   const isLoading = false;
   const [checkout, { isLoading: isLoadingCheckout }] = useCheckoutMutation();
   const navigate = useNavigate();
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+    navigate('/profile');
+  };
 
   const handleCheckout = async () => {
     const body: ICheckoutRequest[] = [];
@@ -46,7 +63,13 @@ const CartSummary: React.FC<CartSummaryProps> = ({
       });
       navigate('/checkout?data=' + data.order_code);
     } catch (err) {
-      const error = err as Error;
+      const error = err as IErrorResponse;
+
+      if (error.code === 'ORDER_ADDRESS_NOT_FOUND') {
+        showModal();
+        return;
+      }
+
       notification.error({
         message: 'Error',
         description: capitalizeFirstLetter(error.message),
@@ -90,6 +113,11 @@ const CartSummary: React.FC<CartSummaryProps> = ({
           </>
         )}
       </div>
+      <ModalWarning
+        isModalOpen={isModalOpen}
+        handleCancel={handleCancel}
+        handleOk={handleOk}
+      />
     </Card>
   );
 };

@@ -21,7 +21,6 @@ import ModalHeader from './ModalHeader';
 import Popconfirm from './Popconfirm';
 import ItemNotFound from './ItemNotFound';
 import Menu from './Menu';
-import Sidebar from './Sidebar';
 import CardWallet from './MenuProfile/CardWallet';
 
 export {

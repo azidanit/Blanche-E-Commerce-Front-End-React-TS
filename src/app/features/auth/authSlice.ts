@@ -1,6 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { IGetProfileResponse } from '../../../helpers/types';
 
-const initialState = {
+interface StateProps {
+  user: IGetProfileResponse | null;
+  isLoggedIn: boolean;
+}
+
+const initialState: StateProps = {
   user: null,
   isLoggedIn: false,
 };

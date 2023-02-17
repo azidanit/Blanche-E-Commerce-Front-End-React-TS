@@ -1,7 +1,6 @@
-import { valueType } from 'antd/es/statistic/utils';
+
 import React from 'react';
 import style from './index.module.scss';
-import { RiDeleteBinLine } from 'react-icons/ri';
 import { Image, StrikethroughText } from '../../../../atoms';
 import { textTruncate } from '../../../../../helpers/textTruncate';
 import { toRupiah } from '../../../../../helpers/toRupiah';
@@ -9,9 +8,16 @@ import { IOrderItem } from '../../../../../helpers/types';
 
 interface ProductItemProps {
   item: IOrderItem;
+  handleChangeMerchant: (
+    merchant_id: number,
+    voucher_merchant: string,
+    delivery_option: string,
+  ) => void;
 }
 
-const ProductItem: React.FC<ProductItemProps> = ({ item }) => {
+const ProductItem: React.FC<ProductItemProps> = ({
+  item,
+}) => {
   return (
     <div className={style.product__item}>
       <div className={style.product__item__details__item}>
@@ -36,13 +42,16 @@ const ProductItem: React.FC<ProductItemProps> = ({ item }) => {
       <div className={style.product__item__details__info}>
         <div className={style.product__item__details__info__price}>
           <p className={style.product__item__price}>
-            {toRupiah(Number(item.real_price))}
+            {item.discount_price !== 0 &&
+            item.discount_price !== item.real_price
+              ? toRupiah(Number(item.discount_price))
+              : toRupiah(Number(item.real_price))}
           </p>
           {item.discount_price !== 0 &&
             item.discount_price !== item.real_price && (
               <StrikethroughText
                 className={style.product__item__disc__price}
-                text={toRupiah(Number(item.discount_price))}
+                text={toRupiah(Number(item.real_price))}
               />
             )}
         </div>
