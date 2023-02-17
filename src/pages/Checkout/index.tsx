@@ -1,29 +1,52 @@
-import { message, notification, Skeleton } from 'antd';
-import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { message, Skeleton, Spin } from 'antd';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useCheckoutSummaryMutation } from '../../app/features/checkout/checkoutApiSlice';
 import {
   AddressCheckout,
   ItemNotFound,
   ListProductStore,
+  ModalWarning,
   OrderSummary,
 } from '../../components';
 import { capitalizeFirstLetter } from '../../helpers/capitalizeFirstLetter';
-import { ICheckoutResponse } from '../../helpers/types';
+import {
+  ICheckoutResponse,
+  ICheckoutSummaryMerchant,
+  IUserAddress,
+  IVoucherMarketplaceResponse,
+} from '../../helpers/types';
 import style from './index.module.scss';
 
 const Checkout: React.FC = () => {
-  const location = useLocation();
-  const params = new URLSearchParams(location.search);
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const data = searchParams.get('data');
   const [orderSummary, setOrderSummary] = useState<ICheckoutResponse>();
-  const data = params.get('data');
-
+  const [address, setAddress] = useState<IUserAddress>();
+  const [errorAddress, setErrorAddress] = useState<string>('');
+  const [mpVoucher, setMpVoucher] = useState<IVoucherMarketplaceResponse>();
+  const [merchant, setMerchant] = useState<ICheckoutSummaryMerchant[]>([]);
+  const [errorDeliveryOption, setErrorDeliveryOption] = useState<string>('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [checkoutSummary, { isLoading }] = useCheckoutSummaryMutation();
 
-  const fetchData = async () => {
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+    navigate('/cart');
+  };
+
+  const fetchData = useCallback(async () => {
     try {
       const order = await checkoutSummary({
         order_code: data || '',
+        address_id: address?.id || 0,
+        merchants: merchant,
+        voucher_marketplace: mpVoucher?.code || '',
       }).unwrap();
 
       setOrderSummary(order);
@@ -31,18 +54,70 @@ const Checkout: React.FC = () => {
       const err = e as Error;
       message.error(capitalizeFirstLetter(err.message));
     }
+  }, [checkoutSummary, address, merchant, mpVoucher]);
+
+  const handleChangeAddress = (address: IUserAddress) => {
+    setAddress(address);
   };
+
+  const handleChangeMpVoucher = (
+    voucher: IVoucherMarketplaceResponse | undefined,
+  ) => {
+    setMpVoucher(voucher);
+  };
+
+  const handleChangeMerchant = (
+    merchant_id: number,
+    voucher_merchant: string,
+    delivery_option: string,
+  ) => {
+    const merchantIndex = merchant.findIndex(
+      (item) => item.merchant_id === merchant_id,
+    );
+
+    if (merchantIndex === -1) {
+      const newMerchant: ICheckoutSummaryMerchant = {
+        merchant_id,
+        voucher_merchant,
+        delivery_option,
+      };
+
+      setMerchant([...merchant, newMerchant]);
+    } else {
+      const newMerchant = [...merchant];
+      newMerchant[merchantIndex] = {
+        ...newMerchant[merchantIndex],
+        voucher_merchant,
+        delivery_option,
+      };
+
+      setMerchant(newMerchant);
+    }
+  };
+
   useEffect(() => {
     if (!data) {
       return;
     }
 
-    fetchData();
-  }, [data]);
+    if (orderSummary) {
+      if (!orderSummary.is_order_eligible) {
+        showModal();
+      }
+    }
 
-  const handleSetOrderSummary = (order: ICheckoutResponse) => {
-    setOrderSummary(order);
-  };
+    fetchData();
+  }, [fetchData]);
+
+  useEffect(() => {
+    if (
+      (merchant.filter((item) => item.delivery_option).length > 0 &&
+        merchant.length > 0) ||
+      merchant.length !== 0
+    ) {
+      setErrorDeliveryOption('');
+    }
+  }, [merchant]);
 
   if (!orderSummary) {
     if (isLoading) {
@@ -52,25 +127,53 @@ const Checkout: React.FC = () => {
     return <ItemNotFound title="Order not found" />;
   }
 
+  const handleMakeTx = (): boolean => {
+    if (!address) {
+      setErrorAddress('Please select address');
+    }
+
+    const isMerchantDeliveryOptionEmpty =
+      (merchant.filter((item) => !item.delivery_option).length > 0 &&
+        merchant.length > 0) ||
+      merchant.length === 0;
+
+    if (isMerchantDeliveryOptionEmpty) {
+      setErrorDeliveryOption('Please select delivery option');
+    }
+
+    return errorDeliveryOption === '' && !isMerchantDeliveryOptionEmpty;
+  };
+
   return (
-    <div className={style.checkout__page}>
-      <div className={style.checkout__page__info}>
-        <AddressCheckout
-          order={orderSummary}
-          handleSetOrderSummary={handleSetOrderSummary}
-        />
-        <ListProductStore
-          order={orderSummary}
-          handleSetOrderSummary={handleSetOrderSummary}
-        />
+    <Spin spinning={isLoading}>
+      <div className={style.checkout__page}>
+        <div className={style.checkout__page__info}>
+          <AddressCheckout
+            handleChangeAddress={handleChangeAddress}
+            errorAddress={errorAddress}
+          />
+          <ListProductStore
+            order={orderSummary}
+            merchant={merchant}
+            handleChangeMerchant={handleChangeMerchant}
+            errorDeliveryOption={errorDeliveryOption}
+          />
+        </div>
+        <div className={style.checkout__page__summary}>
+          <OrderSummary
+            handleChangeMpVoucher={handleChangeMpVoucher}
+            mpVoucher={mpVoucher}
+            address={address as IUserAddress}
+            merchant={merchant}
+            order={orderSummary}
+            handleMakeTx={handleMakeTx}
+            errorAddress={errorAddress}
+            errorDeliveryOption={errorDeliveryOption}
+          />
+        </div>
       </div>
-      <div className={style.checkout__page__summary}>
-        <OrderSummary
-          order={orderSummary}
-          handleSetOrderSummary={handleSetOrderSummary}
-        />
-      </div>
-    </div>
+      <ModalWarning isModalOpen={isModalOpen} handleOk={handleOk} />
+    </Spin>
   );
 };
 

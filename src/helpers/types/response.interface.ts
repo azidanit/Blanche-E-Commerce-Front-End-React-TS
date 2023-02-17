@@ -19,6 +19,6 @@ export type IProductRequest = {
 
 export interface IErrorResponse {
   message: string;
-  status: number;
-  code: number;
+  data: string;
+  code: string;
 }

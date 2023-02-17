@@ -6,7 +6,7 @@ export interface ICheckoutRequest {
 }
 
 export interface IOrderMerchant {
-  merchant_id: string;
+  merchant_id: number;
   merchant_name: string;
   merchant_image: string;
   merchant_domain: string;
@@ -19,6 +19,7 @@ export interface IOrderItem {
   variant_item_id: string;
   variant_name: string;
   merchant_id: string;
+  merchant_domain: string;
   merchant_name: string;
   merchant_image: string;
   merchant_city_id: string;
@@ -63,19 +64,37 @@ export interface ICheckoutResponse {
   discount_merchant: number;
   discount_marketplace: number;
   total: number;
-  is_voucher_invalid: boolean;
+  is_order_eligible: boolean;
+  is_voucher_valid: boolean;
   is_order_valid: boolean;
+}
+
+export interface ICheckoutSummaryMerchant {
+  merchant_id: number;
+  voucher_merchant: string;
+  delivery_option: string;
 }
 
 export interface ICheckoutSummaryRequest {
   order_code: string;
-  address_id?: number;
-  voucher_merchant?: [
-    {
-      merchant_id?: string;
-      voucher_merchant?: string;
-      delivery_option?: string;
-    },
-  ];
-  voucher_marketplace?: string;
+  address_id: number;
+  merchants: ICheckoutSummaryMerchant[];
+  voucher_marketplace: string;
+}
+
+export interface IPayWithSLPRequest {
+  order_code: string;
+  address_id: number;
+  merchants: ICheckoutSummaryMerchant[];
+  voucher_marketplace: string;
+  payment_total: number;
+  payment_method_code: string;
+  payment_account_number: string;
+}
+
+export interface IPayWithSLPResponse {
+  amount: number;
+  payment_id: number;
+  order_code: string;
+  payment_redirect_url: string;
 }

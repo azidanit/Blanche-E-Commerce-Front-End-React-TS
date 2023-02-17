@@ -1,6 +1,8 @@
-import { Divider, Dropdown, MenuProps, Space } from 'antd';
+import { Divider, Dropdown, MenuProps } from 'antd';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useAppSelector } from '../../../app/hooks';
+import { RootState } from '../../../app/store';
 import { Avatar, Button } from '../../atoms';
 import CardProfile from './CardProfile';
 import CardWallet from './CardWallet';
@@ -38,11 +40,17 @@ const items: MenuProps['items'] = [
   },
 ];
 const MenuProfile: React.FC = () => {
+  const { user } = useAppSelector((state: RootState) => state.auth);
+
   return (
-    <Dropdown menu={{ items }} className={style.menu__profile}>
+    <Dropdown
+      menu={{ items }}
+      className={style.menu__profile}
+      overlayClassName={style.menu__profile}
+    >
       <Button className={style.menu__profile__btn} type="text">
         <Avatar />
-        Giwang
+        {user?.username}
       </Button>
     </Dropdown>
   );

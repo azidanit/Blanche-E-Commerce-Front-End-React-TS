@@ -10,30 +10,43 @@ const ProductPrice: React.FC = () => {
 
   return (
     <div className={style.product__info__price}>
-      <div className={style.product__info__price__real}>
-        {isRangePrice ? (
-          <>
-            <span>{`${toRupiah(product?.min_real_price)}`}</span> -{' '}
-            <span>{`${toRupiah(product?.max_real_price)}`}</span>
-          </>
-        ) : (
-          <span>{`${toRupiah(Number(price))}`}</span>
-        )}
-      </div>
+      {isDiscount ? (
+        <div className={style.product__info__price__real}>
+          {isRangePrice ? (
+            <>
+              <span>{`${toRupiah(product?.min_discount_price)}`}</span> -{' '}
+              <span>{`${toRupiah(product?.max_discount_price)}`}</span>
+            </>
+          ) : (
+            <span>{`${toRupiah(Number(discountPrice))}`}</span>
+          )}
+        </div>
+      ) : (
+        <div className={style.product__info__price__real}>
+          {isRangePrice ? (
+            <>
+              <span>{`${toRupiah(product?.min_real_price)}`}</span> -{' '}
+              <span>{`${toRupiah(product?.max_real_price)}`}</span>
+            </>
+          ) : (
+            <span>{`${toRupiah(Number(price))}`}</span>
+          )}
+        </div>
+      )}
       {isDiscount && (
         <div className={style.product__info__price__disc}>
           {isRangePrice ? (
             <>
               <StrikethroughText
-                text={`${toRupiah(product?.min_discount_price)}`}
+                text={`${toRupiah(product?.min_real_price)}`}
               />
               -
               <StrikethroughText
-                text={`${toRupiah(product?.max_discount_price)}`}
+                text={`${toRupiah(product?.max_real_price)}`}
               />
             </>
           ) : (
-            <StrikethroughText text={`${toRupiah(Number(discountPrice))}`} />
+            <StrikethroughText text={`${toRupiah(Number(price))}`} />
           )}
         </div>
       )}

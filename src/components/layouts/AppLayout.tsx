@@ -18,7 +18,7 @@ const AppLayout = (): JSX.Element => {
   useEffect(() => {
     dispatch(setUser(profile));
     dispatch(setIsLoggedIn(true));
-  }, [profile]);
+  }, [profile, user]);
 
   useEffect(() => {
     dispatch(setParams(parseSearchParams(searchParams)));

@@ -9,11 +9,8 @@ import { Card } from '../../atoms';
 import { Link } from 'react-router-dom';
 
 const CardWallet: React.FC = () => {
-  const {
-    data: wallet,
-    isError,
-    isLoading: isLoadingWallet,
-  } = useGetWalletDetailsQuery();
+  const { data: wallet, isLoading: isLoadingWallet } =
+    useGetWalletDetailsQuery();
 
   return (
     <Link to="/wallet" className={style.menu__profile__card__wallet}>

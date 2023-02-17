@@ -4,9 +4,10 @@ import {
   ICheckStoreNameRequest,
   ICheckStoreNameResponse,
   ICreateMerchantRequest,
-  IGetMerchantShippingOptionsResponse,
+  IDeliveryOptionsResponse,
   IGetShippingOptionsResponse,
   IMerchantInfoResponse,
+  IVoucherMerchantResponse,
 } from '../../../helpers/types';
 import { IGetMerchantCategoriesResponse } from '../../../helpers/types';
 import { apiSlice } from '../../api/apiSlice';
@@ -66,6 +67,24 @@ export const merchantApi = apiSlice.injectEndpoints({
         response.data,
       transformErrorResponse: (response) => response.data,
     }),
+    getVoucherMerchant: build.query<IVoucherMerchantResponse[], string>({
+      query: (domain) => ({
+        url: `merchants/${domain}/vouchers`,
+        method: 'GET',
+      }),
+      transformResponse: (response: { data: IVoucherMerchantResponse[] }) =>
+        response.data,
+      transformErrorResponse: (response) => response.data,
+    }),
+    getDeliveryOptions: build.query<IDeliveryOptionsResponse, string>({
+      query: (domain) => ({
+        url: `merchants/${domain}/deliveries`,
+        method: 'GET',
+      }),
+      transformResponse: (response: { data: IDeliveryOptionsResponse }) =>
+        response.data,
+      transformErrorResponse: (response) => response.data,
+    }),
     getShippingOptions: build.query<IGetShippingOptionsResponse, void>({
       query: () => ({
         url: '/deliveries',
@@ -84,4 +103,6 @@ export const {
   useCreateMerchantMutation,
   useCheckStoreNameMutation,
   useCheckDomainMutation,
+  useGetVoucherMerchantQuery,
+  useGetDeliveryOptionsQuery,
 } = merchantApi;

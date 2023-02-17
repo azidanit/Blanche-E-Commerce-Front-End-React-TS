@@ -208,14 +208,22 @@ const CartItemPage: React.FC<CartItemProps> = ({ item, isLoading }) => {
                     >
                       {textTruncate(item.name, 65)}
                     </Link>
-                    <p className={style.cart__item__price}>
-                      {toRupiah(Number(item.real_price))}
-                    </p>
+                    {item.discount_price !== 0 &&
+                    item.discount_price !== item.real_price ? (
+                      <p className={style.cart__item__price}>
+                        {toRupiah(Number(item.discount_price))}
+                      </p>
+                    ) : (
+                      <p className={style.cart__item__price}>
+                        {toRupiah(Number(item.real_price))}
+                      </p>
+                    )}
+
                     {item.discount_price !== 0 &&
                       item.discount_price !== item.real_price && (
                         <StrikethroughText
                           className={style.cart__item__disc__price}
-                          text={toRupiah(Number(item?.discount_price))}
+                          text={toRupiah(Number(item?.real_price))}
                         />
                       )}
                     {variant && <p>Variant: {variant.key}</p>}
@@ -268,7 +276,7 @@ const CartItemPage: React.FC<CartItemProps> = ({ item, isLoading }) => {
               </div>
             </Skeleton>
           </div>
-          {!item.is_valid && item.stock < 0 && (
+          {!item.is_valid && item.stock <= 0 && (
             <Alert message="Out of stock" type="error" closable />
           )}
         </div>

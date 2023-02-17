@@ -6,6 +6,14 @@
   gap: 0.5rem;
   box-shadow: $box-shadow;
 
+  &__alert {
+    justify-self: flex-end;
+  }
+
+  &__border {
+    margin: 0.7rem 0 0.5rem 0;
+  }
+
   &__header {
     display: flex;
     align-items: center;
@@ -33,6 +41,8 @@
   }
 
   &__desc {
+    margin-top: 0.4rem;
+
     &__list {
       max-width: fit-content;
       margin-left: auto;

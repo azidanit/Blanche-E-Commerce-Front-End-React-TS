@@ -1,22 +1,45 @@
 import classNames from 'classnames';
 import React from 'react';
+import { toRupiah } from '../../../../helpers/toRupiah';
+import {
+  IVoucherMarketplaceResponse,
+  IVoucherMerchantResponse,
+} from '../../../../helpers/types';
 import { Button, Card } from '../../../atoms';
 import style from './index.module.scss';
 
-const CardVoucher: React.FC = () => {
+interface CardVoucherProps {
+  item: IVoucherMarketplaceResponse | IVoucherMerchantResponse;
+  voucher: IVoucherMarketplaceResponse | IVoucherMerchantResponse | undefined;
+}
+
+const CardVoucher: React.FC<CardVoucherProps> = ({ item, voucher }) => {
   const classProps = classNames(
     style.card__voucher,
-    style.card__voucher__active,
+    voucher === item ? style.card__voucher__active : '',
   );
 
+  const isVoucherMarketplace = (
+    item: IVoucherMarketplaceResponse | IVoucherMerchantResponse,
+  ): item is IVoucherMarketplaceResponse => {
+    return (
+      (item as IVoucherMarketplaceResponse).discount_percentage !== undefined
+    );
+  };
+
   return (
-    <Card className={style.card__voucher}>
+    <Card className={classProps}>
       <div className={style.card__voucher__title}>
-        <p>Gratis Ongkir hingga Rp.20000</p>
+        <p>{item.code}</p>
       </div>
       <ul className={style.card__voucher__content}>
-        <li>Promo ini hanya berlaku di aplikasi Android dan aplikasi iOS</li>
-        <li>Berakhir 9 hari lagi!</li>
+        <li>
+          Discount {''}
+          {isVoucherMarketplace(item)
+            ? ` ${item.discount_percentage}%`
+            : toRupiah(item.discount_nominal)}
+        </li>
+        <li>{item.expired_at}</li>
       </ul>
     </Card>
   );

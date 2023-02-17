@@ -16,6 +16,8 @@ function useForm(): FormReturnAuth<LoginProps> {
   const location = useLocation();
   const from = location.state?.from?.pathname || '/';
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const [getProfile, { data: profile }] = useLazyGetProfileQuery();
   const [login, { isError, isLoading }] = useLoginMutation();
   const [error, setError] = useState<Error>();
 
@@ -27,6 +29,10 @@ function useForm(): FormReturnAuth<LoginProps> {
       };
 
       await login(body).unwrap();
+      await getProfile().unwrap();
+      dispatch(setUser(profile));
+      dispatch(setIsLoggedIn(true));
+
       navigate(from, { replace: true });
     } catch (error) {
       setError(error as Error);

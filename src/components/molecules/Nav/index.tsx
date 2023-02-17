@@ -12,7 +12,6 @@ import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { useLogoutMutation } from '../../../app/features/auth/authApiSlice';
 import { logout } from '../../../app/features/auth/authSlice';
 import MenuProfile from '../MenuProfile';
-import MenuMerchant from '../MenuMerchant';
 
 const { Header } = Layout;
 
@@ -45,6 +44,7 @@ const Nav: React.FC = () => {
   const handleLogout = async () => {
     await logOut().unwrap();
     dispatch(logout());
+    navigate(0);
   };
 
   const handleWallet = () => {

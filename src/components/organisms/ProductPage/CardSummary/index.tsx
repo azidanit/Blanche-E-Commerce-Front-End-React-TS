@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCreateCartsMutation } from '../../../../app/features/cart/cartApiSlice';
 import { toRupiah } from '../../../../helpers/toRupiah';
-import { ICartItem } from '../../../../helpers/types';
 import { IErrorResponse } from '../../../../helpers/types/response.interface';
 import useProduct from '../../../../hooks/useProduct';
 import { Alert, Button, Card } from '../../../atoms';
@@ -111,6 +110,14 @@ const CardSummary: React.FC = () => {
             Stock: <span>{stock}</span>
           </p>
         </div>
+        {stock === 0 && (
+          <Alert
+            message="Out of stock please select another variant"
+            type="error"
+            showIcon
+            closable
+          />
+        )}
         {error && <Alert message={error} type="error" showIcon closable />}
         {errorAddToCart && variant && (
           <Alert
@@ -149,7 +156,7 @@ const CardSummary: React.FC = () => {
               size="large"
               block
               onClick={handleSubmit}
-              disabled={!variant && isHaveVariant}
+              disabled={(!variant && isHaveVariant) || stock === 0}
               loading={isLoadingAddToCart}
             >
               Add to Cart
@@ -158,7 +165,7 @@ const CardSummary: React.FC = () => {
               type="primary"
               size="large"
               ghost
-              disabled={!variant && isHaveVariant}
+              disabled={(!variant && isHaveVariant) || stock === 0}
               block
             >
               Buy Now

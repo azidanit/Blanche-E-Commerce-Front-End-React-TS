@@ -1,35 +1,81 @@
-import { Dropdown, MenuProps } from 'antd';
-import React from 'react';
+import { Dropdown, MenuProps, Skeleton } from 'antd';
+import React, { useEffect, useRef, useState } from 'react';
 import { Button } from '../../../../atoms';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
 import style from './index.module.scss';
 import DeliveryItem from './DeliveryItem';
+import {
+  ICheckoutSummaryMerchant,
+  IOrder,
+  IShippingOption,
+} from '../../../../../helpers/types';
+import { useGetDeliveryOptionsQuery } from '../../../../../app/features/merchant/merchantApiSlice';
 
-const items: MenuProps['items'] = [
-  {
-    label: <DeliveryItem />,
-    key: '0',
-  },
-  {
-    label: <DeliveryItem />,
-    key: '1',
-  },
-  {
-    label: <DeliveryItem />,
-    key: '3',
-  },
-];
+interface DeliveryProps {
+  order: IOrder;
+  merchant: ICheckoutSummaryMerchant[];
+  handleSetDelivery: (delivery: IShippingOption) => void;
+}
+const Delivery: React.FC<DeliveryProps> = ({
+  order,
+  merchant,
+  handleSetDelivery,
+}) => {
+  const { data, isLoading } = useGetDeliveryOptionsQuery(
+    order.merchant.merchant_domain,
+  );
+  const [items, setItems] = useState<MenuProps['items']>([]);
+  const [merchantItem, setMerchantItem] = useState<ICheckoutSummaryMerchant>();
 
-const Delivery: React.FC = () => {
+  useEffect(() => {
+    if (!merchant) return;
+
+    const voucher = merchant.find(
+      (merchant) => merchant.merchant_id === order.merchant.merchant_id,
+    );
+
+    setMerchantItem(voucher);
+  }, [merchant]);
+
+  useEffect(() => {
+    if (!data || !data.delivery_options) return;
+
+    const items: MenuProps['items'] = data.delivery_options.map((item) => {
+      return {
+        label: <DeliveryItem delivery={item} />,
+        key: item.courier_code,
+        onClick: () => {
+          handleSetDelivery(item);
+        },
+      };
+    });
+
+    setItems(items);
+  }, [data?.delivery_options]);
+
+  if (isLoading) {
+    return <Skeleton.Button />;
+  }
+
   return (
-    <Dropdown menu={{ items }} trigger={['click']}>
+    <Dropdown
+      menu={{
+        items,
+        selectable: true,
+      }}
+    >
       <Button
         size="large"
         className={style.delivery__button}
         type="primary"
         ghost
       >
-        Choose Delivery Services <MdOutlineKeyboardArrowDown />
+        {merchantItem?.delivery_option ? (
+          merchantItem.delivery_option.toUpperCase()
+        ) : (
+          <>Choose Delivery Services</>
+        )}
+        <MdOutlineKeyboardArrowDown />
       </Button>
     </Dropdown>
   );

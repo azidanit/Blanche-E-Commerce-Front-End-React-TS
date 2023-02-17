@@ -21,13 +21,10 @@
     gap: 1rem;
     height: auto;
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     flex-direction: row;
     flex-wrap: nowrap;
     overflow-x: scroll;
-
-    &::-webkit-scrollbar {
-    }
 
     &__container {
       overflow: hidden;

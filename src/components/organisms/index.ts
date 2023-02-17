@@ -19,6 +19,7 @@ import WalletPage from './WalletPage';
 import FilterSellerProduct from './FilterSellerProduct';
 import TransactionsPage from './TransactionsPage';
 import TransactionDetailsPage from './TransactionDetailsPage';
+import PaymentIframe from './PaymentIframe';
 import ListCardOrder from './Merchant/Order/ListCardOrder';
 import ProductPage from './Merchant/ProductPage';
 import ShippingPage from './Merchant/ShippingPage';
@@ -36,6 +37,7 @@ export {
   WalletPage,
   FilterSellerProduct,
   TransactionsPage,
+  PaymentIframe,
   TransactionDetailsPage,
   ListCardOrder,
   ProductPage,

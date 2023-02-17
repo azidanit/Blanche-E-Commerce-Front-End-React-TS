@@ -25,6 +25,7 @@ const TopupWallet = lazy(() => import('../../pages/TopupWallet'));
 const Order = lazy(() => import('../../pages/Merchant/Order'));
 const TopupStatus = lazy(() => import('../../pages/TopupStatus'));
 const Product = lazy(() => import('../../pages/Merchant/Product'));
+const PaymentStatus = lazy(() => import('../../pages/PaymentStatus'));
 const Shipping = lazy(() => import('../../pages/Merchant/Shipping'));
 
 export const router = createBrowserRouter([
@@ -136,5 +137,9 @@ export const router = createBrowserRouter([
   {
     path: '/wallet/topup/status',
     element: <TopupStatus />,
+  },
+  {
+    path: '/transactions/:order_code/payment-status',
+    element: <PaymentStatus />,
   },
 ]);

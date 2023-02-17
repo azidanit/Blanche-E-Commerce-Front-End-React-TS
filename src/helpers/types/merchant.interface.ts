@@ -40,11 +40,24 @@ export interface ICheckDomainRequest {
   domain: string;
 }
 
+export interface IVoucherMerchantResponse {
+  id: number;
+  code: string;
+  discount_nominal: number;
+  expired_at: string;
+}
+
 export interface IShippingOption {
   courier_name: string;
   courier_code: string;
 }
 
+export interface IDeliveryOptionsResponse {
+  merchant_domain: string;
+  merchant_name: string;
+  delivery_options: IShippingOption[];
+  total: number;
+}
 export interface IGetShippingOptionsResponse {
   delivery_options: IShippingOption[];
   total: number;

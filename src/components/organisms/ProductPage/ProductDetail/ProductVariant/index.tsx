@@ -10,7 +10,7 @@ import { useParams } from 'react-router-dom';
 const ProductVariant: React.FC = () => {
   const { store, slug } = useParams();
 
-  const { activeImage: img } = useProduct();
+  const { activeImage: img, isDiscount } = useProduct();
 
   const {
     data: variants,
