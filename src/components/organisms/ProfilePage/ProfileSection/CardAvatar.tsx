@@ -27,7 +27,7 @@ const beforeUpload = (file: RcFile) => {
   if (!isLt2M) {
     message.error('Image must smaller than 2MB!');
   }
-  return false;
+  return isJpgOrPng || Upload.LIST_IGNORE;
 };
 
 const CardAvatar: React.FC<CardAvatarProps> = ({ src }) => {
@@ -56,7 +56,7 @@ const CardAvatar: React.FC<CardAvatarProps> = ({ src }) => {
     try {
       if (!file) return;
       const formData = new FormData();
-      formData.append('profile_picture', file as File);
+      formData.append('profile_picture', file);
       await patch(formData).unwrap();
       setIsModalOpen(false);
     } catch (err) {
@@ -88,6 +88,9 @@ const CardAvatar: React.FC<CardAvatarProps> = ({ src }) => {
             Upload
           </Button>
         </Upload>
+        <p className={style.profile__section__avatar__info}>
+          File format must be in JPG or PNG. File size must be less than 2MB.
+        </p>
       </Card>
       <Modal
         open={isModalOpen}
