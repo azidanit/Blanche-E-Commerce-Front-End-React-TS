@@ -8,7 +8,7 @@ import { FilterProduct, ProductContent, SEO } from '../../components';
 import { capitalizeFirstLetter } from '../../helpers/capitalizeFirstLetter';
 import style from './index.module.scss';
 
-const limit = 30;
+const limit = 28;
 
 const Category: React.FC = () => {
   const param = useParams();

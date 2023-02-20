@@ -30,12 +30,16 @@ const BreadcrumbProduct: React.FC = () => {
         </Breadcrumb.Item>
         {categories?.name && (
           <Breadcrumb.Item>
-            <Link to="/products">{categories?.name}</Link>
+            <Link to={`/c/${categories.slug}`}>{categories?.name}</Link>
           </Breadcrumb.Item>
         )}
 
         {categories?.children?.[0]?.name && (
-          <Breadcrumb.Item>{categories?.children?.[0]?.name}</Breadcrumb.Item>
+          <Breadcrumb.Item>
+            <Link to={`/c/${categories?.children?.[0]?.slug}`}>
+              {categories?.children?.[0]?.name}
+            </Link>
+          </Breadcrumb.Item>
         )}
 
         {categories?.children?.[0]?.children?.[0]?.name && (

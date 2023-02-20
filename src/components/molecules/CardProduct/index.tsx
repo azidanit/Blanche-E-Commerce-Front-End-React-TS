@@ -5,6 +5,7 @@ import { IProduct } from '../../../helpers/types';
 import { Card, Image, StrikethroughText } from '../../atoms';
 import style from './index.module.scss';
 import { StarFilled } from '@ant-design/icons';
+import { textTruncate } from '../../../helpers/textTruncate';
 
 interface CardProductProps {
   product: IProduct;
@@ -32,9 +33,12 @@ const CardProduct: React.FC<CardProductProps> = ({ product }) => {
           src={product.thumbnail_img}
           alt={product.title}
           className={style.card__product__image}
+          imageClassName={style.card__product__image__img}
         />
         <div className={style.card__product__link}>
-          <h3 className={style.card__product__title}>{product.title}</h3>
+          <h3 className={style.card__product__title}>
+            {textTruncate(product.title, 40)}
+          </h3>
           <div className={style.card__product__price}>
             {isDiscountPrice ? (
               <div className={style.card__product__price__real}>

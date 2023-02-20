@@ -32,7 +32,6 @@ const ProductDetail: React.FC = () => {
           <ProductInfo />
           <ProductVariant />
           <ProductDescription />
-          <Divider style={{ margin: 0 }} />
           <MerchantInfo />
         </Col>
       </Row>

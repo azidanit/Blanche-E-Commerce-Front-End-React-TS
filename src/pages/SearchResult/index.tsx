@@ -8,7 +8,7 @@ import { useGetProductsQuery } from '../../app/features/home/homeApiSlice';
 import { useSearchParams } from 'react-router-dom';
 import { Key } from 'rc-tree-select/lib/interface';
 
-const limit = 30;
+const limit = 28;
 
 const SearchResult: React.FC = () => {
   const params = useAppSelector((state) => state.params);

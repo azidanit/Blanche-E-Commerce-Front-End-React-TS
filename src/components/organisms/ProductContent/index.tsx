@@ -57,7 +57,15 @@ const Content: React.FC<ContentProps> = ({
       <Skeleton loading={isLoading}>
         {!isError && data?.total_data && Boolean(data?.products.length) ? (
           <>
-            <ListCardProduct data={data} />
+            <ListCardProduct
+              data={data}
+              grid={{
+                xs: 24,
+                md: 12,
+                lg: 8,
+                xl: 6,
+              }}
+            />
             {data.total_data > limit && (
               <div className={style.content__pagination}>
                 <Pagination
