@@ -1,12 +1,20 @@
+import { message } from 'antd';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ModalConfirm } from '../../../..';
-import { Button } from '../../../../atoms';
-import style from './index.module.scss';
+import { useUpdateMerchantOrderStatusMutation } from '../../../../../../app/features/merchant/merchantOrderApiSlice';
+import { Button } from '../../../../../atoms';
+import { ComponentBasedOnStatusProps } from './ComponentOnCanceled';
+import style from '../index.module.scss';
+import { UpdateStatus } from '../utils';
+import { ModalConfirm } from '../../../../..';
 
-const ComponentOnWaited: React.FC = () => {
+const ComponentOnWaited: React.FC<ComponentBasedOnStatusProps> = ({
+  transaction,
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalDeclineOpen, setIsModalDeclineOpen] = useState(false);
+  const [updateOrderStatus, { isLoading }] =
+    useUpdateMerchantOrderStatusMutation();
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -24,8 +32,40 @@ const ComponentOnWaited: React.FC = () => {
     setIsModalDeclineOpen(false);
   };
 
-  const handleProcess = () => {
-    console.log('process');
+  const handleProcess = async () => {
+    try {
+      await updateOrderStatus({
+        status: UpdateStatus.TransactionStatusProcessed,
+        invoice_code: transaction.invoice_code,
+      }).unwrap();
+      message.success(
+        'Order has been processed. You can see the detail in the Processed Order tab.',
+      );
+      handleCloseModal();
+    } catch (e) {
+      const err = e as Error;
+
+      message.error(err.message);
+    }
+  };
+
+  const handleDecline = async () => {
+    try {
+      await updateOrderStatus({
+        status: UpdateStatus.TransactionStatusOnCancel,
+        invoice_code: transaction.invoice_code,
+      }).unwrap();
+
+      message.success(
+        'Order has been declined. You can see the detail in the Canceled Order tab.',
+      );
+
+      handleCloseModalDecline();
+    } catch (e) {
+      const err = e as Error;
+
+      message.error(err.message);
+    }
   };
   return (
     <>
@@ -55,16 +95,17 @@ const ComponentOnWaited: React.FC = () => {
         info="Are you sure to process this order?"
         confirmButtonText="Process"
         cancelButton={true}
+        confirmButtonProps={{ loading: isLoading }}
       />
       <ModalConfirm
         isModalOpen={isModalDeclineOpen}
         handleCancel={handleCloseModalDecline}
-        handleOk={handleProcess}
+        handleOk={handleDecline}
         title="Decline Order"
         info="Are you sure to decline this order? This action cannot be undone."
         confirmButtonText="Decline Order"
-        confirmButtonProps={{ danger: true }}
         cancelButton={true}
+        confirmButtonProps={{ loading: isLoading, danger: true }}
       />
     </>
   );

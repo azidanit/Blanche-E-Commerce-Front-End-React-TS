@@ -16,6 +16,7 @@ interface ModalConfirmPageProps {
   closable?: boolean;
   width?: number;
   confirmButtonProps?: ButtonProps;
+  children?: React.ReactNode;
 }
 
 const ModalConfirm: React.FC<ModalConfirmPageProps> = (props) => {
@@ -30,6 +31,7 @@ const ModalConfirm: React.FC<ModalConfirmPageProps> = (props) => {
     confirmButtonText,
     confirmButtonProps,
     handleCancel,
+    children,
   } = props;
   return (
     <Modal
@@ -45,6 +47,8 @@ const ModalConfirm: React.FC<ModalConfirmPageProps> = (props) => {
         title={title}
         info={info}
       />
+
+      {children}
 
       <div className={style.modal__confirm__footer}>
         <Button

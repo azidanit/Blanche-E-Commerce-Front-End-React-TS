@@ -1,81 +1,100 @@
 import { Divider } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { MdPerson } from 'react-icons/md';
-import { Link } from 'react-router-dom';
-import { ModalConfirm } from '../../../..';
 import { capitalizeFirstLetter } from '../../../../../helpers/capitalizeFirstLetter';
 import { dateToDayMonthStringYear } from '../../../../../helpers/parseDate';
-import { textTruncate } from '../../../../../helpers/textTruncate';
 import { toRupiah } from '../../../../../helpers/toRupiah';
-import { ITransaction } from '../../../../../helpers/types';
-import { Button, Card, Image, Tag } from '../../../../atoms';
-import ComponentOnCanceled from './ComponentOnCanceled';
-import ComponentOnDelivery from './ComponentOnDelivery';
-import ComponentOnProcessed from './ComponentOnProcessed';
-import ComponentOnWaited from './ComponentOnWaited';
+import { Card, Tag } from '../../../../atoms';
+import ComponentOnCanceled from './ComponentBasedOnStatus/ComponentOnCanceled';
+import ComponentOnDelivery from './ComponentBasedOnStatus/ComponentOnDelivery';
+import ComponentOnProcessed from './ComponentBasedOnStatus//ComponentOnProcessed';
+import ComponentOnWaited from './ComponentBasedOnStatus//ComponentOnWaited';
 import style from './index.module.scss';
 import OrderInfo from './OrderInfo';
 import Product from './Product';
+import { CardOrderProps, mapStatusToColor, OrderStatus } from './utils';
 
-const mapStatusToColor = {
-  completed: 'green',
-  pending: 'processed',
-  canceled: 'red',
-  delivered: 'blue',
-};
+const CardOrder: React.FC<CardOrderProps> = ({ transaction }) => {
+  const MapComponent: {
+    [key: number]: React.ReactNode;
+  } = {
+    [OrderStatus.TransactionStatusWaited]: (
+      <ComponentOnWaited transaction={transaction} />
+    ),
+    [OrderStatus.TransactionStatusProcessed]: (
+      <ComponentOnProcessed transaction={transaction} />
+    ),
+    [OrderStatus.TransactionStatusCanceled]: (
+      <ComponentOnCanceled transaction={transaction} />
+    ),
 
-interface CardOrderProps {
-  transaction: ITransaction;
-  statusOrder?: number;
-}
+    [OrderStatus.TransactionStatusOnDelivery]: (
+      <ComponentOnDelivery transaction={transaction} />
+    ),
+    [OrderStatus.TransactionStatusDelivered]: (
+      <ComponentOnDelivery transaction={transaction} />
+    ),
+    [OrderStatus.TransactionStatusRequestRefund]: (
+      <ComponentOnDelivery transaction={transaction} />
+    ),
+    [OrderStatus.TransactionStatusOnCompleted]: (
+      <ComponentOnDelivery transaction={transaction} />
+    ),
+    [OrderStatus.TransactionStatusOnRefund]: (
+      <ComponentOnDelivery transaction={transaction} />
+    ),
+  };
+  const [status, setStatus] = useState('need to be processed');
+  const [statusIdx, setStatusIdx] = useState(0);
 
-enum OrderStatus {
-  TransactionStatusWaited = 0,
-  TransactionStatusProcessed = 1,
-  TransactionStatusCanceled = 2,
-  TransactionStatusOnDelivery = 3,
-  TransactionStatusDelivered = 3,
-  TransactionStatusOnCompleted = 2,
-}
-const MapComponent = {
-  [OrderStatus.TransactionStatusWaited]: <ComponentOnWaited />,
-  [OrderStatus.TransactionStatusProcessed]: <ComponentOnProcessed />,
-  [OrderStatus.TransactionStatusCanceled]: <ComponentOnCanceled />,
-  [OrderStatus.TransactionStatusOnDelivery]: <ComponentOnDelivery />,
-};
-
-const CardOrder: React.FC<CardOrderProps> = ({
-  transaction,
-  statusOrder = 1,
-}) => {
-  const [status, setStatus] = useState('waiting');
+  const renderComponent = () => {
+    return MapComponent[statusIdx];
+  };
 
   useEffect(() => {
     if (transaction.transaction_status.on_canceled_at) {
       setStatus('canceled');
+      setStatusIdx(OrderStatus.TransactionStatusCanceled);
+
       return;
     }
     if (transaction.transaction_status.on_completed_at) {
       setStatus('completed');
+      setStatusIdx(OrderStatus.TransactionStatusOnCompleted);
+
       return;
     }
     if (transaction.transaction_status.on_delivered_at) {
       setStatus('delivered');
+      setStatusIdx(OrderStatus.TransactionStatusDelivered);
+
       return;
     }
-    if (transaction.transaction_status.on_processed_at) {
-      setStatus('processed');
+
+    if (
+      transaction.shipping_details.transaction_delivery_status.on_delivery_at
+    ) {
+      setStatus('on delivery');
+      setStatusIdx(OrderStatus.TransactionStatusOnDelivery);
+
+      return;
+    }
+    if (
+      transaction.transaction_status.on_processed_at &&
+      !transaction.transaction_status.on_canceled_at
+    ) {
+      setStatus('need to be delivered');
+      setStatusIdx(OrderStatus.TransactionStatusProcessed);
+
       return;
     }
     if (transaction.transaction_status.on_waited_at) {
-      setStatus('waiting');
+      setStatus('need to be processed');
+      setStatusIdx(OrderStatus.TransactionStatusWaited);
+
       return;
     }
-  }, []);
-
-  const renderComponent = (statusOrder: number): React.ReactNode => {
-    return MapComponent[1];
-  };
+  }, [transaction, statusIdx]);
 
   return (
     <Card className={style.card__order}>
@@ -86,11 +105,14 @@ const CardOrder: React.FC<CardOrderProps> = ({
               size={20}
               className={style.card__order__header__store__icon}
             />
-            <p className={style.card__order__header__user__name}>giwangdk</p> /
+            <p className={style.card__order__header__user__name}>
+              {transaction.buyer_username}
+            </p>{' '}
+            /
             <p className={style.card__order__header__no_invoice}>
               {transaction.invoice_code}
             </p>
-            /<p className={style.card__order__header__date}>230118P0RTEF7M</p>
+            /<p className={style.card__order__header__date}></p>
           </div>
           {dateToDayMonthStringYear(
             new Date(transaction.transaction_status.on_waited_at),
@@ -100,7 +122,7 @@ const CardOrder: React.FC<CardOrderProps> = ({
         <div className={style.card__order__header__flex}>
           <Tag
             className={style.ct__header__tag}
-            color={mapStatusToColor[status as keyof typeof mapStatusToColor]}
+            color={mapStatusToColor[statusIdx]}
           >
             {capitalizeFirstLetter(status)}
           </Tag>
@@ -108,28 +130,36 @@ const CardOrder: React.FC<CardOrderProps> = ({
       </div>
       <Divider className={style.card__order__divider} />
       <div className={style.card__order__body}>
-        <Product />
+        <Product productOverview={transaction.product_overview} />
         <div className={style.card__order__body__address}>
           <p className={style.card__order__body__address__title}>Address</p>
           <p className={style.card__order__body__address__text}>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam
-            voluptas maxime labore eum exercitationem ipsum quas asperiores
-            nisi. Alias, ab.
+            {transaction.shipping_details.address.label} (
+            {transaction.shipping_details.address.phone})
+          </p>
+          <p className={style.card__order__body__address__text}>
+            {transaction.shipping_details.address.details &&
+              `${transaction.shipping_details.address.details}, `}
+            {transaction.shipping_details.address.subdistrict_name},{' '}
+            {transaction.shipping_details.address.district_name},{' '}
+            {transaction.shipping_details.address.city_name},{' '}
+            {transaction.shipping_details.address.province_name},{' '}
+            {transaction.shipping_details.address.zip_code}
           </p>
         </div>
-        <OrderInfo />
+        <OrderInfo transaction={transaction} />
       </div>
       <Divider className={style.card__order__divider} />
       <div className={style.card__order__more}>
         <div className={style.card__order__more__price}>
           <p className={style.card__order__more__price__text}>Total Price</p>
           <p className={style.card__order__more__price__value}>
-            {toRupiah(10000)}
+            {toRupiah(transaction.total_price)}
           </p>
         </div>
       </div>
       <Divider className={style.card__order__divider} />
-      {renderComponent(statusOrder)}
+      {renderComponent()}
     </Card>
   );
 };

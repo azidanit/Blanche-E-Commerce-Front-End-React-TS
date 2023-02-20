@@ -5,8 +5,6 @@ import { useAppSelector } from '../../../../app/hooks';
 import RadioChip from '../../../molecules/RadioChip';
 import style from './index.module.scss';
 
-
-
 interface FilterStatusProps {
   values: string[];
 }

@@ -1,16 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import { Layout } from 'antd';
 import Sidebar from '../../molecules/Sidebar';
 import style from './index.module.scss';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useSearchParams } from 'react-router-dom';
 import './override.scss';
 import classNames from 'classnames';
+import { useAppDispatch } from '../../../app/hooks';
+import { parseSearchParams } from '../../../helpers/parseSearchParams';
+import { setParams } from '../../../app/features/home/paramsSlice';
 
 const { Header, Sider, Content } = Layout;
 
 const MerchantLayout: React.FC = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const dispatch = useAppDispatch();
   const [collapsed, setCollapsed] = useState(false);
+
+  useEffect(() => {
+    dispatch(setParams(parseSearchParams(searchParams)));
+  }, [searchParams]);
 
   return (
     <Layout className={style.merchant__layout}>
