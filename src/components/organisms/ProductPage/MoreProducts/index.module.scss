@@ -3,8 +3,13 @@
 .seller__products {
   margin-top: 2rem;
   &__header {
-    font-weight: $text-bold;
-    font-size: 1.25rem;
-    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    h2 {
+      font-weight: $text-bold;
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+    }
   }
 }

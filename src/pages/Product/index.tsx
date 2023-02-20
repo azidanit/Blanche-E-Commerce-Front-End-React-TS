@@ -1,14 +1,14 @@
-import { Col, Row } from 'antd';
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useGetProductsQuery } from '../../app/features/home/homeApiSlice';
-import { useGetMerchantInfoQuery } from '../../app/features/merchant/merchantApiSlice';
 import { useGetProductBySlugQuery } from '../../app/features/product/productApiSlice';
 import { setProductInfo } from '../../app/features/product/productSlice';
 import { useAppDispatch } from '../../app/hooks';
 import {
   BreadcrumbProduct,
+  Button,
   CardSummary,
+  ItemNotFound,
   ProductDetail,
 } from '../../components';
 import MoreProducts from '../../components/organisms/ProductPage/MoreProducts';
@@ -18,13 +18,18 @@ import style from './index.module.scss';
 const Product = (): JSX.Element => {
   const { store, slug } = useParams();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
-  const { data, error, isLoading } = useGetProductBySlugQuery({
+  const { data, isLoading } = useGetProductBySlugQuery({
     store: store as string,
     slug: slug as string,
   });
 
   const { isRangePrice, variant } = useProduct();
+
+  const handleNavigate = () => {
+    navigate('/', { replace: true });
+  };
 
   useEffect(() => {
     window.scroll({
@@ -64,6 +69,22 @@ const Product = (): JSX.Element => {
     merchant: store as string,
   });
 
+  if (!data && !isLoading) {
+    return (
+      <div className={style.product__page__notfound}>
+        <ItemNotFound
+          title="Sorry, we cannot found what do you want"
+          body="It seems that what you are looking for is not found. You can go back to home page or try to search again."
+          className={style.product__page__notfound__item}
+          imageClassName={style.product__page__notfound__image}
+        />
+        <Button type="primary" size="large" onClick={handleNavigate}>
+          Back to Home
+        </Button>
+      </div>
+    );
+  }
+
   return (
     <div className={style.product}>
       <BreadcrumbProduct />
@@ -74,10 +95,18 @@ const Product = (): JSX.Element => {
 
       <div className={style.product__page__lists}>
         {Boolean(sellerProducts?.products.length) && (
-          <MoreProducts title="More from this store" data={sellerProducts} />
+          <MoreProducts
+            title="More from this store"
+            data={sellerProducts}
+            to={`/${store}`}
+          />
         )}
         {Boolean(similarProducts?.products.length) && (
-          <MoreProducts title="Similar Products" data={similarProducts} />
+          <MoreProducts
+            title="Similar Products"
+            data={similarProducts}
+            to={`/c/${data?.category?.url}`}
+          />
         )}
       </div>
     </div>

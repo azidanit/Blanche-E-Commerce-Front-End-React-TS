@@ -1,20 +1,21 @@
 import { Rate } from 'antd';
 import React from 'react';
-import { useParams } from 'react-router-dom';
-import { useGetMerchantInfoQuery } from '../../../../app/features/merchant/merchantApiSlice';
 import { formatToDate } from '../../../../helpers/formatToDate';
+import { IMerchantInfo } from '../../../../helpers/types';
 import useMediaQuery from '../../../../hooks/useMediaQuery';
 import { Avatar, Card } from '../../../atoms';
 import style from './index.module.scss';
 
-const CardSellerProfile: React.FC = () => {
-  const isMobile = useMediaQuery('(max-width: 768px)');
-  const params = useParams();
+interface CardSellerProfileProps {
+  data: IMerchantInfo | undefined;
+  isLoading: boolean;
+}
 
-  const { data, error, isLoading } = useGetMerchantInfoQuery(
-    params.store || '',
-    { skip: !params.store },
-  );
+const CardSellerProfile: React.FC<CardSellerProfileProps> = ({
+  data,
+  isLoading,
+}) => {
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
   return (
     <Card className={style.card__seller__profile}>
