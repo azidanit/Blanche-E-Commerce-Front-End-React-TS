@@ -22,6 +22,7 @@ import Popconfirm from './Popconfirm';
 import ItemNotFound from './ItemNotFound';
 import Menu from './Menu';
 import CardWallet from './MenuProfile/CardWallet';
+import ModalConfirm from './ModalConfirm';
 
 export {
   AuthSectionLeft,
@@ -48,4 +49,5 @@ export {
   ItemNotFound,
   Menu,
   CardWallet,
+  ModalConfirm,
 };

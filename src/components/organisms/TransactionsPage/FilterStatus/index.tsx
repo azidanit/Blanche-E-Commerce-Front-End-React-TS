@@ -5,16 +5,13 @@ import { useAppSelector } from '../../../../app/hooks';
 import RadioChip from '../../../molecules/RadioChip';
 import style from './index.module.scss';
 
-const values = [
-  'All',
-  'Waiting',
-  'Processed',
-  'Delivered',
-  'Completed',
-  'Canceled',
-];
 
-const FilterStatus: React.FC = () => {
+
+interface FilterStatusProps {
+  values: string[];
+}
+
+const FilterStatus: React.FC<FilterStatusProps> = ({ values }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const params = useAppSelector((state) => state.params);
   const onChange = (e: RadioChangeEvent) => {

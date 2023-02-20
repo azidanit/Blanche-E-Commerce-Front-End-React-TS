@@ -1,6 +1,7 @@
 import { Divider, notification, Skeleton, Space } from 'antd';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ModalConfirm } from '../../..';
 import { useCheckoutMutation } from '../../../../app/features/checkout/checkoutApiSlice';
 import { capitalizeFirstLetter } from '../../../../helpers/capitalizeFirstLetter';
 import { toRupiah } from '../../../../helpers/toRupiah';
@@ -8,7 +9,6 @@ import { ICart, ICheckoutRequest } from '../../../../helpers/types';
 import { IErrorResponse } from '../../../../helpers/types/response.interface';
 import { Button, Card } from '../../../atoms';
 import style from './index.module.scss';
-import ModalWarning from './ModalWarning';
 
 export interface CartSummaryProps {
   quantity: number;
@@ -113,10 +113,14 @@ const CartSummary: React.FC<CartSummaryProps> = ({
           </>
         )}
       </div>
-      <ModalWarning
+      <ModalConfirm
         isModalOpen={isModalOpen}
         handleCancel={handleCancel}
         handleOk={handleOk}
+        title="Address is empty"
+        info="Please add your address to continue checkout"
+        cancelButton={true}
+        closable={true}
       />
     </Card>
   );
