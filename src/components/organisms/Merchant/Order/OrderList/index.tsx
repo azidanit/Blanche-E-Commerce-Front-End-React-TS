@@ -1,23 +1,25 @@
 import React from 'react';
-import { ItemNotFound, Pagination } from '../../..';
-import { useGetTransactionsQuery } from '../../../../app/features/transactions/transactionsApiSlice';
-import { useAppSelector } from '../../../../app/hooks';
-import { Card } from '../../../atoms';
-import CardTransaction from '../CardTransaction';
-import FilterStatus from '../FilterStatus';
+import { ItemNotFound, Pagination } from '../../../..';
+import { useGetTransactionsQuery } from '../../../../../app/features/transactions/transactionsApiSlice';
+import { useAppSelector } from '../../../../../app/hooks';
+import { Card } from '../../../../atoms';
+import CardTransaction from '../../../TransactionsPage/CardTransaction';
+import FilterStatus from '../../../TransactionsPage/FilterStatus';
+import CardOrder from '../CardOrder';
 import style from './index.module.scss';
 
 const limit = 10;
-
 const values = [
   'All',
-  'Waiting',
-  'Processed',
-  'Delivered',
+  'New Order',
+  'Ready to Ship',
+  'On Delivery',
   'Completed',
   'Canceled',
+  'Returned',
 ];
-const TransactionList: React.FC = () => {
+
+const OrderList: React.FC = () => {
   const params = useAppSelector((state) => state.params);
   const { data } = useGetTransactionsQuery({ ...params.search, limit });
 
@@ -27,7 +29,7 @@ const TransactionList: React.FC = () => {
       {data && data.transactions.length ? (
         <div className={style.tl__list}>
           {data.transactions.map((item, index) => (
-            <CardTransaction transaction={item} key={index} />
+            <CardOrder transaction={item} key={index} />
           ))}
         </div>
       ) : (
@@ -50,4 +52,4 @@ const TransactionList: React.FC = () => {
   );
 };
 
-export default TransactionList;
+export default OrderList;

@@ -5,6 +5,7 @@ export * from './CartPage';
 export * from './UserAddress';
 export * from './CheckoutPage';
 export * from './Payment';
+export * from './Merchant/Order';
 
 import CategoryCarousel from './CategoryCarousel';
 import ListCartStoreItem from './CartPage/ListCartStoreItem';
@@ -20,7 +21,6 @@ import FilterSellerProduct from './FilterSellerProduct';
 import TransactionsPage from './TransactionsPage';
 import TransactionDetailsPage from './TransactionDetailsPage';
 import PaymentIframe from './PaymentIframe';
-import ListCardOrder from './Merchant/Order/ListCardOrder';
 import ProductPage from './Merchant/ProductPage';
 import ShippingPage from './Merchant/ShippingPage';
 
@@ -39,7 +39,6 @@ export {
   TransactionsPage,
   PaymentIframe,
   TransactionDetailsPage,
-  ListCardOrder,
   ProductPage,
   ShippingPage,
 };
