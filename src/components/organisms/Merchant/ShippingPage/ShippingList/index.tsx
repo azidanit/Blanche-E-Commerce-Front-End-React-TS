@@ -1,53 +1,80 @@
-import { Button } from 'antd';
+import { Button, message } from 'antd';
+import { CheckboxValueType } from 'antd/es/checkbox/Group';
 import classNames from 'classnames';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { CheckboxGroup } from '../../../..';
+import {
+  useGetShippingOptionsQuery,
+  usePutShippingOptionsMutation,
+} from '../../../../../app/features/merchant/merchantApiSlice';
+import { IShippingOption } from '../../../../../helpers/types';
+import { IErrorResponse } from '../../../../../helpers/types/response.interface';
 import ShippingCard from '../ShippingCard';
 import style from './index.module.scss';
 import './override.scss';
 
-const items = [
-  {
-    courier_name: 'DHL',
-    courier_code: 'dhl',
-    courier_logo: 'https://picsum.photos/id/237/200/300',
-    is_checked: true,
-  },
-  {
-    courier_name: 'JNE',
-    courier_code: 'jne',
-    courier_logo: 'https://picsum.photos/id/237/200/300',
-    is_checked: false,
-  },
-  {
-    courier_name: 'Makanan enak',
-    courier_code: 'duar',
-    courier_logo: 'https://picsum.photos/id/237/200/300',
-    is_checked: false,
-  },
-];
-
-const options = items.map((item, index) => {
-  return {
-    value: item.courier_code,
-    children: <ShippingCard key={item.courier_code} shipping={item} />,
-  };
-});
-
 const ShippingList: React.FC = () => {
-  const onChange = (checkedValues: any) => {
-    console.log('checked = ', checkedValues);
+  const [values, setValues] = useState<IShippingOption[]>([]);
+  const { data, isLoading } = useGetShippingOptionsQuery();
+  const [putShippingOptions, { isLoading: isLoadingSave }] =
+    usePutShippingOptionsMutation();
+
+  useEffect(() => {
+    if (!data) return;
+    setValues(data);
+  }, [data]);
+
+  const options = data?.map((item) => {
+    return {
+      value: item.courier_code,
+      children: <ShippingCard key={item.courier_code} shipping={item} />,
+    };
+  });
+  const onChange = (checkedValues: CheckboxValueType[]) => {
+    setValues((prevValue) =>
+      prevValue.map((item) => {
+        if (checkedValues.includes(item.courier_code)) {
+          return {
+            ...item,
+            is_checked: true,
+          };
+        }
+        return {
+          ...item,
+          is_checked: false,
+        };
+      }),
+    );
   };
+
+  const onSave = async () => {
+    try {
+      await putShippingOptions(values).unwrap();
+      message.success('Success updating shipping options');
+    } catch (err) {
+      const error = err as IErrorResponse;
+      message.error(error.message);
+    }
+  };
+
   return (
     <div className={classNames(style.sl, 'sl')}>
-      <CheckboxGroup
-        options={options}
-        onChange={onChange}
-        value={['jne']}
-        defaultValue={['jne']}
-        className={style.rating}
-      />
-      <Button type="primary" className={style.sl__button}>
+      {options && (
+        <CheckboxGroup
+          options={options}
+          onChange={onChange}
+          value={values
+            ?.filter((item) => item.is_checked)
+            .map((item) => item.courier_code)}
+          className={style.rating}
+        />
+      )}
+      <Button
+        type="primary"
+        loading={isLoadingSave}
+        onClick={onSave}
+        className={style.sl__button}
+      >
         Save
       </Button>
     </div>

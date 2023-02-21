@@ -2,15 +2,4 @@
 
 .sp {
   box-shadow: $box-shadow;
-
-  &__title {
-    font-weight: $text-bold;
-    font-size: 1.25rem;
-  }
-
-  &__info {
-    margin-top: 0.5rem;
-    font-size: 1rem;
-    color: $gray;
-  }
 }
