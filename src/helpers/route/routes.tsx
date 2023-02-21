@@ -24,10 +24,15 @@ const TransactionDetails = lazy(() => import('../../pages/TransactionDetails'));
 const TopupWallet = lazy(() => import('../../pages/TopupWallet'));
 const Order = lazy(() => import('../../pages/Merchant/Order'));
 const TopupStatus = lazy(() => import('../../pages/TopupStatus'));
-const Product = lazy(() => import('../../pages/Merchant/Product'));
+const AddProduct = lazy(
+  () => import('../../pages/Merchant/Product/AddProduct'),
+);
 const PaymentStatus = lazy(() => import('../../pages/PaymentStatus'));
 const Shipping = lazy(() => import('../../pages/Merchant/Shipping'));
 const OrderDetail = lazy(() => import('../../pages/Merchant/OrderDetail'));
+const ProductList = lazy(
+  () => import('../../pages/Merchant/Product/ProductList'),
+);
 const Voucher = lazy(() => import('../../pages/Merchant/Voucher/VoucherList'));
 const AddVoucher = lazy(
   () => import('../../pages/Merchant/Voucher/AddVoucher'),
@@ -167,8 +172,12 @@ export const router = createBrowserRouter([
         element: <OrderDetail />,
       },
       {
-        path: '/merchant/gege',
-        element: <Product />,
+        path: '/merchant/products/create',
+        element: <AddProduct />,
+      },
+      {
+        path: '/merchant/products',
+        element: <ProductList />,
       },
       {
         path: '/merchant/shipping',

@@ -24,6 +24,7 @@ import PaymentIframe from './PaymentIframe';
 import ProductPage from './Merchant/ProductPage';
 import ShippingPage from './Merchant/ShippingPage';
 import ChangePasswordPage from './ChangePasswordPage';
+import ProductListPage from './Merchant/ProductListPage';
 
 export {
   CategoryCarousel,
@@ -43,4 +44,5 @@ export {
   ProductPage,
   ShippingPage,
   ChangePasswordPage,
+  ProductListPage,
 };

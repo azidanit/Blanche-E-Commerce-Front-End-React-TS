@@ -23,7 +23,7 @@ const items = [
   {
     key: '2',
     icon: <VideoCameraOutlined />,
-    label: <Link to="/merchant/gege">My Product</Link>,
+    label: <Link to="/merchant/products">My Product</Link>,
   },
   {
     key: '3',
