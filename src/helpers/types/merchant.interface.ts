@@ -70,3 +70,28 @@ export interface IGetMerchantShippingOptionsResponse {
 }
 
 export type IPutShippingOptionsRequest = IShippingOption[];
+
+export interface IMerchantProductOverview {
+  avg_rating: number;
+  id: number;
+  max_real_price: number;
+  min_real_price: number;
+  num_of_sale: number;
+  slug: string;
+  thumbnail_img: string;
+  title: string;
+  total_stock: number;
+  is_archived: boolean;
+}
+
+export interface IGetMerchantProductListResponse {
+  total_data: number;
+  total_page: number;
+  current_page: number;
+  products: IMerchantProductOverview[];
+}
+
+export interface IGetMerchantProductListRequest {
+  page: number;
+  limit: number;
+}
