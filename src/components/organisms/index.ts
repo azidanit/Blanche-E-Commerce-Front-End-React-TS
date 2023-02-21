@@ -23,6 +23,7 @@ import TransactionDetailsPage from './TransactionDetailsPage';
 import PaymentIframe from './PaymentIframe';
 import ProductPage from './Merchant/ProductPage';
 import ShippingPage from './Merchant/ShippingPage';
+import ChangePasswordPage from './ChangePasswordPage';
 
 export {
   CategoryCarousel,
@@ -41,4 +42,5 @@ export {
   TransactionDetailsPage,
   ProductPage,
   ShippingPage,
+  ChangePasswordPage,
 };

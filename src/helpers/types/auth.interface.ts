@@ -1,3 +1,5 @@
+import { IErrorResponse } from './response.interface';
+
 export interface LoginProps {
   email: string;
   password: string;
@@ -80,4 +82,31 @@ export interface RegisterMerchantSecondStepProps {
 
 export interface IRefreshResponse {
   access_token: string;
+}
+
+export interface IVerifyCodeRequest {
+  verification_code: string;
+}
+
+export interface IVerifyCodeResponse {
+  access_token: string;
+  username: string;
+}
+
+export interface IResetPasswordResponse {
+  is_email_sent: boolean;
+  email: string;
+  retry_in: number;
+}
+
+export interface ISetNewPasswordRequest {
+  password: string;
+}
+
+export interface FormReturnPassword {
+  handleSubmit: (values: ISetNewPasswordRequest) => void;
+  isLoading?: boolean;
+  isError?: boolean;
+  error?: IErrorResponse;
+  values?: ISetNewPasswordRequest;
 }

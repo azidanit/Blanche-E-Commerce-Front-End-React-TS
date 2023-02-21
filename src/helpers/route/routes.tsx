@@ -27,6 +27,7 @@ const TopupStatus = lazy(() => import('../../pages/TopupStatus'));
 const Product = lazy(() => import('../../pages/Merchant/Product'));
 const PaymentStatus = lazy(() => import('../../pages/PaymentStatus'));
 const Shipping = lazy(() => import('../../pages/Merchant/Shipping'));
+const ChangePassword = lazy(() => import('../../pages/ChangePassword'));
 const OrderDetail = lazy(() => import('../../pages/Merchant/OrderDetail'));
 
 export const router = createBrowserRouter([
@@ -68,6 +69,10 @@ export const router = createBrowserRouter([
           {
             path: '/transactions/:invoice',
             element: <TransactionDetails />,
+          },
+          {
+            path: '/change-password',
+            element: <ChangePassword />,
           },
         ],
       },
