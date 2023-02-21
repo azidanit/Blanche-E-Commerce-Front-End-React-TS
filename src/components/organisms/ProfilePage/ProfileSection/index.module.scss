@@ -70,5 +70,11 @@
         }
       }
     }
+    &__pass {
+      display: block;
+      margin-top: 0.5rem;
+      color: $primary-70;
+      padding: 0;
+    }
   }
 }

@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { IAccount } from '../../../../helpers/types';
 import { Button } from '../../../atoms';
 import EditAccount from '../EditAccount';
@@ -14,6 +15,7 @@ interface AccountProps {
 const Account: React.FC<AccountProps> = ({ account }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [items, setItems] = useState<IItem[]>();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!account) return;
@@ -31,6 +33,10 @@ const Account: React.FC<AccountProps> = ({ account }) => {
 
   const handleCancel = () => {
     setIsModalOpen(false);
+  };
+
+  const changePassword = () => {
+    navigate('/change-password');
   };
 
   return (
@@ -62,6 +68,13 @@ const Account: React.FC<AccountProps> = ({ account }) => {
               </li>
             ))}
         </ul>
+        <Button
+          type="link"
+          onClick={changePassword}
+          className={style.profile__section__tab__pass}
+        >
+          Change password
+        </Button>
         <EditAccount
           account={account}
           isModalOpen={isModalOpen}
