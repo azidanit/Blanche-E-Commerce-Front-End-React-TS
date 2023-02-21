@@ -1,22 +1,22 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Card } from '../../../../atoms';
-import TableVoucher from '../TableVoucher';
+import TableVoucher from '../TablePromotion';
 import style from './index.module.scss';
 
-const VoucherList: React.FC = () => {
+const PromotionList: React.FC = () => {
   const navigate = useNavigate();
 
   const handleNavigate = () => {
-    navigate('/merchant/vouchers/create');
+    navigate('/merchant/promotions/create');
   };
 
   return (
     <Card className={style.voucher__list}>
       <div className={style.voucher__list__header}>
-        <h6>List Of my Voucher</h6>
+        <h6>List Of my Promotions</h6>
         <Button type="primary" size="large" onClick={handleNavigate}>
-          Create Coupon
+          Create Promotion
         </Button>
       </div>
       <TableVoucher />
@@ -25,4 +25,4 @@ const VoucherList: React.FC = () => {
   );
 };
 
-export default VoucherList;
+export default PromotionList;

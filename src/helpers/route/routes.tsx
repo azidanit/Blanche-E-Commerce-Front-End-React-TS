@@ -32,6 +32,13 @@ const Voucher = lazy(() => import('../../pages/Merchant/Voucher/VoucherList'));
 const AddVoucher = lazy(
   () => import('../../pages/Merchant/Voucher/AddVoucher'),
 );
+
+const Promotion = lazy(
+  () => import('../../pages/Merchant/Promotion/PromotionList'),
+);
+const AddPromotion = lazy(
+  () => import('../../pages/Merchant/Promotion/AddPromotion'),
+);
 const ChangePassword = lazy(() => import('../../pages/ChangePassword'));
 
 export const router = createBrowserRouter([
@@ -137,13 +144,24 @@ export const router = createBrowserRouter([
         ],
       },
       {
-        path: '/merchant/voucher',
+        path: '/merchant/vouchers',
         element: <Voucher />,
+        children: [],
       },
       {
-        path: '/merchant/voucher/create',
+        path: '/merchant/vouchers/create',
         element: <AddVoucher />,
       },
+      {
+        path: '/merchant/promotions',
+        element: <Promotion />,
+        children: [],
+      },
+      {
+        path: '/merchant/promotions/create',
+        element: <AddPromotion />,
+      },
+
       {
         path: '/order/:invoice',
         element: <OrderDetail />,

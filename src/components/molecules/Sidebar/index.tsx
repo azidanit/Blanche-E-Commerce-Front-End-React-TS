@@ -33,7 +33,12 @@ const items = [
   {
     key: '4',
     icon: <UploadOutlined />,
-    label: <Link to="/merchant/voucher">Voucher</Link>,
+    label: <Link to="/merchant/vouchers">Voucher</Link>,
+  },
+  {
+    key: '5',
+    icon: <UploadOutlined />,
+    label: <Link to="/merchant/promotions">Promotions</Link>,
   },
 ];
 const { Sider } = Layout;
