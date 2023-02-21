@@ -51,7 +51,7 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({ paymentDetails }) => {
       <div>
         <div className={classNames(style.pd__flex, style.pd__total)}>
           <p className={style.pd__flex__label}>Total Payment</p>
-          <p>{toRupiah(500000)}</p>
+          <p>{toRupiah(paymentDetails.summary.total)}</p>
         </div>
       </div>
     </div>
