@@ -53,8 +53,10 @@ const OrderList: React.FC = () => {
         ) : (
           <ItemNotFound
             className={style.tl__notfound}
-            title="Sorry, your transaction is not found"
-            body="Try to change the filter or make new transaction."
+            title=" You don't have any order yet."
+            body="
+            Your order will appear here once customer has purchased your product
+            ."
           />
         )}
         {data &&
