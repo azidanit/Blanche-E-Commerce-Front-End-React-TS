@@ -1,4 +1,6 @@
 import {
+  IMerchantDetailTransactionResponse,
+  IMerchantTransaction,
   IMerchantTransactionListRequest,
   IMerchantTransactionListResponse,
   IUpdateMerchantOrderStatusRequest,
@@ -35,7 +37,21 @@ export const merchantApi = apiSlice.injectEndpoints({
         data: IMerchantTransactionListResponse;
       }) => response.data,
       transformErrorResponse: (response) => response.data,
-      invalidatesTags: ['Merchant Transaction'],
+      invalidatesTags: ['Merchant Transaction', 'Merchant Transaction Detail'],
+    }),
+    getMerchantOrderDetails: build.query<
+      IMerchantDetailTransactionResponse,
+      string
+    >({
+      query: (slug) => ({
+        url: `/merchants/transactions/${slug}`,
+        method: 'GET',
+      }),
+      transformResponse: (response: {
+        data: IMerchantDetailTransactionResponse;
+      }) => response.data,
+      transformErrorResponse: (response) => response.data,
+      providesTags: ['Merchant Transaction Detail'],
     }),
   }),
 });
@@ -43,4 +59,5 @@ export const merchantApi = apiSlice.injectEndpoints({
 export const {
   useGetMerchantOrdersQuery,
   useUpdateMerchantOrderStatusMutation,
+  useGetMerchantOrderDetailsQuery,
 } = merchantApi;

@@ -4,8 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { dateToMinuteHourMonthStringDayYear } from '../../../../helpers/parseDate';
 import { IShippingDetails } from '../../../../helpers/types';
 import style from './index.module.scss';
-import './override.scss';
-
+import './override.scss';  
 interface ShippingDetailsProps {
   shippingDetails: IShippingDetails;
 }

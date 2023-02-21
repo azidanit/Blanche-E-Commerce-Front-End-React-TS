@@ -43,6 +43,7 @@ export const apiSlice = createApi({
     'CartHome',
     'Delivery',
     'Merchant Transaction',
+    'Merchant Transaction Detail',
   ],
   endpoints: () => ({}),
 });

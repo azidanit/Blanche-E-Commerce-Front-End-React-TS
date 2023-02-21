@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { Button } from '../../../../../atoms';
 import { ComponentBasedOnStatusProps } from './ComponentOnCanceled';
 import style from '../index.module.scss';
-import { useUpdateMerchantOrderStatusMutation } from '../../../../../../app/features/merchant/merchantOrderApiSlice';
 import { ModalConfirm } from '../../../../..';
-import { UpdateStatus } from '../utils';
+import { useUpdateMerchantOrderStatusMutation } from '../../../../../../app/features/merchant/merchantOrderApiSlice';
 import { message } from 'antd';
+import { UpdateStatus } from '../../../Order/CardOrder/utils';
+import { EnumUpdateStatus } from '..';
 
 const ComponentOnDelivery: React.FC<ComponentBasedOnStatusProps> = ({
   transaction,
@@ -25,7 +26,7 @@ const ComponentOnDelivery: React.FC<ComponentBasedOnStatusProps> = ({
   const handleProcess = async () => {
     try {
       await updateOrderStatus({
-        status: UpdateStatus.TransactionStatusDelivered,
+        status: EnumUpdateStatus.TransactionStatusDelivered,
         invoice_code: transaction.invoice_code,
       }).unwrap();
       message.success(
@@ -38,18 +39,25 @@ const ComponentOnDelivery: React.FC<ComponentBasedOnStatusProps> = ({
       message.error(err.message);
     }
   };
-
   return (
-    <div className={style.card__order__actions__btn}>
-      <Button type="primary" size="large" ghost onClick={handleOpenModal}>
-        Delivered
-      </Button>
-
+    <div className={style.os__status}>
+      <div className={style.os__status__item}>
+        <p className={style.os__status__item__text}>Order is on delivery</p>
+        <p className={style.os__status__item__desc}>
+          Update the status to delivered once the order has been delivered to
+          the customer.
+        </p>{' '}
+      </div>
+      <div className={style.os__status__action}>
+        <Button type="primary" size="large" ghost onClick={handleOpenModal}>
+          Order Delivered
+        </Button>
+      </div>
       <ModalConfirm
         isModalOpen={isModalOpen}
         handleCancel={handleCloseModal}
         handleOk={handleProcess}
-        title="Order Delivered"
+        title="Update Order to Delivered"
         info="Are you sure this order has been delivered?"
         confirmButtonText="Yes, I'm sure"
         cancelButton={true}

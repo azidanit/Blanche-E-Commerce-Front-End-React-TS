@@ -4,8 +4,8 @@ import { useUpdateMerchantOrderStatusMutation } from '../../../../../../app/feat
 import { Button } from '../../../../../atoms';
 import { ComponentBasedOnStatusProps } from './ComponentOnCanceled';
 import style from '../index.module.scss';
-import { UpdateStatus } from '../utils';
 import { ModalConfirm } from '../../../../..';
+import { EnumUpdateStatus } from '..';
 
 const ComponentOnWaited: React.FC<ComponentBasedOnStatusProps> = ({
   transaction,
@@ -34,7 +34,7 @@ const ComponentOnWaited: React.FC<ComponentBasedOnStatusProps> = ({
   const handleProcess = async () => {
     try {
       await updateOrderStatus({
-        status: UpdateStatus.TransactionStatusProcessed,
+        status: EnumUpdateStatus.TransactionStatusProcessed,
         invoice_code: transaction.invoice_code,
       }).unwrap();
       message.success(
@@ -51,7 +51,7 @@ const ComponentOnWaited: React.FC<ComponentBasedOnStatusProps> = ({
   const handleDecline = async () => {
     try {
       await updateOrderStatus({
-        status: UpdateStatus.TransactionStatusOnCancel,
+        status: EnumUpdateStatus.TransactionStatusOnCancel,
         invoice_code: transaction.invoice_code,
       }).unwrap();
 
@@ -67,8 +67,17 @@ const ComponentOnWaited: React.FC<ComponentBasedOnStatusProps> = ({
     }
   };
   return (
-    <>
-      <div className={style.card__order__actions__btn}>
+    <div className={style.os__status}>
+      <div className={style.os__status__item}>
+        <p className={style.os__status__item__text}>Order Need to be process</p>
+        <p className={style.os__status__item__desc}>
+          Please process this order as soon as possible, or decline this order.
+          If you decline this order, the customer will be notified and the order
+          will be canceled. This action cannot be undone. Please be careful.
+          Thank you. :){' '}
+        </p>
+      </div>
+      <div className={style.os__status__action}>
         <Button
           type="primary"
           size="large"
@@ -80,28 +89,28 @@ const ComponentOnWaited: React.FC<ComponentBasedOnStatusProps> = ({
         <Button type="primary" size="large" onClick={handleOpenModal}>
           Process Order
         </Button>
+        <ModalConfirm
+          isModalOpen={isModalOpen}
+          handleCancel={handleCloseModal}
+          handleOk={handleProcess}
+          title="Process Order"
+          info="Are you sure to process this order?"
+          confirmButtonText="Process"
+          cancelButton={true}
+          confirmButtonProps={{ loading: isLoading }}
+        />
+        <ModalConfirm
+          isModalOpen={isModalDeclineOpen}
+          handleCancel={handleCloseModalDecline}
+          handleOk={handleDecline}
+          title="Decline Order"
+          info="Are you sure to decline this order? This action cannot be undone."
+          confirmButtonText="Decline Order"
+          cancelButton={true}
+          confirmButtonProps={{ loading: isLoading, danger: true }}
+        />
       </div>
-      <ModalConfirm
-        isModalOpen={isModalOpen}
-        handleCancel={handleCloseModal}
-        handleOk={handleProcess}
-        title="Process Order"
-        info="Are you sure to process this order?"
-        confirmButtonText="Process"
-        cancelButton={true}
-        confirmButtonProps={{ loading: isLoading }}
-      />
-      <ModalConfirm
-        isModalOpen={isModalDeclineOpen}
-        handleCancel={handleCloseModalDecline}
-        handleOk={handleDecline}
-        title="Decline Order"
-        info="Are you sure to decline this order? This action cannot be undone."
-        confirmButtonText="Decline Order"
-        cancelButton={true}
-        confirmButtonProps={{ loading: isLoading, danger: true }}
-      />
-    </>
+    </div>
   );
 };
 
