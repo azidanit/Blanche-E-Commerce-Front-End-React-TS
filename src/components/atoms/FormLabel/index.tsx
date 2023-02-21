@@ -12,9 +12,10 @@ const FormLabel: React.FC<FormItemProps> = ({
   const classProps = classNames(className, style.label);
   return (
     <Form.Item
+      className={className}
       label={
         label && (
-          <label className={classProps} style={{ fontSize: 18 }}>
+          <label className={classProps} style={{ fontSize: 14 }}>
             {label}
           </label>
         )

@@ -27,8 +27,12 @@ const TopupStatus = lazy(() => import('../../pages/TopupStatus'));
 const Product = lazy(() => import('../../pages/Merchant/Product'));
 const PaymentStatus = lazy(() => import('../../pages/PaymentStatus'));
 const Shipping = lazy(() => import('../../pages/Merchant/Shipping'));
-const ChangePassword = lazy(() => import('../../pages/ChangePassword'));
 const OrderDetail = lazy(() => import('../../pages/Merchant/OrderDetail'));
+const Voucher = lazy(() => import('../../pages/Merchant/Voucher/VoucherList'));
+const AddVoucher = lazy(
+  () => import('../../pages/Merchant/Voucher/AddVoucher'),
+);
+const ChangePassword = lazy(() => import('../../pages/ChangePassword'));
 
 export const router = createBrowserRouter([
   {
@@ -125,6 +129,20 @@ export const router = createBrowserRouter([
       {
         path: '/order',
         element: <Order />,
+        children: [
+          {
+            path: '/order/:invoice',
+            element: <OrderDetail />,
+          },
+        ],
+      },
+      {
+        path: '/merchant/voucher',
+        element: <Voucher />,
+      },
+      {
+        path: '/merchant/voucher/create',
+        element: <AddVoucher />,
       },
       {
         path: '/order/:invoice',
