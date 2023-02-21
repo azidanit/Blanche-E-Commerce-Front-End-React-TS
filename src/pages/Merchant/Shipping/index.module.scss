@@ -4,6 +4,11 @@
   &__title {
     font-size: 1.5rem;
     font-weight: $text-bold;
+    margin-bottom: 0.5rem;
+  }
+
+  &__info {
+    color: $gray;
     margin-bottom: 1rem;
   }
 }

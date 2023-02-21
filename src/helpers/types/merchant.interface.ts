@@ -50,6 +50,7 @@ export interface IVoucherMerchantResponse {
 export interface IShippingOption {
   courier_name: string;
   courier_code: string;
+  is_checked: boolean;
 }
 
 export interface IDeliveryOptionsResponse {
@@ -58,10 +59,8 @@ export interface IDeliveryOptionsResponse {
   delivery_options: IShippingOption[];
   total: number;
 }
-export interface IGetShippingOptionsResponse {
-  delivery_options: IShippingOption[];
-  total: number;
-}
+
+export type IGetShippingOptionsResponse = IShippingOption[];
 
 export interface IGetMerchantShippingOptionsResponse {
   delivery_options: IShippingOption[];
@@ -69,3 +68,5 @@ export interface IGetMerchantShippingOptionsResponse {
   merchant_domain: string;
   merchant_name: string;
 }
+
+export type IPutShippingOptionsRequest = IShippingOption[];

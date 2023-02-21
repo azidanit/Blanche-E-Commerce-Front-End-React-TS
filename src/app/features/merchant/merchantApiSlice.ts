@@ -8,6 +8,7 @@ import {
   IGetShippingOptionsResponse,
   IMerchantInfoResponse,
   IVoucherMerchantResponse,
+  IPutShippingOptionsRequest,
 } from '../../../helpers/types';
 import { IGetMerchantCategoriesResponse } from '../../../helpers/types';
 import { apiSlice } from '../../api/apiSlice';
@@ -87,12 +88,23 @@ export const merchantApi = apiSlice.injectEndpoints({
     }),
     getShippingOptions: build.query<IGetShippingOptionsResponse, void>({
       query: () => ({
-        url: '/deliveries',
+        url: '/merchants/deliveries',
         method: 'GET',
       }),
       transformResponse: (response: { data: IGetShippingOptionsResponse }) =>
         response.data,
       transformErrorResponse: (response) => response.data,
+      providesTags: ['Shipping'],
+    }),
+    putShippingOptions: build.mutation<null, IPutShippingOptionsRequest>({
+      query: (body) => ({
+        url: '/merchants/deliveries',
+        method: 'PUT',
+        body,
+      }),
+      transformResponse: (response: { data: null }) => response.data,
+      transformErrorResponse: (response) => response.data,
+      invalidatesTags: ['Shipping'],
     }),
   }),
 });
@@ -105,4 +117,6 @@ export const {
   useCheckDomainMutation,
   useGetVoucherMerchantQuery,
   useGetDeliveryOptionsQuery,
+  useGetShippingOptionsQuery,
+  usePutShippingOptionsMutation,
 } = merchantApi;
