@@ -14,12 +14,12 @@ import './override.scss';
 
 interface Row {
   key: string;
-  price?: React.ReactNode;
-  stock?: React.ReactNode;
-  statistic?: React.ReactNode;
-  product?: React.ReactNode;
-  status?: React.ReactNode;
-  action?: React.ReactNode;
+  price: React.ReactNode;
+  stock: React.ReactNode;
+  statistic: React.ReactNode;
+  product: React.ReactNode;
+  status: React.ReactNode;
+  action: React.ReactNode;
 }
 
 const limit = 10;
