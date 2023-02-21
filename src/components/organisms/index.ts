@@ -5,7 +5,7 @@ export * from './CartPage';
 export * from './UserAddress';
 export * from './CheckoutPage';
 export * from './Payment';
-export * from './Merchant/Order';
+export * from './Merchant';
 
 import CategoryCarousel from './CategoryCarousel';
 import ListCartStoreItem from './CartPage/ListCartStoreItem';

@@ -13,6 +13,9 @@ import style from './index.module.scss';
 import OrderInfo from './OrderInfo';
 import Product from './Product';
 import { CardOrderProps, mapStatusToColor, OrderStatus } from './utils';
+import { Link } from 'react-router-dom';
+import ComponentOnDelivered from './ComponentBasedOnStatus/ComponentOnDelivered';
+import ComponentOnCompleted from './ComponentBasedOnStatus/ComponentOnCompleted';
 
 const CardOrder: React.FC<CardOrderProps> = ({ transaction }) => {
   const MapComponent: {
@@ -32,13 +35,13 @@ const CardOrder: React.FC<CardOrderProps> = ({ transaction }) => {
       <ComponentOnDelivery transaction={transaction} />
     ),
     [OrderStatus.TransactionStatusDelivered]: (
-      <ComponentOnDelivery transaction={transaction} />
+      <ComponentOnDelivered transaction={transaction} />
     ),
     [OrderStatus.TransactionStatusRequestRefund]: (
       <ComponentOnDelivery transaction={transaction} />
     ),
     [OrderStatus.TransactionStatusOnCompleted]: (
-      <ComponentOnDelivery transaction={transaction} />
+      <ComponentOnCompleted transaction={transaction} />
     ),
     [OrderStatus.TransactionStatusOnRefund]: (
       <ComponentOnDelivery transaction={transaction} />
@@ -64,7 +67,9 @@ const CardOrder: React.FC<CardOrderProps> = ({ transaction }) => {
 
       return;
     }
-    if (transaction.transaction_status.on_delivered_at) {
+    if (
+      transaction.shipping_details.transaction_delivery_status.on_delivered_at
+    ) {
       setStatus('delivered');
       setStatusIdx(OrderStatus.TransactionStatusDelivered);
 
@@ -159,7 +164,17 @@ const CardOrder: React.FC<CardOrderProps> = ({ transaction }) => {
         </div>
       </div>
       <Divider className={style.card__order__divider} />
-      {renderComponent()}
+
+      <div className={style.card__order__actions}>
+        <Link
+          className={style.card__order__actions__link}
+          to={`/order/${transaction.invoice_code}`}
+        >
+          Detail Order
+        </Link>
+
+        {renderComponent()}
+      </div>
     </Card>
   );
 };

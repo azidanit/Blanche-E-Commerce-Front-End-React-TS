@@ -1,12 +1,11 @@
 import { message } from 'antd';
-import React, { useRef, useState } from 'react';
-import { Form, ModalConfirm, ShippingLabel } from '../../../../..';
+import React, { useState } from 'react';
+import { Form, ModalConfirm } from '../../../../..';
 import { useUpdateMerchantOrderStatusMutation } from '../../../../../../app/features/merchant/merchantOrderApiSlice';
 import { Button, FormLabel, Input } from '../../../../../atoms';
 import { ComponentBasedOnStatusProps } from './ComponentOnCanceled';
 import style from '../index.module.scss';
-import { UpdateStatus } from '../utils';
-import { useReactToPrint } from 'react-to-print';
+import { EnumUpdateStatus } from '..';
 
 const ComponentOnProcessed: React.FC<ComponentBasedOnStatusProps> = ({
   transaction,
@@ -15,12 +14,6 @@ const ComponentOnProcessed: React.FC<ComponentBasedOnStatusProps> = ({
   const [receiptCode, setReceiptCode] = useState<string | undefined>(undefined);
   const [updateOrderStatus, { isLoading }] =
     useUpdateMerchantOrderStatusMutation();
-
-  const componentRef = useRef(null);
-
-  const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
-  });
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -41,7 +34,7 @@ const ComponentOnProcessed: React.FC<ComponentBasedOnStatusProps> = ({
         return;
       }
       await updateOrderStatus({
-        status: UpdateStatus.TransactionStatusOnDelivery,
+        status: EnumUpdateStatus.TransactionStatusOnDelivery,
         invoice_code: transaction.invoice_code,
         receipt_number: receiptCode,
       }).unwrap();
@@ -56,48 +49,54 @@ const ComponentOnProcessed: React.FC<ComponentBasedOnStatusProps> = ({
     }
   };
   return (
-    <>
-      <div className={style.card__order__actions__btn}>
-        <Button type="primary" size="large" onClick={handlePrint} ghost>
+    <div className={style.os__status}>
+      <div className={style.os__status__item}>
+        <p className={style.os__status__item__text}>
+          Order Need to be delivered
+        </p>
+        <p>
+          Please make sure you have printed the label and delivered the order to
+          the customer.
+        </p>
+      </div>
+      <div className={style.os__status__action}>
+        <Button type="primary" size="large" ghost>
           Print Label
         </Button>
-        <div ref={componentRef}>
-          <ShippingLabel transaction={transaction} />
-        </div>
         <Button type="primary" size="large" onClick={handleOpenModal}>
           Deliver Order
         </Button>
+        <ModalConfirm
+          isModalOpen={isModalOpen}
+          handleCancel={handleCloseModal}
+          handleOk={handleSubmit}
+          title="Deliver Order"
+          info="Are you sure to deliver this order? please make sure you have printed the label."
+          confirmButtonText="Deliver"
+          cancelButton={true}
+          confirmButtonProps={{ loading: isLoading }}
+        >
+          <Form className={style.card__order__form} preserve={false}>
+            <FormLabel
+              label="Receipt Code"
+              className={style.card__order__form__label}
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
+            />
+            <Input
+              size="middle"
+              value={receiptCode}
+              onChange={handleChangeReceiptCode}
+              className={style.card__order__form__input}
+              placeholder="Input receipt code"
+            />
+          </Form>
+        </ModalConfirm>
       </div>
-      <ModalConfirm
-        isModalOpen={isModalOpen}
-        handleCancel={handleCloseModal}
-        handleOk={handleSubmit}
-        title="Deliver Order"
-        info="Are you sure to deliver this order? please make sure you have printed the label."
-        confirmButtonText="Deliver"
-        cancelButton={true}
-        confirmButtonProps={{ loading: isLoading }}
-      >
-        <Form className={style.card__order__form} preserve={false}>
-          <FormLabel
-            label="Receipt Code"
-            className={style.card__order__form__label}
-            rules={[
-              {
-                required: true,
-              },
-            ]}
-          />
-          <Input
-            size="middle"
-            value={receiptCode}
-            onChange={handleChangeReceiptCode}
-            className={style.card__order__form__input}
-            placeholder="Input receipt code"
-          />
-        </Form>
-      </ModalConfirm>
-    </>
+    </div>
   );
 };
 

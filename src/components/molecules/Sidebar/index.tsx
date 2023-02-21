@@ -18,17 +18,17 @@ const items = [
   {
     key: '1',
     icon: <UserOutlined />,
-    label: <Link to="/merchant">nav 1</Link>,
+    label: <Link to="/merchant">My Order</Link>,
   },
   {
     key: '2',
     icon: <VideoCameraOutlined />,
-    label: <Link to="/merchant/gege">nav 2</Link>,
+    label: <Link to="/merchant/gege">My Product</Link>,
   },
   {
     key: '3',
     icon: <UploadOutlined />,
-    label: <Link to="/merchant/shipping">nav 3</Link>,
+    label: <Link to="/merchant/shipping">Shipping</Link>,
   },
 ];
 const { Sider } = Layout;

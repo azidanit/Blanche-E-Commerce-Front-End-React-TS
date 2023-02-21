@@ -29,6 +29,24 @@ export interface IMerchantTransaction {
   shipping_details: IMerchantShippingDetails;
 }
 
+export interface IMerchantOrderUser {
+  username: string;
+  profile_picture: string;
+}
+
+export interface IMerchantProductDetails {
+  user: IMerchantOrderUser;
+  products: IMerchantProduct[];
+}
+
+export interface IMerchantDetailTransactionResponse {
+  invoice_code: string;
+  transaction_status: IMerchantTransactionStatus;
+  product_details: IMerchantProductDetails;
+  shipping_details: IMerchantShippingDetails;
+  payment_details: IMerchantPaymentDetails;
+}
+
 export interface IMerchantProductOverview {
   product: IMerchantProduct;
   total_product: number;
@@ -82,4 +100,24 @@ export interface IMerchantTransactionStatus {
   on_completed_at: Date | null;
   on_canceled_at: Date | null;
   on_refunded_at: null;
+}
+
+export interface IMerchantPaymentDetails {
+  method: IMerchantMethod;
+  summary: IMerchantSummary;
+}
+
+export interface IMerchantMethod {
+  id: number;
+  name: string;
+  code: string;
+  account_related_number: string;
+}
+
+export interface IMerchantSummary {
+  subtotal: number;
+  delivery_fee: number;
+  marketplace_voucher_nominal: number;
+  merchant_voucher_nominal: number;
+  total: number;
 }
