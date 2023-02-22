@@ -1,9 +1,13 @@
 import {
   ICreatePinRequest,
   IGetWalletDetailsResponse,
+  IMakePaymentWithWalletReq,
+  IMakePaymentWithWalletRes,
   IGetWalletHistoryResponse,
   ITopupWalletRequest,
   ITopupWalletResponse,
+  IValidatePinRequest,
+  IValidateResponse,
 } from '../../../helpers/types';
 import { apiSlice } from '../../api/apiSlice';
 
@@ -40,6 +44,42 @@ export const walletApi = apiSlice.injectEndpoints({
       transformErrorResponse: (response) => response.data,
       invalidatesTags: ['Wallet'],
     }),
+    validatePin: build.mutation<IValidateResponse, IValidatePinRequest>({
+      query: (body) => ({
+        url: '/step-up/pin',
+        method: 'POST',
+        body,
+      }),
+      transformResponse: (response: IValidateResponse) => response,
+      transformErrorResponse: (response) => response.data,
+      invalidatesTags: ['Wallet'],
+    }),
+    cancelPayment: build.mutation<
+      IMakePaymentWithWalletRes,
+      IMakePaymentWithWalletReq
+    >({
+      query: (body) => ({
+        url: '/users/wallet/cancel-payment',
+        method: 'POST',
+        body,
+      }),
+      transformResponse: (response: { data: IMakePaymentWithWalletRes }) =>
+        response.data,
+      transformErrorResponse: (response) => response.data,
+    }),
+    makePayment: build.mutation<
+      IMakePaymentWithWalletRes,
+      IMakePaymentWithWalletReq
+    >({
+      query: (body) => ({
+        url: '/users/wallet/make-payment',
+        method: 'POST',
+        body,
+      }),
+      transformResponse: (response: { data: IMakePaymentWithWalletRes }) =>
+        response.data,
+      transformErrorResponse: (response) => response.data,
+    }),
     getWalletHistory: build.query<IGetWalletHistoryResponse, void>({
       query: () => ({
         url: '/users/wallet/transactions',
@@ -57,5 +97,8 @@ export const {
   useGetWalletDetailsQuery,
   useCreatePinMutation,
   useTopUpWalletMutation,
+  useValidatePinMutation,
+  useCancelPaymentMutation,
+  useMakePaymentMutation,
   useGetWalletHistoryQuery,
 } = walletApi;

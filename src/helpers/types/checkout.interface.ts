@@ -82,7 +82,7 @@ export interface ICheckoutSummaryRequest {
   voucher_marketplace: string;
 }
 
-export interface IPayWithSLPRequest {
+export interface IPayRequest {
   order_code: string;
   address_id: number;
   merchants: ICheckoutSummaryMerchant[];
@@ -92,7 +92,7 @@ export interface IPayWithSLPRequest {
   payment_account_number: string;
 }
 
-export interface IPayWithSLPResponse {
+export interface IPayResponse {
   amount: number;
   payment_id: number;
   order_code: string;

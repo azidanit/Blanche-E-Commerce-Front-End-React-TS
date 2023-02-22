@@ -45,6 +45,7 @@ const AddPromotion = lazy(
   () => import('../../pages/Merchant/Promotion/AddPromotion'),
 );
 const ChangePassword = lazy(() => import('../../pages/ChangePassword'));
+const WalletPayment = lazy(() => import('../../pages/WalletPayment'));
 
 export const router = createBrowserRouter([
   {
@@ -141,12 +142,11 @@ export const router = createBrowserRouter([
       {
         path: '/order',
         element: <Order />,
-        children: [
-          {
-            path: '/order/:invoice',
-            element: <OrderDetail />,
-          },
-        ],
+        children: [],
+      },
+      {
+        path: '/order/:invoice',
+        element: <OrderDetail />,
       },
       {
         path: '/merchant/vouchers',
@@ -197,6 +197,16 @@ export const router = createBrowserRouter([
     path: '/wallet/topup/status',
     element: <TopupStatus />,
   },
+  {
+    path: '/transactions/:order_code/payment-status',
+    element: <PaymentStatus />,
+  },
+
+  {
+    path: '/payment/wallet',
+    element: <WalletPayment />,
+  },
+
   {
     path: '/transactions/:order_code/payment-status',
     element: <PaymentStatus />,

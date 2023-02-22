@@ -24,6 +24,7 @@ import PaymentIframe from './PaymentIframe';
 import ProductPage from './Merchant/ProductPage';
 import ShippingPage from './Merchant/ShippingPage';
 import ChangePasswordPage from './ChangePasswordPage';
+import CardPaymentWallet from './CardPaymentWallet';
 import ProductListPage from './Merchant/ProductListPage';
 
 export {
@@ -44,5 +45,6 @@ export {
   ProductPage,
   ShippingPage,
   ChangePasswordPage,
+  CardPaymentWallet,
   ProductListPage,
 };

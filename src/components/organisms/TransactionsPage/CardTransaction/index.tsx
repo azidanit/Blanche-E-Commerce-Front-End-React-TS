@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { capitalizeFirstLetter } from '../../../../helpers/capitalizeFirstLetter';
-import { dateToDayMonthStringYear } from '../../../../helpers/parseDate';
+import {
+  dateToDayMonthStringYear,
+  dateToMinuteHourMonthStringDayYear,
+} from '../../../../helpers/parseDate';
 import { Card, Image, Tag } from '../../../atoms';
 import style from './index.module.scss';
 import { MdOutlineStorefront } from 'react-icons/md';
@@ -64,7 +67,7 @@ const CardTransaction: React.FC<CardTransactionProps> = ({ transaction }) => {
             </p>
           </Link>
           <p>
-            {dateToDayMonthStringYear(
+            {dateToMinuteHourMonthStringDayYear(
               new Date(transaction.transaction_status.on_waited_at),
               ' ',
             )}

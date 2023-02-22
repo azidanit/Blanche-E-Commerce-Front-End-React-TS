@@ -5,7 +5,7 @@ import {
   ICheckoutSummaryMerchant,
   IGetUserAddressResponse,
   IGetWalletDetailsResponse,
-  IPayWithSLPRequest,
+  IPayRequest,
   ISealabsPayAccounts,
   IUserAddress,
   IVoucherMarketplaceResponse,
@@ -20,9 +20,9 @@ import { useGetWalletDetailsQuery } from '../../../../app/features/wallet/wallet
 import { MdAddCircleOutline } from 'react-icons/md';
 import AddSealabsPay from '../../UserSealabsPay/AddSealabsPay';
 import { toRupiah } from '../../../../helpers/toRupiah';
-import { usePayWithSLPMutation } from '../../../../app/features/checkout/checkoutApiSlice';
 import { IErrorResponse } from '../../../../helpers/types/response.interface';
 import { useNavigate } from 'react-router-dom';
+import { usePaymentTransactionsMutation } from '../../../../app/features/checkout/checkoutApiSlice';
 
 interface ModalPaymentPageProps {
   isModalOpen: boolean;
@@ -53,7 +53,7 @@ const ModalPayment: React.FC<ModalPaymentPageProps> = ({
   const [isModalSLPOpen, setIsModalSLPOpen] = useState(false);
   const [isIFrameOpen, setIsIFrameOpen] = useState(false);
   const [src, setSrc] = useState('');
-  const [payWithSLP, { isLoading }] = usePayWithSLPMutation();
+  const [payTx, { isLoading }] = usePaymentTransactionsMutation();
   const navigate = useNavigate();
 
   const handleOpenModalSLP = () => {
@@ -77,23 +77,60 @@ const ModalPayment: React.FC<ModalPaymentPageProps> = ({
     return (payment as ISealabsPayAccounts).card_number !== undefined;
   };
 
+  const isPaymentWallet = (
+    payment: IGetWalletDetailsResponse | ISealabsPayAccounts | undefined,
+  ): payment is IGetWalletDetailsResponse => {
+    return (payment as IGetWalletDetailsResponse).id !== undefined;
+  };
+
   const handleSetPayment = async () => {
-    if (!isPaymentSLP(payment)) {
+    if (isPaymentSLP(payment)) {
+      const body: IPayRequest = {
+        order_code: order.order_code,
+        address_id: address ? address?.id : 0,
+        merchants: merchant,
+        voucher_marketplace: mpVoucher ? mpVoucher.code : '',
+        payment_total: order.total,
+        payment_method_code: 'sealabspay',
+        payment_account_number: payment?.card_number,
+      };
+
+      try {
+        const data = await payTx(body).unwrap();
+        setSrc(data?.payment_redirect_url);
+        setIsIFrameOpen(true);
+      } catch (e) {
+        const err = e as IErrorResponse;
+        message.error(err.message);
+
+        if (err.code === 'INTERNAL_SERVER_ERROR') {
+          message.error(err.message);
+          setTimeout(() => {
+            navigate(0);
+          }, 500);
+          return;
+        }
+      }
+
       return;
     }
 
-    const body: IPayWithSLPRequest = {
+    if (!isPaymentWallet) {
+      return;
+    }
+
+    const body: IPayRequest = {
       order_code: order.order_code,
       address_id: address ? address?.id : 0,
       merchants: merchant,
       voucher_marketplace: mpVoucher ? mpVoucher.code : '',
       payment_total: order.total,
-      payment_method_code: 'sealabspay',
-      payment_account_number: payment?.card_number,
+      payment_method_code: 'wallet',
+      payment_account_number: wallet ? wallet?.id.toString() : '',
     };
 
     try {
-      const data = await payWithSLP(body).unwrap();
+      const data = await payTx(body).unwrap();
       setSrc(data?.payment_redirect_url);
       setIsIFrameOpen(true);
     } catch (e) {
@@ -114,6 +151,10 @@ const ModalPayment: React.FC<ModalPaymentPageProps> = ({
     <Modal
       open={isModalOpen}
       centered
+      bodyStyle={{
+        height: '70vh',
+        overflowY: 'scroll',
+      }}
       onCancel={handleCancel}
       onOk={handleSetPayment}
       okText="Crete Order"
@@ -136,6 +177,13 @@ const ModalPayment: React.FC<ModalPaymentPageProps> = ({
         >
           <CardWallet wallet={wallet} defaultPayment={payment} />
         </Radio>
+        {wallet && wallet.balance < order.total && (
+          <Alert
+            className={style.alert}
+            message="Insufficient Balance"
+            type="error"
+          />
+        )}
         <Divider className={style.border} />
         <h6>Sealabs Pay Account</h6>
         {sealabs
