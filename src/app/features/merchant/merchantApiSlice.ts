@@ -11,8 +11,14 @@ import {
   IPutShippingOptionsRequest,
   IGetMerchantProductListResponse,
   IGetMerchantProductListRequest,
+  ICreateProductRequest,
 } from '../../../helpers/types';
 import { IGetMerchantCategoriesResponse } from '../../../helpers/types';
+import {
+  ICheckProductNameResponse,
+  IUploadProductImageResponse,
+  ICheckProductNameRequest,
+} from '../../../helpers/types/merchant/product.interface';
 import { apiSlice } from '../../api/apiSlice';
 
 export const merchantApi = apiSlice.injectEndpoints({
@@ -122,6 +128,39 @@ export const merchantApi = apiSlice.injectEndpoints({
       transformErrorResponse: (response) => response.data,
       providesTags: ['Product'],
     }),
+    createProduct: build.mutation<null, ICreateProductRequest>({
+      query: (body) => ({
+        url: '/merchants/products',
+        method: 'POST',
+        body,
+      }),
+      transformResponse: (response: { data: null }) => response.data,
+      transformErrorResponse: (response) => response.data,
+      invalidatesTags: ['Product'],
+    }),
+    uploadProductImage: build.mutation<IUploadProductImageResponse, FormData>({
+      query: (body) => ({
+        url: '/merchants/products/images',
+        method: 'POST',
+        body,
+      }),
+      transformResponse: (response: { data: IUploadProductImageResponse }) =>
+        response.data,
+      transformErrorResponse: (response) => response.data,
+    }),
+    checkProductName: build.mutation<
+      ICheckProductNameResponse,
+      ICheckProductNameRequest
+    >({
+      query: (body) => ({
+        url: '/merchants/products/check-name',
+        method: 'POST',
+        body,
+      }),
+      transformResponse: (response: { data: ICheckProductNameResponse }) =>
+        response.data,
+      transformErrorResponse: (response) => response.data,
+    }),
   }),
 });
 
@@ -136,4 +175,7 @@ export const {
   useGetShippingOptionsQuery,
   usePutShippingOptionsMutation,
   useGetProductListQuery,
+  useCreateProductMutation,
+  useUploadProductImageMutation,
+  useCheckProductNameMutation,
 } = merchantApi;

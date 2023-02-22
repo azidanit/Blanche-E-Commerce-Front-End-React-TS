@@ -1,6 +1,11 @@
 import { PlusOutlined } from '@ant-design/icons';
 import { message } from 'antd';
-import Upload, { RcFile, UploadFile, UploadProps } from 'antd/es/upload';
+import Upload, {
+  RcFile,
+  UploadChangeParam,
+  UploadFile,
+  UploadProps,
+} from 'antd/es/upload';
 import React, { useState } from 'react';
 import { Card, FormLabel } from '../../../../atoms';
 import { rules } from '../validation';
@@ -20,8 +25,10 @@ const beforeUpload = (file: RcFile) => {
 
 const ProductMedia: React.FC = () => {
   const [fileList, setFileList] = useState<UploadFile[]>([]);
-  const handleUpload: UploadProps['onChange'] = ({ fileList: newFileList }) => {
-    setFileList(newFileList);
+  const handleUpload: UploadProps['onChange'] = (
+    info: UploadChangeParam<UploadFile>,
+  ) => {
+    setFileList(info.fileList);
   };
 
   return (

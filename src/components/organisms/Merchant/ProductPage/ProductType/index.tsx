@@ -47,7 +47,7 @@ const ProductType: React.FC = () => {
           </p>
         </div>
         {isVariant ? <ProductVariants /> : <ProductAttribute />}
-        <FormLabel label="Status" preserve={false}>
+        <FormLabel label="Status" preserve={false} className={style.pt__label}>
           <div className={classNames(style.pt__switch, 'pt__switch')}>
             <Form.Item
               name="status"
