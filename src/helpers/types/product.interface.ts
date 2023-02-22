@@ -86,15 +86,25 @@ export interface IGetTransactionDetailsResponse {
   transaction_status: ITransactionStatus;
 }
 
-export interface ICreateProductRequest {
-  name: string;
+export interface IVariantVariantItems {
+  image: string;
   price: number;
+  stock: number;
+}
+
+export interface IVariantVariantOptions {
+  name: string;
+  type: string[];
+}
+
+export interface ICreateProductRequest {
+  title: string;
+  price: number | null;
   category_id: number;
   description: string;
   is_used: boolean;
-  SKU: string;
-  images: string[];
-  total_stock: number;
+  images?: string[];
+  total_stock: number | null;
   is_archived: boolean;
   weight: number;
   dimension: {
@@ -103,16 +113,7 @@ export interface ICreateProductRequest {
     length: number;
   };
   variant: {
-    variant_options: {
-      name: string;
-      type: string[];
-    }[];
-    variant_items: {
-      key: string;
-      images: string[];
-      price: number;
-      discount_price: number;
-      stock: number;
-    }[];
-  };
+    variant_options: IVariantVariantOptions[];
+    variant_items: IVariantVariantItems[];
+  } | null;
 }

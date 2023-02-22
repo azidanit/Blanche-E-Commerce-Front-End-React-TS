@@ -1,4 +1,13 @@
-import { Button, Divider, Form, InputNumber, Select, Table } from 'antd';
+import {
+  Button,
+  Divider,
+  Form,
+  InputNumber,
+  message,
+  Select,
+  Table,
+  Upload,
+} from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
@@ -6,9 +15,12 @@ import { FormLabel, Input } from '../../../../atoms';
 import { rules } from '../validation';
 import style from './index.module.scss';
 import './override.scss';
+import { PlusOutlined } from '@ant-design/icons';
+import { RcFile, UploadChangeParam, UploadFile } from 'antd/es/upload';
 
 interface Row {
   key: string;
+  image: React.ReactNode;
   price: React.ReactNode;
   stock: React.ReactNode;
   firstVariant?: string;
@@ -32,6 +44,11 @@ const defaultOptions = [
 
 const defaultColumns: ColumnsType<Row> = [
   {
+    title: 'Image',
+    dataIndex: 'image',
+    key: 'image',
+  },
+  {
     title: 'Price',
     dataIndex: 'price',
     key: 'price',
@@ -43,6 +60,25 @@ const defaultColumns: ColumnsType<Row> = [
   },
 ];
 
+const beforeUpload = (file: RcFile) => {
+  const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+  if (!isJpgOrPng) {
+    message.error('You can only upload JPG/PNG file!');
+  }
+  const isLt2M = file.size / 1024 / 1024 < 2;
+  if (!isLt2M) {
+    message.error('Image must smaller than 2MB!');
+  }
+  return false;
+};
+
+const getFile = (e: UploadChangeParam<UploadFile>) => {
+  if (Array.isArray(e)) {
+    return e;
+  }
+  return e && e.fileList;
+};
+
 const ProductVariants: React.FC = () => {
   const [isSecondVariant, setIsSecondVariant] = useState(false);
   const [dataSource, setDataSource] = useState<Row[]>();
@@ -52,6 +88,7 @@ const ProductVariants: React.FC = () => {
   const secondVariant: string = Form.useWatch('secondVariant', form);
   const firstSelect: string[] = Form.useWatch('firstSelect', form);
   const secondSelect: string[] = Form.useWatch('secondSelect', form);
+  const variantItems = Form.useWatch('variantItems', form);
 
   useEffect(() => {
     let newArr: ColumnsType<Row> = defaultColumns;
@@ -86,28 +123,55 @@ const ProductVariants: React.FC = () => {
       return;
     }
     if (firstSelect && !secondSelect) {
-      const res: Row[] = firstSelect.map((item, index) => ({
-        key: index.toString(),
-        firstVariant: item,
-        price: (
-          <FormLabel
-            name={['variantItems', index, 'price']}
-            rules={rules.price}
-            preserve={false}
-          >
-            <InputNumber min={100} placeholder="Price" addonBefore="Rp" />
-          </FormLabel>
-        ),
-        stock: (
-          <FormLabel
-            name={['variantItems', index, 'stock']}
-            rules={rules.stock}
-            preserve={false}
-          >
-            <InputNumber min={0} placeholder="Stock" />
-          </FormLabel>
-        ),
-      }));
+      const res: Row[] = firstSelect.map((item, index) => {
+        return {
+          key: index.toString(),
+          firstVariant: item,
+          image: (
+            <FormLabel
+              name={['variantItems', index, 'image']}
+              valuePropName="fileList"
+              getValueFromEvent={getFile}
+              rules={rules.images}
+            >
+              <Upload
+                name="file"
+                beforeUpload={beforeUpload}
+                listType="picture-card"
+                showUploadList={{ showPreviewIcon: false }}
+              >
+                {variantItems &&
+                  variantItems[index] &&
+                  (!variantItems[index].image ||
+                    variantItems[index].image.length !== 1) && (
+                    <div className={style.pm__upload}>
+                      <PlusOutlined />
+                      <p>Upload</p>
+                    </div>
+                  )}
+              </Upload>
+            </FormLabel>
+          ),
+          price: (
+            <FormLabel
+              name={['variantItems', index, 'price']}
+              rules={rules.price}
+              preserve={false}
+            >
+              <InputNumber min={100} placeholder="Price" addonBefore="Rp" />
+            </FormLabel>
+          ),
+          stock: (
+            <FormLabel
+              name={['variantItems', index, 'stock']}
+              rules={rules.stock}
+              preserve={false}
+            >
+              <InputNumber min={0} placeholder="Stock" />
+            </FormLabel>
+          ),
+        };
+      });
       setDataSource(res);
       return;
     }
@@ -125,6 +189,41 @@ const ProductVariants: React.FC = () => {
             key: `${firstIndex}-${secondIndex}`,
             firstVariant: firstItem,
             secondVariant: secondItem,
+            image: (
+              <FormLabel
+                name={[
+                  'variantItems',
+                  firstIndex * secondSelect.length + secondIndex,
+                  'image',
+                ]}
+                valuePropName="fileList"
+                getValueFromEvent={getFile}
+                rules={rules.images}
+              >
+                <Upload
+                  name="file"
+                  beforeUpload={beforeUpload}
+                  listType="picture-card"
+                  showUploadList={{ showPreviewIcon: false }}
+                >
+                  {variantItems &&
+                    variantItems[
+                      firstIndex * secondSelect.length + secondIndex
+                    ] &&
+                    (!variantItems[
+                      firstIndex * secondSelect.length + secondIndex
+                    ].image ||
+                      variantItems[
+                        firstIndex * secondSelect.length + secondIndex
+                      ].image.length !== 1) && (
+                      <div className={style.pm__upload}>
+                        <PlusOutlined />
+                        <p>Upload</p>
+                      </div>
+                    )}
+                </Upload>
+              </FormLabel>
+            ),
             price: (
               <FormLabel
                 name={[
@@ -156,7 +255,14 @@ const ProductVariants: React.FC = () => {
       );
       setDataSource(res);
     }
-  }, [firstSelect, secondSelect, firstVariant, secondVariant, isSecondVariant]);
+  }, [
+    firstSelect,
+    secondSelect,
+    firstVariant,
+    secondVariant,
+    isSecondVariant,
+    variantItems,
+  ]);
 
   const toggleSecondVariant = () => {
     setIsSecondVariant((prevValue) => !prevValue);
@@ -223,7 +329,12 @@ const ProductVariants: React.FC = () => {
         </Button>
       )}
       <Divider dashed />
-      <Table columns={columns} dataSource={dataSource} pagination={false} />
+      <Table
+        columns={columns}
+        dataSource={dataSource}
+        pagination={false}
+        scroll={{ x: 800 }}
+      />
     </div>
   );
 };

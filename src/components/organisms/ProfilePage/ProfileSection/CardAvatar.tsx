@@ -27,7 +27,7 @@ const beforeUpload = (file: RcFile) => {
   if (!isLt2M) {
     message.error('Image must smaller than 2MB!');
   }
-  return isJpgOrPng || Upload.LIST_IGNORE;
+  return false;
 };
 
 const CardAvatar: React.FC<CardAvatarProps> = ({ src }) => {

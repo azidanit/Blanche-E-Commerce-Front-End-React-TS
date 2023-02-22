@@ -6,6 +6,7 @@ export const rules = {
       required: true,
       message: 'Please input product name!',
     },
+    { min: 3, message: 'Product name must be at least 3 characters long.' },
   ],
   category: [
     {

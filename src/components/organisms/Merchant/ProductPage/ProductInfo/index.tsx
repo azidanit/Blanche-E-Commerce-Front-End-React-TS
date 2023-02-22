@@ -1,6 +1,11 @@
 import { Cascader } from 'antd';
+import { Rule } from 'antd/es/form';
+import debounce from 'debounce-promise';
 import React, { useEffect, useState } from 'react';
 import { useGetCategoriesQuery } from '../../../../../app/features/home/homeApiSlice';
+import { useCheckProductNameMutation } from '../../../../../app/features/merchant/merchantApiSlice';
+import { capitalizeFirstLetter } from '../../../../../helpers/capitalizeFirstLetter';
+import { IErrorResponse } from '../../../../../helpers/types/response.interface';
 import { Card, FormLabel, Input } from '../../../../atoms';
 import { rules } from '../validation';
 import style from './index.module.scss';
@@ -14,6 +19,35 @@ interface Option {
 const ProductInfo: React.FC = () => {
   const { data } = useGetCategoriesQuery({});
   const [categories, setCategories] = useState<Option[]>([]);
+  const [checkName] = useCheckProductNameMutation();
+
+  const additionalNameRule = {
+    validator: debounce((_: Rule, value: string): Promise<void> => {
+      if (!value || value.length < 3) {
+        return Promise.reject();
+      }
+
+      return new Promise(async (resolve, reject) => {
+        const body = {
+          product_name: value,
+        };
+        try {
+          const data = await checkName(body).unwrap();
+          if (!data.is_available) {
+            reject(
+              new Error(
+                'Product name is already used. Please try another name.',
+              ),
+            );
+          }
+          resolve();
+        } catch (err) {
+          const error = err as IErrorResponse;
+          reject(new Error(capitalizeFirstLetter(error.message)));
+        }
+      });
+    }, 500),
+  };
 
   useEffect(() => {
     if (!data) return;
@@ -41,7 +75,12 @@ const ProductInfo: React.FC = () => {
           for the customers.
         </p>
       </div>
-      <FormLabel label="Product Name" name="name" rules={rules.name}>
+      <FormLabel
+        label="Product Name"
+        name="title"
+        rules={[...rules.name, additionalNameRule]}
+        hasFeedback
+      >
         <Input
           placeholder="ex: Apple iPhone 12 Pro Max 256GB"
           showCount
