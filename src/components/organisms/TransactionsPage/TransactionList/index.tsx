@@ -13,9 +13,12 @@ const values = [
   'All',
   'Waiting',
   'Processed',
+  'On Delivery',
   'Delivered',
   'Completed',
   'Canceled',
+  'Request Refund',
+  'Refunded',
 ];
 const TransactionList: React.FC = () => {
   const params = useAppSelector((state) => state.params);

@@ -240,6 +240,15 @@ export interface IAccount {
   email: string;
 }
 
+export interface ITransactionStatus {
+  on_waited_at: Date;
+  on_processed_at: Date | null;
+  on_delivered_at: Date | null;
+  on_completed_at: Date | null;
+  on_canceled_at: Date | null;
+  on_refunded_at: Date | null;
+}
+
 export interface ITransaction {
   invoice_code: string;
   merchant: {
@@ -258,13 +267,7 @@ export interface ITransaction {
     };
     total_product: number;
   };
-  transaction_status: {
-    on_canceled_at: Date | null;
-    on_delivered_at: Date | null;
-    on_completed_at: Date | null;
-    on_processed_at: Date | null;
-    on_waited_at: Date;
-  };
+  transaction_status: ITransactionStatus;
   total_price: number;
 }
 
@@ -329,4 +332,9 @@ export interface ITransactionStatus {
   on_delivered_at: Date | null;
   on_processed_at: Date | null;
   on_waited_at: Date;
+}
+
+export interface IUpdateTransactionStatus {
+  invoice_code: string;
+  status: number;
 }

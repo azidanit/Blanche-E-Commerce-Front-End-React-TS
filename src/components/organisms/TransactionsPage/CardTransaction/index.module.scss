@@ -99,6 +99,11 @@
           color: $primary-70;
         }
         padding: 0;
+
+        &__btn {
+          display: flex;
+          gap: 1rem;
+        }
       }
     }
   }
