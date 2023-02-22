@@ -2,8 +2,8 @@ import {
   ICheckoutRequest,
   ICheckoutResponse,
   ICheckoutSummaryRequest,
-  IPayWithSLPRequest,
-  IPayWithSLPResponse,
+  IPayRequest,
+  IPayResponse,
 } from '../../../helpers/types';
 import { apiSlice } from '../../api/apiSlice';
 
@@ -31,14 +31,13 @@ export const checkoutApi = apiSlice.injectEndpoints({
         transformErrorResponse: (response) => response.data,
       },
     ),
-    payWithSLP: build.mutation<IPayWithSLPResponse, IPayWithSLPRequest>({
+    paymentTransactions: build.mutation<IPayResponse, IPayRequest>({
       query: (body) => ({
         url: '/users/transactions',
         method: 'POST',
         body,
       }),
-      transformResponse: (response: { data: IPayWithSLPResponse }) =>
-        response.data,
+      transformResponse: (response: { data: IPayResponse }) => response.data,
       transformErrorResponse: (response) => response.data,
       invalidatesTags: ['CartHome'],
     }),
@@ -48,5 +47,5 @@ export const checkoutApi = apiSlice.injectEndpoints({
 export const {
   useCheckoutMutation,
   useCheckoutSummaryMutation,
-  usePayWithSLPMutation,
+  usePaymentTransactionsMutation,
 } = checkoutApi;

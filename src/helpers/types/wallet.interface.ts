@@ -20,6 +20,25 @@ export interface ITopupWalletResponse {
   wallet_id: number;
 }
 
+export interface IValidatePinRequest {
+  pin: string;
+}
+
+export interface IValidateResponse {
+  code: string;
+  message: string;
+}
+
+export interface IMakePaymentWithWalletReq {
+  amount: number;
+  payment_id: string;
+}
+
+export interface IMakePaymentWithWalletRes {
+  amount: number;
+  payment_id: string;
+  status: string;
+}
 export interface ITransactionOverview {
   amount: number;
   issued_at: Date;
