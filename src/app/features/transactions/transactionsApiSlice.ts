@@ -2,6 +2,7 @@ import {
   IGetTransactionListRequest,
   IGetTransactionListResponse,
   IGetTransactionDetailsResponse,
+  IUpdateTransactionStatus,
 } from '../../../helpers/types';
 import { apiSlice } from '../../api/apiSlice';
 
@@ -29,10 +30,23 @@ export const transactionsApi = apiSlice.injectEndpoints({
       transformResponse: (response: { data: IGetTransactionDetailsResponse }) =>
         response.data,
       transformErrorResponse: (response) => response.data,
-      providesTags: ['Transaction'],
+      providesTags: ['Transaction Details'],
+    }),
+    UpdateTransactionStatus: build.mutation<null, IUpdateTransactionStatus>({
+      query: (body) => ({
+        url: `/users/transactions/${body.invoice_code}/status`,
+        method: 'PUT',
+        body,
+      }),
+      transformResponse: (response: { data: null }) => response.data,
+      transformErrorResponse: (response) => response.data,
+      invalidatesTags: ['Transaction', 'Transaction Details'],
     }),
   }),
 });
 
-export const { useGetTransactionsQuery, useGetTransactionDetailsQuery } =
-  transactionsApi;
+export const {
+  useGetTransactionsQuery,
+  useGetTransactionDetailsQuery,
+  useUpdateTransactionStatusMutation,
+} = transactionsApi;
