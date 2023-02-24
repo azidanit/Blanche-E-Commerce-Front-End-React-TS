@@ -1,10 +1,51 @@
 import { NamePath } from 'antd/es/form/interface';
+import { Rule } from 'rc-field-form/lib/interface';
 
 export const rules = {
+  username: [
+    { required: true, message: 'Please input your username.' },
+    { min: 8, message: 'Username must be at least 8 characters long.' },
+    { max: 16, message: 'Username must be at most 16 characters long.' },
+    {
+      validator: (_: Rule, value: string): Promise<void> => {
+        if (!value || value.length < 8 || value.length > 16)
+          return Promise.resolve();
+        return new Promise((resolve, reject) => {
+          if (value.trim() !== value) {
+            reject(
+              new Error('Username cannot contain leading and trailing spaces.'),
+            );
+          }
+          if (value.split(' ').length > 1) {
+            reject(new Error('Username cannot contain spaces.'));
+          }
+          resolve();
+        });
+      },
+    },
+  ],
   fullname: [
     { required: true, message: 'Please input your fullname.' },
     { min: 2, message: 'Fullname must be at least 2 characters long.' },
     { max: 32, message: 'Fullname must be at most 32 characters long.' },
+    {
+      validator: (_: Rule, value: string): Promise<void> => {
+        if (!value || value.length < 2 || value.length > 32)
+          return Promise.resolve();
+        return new Promise((resolve, reject) => {
+          if (value.trim() !== value) {
+            reject(
+              new Error('Fullname cannot contain leading and trailing spaces.'),
+            );
+          }
+          const splitted = value.split(' ');
+          if (splitted.includes('')) {
+            reject(new Error('Fullname cannot contain consecutive spaces.'));
+          }
+          resolve();
+        });
+      },
+    },
   ],
   password: [
     { required: true, message: 'Please input your password.' },
@@ -24,6 +65,20 @@ export const rules = {
         return Promise.resolve();
       },
     }),
+    {
+      validator: (_: Rule, value: string): Promise<void> => {
+        if (!value || value.length < 8 || value.length > 32)
+          return Promise.resolve();
+        return new Promise((resolve, reject) => {
+          if (value.trim() !== value) {
+            reject(
+              new Error('Password cannot contain leading and trailing spaces.'),
+            );
+          }
+          resolve();
+        });
+      },
+    },
   ],
   confirmPassword: [
     { required: true, message: 'Please confirm your password.' },

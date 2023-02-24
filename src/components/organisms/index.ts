@@ -31,6 +31,8 @@ import ChangePinPage from './ChangePinPage';
 import PromotionBanner from './PromotionBanner';
 import ProductReviews from './ProductPage/ProductReviews';
 import ModalReview from './ModalReview';
+import ForgetPasswordPage from './ForgetPasswordPage';
+import SetNewPassword from './ForgetPasswordPage/SetNewPassword';
 
 export {
   CategoryCarousel,
@@ -57,4 +59,6 @@ export {
   ChangePinPage,
   ProductReviews,
   ModalReview,
+  ForgetPasswordPage,
+  SetNewPassword,
 };

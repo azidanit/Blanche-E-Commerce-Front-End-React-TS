@@ -21,7 +21,6 @@ const AppLayout = (): JSX.Element => {
     }
 
     dispatch(setUser(profile));
-    dispatch(setIsLoggedIn(localStorage.getItem('token') ? true : false));
   }, [profile, user]);
 
   useEffect(() => {

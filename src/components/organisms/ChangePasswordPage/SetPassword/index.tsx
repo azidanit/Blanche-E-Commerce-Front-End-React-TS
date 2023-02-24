@@ -31,7 +31,7 @@ const SetPassword: React.FC = () => {
           <InputPassword placeholder="Password" />
         </FormLabel>
         <FormLabel
-          label="Confirm Passsword"
+          label="Confirm Password"
           name="confirmPassword"
           rules={rules.confirmPassword}
           dependencies={dependencies.confirmPassword}

@@ -3,6 +3,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import ProtectedPage from '../../components/layouts/Auth/ProtectedPage';
 import AppLayout from '../../components/layouts/AppLayout';
 import MerchantLayout from '../../components/layouts/Merchant/MerchantLayout';
+import { SetNewPassword } from '../../components';
 
 const Home = lazy(() => import('../../pages/Home'));
 const Login = lazy(() => import('../../pages/Auth/Login'));
@@ -48,6 +49,7 @@ const ChangePassword = lazy(() => import('../../pages/ChangePassword'));
 const WalletPayment = lazy(() => import('../../pages/WalletPayment'));
 const Address = lazy(() => import('../../pages/Merchant/Address'));
 const ChangePin = lazy(() => import('../../pages/ChangePin'));
+const ForgetPassword = lazy(() => import('../../pages/ForgetPassword'));
 
 export const router = createBrowserRouter([
   {
@@ -223,5 +225,13 @@ export const router = createBrowserRouter([
   {
     path: '/transactions/:order_code/payment-status',
     element: <PaymentStatus />,
+  },
+  {
+    path: '/reset-password',
+    element: <ForgetPassword />,
+  },
+  {
+    path: '/reset-password/:code',
+    element: <SetNewPassword />,
   },
 ]);
