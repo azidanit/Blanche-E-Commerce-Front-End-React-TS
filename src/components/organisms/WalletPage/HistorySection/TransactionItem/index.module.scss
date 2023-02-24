@@ -19,8 +19,17 @@
     color: $gray;
   }
   &__amount {
-    color: $success;
     font-weight: $text-bold;
     font-size: 1rem;
+    &__green {
+      color: $success;
+    }
+    &__red {
+      color: $red;
+    }
+  }
+  &__invoice {
+    font-weight: $text-bold;
+    color: $primary-60;
   }
 }

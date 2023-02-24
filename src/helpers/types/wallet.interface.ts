@@ -43,9 +43,10 @@ export interface ITransactionOverview {
   amount: number;
   issued_at: Date;
   payment_id: number;
+  title: string;
+  notes: string;
   wallet_transaction_type: {
     code: string;
-    id: number;
     name: string;
   };
 }
@@ -55,4 +56,9 @@ export interface IGetWalletHistoryResponse {
   total_page: number;
   total_data: number;
   transactions: ITransactionOverview[];
+}
+
+export interface IGetWalletHistoryRequest {
+  page: number;
+  limit: number;
 }
