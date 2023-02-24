@@ -1,8 +1,8 @@
 export interface ICheckoutRequest {
   product_id: number;
-  variant_item_id: number;
+  variant_item_id?: number | null;
   quantity: number;
-  notes: string;
+  notes?: string | null;
 }
 
 export interface IOrderMerchant {

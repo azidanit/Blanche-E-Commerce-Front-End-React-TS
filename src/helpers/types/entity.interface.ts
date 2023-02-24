@@ -74,6 +74,7 @@ export interface IProduct {
   description: string;
   min_real_price: number;
   max_real_price: number;
+  is_my_product: boolean;
   min_discount_price: number;
   max_discount_price: number;
   num_of_sale: number;
@@ -114,6 +115,7 @@ export interface IProductDetail {
   min_real_price: number;
   max_real_price: number;
   min_discount_price: number;
+  is_my_product: boolean;
   max_discount_price: number;
   category: ICategoryProduct;
   images: string[];

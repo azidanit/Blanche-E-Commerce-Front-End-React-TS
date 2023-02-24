@@ -25,7 +25,7 @@ const Product = (): JSX.Element => {
     slug: slug as string,
   });
 
-  const { isRangePrice, variant } = useProduct();
+  const { variant } = useProduct();
 
   const handleNavigate = () => {
     navigate('/', { replace: true });
@@ -59,15 +59,25 @@ const Product = (): JSX.Element => {
     );
   }, [data]);
 
-  const { data: similarProducts } = useGetProductsQuery({
-    limit: 6,
-    cat: data?.category?.url,
-  });
+  const { data: similarProducts } = useGetProductsQuery(
+    {
+      limit: 6,
+      cat: data?.category?.url,
+    },
+    {
+      skip: !data?.category?.url,
+    },
+  );
 
-  const { data: sellerProducts } = useGetProductsQuery({
-    limit: 6,
-    merchant: store as string,
-  });
+  const { data: sellerProducts } = useGetProductsQuery(
+    {
+      limit: 6,
+      merchant: store as string,
+    },
+    {
+      skip: !store,
+    },
+  );
 
   if (!data && !isLoading) {
     return (
@@ -90,7 +100,13 @@ const Product = (): JSX.Element => {
       <BreadcrumbProduct />
       <div className={style.product__page}>
         <ProductDetail />
-        <CardSummary />
+        {data?.is_my_product ? (
+          <Button size="large" type="primary">
+            Edit My Product
+          </Button>
+        ) : (
+          <CardSummary />
+        )}
       </div>
 
       <div className={style.product__page__lists}>

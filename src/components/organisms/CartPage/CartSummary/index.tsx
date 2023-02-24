@@ -1,4 +1,4 @@
-import { Divider, notification, Skeleton, Space } from 'antd';
+import { Divider, notification, Skeleton } from 'antd';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ModalConfirm } from '../../..';

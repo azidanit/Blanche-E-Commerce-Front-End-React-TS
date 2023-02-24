@@ -1,13 +1,16 @@
-import { Divider, notification, Skeleton, Space } from 'antd';
+import { Divider, notification, Skeleton } from 'antd';
 import { valueType } from 'antd/es/statistic/utils';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCreateCartsMutation } from '../../../../app/features/cart/cartApiSlice';
+import { useCheckoutMutation } from '../../../../app/features/checkout/checkoutApiSlice';
+import { capitalizeFirstLetter } from '../../../../helpers/capitalizeFirstLetter';
 import { toRupiah } from '../../../../helpers/toRupiah';
+import { ICheckoutRequest } from '../../../../helpers/types';
 import { IErrorResponse } from '../../../../helpers/types/response.interface';
 import useProduct from '../../../../hooks/useProduct';
 import { Alert, Button, Card } from '../../../atoms';
-import { InputQuantity } from '../../../molecules';
+import { InputQuantity, ModalConfirm } from '../../../molecules';
 import CartItem from './CartItem';
 import style from './index.module.scss';
 
@@ -15,8 +18,10 @@ const CardSummary: React.FC = () => {
   const { product, stock, price, isLoading, variant, isHaveVariant } =
     useProduct();
 
+  const [checkout, { isLoading: isLoadingCheckout }] = useCheckoutMutation();
   const [quantity, setQuantity] = useState(1);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [addToCart, { isLoading: isLoadingAddToCart, isError }] =
     useCreateCartsMutation();
 
@@ -30,6 +35,18 @@ const CardSummary: React.FC = () => {
     price ? price : product?.max_real_price,
   );
 
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+    navigate('/profile');
+  };
   const handleChange = (value: valueType | null) => {
     setQuantity(value as number);
   };
@@ -87,6 +104,38 @@ const CardSummary: React.FC = () => {
     setErrorAddToCart(undefined);
     setError('');
   }, [quantity, price]);
+
+  const handleBuyNow = async () => {
+    const body: ICheckoutRequest[] = [
+      {
+        product_id: product?.id ? product.id : 0,
+        quantity: quantity ? quantity : 0,
+        variant_item_id: variant?.id ? variant.id : null,
+        notes: null,
+      },
+    ];
+
+    try {
+      const data = await checkout(body).unwrap();
+      notification.success({
+        message: 'Success',
+        description: 'Buy Now success',
+      });
+      navigate('/checkout?data=' + data.order_code);
+    } catch (err) {
+      const error = err as IErrorResponse;
+
+      if (error.code === 'ORDER_ADDRESS_NOT_FOUND') {
+        showModal();
+        return;
+      }
+
+      notification.error({
+        message: 'Error',
+        description: capitalizeFirstLetter(error.message),
+      });
+    }
+  };
 
   return (
     <Card className={style.card__summary}>
@@ -166,13 +215,25 @@ const CardSummary: React.FC = () => {
               size="large"
               ghost
               disabled={(!variant && isHaveVariant) || stock === 0}
+              onClick={handleBuyNow}
               block
+              loading={isLoadingCheckout}
             >
               Buy Now
             </Button>
           </>
         )}
       </div>
+
+      <ModalConfirm
+        isModalOpen={isModalOpen}
+        handleCancel={handleCancel}
+        handleOk={handleOk}
+        title="Address is empty"
+        info="Please add your address to continue checkout"
+        cancelButton={true}
+        closable={true}
+      />
     </Card>
   );
 };
