@@ -26,6 +26,7 @@ import ShippingPage from './Merchant/ShippingPage';
 import ChangePasswordPage from './ChangePasswordPage';
 import CardPaymentWallet from './CardPaymentWallet';
 import ProductListPage from './Merchant/ProductListPage';
+import PromotionBanner from './PromotionBanner';
 import ProductReviews from './ProductPage/ProductReviews';
 import ModalReview from './ModalReview';
 
@@ -40,6 +41,7 @@ export {
   Recommended,
   UserSealabsPay,
   WalletPage,
+  PromotionBanner,
   FilterSellerProduct,
   TransactionsPage,
   PaymentIframe,
