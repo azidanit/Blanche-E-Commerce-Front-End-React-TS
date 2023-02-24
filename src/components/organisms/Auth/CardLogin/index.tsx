@@ -56,7 +56,9 @@ const CardLogin: React.FC = () => {
           Login
         </Button>
       </Form>
-      <Link to="/">Forgot Password?</Link>
+      <div className={style.card__login__forget}>
+        <Link to="/reset-password">Forget Password?</Link>
+      </div>
       <CardLoginBottom />
     </Card>
   );

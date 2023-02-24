@@ -110,3 +110,20 @@ export interface FormReturnPassword {
   error?: IErrorResponse;
   values?: ISetNewPasswordRequest;
 }
+
+export interface IForgetPasswordResponse {
+  is_email_sent: boolean;
+  retry_in: number;
+}
+
+export interface IForgetPasswordRequest {
+  email: string;
+}
+
+export interface IVerifyForgetPasswordRequest {
+  verification_code: string;
+}
+
+export interface IResetForgetPasswordRequest {
+  password: string;
+}

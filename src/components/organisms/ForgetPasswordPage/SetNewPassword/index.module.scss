@@ -1,6 +1,6 @@
 @use '../../../../styles/variables.scss' as *;
 
-.cp {
+.snp {
   margin: 0 auto;
   padding: 2rem;
   max-width: 600px;
@@ -17,5 +17,13 @@
 
   &__input {
     margin-top: 2rem;
+  }
+
+  &__verify {
+    margin-top: 1rem;
+  }
+
+  &__pass {
+    margin-bottom: 1rem;
   }
 }

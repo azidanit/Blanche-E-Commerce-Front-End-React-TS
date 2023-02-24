@@ -1,84 +1,48 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, FormLabel, Input, InputPassword } from '../../../../atoms';
 import { Form } from '../../../../molecules';
 import useForm from './useForm';
 import { dependencies, rules } from './validation';
-import debounce from 'lodash/debounce';
 import { useCheckUsernameMutation } from '../../../../../app/features/auth/authApiSlice';
-import { ValidateStatus } from 'antd/es/form/FormItem';
 import { capitalizeFirstLetter } from '../../../../../helpers/capitalizeFirstLetter';
 import { Alert } from 'antd';
 import style from '../index.module.scss';
+import { Rule } from 'rc-field-form/lib/interface';
+import { IErrorResponse } from '../../../../../helpers/types/response.interface';
+import debounce from 'debounce-promise';
 
 interface SecondStepProps {
   email: string;
 }
 
-interface StateProps {
-  value: string;
-  validateStatus?: ValidateStatus;
-  errorMsg?: string | null;
-}
-
 const SecondStep: React.FC<SecondStepProps> = ({ email }) => {
   const { handleSubmit, isError, error } = useForm({ email });
-  const [username, setUsername] = useState<StateProps>({ value: '' });
   const [checkUsername, { isLoading }] = useCheckUsernameMutation();
 
-  const validateUsername = async (
-    username: string,
-  ): Promise<{
-    validateStatus?: ValidateStatus;
-    errorMsg?: string | null;
-  }> => {
-    if (!username) {
-      return {
-        validateStatus: 'error',
-        errorMsg: 'Please enter your username!',
-      };
-    }
-    if (username.length < 8) {
-      return {
-        validateStatus: 'error',
-        errorMsg: 'Username must be at least 8 characters long.',
-      };
-    }
-    if (username.length > 16) {
-      return {
-        validateStatus: 'error',
-        errorMsg: 'Username must be at most 16 characters long.',
-      };
-    }
-    const body = {
-      username,
-    };
-    const data = await checkUsername(body).unwrap();
-    if (!data.is_available) {
-      return {
-        validateStatus: 'error',
-        errorMsg: 'Username is already taken.',
-      };
-    }
-    return {
-      validateStatus: 'success',
-      errorMsg: null,
-    };
-  };
+  const additionalRule = {
+    validator: debounce((_: Rule, value: string): Promise<void> => {
+      if (!value || value.length < 8 || value.length > 16) {
+        return Promise.reject();
+      }
+      return new Promise(async (resolve, reject) => {
+        const body = {
+          username: value,
+        };
+        try {
+          const data = await checkUsername(body).unwrap();
 
-  const handleChangeUsername = async (
-    e: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    const { value } = e.target;
-    setUsername({
-      validateStatus: 'validating',
-      errorMsg: null,
-      value,
-    });
-    const result = await validateUsername(value);
-    setUsername({
-      ...result,
-      value,
-    });
+          if (!data.is_available) {
+            reject(
+              new Error('Username is already used. Please try another name.'),
+            );
+          }
+          resolve();
+        } catch (err) {
+          const error = err as IErrorResponse;
+          reject(new Error(capitalizeFirstLetter(error.message)));
+        }
+      });
+    }, 500),
   };
 
   return (
@@ -92,15 +56,10 @@ const SecondStep: React.FC<SecondStepProps> = ({ email }) => {
       <FormLabel
         label="Username"
         name="username"
-        validateStatus={username.validateStatus}
-        help={username.errorMsg || ''}
         hasFeedback
-        required
+        rules={[...rules.username, additionalRule]}
       >
-        <Input
-          placeholder="Username"
-          onChange={debounce(handleChangeUsername, 500)}
-        />
+        <Input placeholder="Username" />
       </FormLabel>
       <FormLabel label="Fullname" name="fullname" rules={rules.fullname}>
         <Input placeholder="Fullname" />
@@ -114,7 +73,7 @@ const SecondStep: React.FC<SecondStepProps> = ({ email }) => {
         <InputPassword placeholder="Password" />
       </FormLabel>
       <FormLabel
-        label="Confirm Passsword"
+        label="Confirm Password"
         name="confirmPassword"
         rules={rules.confirmPassword}
         dependencies={dependencies.confirmPassword}

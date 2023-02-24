@@ -1,8 +1,9 @@
 import { message } from 'antd';
 import React, { useState } from 'react';
+import { Form } from '../../..';
 import { useConfirmChangePinMutation } from '../../../../app/features/wallet/walletApiSlice';
 import { IErrorResponse } from '../../../../helpers/types/response.interface';
-import { Button, InputPassword } from '../../../atoms';
+import { Button, FormLabel, InputPassword } from '../../../atoms';
 import style from './index.module.scss';
 
 interface ConfirmPasswordProps {
@@ -10,17 +11,12 @@ interface ConfirmPasswordProps {
 }
 
 const ConfirmPassword: React.FC<ConfirmPasswordProps> = ({ handleNext }) => {
-  const [password, setPassword] = useState('');
   const [confirm, { isLoading }] = useConfirmChangePinMutation();
 
-  const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-  };
-
-  const handleSubmit = async () => {
+  const handleSubmit = async (values: { password: string }) => {
     try {
       const body = {
-        password,
+        password: values.password.trim(),
       };
       await confirm(body).unwrap();
       message.success('Success confirm password. Please input your new PIN.');
@@ -33,25 +29,43 @@ const ConfirmPassword: React.FC<ConfirmPasswordProps> = ({ handleNext }) => {
 
   return (
     <div className={style.cp}>
-      <h1 className={style.cp__title}>Confirm Password</h1>
+      <h1 className={style.cp__title}>Change PIN</h1>
       <p className={style.cp__info}>
         Please confirm your password to continue to change pin.
       </p>
-      <InputPassword
-        placeholder="Please input your password"
-        className={style.cp__input}
-        value={password}
-        onChange={handleChangePassword}
-      />
-      <Button
-        type="primary"
-        block
-        className={style.cp__button}
-        onClick={handleSubmit}
-        loading={isLoading}
+      <Form
+        initialValues={{ remember: true }}
+        onFinish={handleSubmit}
+        autoComplete="off"
+        layout="vertical"
       >
-        Confirm
-      </Button>
+        <FormLabel
+          name="password"
+          rules={[
+            { required: true, message: 'Please input your password.' },
+            { min: 8, message: 'Password must be at least 8 characters long.' },
+            {
+              max: 32,
+              message: 'Password must be at most 16 characters long.',
+            },
+          ]}
+          className={style.cp__input}
+        >
+          <InputPassword
+            placeholder="Please input your password"
+            className={style.cp__input}
+          />
+        </FormLabel>
+        <Button
+          htmlType="submit"
+          type="primary"
+          block
+          className={style.cp__button}
+          loading={isLoading}
+        >
+          Confirm
+        </Button>
+      </Form>
     </div>
   );
 };

@@ -12,6 +12,10 @@ import {
   IVerifyCodeResponse,
   IResetPasswordResponse,
   ISetNewPasswordRequest,
+  IForgetPasswordResponse,
+  IForgetPasswordRequest,
+  IVerifyForgetPasswordRequest,
+  IResetForgetPasswordRequest,
 } from '../../../helpers/types';
 import { apiSlice } from '../../api/apiSlice';
 
@@ -96,6 +100,40 @@ const authApi = apiSlice.injectEndpoints({
       transformResponse: (response: { data: null }) => response.data,
       transformErrorResponse: (response) => response.data,
     }),
+    forgetPasswordSendCode: build.mutation<
+      IForgetPasswordResponse,
+      IForgetPasswordRequest
+    >({
+      query: (body) => ({
+        url: '/users/password/forget-password/send-code',
+        method: 'POST',
+        body,
+      }),
+      transformResponse: (response: { data: IForgetPasswordResponse }) =>
+        response.data,
+      transformErrorResponse: (response) => response.data,
+    }),
+    forgetPasswordVerifyCode: build.mutation<
+      null,
+      IVerifyForgetPasswordRequest
+    >({
+      query: (body) => ({
+        url: '/users/password/forget-password/verify-code',
+        method: 'POST',
+        body,
+      }),
+      transformResponse: (response: { data: null }) => response.data,
+      transformErrorResponse: (response) => response.data,
+    }),
+    resetForgetPassword: build.mutation<null, IResetForgetPasswordRequest>({
+      query: (body) => ({
+        url: '/users/password/reset',
+        method: 'POST',
+        body,
+      }),
+      transformResponse: (response: { data: null }) => response.data,
+      transformErrorResponse: (response) => response.data,
+    }),
   }),
 });
 
@@ -110,4 +148,7 @@ export const {
   useRequestResetPasswordMutation,
   useVerifyResetPasswordMutation,
   useSetNewPasswordMutation,
+  useForgetPasswordSendCodeMutation,
+  useForgetPasswordVerifyCodeMutation,
+  useResetForgetPasswordMutation,
 } = authApi;
