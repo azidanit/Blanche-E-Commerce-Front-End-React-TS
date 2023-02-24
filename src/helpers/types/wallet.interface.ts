@@ -58,6 +58,14 @@ export interface IGetWalletHistoryResponse {
   transactions: ITransactionOverview[];
 }
 
+export interface IConfirmChangePinRequest {
+  password: string;
+}
+
+export interface ISetNewPinRequest {
+  pin: string;
+}
+
 export interface IGetWalletHistoryRequest {
   page: number;
   limit: number;
