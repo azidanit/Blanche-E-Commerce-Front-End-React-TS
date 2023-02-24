@@ -1,22 +1,53 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { dateToDayMonthStringYear } from '../../../../../helpers/parseDate';
 import { toRupiah } from '../../../../../helpers/toRupiah';
+import { ITransactionOverview } from '../../../../../helpers/types';
 import style from './index.module.scss';
 
-const TransactionItem: React.FC = () => {
+interface TransactionItemProps {
+  transaction: ITransactionOverview;
+}
+
+const TransactionItem: React.FC<TransactionItemProps> = ({ transaction }) => {
+  const invoices = transaction.notes.match(/\[(.*?)\]/);
+
   return (
     <div className={style.ti}>
       <div className={style.ti__header}>
-        <p className={style.ti__header__title}>Biaya Layanan</p>
+        <p className={style.ti__header__title}>{transaction.title}</p>
         <p className={style.ti__header__date}>
-          {dateToDayMonthStringYear(new Date(), ' ')}
+          {dateToDayMonthStringYear(new Date(transaction.issued_at), ' ')}
         </p>
       </div>
       <p className={style.ti__notes}>
-        Pemotongan Biaya Layanan Power Merchant Pro -
-        INV/20230218/MPL/3056202657
+        {invoices ? (
+          <>
+            Pay Transaction for{' '}
+            {invoices[1].split(',').map((invoice, index) => (
+              <Link
+                key={invoice}
+                className={style.ti__invoice}
+                to={`/transactions/${invoice}`}
+              >
+                {invoice}
+                {index < invoices[1].split(',').length - 1 && ', '}
+              </Link>
+            ))}
+          </>
+        ) : (
+          transaction.notes
+        )}
       </p>
-      <p className={style.ti__amount}>+{toRupiah(50000)}</p>
+      <p
+        className={`${style.ti__amount} ${
+          transaction.wallet_transaction_type.code === 'DR'
+            ? style.ti__amount__red
+            : style.ti__amount__green
+        }`}
+      >
+        {toRupiah(transaction.amount)}
+      </p>
     </div>
   );
 };

@@ -8,6 +8,7 @@ import {
   ITopupWalletResponse,
   IValidatePinRequest,
   IValidateResponse,
+  IGetWalletHistoryRequest,
 } from '../../../helpers/types';
 import { apiSlice } from '../../api/apiSlice';
 
@@ -80,10 +81,14 @@ export const walletApi = apiSlice.injectEndpoints({
         response.data,
       transformErrorResponse: (response) => response.data,
     }),
-    getWalletHistory: build.query<IGetWalletHistoryResponse, void>({
-      query: () => ({
+    getWalletHistory: build.query<
+      IGetWalletHistoryResponse,
+      IGetWalletHistoryRequest
+    >({
+      query: (params) => ({
         url: '/users/wallet/transactions',
         method: 'GET',
+        params,
       }),
       transformResponse: (response: { data: IGetWalletHistoryResponse }) =>
         response.data,
