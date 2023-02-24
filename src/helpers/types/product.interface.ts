@@ -90,6 +90,7 @@ export interface IVariantVariantItems {
   image: string;
   price: number;
   stock: number;
+  id?: number;
 }
 
 export interface IVariantVariantOptions {
@@ -98,6 +99,7 @@ export interface IVariantVariantOptions {
 }
 
 export interface ICreateProductRequest {
+  id?: string;
   title: string;
   price: number | null;
   category_id: number;

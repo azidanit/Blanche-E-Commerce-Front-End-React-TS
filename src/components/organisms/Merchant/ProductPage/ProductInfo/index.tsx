@@ -2,6 +2,7 @@ import { Cascader } from 'antd';
 import { Rule } from 'antd/es/form';
 import debounce from 'debounce-promise';
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router';
 import { useGetCategoriesQuery } from '../../../../../app/features/home/homeApiSlice';
 import { useCheckProductNameMutation } from '../../../../../app/features/merchant/merchantApiSlice';
 import { capitalizeFirstLetter } from '../../../../../helpers/capitalizeFirstLetter';
@@ -16,10 +17,16 @@ interface Option {
   children?: Option[];
 }
 
-const ProductInfo: React.FC = () => {
+interface ProductInfoProps {
+  title: string | undefined;
+}
+
+const ProductInfo: React.FC<ProductInfoProps> = ({ title }) => {
   const { data } = useGetCategoriesQuery({});
   const [categories, setCategories] = useState<Option[]>([]);
   const [checkName] = useCheckProductNameMutation();
+  const params = useParams();
+  const isEdit = Boolean(params.id);
 
   const additionalNameRule = {
     validator: debounce((_: Rule, value: string): Promise<void> => {
@@ -33,6 +40,9 @@ const ProductInfo: React.FC = () => {
         };
         try {
           const data = await checkName(body).unwrap();
+          if (isEdit && value === title) {
+            resolve();
+          }
           if (!data.is_available) {
             reject(
               new Error(

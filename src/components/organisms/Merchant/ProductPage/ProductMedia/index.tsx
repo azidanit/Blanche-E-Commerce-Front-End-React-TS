@@ -23,6 +23,13 @@ const beforeUpload = (file: RcFile) => {
   return false;
 };
 
+const getFile = (e: UploadChangeParam<UploadFile>) => {
+  if (Array.isArray(e)) {
+    return e;
+  }
+  return e && e.fileList;
+};
+
 const ProductMedia: React.FC = () => {
   const [fileList, setFileList] = useState<UploadFile[]>([]);
   const handleUpload: UploadProps['onChange'] = (
@@ -36,11 +43,17 @@ const ProductMedia: React.FC = () => {
       <div className={style.pm__header}>
         <h2 className={style.pm__title}>Product Media</h2>
         <p className={style.pm__info}>
-          Upload the product media to attract user attention. You can upload
-          multiple media.
+          Upload the product media to attract user attention. You can upload up
+          to 9 images.
         </p>
       </div>
-      <FormLabel label="Product Image" name="images" rules={rules.images}>
+      <FormLabel
+        label="Product Image"
+        name="images"
+        rules={rules.images}
+        valuePropName="fileList"
+        getValueFromEvent={getFile}
+      >
         <Upload
           name="file"
           onChange={handleUpload}

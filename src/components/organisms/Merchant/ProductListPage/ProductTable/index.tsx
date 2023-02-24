@@ -1,16 +1,26 @@
 import { EyeOutlined, StarOutlined } from '@ant-design/icons';
-import { Switch, Table } from 'antd';
+import { message, Switch, Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import classNames from 'classnames';
+import { PaginationProps } from 'rc-pagination';
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Pagination } from '../../../..';
-import { useGetProductListQuery } from '../../../../../app/features/merchant/merchantApiSlice';
-import { useAppSelector } from '../../../../../app/hooks';
+import {
+  useDeleteProductMutation,
+  useGetProductListQuery,
+} from '../../../../../app/features/merchant/merchantApiSlice';
+import { capitalizeFirstLetter } from '../../../../../helpers/capitalizeFirstLetter';
 import { toRupiah } from '../../../../../helpers/toRupiah';
+import { IMerchantProductOverview } from '../../../../../helpers/types';
+import { IErrorResponse } from '../../../../../helpers/types/response.interface';
 import { Button, Card, Image } from '../../../../atoms';
 import style from './index.module.scss';
 import './override.scss';
+
+interface ProductTableProps {
+  search: string;
+}
 
 interface Row {
   key: string;
@@ -57,20 +67,33 @@ const columns: ColumnsType<Row> = [
   },
 ];
 
-const ProductTable: React.FC = () => {
+const ProductTable: React.FC<ProductTableProps> = ({ search }) => {
+  const [page, setPage] = useState(1);
   const navigate = useNavigate();
-  const params = useAppSelector((state) => state.params);
   const { data } = useGetProductListQuery({
-    page: params.search.page ? params.search.page : 1,
+    page,
     limit,
+    q: search,
   });
+  const [deleteProduct, { isLoading }] = useDeleteProductMutation();
   const [dataSource, setDataSource] = useState<Row[]>();
-  const onDelete = (id: number) => {
-    console.log(id);
+
+  const onChange: PaginationProps['onChange'] = (page) => {
+    setPage(page);
   };
 
-  const onEdit = (id: number) => {
-    navigate(`/merchant/products/edit/${id}`);
+  const onDelete = async (item: IMerchantProductOverview) => {
+    try {
+      await deleteProduct(item.id).unwrap();
+      message.success(`Product ${item.title} is deleted`);
+    } catch (err) {
+      const error = err as IErrorResponse;
+      message.error(capitalizeFirstLetter(error.message));
+    }
+  };
+
+  const onEdit = (item: IMerchantProductOverview) => {
+    navigate(`/merchant/products/edit/${item.id}`);
   };
 
   useEffect(() => {
@@ -124,7 +147,7 @@ const ProductTable: React.FC = () => {
             <Button
               type="primary"
               onClick={() => {
-                onEdit(item.id);
+                onEdit(item);
               }}
               ghost
             >
@@ -132,7 +155,7 @@ const ProductTable: React.FC = () => {
             </Button>
             <Button
               onClick={() => {
-                onDelete(item.id);
+                onDelete(item);
               }}
               danger
             >
@@ -157,6 +180,8 @@ const ProductTable: React.FC = () => {
         <Pagination
           total={data?.total_data}
           pageSize={limit}
+          onChange={onChange}
+          current={page}
           showSizeChanger={false}
         />
       </div>

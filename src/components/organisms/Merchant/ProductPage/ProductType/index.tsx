@@ -10,9 +10,16 @@ import { rules } from '../validation';
 import classNames from 'classnames';
 import './override.scss';
 
-const ProductType: React.FC = () => {
+interface ProductTypeProps {
+  isVariant: boolean;
+  handleSetVariant: (value: boolean) => void;
+}
+
+const ProductType: React.FC<ProductTypeProps> = ({
+  isVariant,
+  handleSetVariant,
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isVariant, setIsVariant] = useState(false);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -20,7 +27,7 @@ const ProductType: React.FC = () => {
 
   const handleOk = () => {
     setIsModalOpen(false);
-    setIsVariant((prevValue) => !prevValue);
+    handleSetVariant(!isVariant);
   };
 
   const handleCancel = () => {
