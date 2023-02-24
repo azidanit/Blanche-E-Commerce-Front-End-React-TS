@@ -50,6 +50,15 @@ export const userAddressApi = apiSlice.injectEndpoints({
       transformErrorResponse: (response) => response.data,
       invalidatesTags: ['Address'],
     }),
+    setDefaultMerchantAddress: build.mutation<void, number>({
+      query: (id) => ({
+        url: `/merchants/addresses/${id}`,
+        method: 'PATCH',
+      }),
+      transformResponse: (response: { data: void }) => response.data,
+      transformErrorResponse: (response) => response.data,
+      invalidatesTags: ['Address'],
+    }),
     deleteUserAddress: build.mutation<void, number>({
       query: (id) => ({
         url: `/users/addresses/${id}`,
@@ -64,6 +73,7 @@ export const userAddressApi = apiSlice.injectEndpoints({
 
 export const {
   useGetUserAddressQuery,
+  useSetDefaultMerchantAddressMutation,
   useAddUserAddressMutation,
   useUpdateUserAddressMutation,
   useSetDefaultAddressMutation,

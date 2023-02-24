@@ -46,6 +46,7 @@ const AddPromotion = lazy(
 );
 const ChangePassword = lazy(() => import('../../pages/ChangePassword'));
 const WalletPayment = lazy(() => import('../../pages/WalletPayment'));
+const Address = lazy(() => import('../../pages/Merchant/Address'));
 const ChangePin = lazy(() => import('../../pages/ChangePin'));
 
 export const router = createBrowserRouter([
@@ -191,6 +192,11 @@ export const router = createBrowserRouter([
       {
         path: '/merchant/shipping',
         element: <Shipping />,
+      },
+
+      {
+        path: '/merchant/address',
+        element: <Address />,
       },
     ],
   },

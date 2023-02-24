@@ -1,5 +1,4 @@
 import { DefaultOptionType } from 'antd/es/select';
-import { MouseEvent } from 'react';
 import { AddAddressProps } from './user.address.interface';
 
 export interface IProvinces {

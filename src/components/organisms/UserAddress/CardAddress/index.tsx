@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Alert, Badge, Button, Card } from '../../../atoms';
 import style from './index.module.scss';
 import EditAddress from '../EditAddress';
@@ -7,6 +7,7 @@ import { IUserAddress } from '../../../../helpers/types';
 import {
   useDeleteUserAddressMutation,
   useSetDefaultAddressMutation,
+  useSetDefaultMerchantAddressMutation,
 } from '../../../../app/features/address/userAddressApiSlice';
 import { notification } from 'antd';
 import { Popconfirm } from '../../..';
@@ -52,8 +53,9 @@ const CardAddress: React.FC<CardAddressProps> = ({ data }) => {
     details: '',
   });
 
-  const [setDefaultAddress, { isSuccess, isError, isLoading }] =
-    useSetDefaultAddressMutation();
+  const [setDefaultAddress, { isLoading }] = useSetDefaultAddressMutation();
+  const [setDefaultMerchantAddress, { isLoading: isLoadingMerchant }] =
+    useSetDefaultMerchantAddressMutation();
   const [
     deleteAddress,
     { isLoading: isLoadingDelete, isError: isErrorDelete },
@@ -74,6 +76,7 @@ const CardAddress: React.FC<CardAddressProps> = ({ data }) => {
   const classProps = classNames(
     style.card__address,
     data?.is_default ? style.card__address__active : '',
+    data?.is_merchant_address ? style.card__address__merchant : '',
   );
 
   useEffect(() => {
@@ -114,6 +117,26 @@ const CardAddress: React.FC<CardAddressProps> = ({ data }) => {
     }
   };
 
+  const handleSetMerchantAddress = async () => {
+    try {
+      await setDefaultMerchantAddress(data?.id).unwrap();
+
+      document.documentElement.scrollTop = 0;
+      notification.success({
+        message: 'Success',
+        description: 'Set default Merhcant address success',
+      });
+    } catch (e) {
+      const error = e as Error;
+      setError(error);
+
+      notification.error({
+        message: 'Error Set Default Address',
+        description: error.message,
+      });
+    }
+  };
+
   const handleDeleteAddress = async () => {
     try {
       await deleteAddress(data?.id).unwrap();
@@ -134,8 +157,16 @@ const CardAddress: React.FC<CardAddressProps> = ({ data }) => {
         {data?.is_default && (
           <Badge
             className={style.card__address__badge}
-            count="Default"
+            count="Default Address"
             color={'gray'}
+          />
+        )}
+
+        {data?.is_merchant_address && (
+          <Badge
+            className={style.card__address__badge}
+            count="Merchant Address"
+            color={'#03ac0e'}
           />
         )}
       </div>
@@ -152,36 +183,51 @@ const CardAddress: React.FC<CardAddressProps> = ({ data }) => {
         </li>
       </ul>
       <div className={style.card__address__button}>
-        <Button type="primary" size="middle" onClick={showModal}>
-          Change Address
-        </Button>
-        <Popconfirm
-          title="Delete address"
-          description="Are you sure to delete this address?"
-          icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
-          onConfirm={handleDeleteAddress}
-          okButtonProps={{ loading: isLoadingDelete }}
-        >
-          <Button
-            size="middle"
-            type="primary"
-            loading={isLoadingDelete}
-            disabled={data.is_default}
-            danger
-          >
-            Delete Address
+        <div className={style.card__address__button__left}>
+          <Button type="primary" size="middle" onClick={showModal}>
+            Change Address
           </Button>
-        </Popconfirm>
-        <Button
-          type="primary"
-          ghost
-          size="middle"
-          disabled={data.is_default}
-          onClick={handleSetDefaulAddress}
-          loading={isLoading}
-        >
-          Set Default Address
-        </Button>
+          <Button
+            type="primary"
+            ghost
+            size="middle"
+            disabled={data.is_default}
+            onClick={handleSetDefaulAddress}
+            loading={isLoading}
+          >
+            Set Default Address
+          </Button>
+
+          <Popconfirm
+            title="Delete address"
+            description="Are you sure to delete this address?"
+            icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+            onConfirm={handleDeleteAddress}
+            okButtonProps={{ loading: isLoadingDelete }}
+          >
+            <Button
+              size="middle"
+              type="primary"
+              loading={isLoadingDelete}
+              disabled={data.is_default}
+              danger
+            >
+              Delete Address
+            </Button>
+          </Popconfirm>
+        </div>
+        <div className={style.card__address__button__right}>
+          <Button
+            type="primary"
+            ghost
+            size="middle"
+            disabled={data.is_merchant_address}
+            onClick={handleSetMerchantAddress}
+            loading={isLoadingMerchant}
+          >
+            Set as Merchant Address
+          </Button>
+        </div>
       </div>
       <EditAddress
         isModalOpen={isModalOpen}
@@ -189,6 +235,7 @@ const CardAddress: React.FC<CardAddressProps> = ({ data }) => {
         data={initialValue}
         handleCancel={handleCancel}
       />
+
       {isErrorDelete && (
         <Alert message={error?.message} type="error" showIcon closable />
       )}

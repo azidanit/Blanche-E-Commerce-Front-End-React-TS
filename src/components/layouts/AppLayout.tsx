@@ -11,13 +11,17 @@ const AppLayout = (): JSX.Element => {
   const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useAppDispatch();
 
-  const { user } = useAppSelector((state) => state.auth);
+  const { user, isLoggedIn } = useAppSelector((state) => state.auth);
 
   const { data: profile, isLoading } = useGetProfileQuery();
 
   useEffect(() => {
+    if (!isLoggedIn) {
+      return;
+    }
+
     dispatch(setUser(profile));
-    dispatch(setIsLoggedIn(true));
+    dispatch(setIsLoggedIn(localStorage.getItem('token') ? true : false));
   }, [profile, user]);
 
   useEffect(() => {

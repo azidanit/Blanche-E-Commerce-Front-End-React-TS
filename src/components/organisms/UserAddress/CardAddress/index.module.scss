@@ -9,11 +9,10 @@
     border: 1px solid $primary-60;
   }
 
-  &:hover {
-    background-color: $primary-10;
-    border: 1px solid $primary-60;
+  &__merchant {
+    background-color: $success-0;
+    border: 1px solid $success-20;
   }
-
   &__title {
     display: flex;
     align-items: center;
@@ -36,6 +35,12 @@
 
   &__button {
     display: flex;
+    justify-content: space-between;
     gap: 1rem;
+
+    &__left {
+      display: flex;
+      gap: 1rem;
+    }
   }
 }

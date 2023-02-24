@@ -12,6 +12,7 @@ export interface IUserAddress {
   id: number;
   phone: string;
   name: string;
+  is_merchant_address: boolean;
   province_name: string;
   province_id: number;
   city_name: string;

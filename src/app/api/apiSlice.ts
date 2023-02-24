@@ -17,10 +17,19 @@ const baseQueryWithReauth: typeof baseQuery = async (
     if (status === 403) {
       window.location.href = '/';
     } else if (status === 401) {
+      const token = localStorage.getItem('token');
+
+      if (!token) {
+        api.dispatch(logout());
+        localStorage.removeItem('token');
+        return result;
+      }
+
       const refreshResult = await baseQuery('/refresh', api, extraOptions);
       result = await baseQuery(args, api, extraOptions);
       if (refreshResult.error) {
         api.dispatch(logout());
+        localStorage.removeItem('token');
       }
       return result;
     }
