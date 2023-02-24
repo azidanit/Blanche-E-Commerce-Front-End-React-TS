@@ -17,7 +17,17 @@ const UserAddress: React.FC = () => {
           ))
           .concat(
             data
-              ?.filter((item: IUserAddress) => !item.is_default)
+              ?.filter((item: IUserAddress) => item.is_merchant_address)
+              .map((item: IUserAddress) => (
+                <CardAddress key={item.id} data={item} />
+              )),
+          )
+          .concat(
+            data
+              ?.filter(
+                (item: IUserAddress) =>
+                  !item.is_default && !item.is_merchant_address,
+              )
               .map((item: IUserAddress) => (
                 <CardAddress key={item.id} data={item} />
               )),
