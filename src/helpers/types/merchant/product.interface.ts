@@ -1,4 +1,4 @@
-import { UploadChangeParam, UploadFile } from 'antd/es/upload';
+import { UploadFile } from 'antd/es/upload';
 
 export interface IProductForm {
   category_id: string[];
@@ -9,7 +9,7 @@ export interface IProductForm {
     height: number;
     length: number;
   };
-  images: UploadChangeParam<UploadFile>;
+  images: UploadFile[];
   title: string;
   price: number | null;
   status: boolean;
@@ -38,4 +38,36 @@ export interface ICheckProductNameRequest {
 
 export interface ICheckProductNameResponse {
   is_available: boolean;
+}
+
+export interface IGetProductByIDResponse {
+  id: number;
+  categories: number[];
+  description: string;
+  dimension: {
+    width: number;
+    height: number;
+    length: number;
+  };
+  images: string[];
+  is_archived: boolean;
+  is_used: boolean;
+  price: number;
+  title: string;
+  total_stock: number;
+  weight: number;
+}
+
+export interface IGetVariantsByIDResponse {
+  variant_items: {
+    id: number;
+    price: number;
+    stock: number;
+    key: string;
+    image: string;
+  }[];
+  variant_options: {
+    name: string;
+    type: string[];
+  }[];
 }

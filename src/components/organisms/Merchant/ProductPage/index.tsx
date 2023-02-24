@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import style from './index.module.scss';
 import { Button, Form } from '../../..';
 import ProductInfo from './ProductInfo';
@@ -9,24 +9,48 @@ import ProductType from './ProductType';
 import ProductShipping from './ProductShipping';
 import {
   useCreateProductMutation,
+  useGetProductByIDQuery,
+  useGetVariantsByIDQuery,
+  useUpdateProductMutation,
   useUploadProductImageMutation,
 } from '../../../../app/features/merchant/merchantApiSlice';
 import { IProductForm } from '../../../../helpers/types/merchant/product.interface';
 import { message } from 'antd';
+import { UploadFile } from 'antd/es/upload';
 import { IErrorResponse } from '../../../../helpers/types/response.interface';
 import {
   ICreateProductRequest,
   IVariantVariantItems,
 } from '../../../../helpers/types/product.interface';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { capitalizeFirstLetter } from '../../../../helpers/capitalizeFirstLetter';
 
 const ProductPage: React.FC = () => {
   const navigate = useNavigate();
   const [form] = useForm();
+  const [isVariant, setIsVariant] = useState(false);
   const [createProduct, { isLoading }] = useCreateProductMutation();
+  const [updateProduct, { isLoading: isLoadingUpdate }] =
+    useUpdateProductMutation();
   const [upload, { isLoading: isLoadingPhoto }] =
     useUploadProductImageMutation();
+  const params = useParams();
+  const { data } = useGetProductByIDQuery(params.id ? parseInt(params.id) : 0, {
+    skip: !Boolean(params.id),
+  });
+  const { data: variants } = useGetVariantsByIDQuery(
+    params.id ? parseInt(params.id) : 0,
+    { skip: !Boolean(params.id) },
+  );
+
+  const handleSetVariant = (value: boolean) => {
+    setIsVariant(value);
+  };
+
+  useEffect(() => {
+    if (!data || !variants) return;
+    setIsVariant(variants.variant_items.length > 0);
+  }, [data, variants]);
 
   const onFinishForm = async (values: IProductForm) => {
     try {
@@ -53,6 +77,19 @@ const ProductPage: React.FC = () => {
         await Promise.all(
           values.variantItems.map(async (item) => {
             try {
+              if (item.image[0].url === '' || item.image[0].url) {
+                const id =
+                  variants?.variant_items
+                    .map((item) => item.image)
+                    .indexOf(item.image[0].url) || 0;
+                variantItems.push({
+                  image: item.image[0].url,
+                  price: item.price,
+                  stock: item.stock,
+                  id: variants?.variant_items[id].id || 0,
+                });
+                return;
+              }
               const fileObj = item.image[0].originFileObj;
               const formData = new FormData();
               formData.append('file', fileObj as File);
@@ -72,8 +109,12 @@ const ProductPage: React.FC = () => {
 
       const images: string[] = [];
       await Promise.all(
-        values.images.fileList.map(async (file) => {
+        values.images.map(async (file) => {
           try {
+            if (file.url) {
+              images.push(file.url);
+              return;
+            }
             const fileObj = file.originFileObj;
             const formData = new FormData();
             formData.append('file', fileObj as File);
@@ -104,8 +145,9 @@ const ProductPage: React.FC = () => {
         is_used: values.condition === 'new' ? false : true,
         images,
       };
-
-      await createProduct(body).unwrap();
+      params.id
+        ? await updateProduct({ id: params.id, ...body })
+        : await createProduct(body).unwrap();
       navigate('/merchant/products');
     } catch (err) {
       const error = err as IErrorResponse;
@@ -113,32 +155,89 @@ const ProductPage: React.FC = () => {
     }
   };
 
+  const categories = data?.categories
+    .filter((category) => Boolean(category))
+    .map((category) => category.toString());
+
+  const fileList: UploadFile[] | undefined = data?.images.map(
+    (image, index) => {
+      return {
+        uid: index.toString(),
+        name: `Image 3`,
+        url: image,
+        status: 'done',
+      };
+    },
+  );
+
+  const initialValues: Partial<IProductForm> = {
+    title: data?.title,
+    dimension: data?.dimension,
+    weight: data?.weight,
+    description: data?.description,
+    stock: data?.total_stock,
+    images: fileList,
+    condition: data?.is_used ? 'used' : 'new',
+    price: data?.price,
+    category_id: categories,
+  };
+
+  if (variants && variants.variant_options.length > 0) {
+    initialValues.firstSelect = variants.variant_options[0].type;
+    initialValues.firstVariant = variants.variant_options[0].name;
+    initialValues.variantItems = variants.variant_items.map((item, index) => {
+      const fileList: UploadFile[] = [
+        {
+          uid: index.toString(),
+          name: `${index + 1}`,
+          url: item.image,
+          status: 'done',
+        },
+      ];
+      return {
+        image: fileList,
+        price: item.price,
+        stock: item.stock,
+      };
+    });
+  }
+  if (variants?.variant_options.length == 2) {
+    initialValues.secondSelect = variants.variant_options[1].type;
+    initialValues.secondVariant = variants.variant_options[1].name;
+  }
+  const renderForm = !params.id || (data && variants);
   return (
     <div className={style.pp}>
-      <Form
-        name="basic"
-        layout="vertical"
-        autoComplete="off"
-        onFinish={onFinishForm}
-        form={form}
-        className={style.pp__form}
-      >
-        <ProductMedia />
-        <ProductInfo />
-        <ProductDetails />
-        <ProductType />
-        <ProductShipping />
-        <div className={style.pp__action}>
-          <Button
-            loading={isLoading || isLoadingPhoto}
-            htmlType="submit"
-            type="primary"
-          >
-            Submit
-          </Button>
-          <Button htmlType="reset">Reset</Button>
-        </div>
-      </Form>
+      {renderForm && (
+        <Form
+          name="basic"
+          layout="vertical"
+          autoComplete="off"
+          onFinish={onFinishForm}
+          form={form}
+          className={style.pp__form}
+          initialValues={initialValues}
+        >
+          <ProductMedia />
+          <ProductInfo title={data?.title} />
+          <ProductDetails />
+          <ProductType
+            isVariant={isVariant}
+            handleSetVariant={handleSetVariant}
+          />
+          <ProductShipping />
+          <div className={style.pp__action}>
+            <Button
+              loading={isLoading || isLoadingPhoto || isLoadingUpdate}
+              htmlType="submit"
+              type="primary"
+            >
+              Submit
+            </Button>
+            <Button htmlType="reset">Reset</Button>
+          </div>
+        </Form>
+      )}
     </div>
   );
 };

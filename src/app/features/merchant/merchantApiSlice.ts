@@ -18,6 +18,8 @@ import {
   ICheckProductNameResponse,
   IUploadProductImageResponse,
   ICheckProductNameRequest,
+  IGetProductByIDResponse,
+  IGetVariantsByIDResponse,
 } from '../../../helpers/types/merchant/product.interface';
 import { apiSlice } from '../../api/apiSlice';
 
@@ -118,9 +120,10 @@ export const merchantApi = apiSlice.injectEndpoints({
       IGetMerchantProductListResponse,
       IGetMerchantProductListRequest
     >({
-      query: () => ({
+      query: (params) => ({
         url: '/merchants/products',
         method: 'GET',
+        params,
       }),
       transformResponse: (response: {
         data: IGetMerchantProductListResponse;
@@ -161,6 +164,45 @@ export const merchantApi = apiSlice.injectEndpoints({
         response.data,
       transformErrorResponse: (response) => response.data,
     }),
+    deleteProduct: build.mutation<null, number>({
+      query: (id) => ({
+        url: `/merchants/products/${id}`,
+        method: 'DELETE',
+      }),
+      transformResponse: (response: { data: null }) => response.data,
+      transformErrorResponse: (response) => response.data,
+      invalidatesTags: ['Product'],
+    }),
+    getProductByID: build.query<IGetProductByIDResponse, number>({
+      query: (id) => ({
+        url: `/merchants/products/${id}`,
+        method: 'GET',
+      }),
+      transformResponse: (response: { data: IGetProductByIDResponse }) =>
+        response.data,
+      transformErrorResponse: (response) => response.data,
+      providesTags: ['Product'],
+    }),
+    getVariantsByID: build.query<IGetVariantsByIDResponse, number>({
+      query: (id) => ({
+        url: `/merchants/products/${id}/variants`,
+        method: 'GET',
+      }),
+      transformResponse: (response: { data: IGetVariantsByIDResponse }) =>
+        response.data,
+      transformErrorResponse: (response) => response.data,
+      providesTags: ['Product'],
+    }),
+    updateProduct: build.mutation<null, ICreateProductRequest>({
+      query: ({ id, ...body }) => ({
+        url: `/merchants/products/${id}`,
+        method: 'PUT',
+        body,
+      }),
+      transformResponse: (response: { data: null }) => response.data,
+      transformErrorResponse: (response) => response.data,
+      invalidatesTags: ['Product'],
+    }),
   }),
 });
 
@@ -178,4 +220,8 @@ export const {
   useCreateProductMutation,
   useUploadProductImageMutation,
   useCheckProductNameMutation,
+  useDeleteProductMutation,
+  useGetProductByIDQuery,
+  useGetVariantsByIDQuery,
+  useUpdateProductMutation,
 } = merchantApi;

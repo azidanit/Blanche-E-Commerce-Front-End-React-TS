@@ -16,7 +16,14 @@ import { rules } from '../validation';
 import style from './index.module.scss';
 import './override.scss';
 import { PlusOutlined } from '@ant-design/icons';
-import { RcFile, UploadChangeParam, UploadFile } from 'antd/es/upload';
+import {
+  RcFile,
+  UploadChangeParam,
+  UploadFile,
+  UploadProps,
+} from 'antd/es/upload';
+import { useGetVariantsByIDQuery } from '../../../../../app/features/merchant/merchantApiSlice';
+import { useParams } from 'react-router';
 
 interface Row {
   key: string;
@@ -30,15 +37,15 @@ interface Row {
 const defaultOptions = [
   {
     label: 'Type 1',
-    value: 'type1',
+    value: 'Type 1',
   },
   {
     label: 'Type 2',
-    value: 'type2',
+    value: 'Type 2',
   },
   {
     label: 'Type 3',
-    value: 'type3',
+    value: 'Type 3',
   },
 ];
 
@@ -80,7 +87,15 @@ const getFile = (e: UploadChangeParam<UploadFile>) => {
 };
 
 const ProductVariants: React.FC = () => {
-  const [isSecondVariant, setIsSecondVariant] = useState(false);
+  const params = useParams();
+
+  const { data: variants } = useGetVariantsByIDQuery(
+    params.id ? parseInt(params.id) : 0,
+    { skip: !Boolean(params.id) },
+  );
+  const [isSecondVariant, setIsSecondVariant] = useState(
+    variants?.variant_options?.length === 2,
+  );
   const [dataSource, setDataSource] = useState<Row[]>();
   const [columns, setColumns] = useState<ColumnsType<Row>>(defaultColumns);
   const form = Form.useFormInstance();
@@ -89,6 +104,13 @@ const ProductVariants: React.FC = () => {
   const firstSelect: string[] = Form.useWatch('firstSelect', form);
   const secondSelect: string[] = Form.useWatch('secondSelect', form);
   const variantItems = Form.useWatch('variantItems', form);
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
+
+  const handleUpload: UploadProps['onChange'] = (
+    info: UploadChangeParam<UploadFile>,
+  ) => {
+    setFileList(info.fileList);
+  };
 
   useEffect(() => {
     let newArr: ColumnsType<Row> = defaultColumns;
@@ -139,6 +161,8 @@ const ProductVariants: React.FC = () => {
                 beforeUpload={beforeUpload}
                 listType="picture-card"
                 showUploadList={{ showPreviewIcon: false }}
+                fileList={fileList}
+                onChange={handleUpload}
               >
                 {variantItems &&
                   variantItems[index] &&

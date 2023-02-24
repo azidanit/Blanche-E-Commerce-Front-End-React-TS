@@ -176,6 +176,10 @@ export const router = createBrowserRouter([
         element: <AddProduct />,
       },
       {
+        path: '/merchant/products/edit/:id',
+        element: <AddProduct />,
+      },
+      {
         path: '/merchant/products',
         element: <ProductList />,
       },
@@ -201,12 +205,10 @@ export const router = createBrowserRouter([
     path: '/transactions/:order_code/payment-status',
     element: <PaymentStatus />,
   },
-
   {
     path: '/payment/wallet',
     element: <WalletPayment />,
   },
-
   {
     path: '/transactions/:order_code/payment-status',
     element: <PaymentStatus />,
