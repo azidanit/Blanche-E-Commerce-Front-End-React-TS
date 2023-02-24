@@ -1,20 +1,18 @@
 import { message } from 'antd';
 import React, { useState } from 'react';
-import { ModalConfirm, Button } from '../../..';
-import {
-  IGetTransactionDetailsResponse,
-  ITransaction,
-} from '../../../../helpers/types';
-import { UpdateStatus } from '../../Merchant/Order/CardOrder/utils';
-import style from './index.module.scss';
+import { ModalConfirm } from '../../..';
 import { useUpdateTransactionStatusMutation } from '../../../../app/features/transactions/transactionsApiSlice';
 import { capitalizeFirstLetter } from '../../../../helpers/capitalizeFirstLetter';
+import { ITransaction } from '../../../../helpers/types';
+import { Button } from '../../../atoms';
+import { UpdateStatus } from '../../Merchant/Order/CardOrder/utils';
+import style from './index.module.scss';
 
-interface TransactionActionProps {
-  transaction: IGetTransactionDetailsResponse;
+interface ComponentOnDeliveredProps {
+  transaction: ITransaction;
 }
 
-const TransactionAction: React.FC<TransactionActionProps> = ({
+const ComponentOnDelivered: React.FC<ComponentOnDeliveredProps> = ({
   transaction,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -58,29 +56,21 @@ const TransactionAction: React.FC<TransactionActionProps> = ({
   const handleRequestRefund = async () => {
     console.log('request refund');
   };
-  return (
-    <>
-      <div className={style.ta__actions}>
-        <p>Confirm that you have received the order and the transaction</p>
-        {transaction.transaction_status.on_delivered_at &&
-          !transaction.transaction_status.on_completed_at && (
-            <div className={style.ta__actions__details__btn}>
-              <Button type="primary" size="small" onClick={handleOpenModal}>
-                Confirm Received
-              </Button>
-              <Button
-                type="primary"
-                ghost
-                danger
-                size="small"
-                onClick={handleOpenModalRequestRefund}
-              >
-                Request Refund
-              </Button>
-            </div>
-          )}
-      </div>
 
+  return (
+    <div className={style.ct__more__actions__details__btn}>
+      <Button type="primary" size="small" onClick={handleOpenModal}>
+        Confirm Received
+      </Button>
+      <Button
+        type="primary"
+        ghost
+        danger
+        size="small"
+        onClick={handleOpenModalRequestRefund}
+      >
+        Request Refund
+      </Button>
       <ModalConfirm
         isModalOpen={isModalOpen}
         handleCancel={handleCloseModal}
@@ -101,8 +91,8 @@ const TransactionAction: React.FC<TransactionActionProps> = ({
         cancelButton={true}
         confirmButtonProps={{ loading: isLoading, danger: true }}
       />
-    </>
+    </div>
   );
 };
 
-export default TransactionAction;
+export default ComponentOnDelivered;

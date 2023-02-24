@@ -6,6 +6,7 @@ import { useUpdateMerchantOrderStatusMutation } from '../../../../../../app/feat
 import { ModalConfirm } from '../../../../..';
 import { UpdateStatus } from '../utils';
 import { message } from 'antd';
+import { capitalizeFirstLetter } from '../../../../../../helpers/capitalizeFirstLetter';
 
 const ComponentOnDelivery: React.FC<ComponentBasedOnStatusProps> = ({
   transaction,
@@ -35,7 +36,7 @@ const ComponentOnDelivery: React.FC<ComponentBasedOnStatusProps> = ({
     } catch (e) {
       const err = e as Error;
 
-      message.error(err.message);
+      message.error(capitalizeFirstLetter(err.message));
     }
   };
 

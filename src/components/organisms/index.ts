@@ -26,6 +26,8 @@ import ShippingPage from './Merchant/ShippingPage';
 import ChangePasswordPage from './ChangePasswordPage';
 import CardPaymentWallet from './CardPaymentWallet';
 import ProductListPage from './Merchant/ProductListPage';
+import ProductReviews from './ProductPage/ProductReviews';
+import ModalReview from './ModalReview';
 
 export {
   CategoryCarousel,
@@ -47,4 +49,6 @@ export {
   ChangePasswordPage,
   CardPaymentWallet,
   ProductListPage,
+  ProductReviews,
+  ModalReview,
 };

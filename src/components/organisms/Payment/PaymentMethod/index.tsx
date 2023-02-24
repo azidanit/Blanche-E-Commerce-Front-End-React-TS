@@ -23,6 +23,7 @@ import { toRupiah } from '../../../../helpers/toRupiah';
 import { IErrorResponse } from '../../../../helpers/types/response.interface';
 import { useNavigate } from 'react-router-dom';
 import { usePaymentTransactionsMutation } from '../../../../app/features/checkout/checkoutApiSlice';
+import { capitalizeFirstLetter } from '../../../../helpers/capitalizeFirstLetter';
 
 interface ModalPaymentPageProps {
   isModalOpen: boolean;
@@ -101,10 +102,10 @@ const ModalPayment: React.FC<ModalPaymentPageProps> = ({
         setIsIFrameOpen(true);
       } catch (e) {
         const err = e as IErrorResponse;
-        message.error(err.message);
+        message.error(capitalizeFirstLetter(err.message));
 
         if (err.code === 'INTERNAL_SERVER_ERROR') {
-          message.error(err.message);
+          message.error(capitalizeFirstLetter(err.message));
           setTimeout(() => {
             navigate(0);
           }, 500);
@@ -135,10 +136,10 @@ const ModalPayment: React.FC<ModalPaymentPageProps> = ({
       setIsIFrameOpen(true);
     } catch (e) {
       const err = e as IErrorResponse;
-      message.error(err.message);
+      message.error(capitalizeFirstLetter(err.message));
 
       if (err.code === 'INTERNAL_SERVER_ERROR') {
-        message.error(err.message);
+        message.error(capitalizeFirstLetter(err.message));
         setTimeout(() => {
           navigate(0);
         }, 500);

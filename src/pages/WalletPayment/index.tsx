@@ -8,6 +8,7 @@ import {
   LogoIcon,
   ModalConfirm,
 } from '../../components';
+import { capitalizeFirstLetter } from '../../helpers/capitalizeFirstLetter';
 import { IErrorResponse } from '../../helpers/types/response.interface';
 import style from './index.module.scss';
 
@@ -53,7 +54,7 @@ const WalletPayment: React.FC = () => {
     } catch (error) {
       const err = error as IErrorResponse;
 
-      message.error(err.message);
+      message.error(capitalizeFirstLetter(err.message));
     }
   };
 

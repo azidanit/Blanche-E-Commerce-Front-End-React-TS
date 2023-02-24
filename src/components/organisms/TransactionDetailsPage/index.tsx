@@ -1,5 +1,5 @@
 import { Divider, Skeleton } from 'antd';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useGetTransactionDetailsQuery } from '../../../app/features/transactions/transactionsApiSlice';
 import style from './index.module.scss';
@@ -7,13 +7,54 @@ import PaymentDetails from './PaymentDetails';
 import ProductDetails from './ProductDetails';
 import Shipment from './TransactionStatus';
 import ShippingDetails from './ShippingDetails';
-import TransactionAction from './TransactionAction';
+import TransactionActionOnDelivered from './TransactionAction/TransactionActionOnDelivered';
+import { OrderStatus } from '../Merchant/Order/CardOrder/utils';
+import TransactionActionOnCompleted from './TransactionAction/TransactionActionOnCompleted';
 
 const TransactionDetailsPage: React.FC = () => {
   const params = useParams();
   const { data, isLoading } = useGetTransactionDetailsQuery(
     params.invoice || '',
   );
+  const [statusIdx, setStatusIdx] = useState(0);
+
+  const MapComponent: {
+    [key: number]: React.ReactNode;
+  } = {
+    [OrderStatus.TransactionStatusDelivered]: (
+      <TransactionActionOnDelivered transaction={data} />
+    ),
+    [OrderStatus.TransactionStatusOnCompleted]: (
+      <TransactionActionOnCompleted transaction={data} />
+    ),
+  };
+
+  const renderComponent = () => {
+    return MapComponent[statusIdx];
+  };
+
+  useEffect(() => {
+    if (!data) {
+      return;
+    }
+    if (data.transaction_status.on_canceled_at) {
+      return;
+    }
+    if (data.transaction_status.on_completed_at) {
+      setStatusIdx(OrderStatus.TransactionStatusOnCompleted);
+      return;
+    }
+    if (data.transaction_status.on_delivered_at) {
+      setStatusIdx(OrderStatus.TransactionStatusDelivered);
+      return;
+    }
+    if (data.transaction_status.on_processed_at) {
+      return;
+    }
+    if (data.transaction_status.on_waited_at) {
+      return;
+    }
+  }, [data]);
 
   return (
     <Skeleton loading={isLoading}>
@@ -27,13 +68,7 @@ const TransactionDetailsPage: React.FC = () => {
             transactionStatus={data.transaction_status}
             className={style.tdp__shipment}
           />
-          {data.transaction_status.on_delivered_at &&
-            !data.transaction_status.on_completed_at && (
-              <>
-                <Divider />
-                <TransactionAction transaction={data} />
-              </>
-            )}
+          {renderComponent()}
           <Divider />
           <ProductDetails productDetails={data.product_details} />
           <Divider />

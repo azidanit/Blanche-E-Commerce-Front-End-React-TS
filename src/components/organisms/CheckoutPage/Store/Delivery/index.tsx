@@ -57,6 +57,8 @@ const Delivery: React.FC<DeliveryProps> = ({
     return <Skeleton.Button />;
   }
 
+  if (!items) return null;
+
   return (
     <Dropdown
       menu={{
