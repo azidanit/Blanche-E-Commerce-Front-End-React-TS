@@ -36,7 +36,7 @@ const Account: React.FC<AccountProps> = ({ account }) => {
   };
 
   const changePassword = () => {
-    navigate('/change-password');
+    navigate('change-password');
   };
 
   return (

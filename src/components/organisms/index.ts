@@ -26,6 +26,7 @@ import ShippingPage from './Merchant/ShippingPage';
 import ChangePasswordPage from './ChangePasswordPage';
 import CardPaymentWallet from './CardPaymentWallet';
 import ProductListPage from './Merchant/ProductListPage';
+import ChangePinPage from './ChangePinPage';
 import PromotionBanner from './PromotionBanner';
 import ProductReviews from './ProductPage/ProductReviews';
 import ModalReview from './ModalReview';
@@ -51,6 +52,7 @@ export {
   ChangePasswordPage,
   CardPaymentWallet,
   ProductListPage,
+  ChangePinPage,
   ProductReviews,
   ModalReview,
 };

@@ -4,7 +4,7 @@ import {
   MdOutlineAccountBalance,
   MdOutlineAccountBalanceWallet,
 } from 'react-icons/md';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toRupiah } from '../../../../helpers/toRupiah';
 import { IGetWalletDetailsResponse } from '../../../../helpers/types';
 import { Button } from '../../../atoms';
@@ -52,7 +52,9 @@ const WalletInfo: React.FC<WalletInfoProps> = ({ data }) => {
       <Divider />
       <p className={style.wi__pin}>
         Want to change your pin? Click{' '}
-        <span className={style.wi__pin__button}>here</span>
+        <Link to="change-pin" className={style.wi__pin__button}>
+          here
+        </Link>
       </p>
     </>
   );

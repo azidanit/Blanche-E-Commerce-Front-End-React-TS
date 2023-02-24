@@ -46,6 +46,7 @@ const AddPromotion = lazy(
 );
 const ChangePassword = lazy(() => import('../../pages/ChangePassword'));
 const WalletPayment = lazy(() => import('../../pages/WalletPayment'));
+const ChangePin = lazy(() => import('../../pages/ChangePin'));
 
 export const router = createBrowserRouter([
   {
@@ -88,8 +89,12 @@ export const router = createBrowserRouter([
             element: <TransactionDetails />,
           },
           {
-            path: '/change-password',
+            path: '/profile/change-password',
             element: <ChangePassword />,
+          },
+          {
+            path: '/wallet/change-pin',
+            element: <ChangePin />,
           },
         ],
       },
