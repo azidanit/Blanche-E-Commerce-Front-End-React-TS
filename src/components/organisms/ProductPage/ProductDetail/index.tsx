@@ -8,6 +8,7 @@ import ProductInfo from './ProductInfo';
 import ProductVariant from './ProductVariant';
 import { SEO } from '../../../atoms';
 import useProduct from '../../../../hooks/useProduct';
+import ProductReviews from '../ProductReviews';
 
 const ProductDetail: React.FC = () => {
   const { product } = useProduct();
@@ -34,6 +35,8 @@ const ProductDetail: React.FC = () => {
           <ProductDescription />
           <MerchantInfo />
         </Col>
+
+        <ProductReviews />
       </Row>
     </>
   );

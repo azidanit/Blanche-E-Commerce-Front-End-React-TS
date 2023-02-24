@@ -6,7 +6,7 @@ import { Image } from '../../../atoms';
 import style from './index.module.scss';
 
 interface CartItemProps {
-  item: ICartItem;
+  item: ICartItem | any;
 }
 
 const CartItem: React.FC<CartItemProps> = ({ item }) => {

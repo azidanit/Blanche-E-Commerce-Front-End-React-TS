@@ -1,20 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { capitalizeFirstLetter } from '../../../../helpers/capitalizeFirstLetter';
-import {
-  dateToDayMonthStringYear,
-  dateToMinuteHourMonthStringDayYear,
-} from '../../../../helpers/parseDate';
-import { Button, Card, Image, Tag } from '../../../atoms';
+import { dateToMinuteHourMonthStringDayYear } from '../../../../helpers/parseDate';
+import { Card, Image, Tag } from '../../../atoms';
 import style from './index.module.scss';
 import { MdOutlineStorefront } from 'react-icons/md';
-import { Divider, message } from 'antd';
+import { Divider } from 'antd';
 import { toRupiah } from '../../../../helpers/toRupiah';
 import { Link } from 'react-router-dom';
 import { textTruncate } from '../../../../helpers/textTruncate';
 import { ITransaction } from '../../../../helpers/types';
-import { ModalConfirm } from '../../..';
-import { UpdateStatus } from '../../Merchant/Order/CardOrder/utils';
-import { useUpdateTransactionStatusMutation } from '../../../../app/features/transactions/transactionsApiSlice';
+import { OrderStatus } from '../../Merchant/Order/OrderList';
+import ComponentOnDelivered from './ComponentOnDelivered';
+import ComponentOnCompleted from './ComponentOnCompleted';
 
 interface CardTransactionProps {
   transaction: ITransaction;
@@ -33,46 +30,21 @@ const mapStatusToColor = {
 
 const CardTransaction: React.FC<CardTransactionProps> = ({ transaction }) => {
   const [status, setStatus] = useState('waiting');
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isModalDeclineOpen, setIsModalDeclineOpen] = useState(false);
-  const [updateOrderStatus, { isLoading }] =
-    useUpdateTransactionStatusMutation();
+  const [statusIdx, setStatusIdx] = useState(0);
 
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
+  const MapComponent: {
+    [key: number]: React.ReactNode;
+  } = {
+    [OrderStatus.TransactionStatusDelivered]: (
+      <ComponentOnDelivered transaction={transaction} />
+    ),
+    [OrderStatus.TransactionStatusOnCompleted]: (
+      <ComponentOnCompleted transaction={transaction} />
+    ),
   };
 
-  const handleOpenModalRequestRefund = () => {
-    setIsModalDeclineOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleCloseModalDecline = () => {
-    setIsModalDeclineOpen(false);
-  };
-
-  const handleProcess = async () => {
-    try {
-      await updateOrderStatus({
-        status: UpdateStatus.TransactionStatusOnCompleted,
-        invoice_code: transaction.invoice_code,
-      }).unwrap();
-      message.success(
-        'Order has been completed. You can see the detail in the Completed tab.',
-      );
-      handleCloseModal();
-    } catch (e) {
-      const err = e as Error;
-
-      message.error(err.message);
-    }
-  };
-
-  const handleRequestRefund = async () => {
-    console.log('request refund');
+  const renderComponent = () => {
+    return MapComponent[statusIdx];
   };
 
   useEffect(() => {
@@ -82,10 +54,12 @@ const CardTransaction: React.FC<CardTransactionProps> = ({ transaction }) => {
     }
     if (transaction.transaction_status.on_completed_at) {
       setStatus('completed');
+      setStatusIdx(OrderStatus.TransactionStatusOnCompleted);
       return;
     }
     if (transaction.transaction_status.on_delivered_at) {
       setStatus('delivered');
+      setStatusIdx(OrderStatus.TransactionStatusDelivered);
       return;
     }
     if (transaction.transaction_status.on_processed_at) {
@@ -171,45 +145,8 @@ const CardTransaction: React.FC<CardTransactionProps> = ({ transaction }) => {
           >
             Go to Transaction Details
           </Link>
-          {transaction.transaction_status.on_delivered_at &&
-            !transaction.transaction_status.on_completed_at && (
-              <div className={style.ct__more__actions__details__btn}>
-                <Button type="primary" size="small" onClick={handleOpenModal}>
-                  Confirm Received
-                </Button>
-                <Button
-                  type="primary"
-                  ghost
-                  danger
-                  size="small"
-                  onClick={handleOpenModalRequestRefund}
-                >
-                  Request Refund
-                </Button>
-              </div>
-            )}
+          {renderComponent()}
         </div>
-
-        <ModalConfirm
-          isModalOpen={isModalOpen}
-          handleCancel={handleCloseModal}
-          handleOk={handleProcess}
-          title="Confirm Received Order"
-          info=" Are you sure to confirm this order as received? This action cannot be undone."
-          confirmButtonText="confirm"
-          cancelButton={true}
-          confirmButtonProps={{ loading: isLoading }}
-        />
-        <ModalConfirm
-          isModalOpen={isModalDeclineOpen}
-          handleCancel={handleCloseModalDecline}
-          handleOk={handleRequestRefund}
-          title="Request Refund"
-          info=" Are you sure to request refund for this order? "
-          confirmButtonText="Request"
-          cancelButton={true}
-          confirmButtonProps={{ loading: isLoading, danger: true }}
-        />
       </div>
     </Card>
   );

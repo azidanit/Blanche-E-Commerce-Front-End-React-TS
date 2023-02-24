@@ -7,6 +7,7 @@ import {
   useMakePaymentMutation,
   useValidatePinMutation,
 } from '../../../app/features/wallet/walletApiSlice';
+import { capitalizeFirstLetter } from '../../../helpers/capitalizeFirstLetter';
 import { toRupiah } from '../../../helpers/toRupiah';
 import { IErrorResponse } from '../../../helpers/types/response.interface';
 import { Button, Card, Image } from '../../atoms';
@@ -39,7 +40,7 @@ const CardPaymentWallet: React.FC = () => {
     } catch (error) {
       const err = error as IErrorResponse;
 
-      message.error(err.message);
+      message.error(capitalizeFirstLetter(err.message));
     }
   };
 

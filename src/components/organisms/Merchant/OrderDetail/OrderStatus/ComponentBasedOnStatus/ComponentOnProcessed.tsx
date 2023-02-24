@@ -6,6 +6,7 @@ import { Button, FormLabel, Input } from '../../../../../atoms';
 import { ComponentBasedOnStatusProps } from './ComponentOnCanceled';
 import style from '../index.module.scss';
 import { EnumUpdateStatus } from '..';
+import { capitalizeFirstLetter } from '../../../../../../helpers/capitalizeFirstLetter';
 
 const ComponentOnProcessed: React.FC<ComponentBasedOnStatusProps> = ({
   transaction,
@@ -45,7 +46,7 @@ const ComponentOnProcessed: React.FC<ComponentBasedOnStatusProps> = ({
     } catch (e) {
       const err = e as Error;
 
-      message.error(err.message);
+      message.error(capitalizeFirstLetter(err.message));
     }
   };
   return (
