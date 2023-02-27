@@ -56,6 +56,8 @@ const DuplicateVoucher = lazy(
 const Address = lazy(() => import('../../pages/Merchant/Address'));
 const ChangePin = lazy(() => import('../../pages/ChangePin'));
 const ForgetPassword = lazy(() => import('../../pages/ForgetPassword'));
+const SellerFund = lazy(() => import('../../pages/SellerFund'));
+const Withdraw = lazy(() => import('../../pages/Withdraw'));
 
 export const router = createBrowserRouter([
   {
@@ -216,6 +218,14 @@ export const router = createBrowserRouter([
       {
         path: '/merchant/address',
         element: <Address />,
+      },
+      {
+        path: '/merchant/payment',
+        element: <SellerFund />,
+      },
+      {
+        path: '/merchant/payment/withdraw',
+        element: <Withdraw />,
       },
     ],
   },

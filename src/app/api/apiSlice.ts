@@ -56,7 +56,6 @@ export const apiSlice = createApi({
     'Shipping',
     'Transaction Details',
     'Merchant Vouchers',
-    'Merchant Voucher',
   ],
   endpoints: () => ({}),
 });

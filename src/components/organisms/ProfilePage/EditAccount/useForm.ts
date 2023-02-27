@@ -1,3 +1,4 @@
+import { message } from 'antd';
 import { useState } from 'react';
 import { usePatchProfileMutation } from '../../../../app/features/profile/profileApiSlice';
 import { EditAccountProps, FormReturnAuth } from '../../../../helpers/types';
@@ -14,6 +15,7 @@ function useForm({ handleOk }: useFormProps): FormReturnAuth<EditAccountProps> {
     try {
       await patch(values).unwrap();
       handleOk();
+      message.success('Account updated');
     } catch (error) {
       setError(error as Error);
     }

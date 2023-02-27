@@ -96,3 +96,23 @@ export interface IGetMerchantProductListRequest {
   limit: number;
   q?: string;
 }
+
+export interface IGetMerchantActivitiesRequest {
+  page: number;
+  limit: number;
+}
+
+export interface IFundActivity {
+  amount: number;
+  id: number;
+  issued_at: Date;
+  note: string;
+  type: string;
+}
+
+export interface IGetMerchantActivitiesResponse {
+  total_data: number;
+  total_page: number;
+  current_page: number;
+  fund_activities: IFundActivity[];
+}
