@@ -27,7 +27,7 @@ export const voucherApi = apiSlice.injectEndpoints({
       transformResponse: (response: { data: IGetVoucherResponse }) =>
         response.data,
       transformErrorResponse: (response) => response.data,
-      providesTags: ['Merchant Voucher'],
+      providesTags: ['Merchant Vouchers'],
     }),
     deleteVoucher: build.mutation<void, { code: string }>({
       query: (body) => ({
@@ -36,7 +36,7 @@ export const voucherApi = apiSlice.injectEndpoints({
       }),
       transformResponse: (response: void) => response,
       transformErrorResponse: (response) => response.data,
-      invalidatesTags: ['Merchant Voucher'],
+      invalidatesTags: ['Merchant Vouchers'],
     }),
     getMerchantVoucherByCode: build.query<IVoucher, { code: string }>({
       query: (params) => ({
@@ -44,7 +44,7 @@ export const voucherApi = apiSlice.injectEndpoints({
       }),
       transformResponse: (response: { data: IVoucher }) => response.data,
       transformErrorResponse: (response) => response.data,
-      providesTags: ['Merchant Voucher'],
+      providesTags: ['Merchant Vouchers'],
     }),
     updateMerchantVoucher: build.mutation<void, ICreateVoucherRequest>({
       query: (body) => ({

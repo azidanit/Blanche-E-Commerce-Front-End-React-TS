@@ -149,6 +149,9 @@ const ProductPage: React.FC = () => {
         ? await updateProduct({ id: params.id, ...body })
         : await createProduct(body).unwrap();
       navigate('/merchant/products');
+      message.success(
+        `Product ${params.id ? 'updated' : 'created'} successfully`,
+      );
     } catch (err) {
       const error = err as IErrorResponse;
       message.error(capitalizeFirstLetter(error.message));

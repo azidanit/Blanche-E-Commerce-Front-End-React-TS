@@ -9,6 +9,7 @@ import { Pagination } from '../../../..';
 import {
   useDeleteProductMutation,
   useGetProductListQuery,
+  useUpdateProductStatusMutation,
 } from '../../../../../app/features/merchant/merchantApiSlice';
 import { capitalizeFirstLetter } from '../../../../../helpers/capitalizeFirstLetter';
 import { toRupiah } from '../../../../../helpers/toRupiah';
@@ -75,6 +76,7 @@ const ProductTable: React.FC<ProductTableProps> = ({ search }) => {
     limit,
     q: search,
   });
+  const [updateStatus] = useUpdateProductStatusMutation();
   const [deleteProduct, { isLoading }] = useDeleteProductMutation();
   const [dataSource, setDataSource] = useState<Row[]>();
 
@@ -96,6 +98,26 @@ const ProductTable: React.FC<ProductTableProps> = ({ search }) => {
     navigate(`/merchant/products/edit/${item.id}`);
   };
 
+  const onUpdateStatus = async (
+    item: IMerchantProductOverview,
+    checked: boolean,
+  ) => {
+    try {
+      await updateStatus({
+        id: item.id,
+        is_archived: !checked,
+      }).unwrap();
+      message.success(
+        `Product ${item.title} is ${
+          item.is_archived ? 'unarchived' : 'archived'
+        }`,
+      );
+    } catch (err) {
+      const error = err as IErrorResponse;
+      message.error(capitalizeFirstLetter(error.message));
+    }
+  };
+
   useEffect(() => {
     if (!data) return;
     const res: Row[] = data.products.map((item) => {
@@ -110,7 +132,14 @@ const ProductTable: React.FC<ProductTableProps> = ({ search }) => {
               {toRupiah(item.min_real_price)} - {toRupiah(item.max_real_price)}
             </p>
           ),
-        status: <Switch defaultChecked={!item.is_archived} />,
+        status: (
+          <Switch
+            defaultChecked={!item.is_archived}
+            onClick={(checked: boolean) => {
+              onUpdateStatus(item, checked);
+            }}
+          />
+        ),
         product: (
           <div className={style.pt__row__product} key={item.id}>
             <Image

@@ -16,8 +16,9 @@ import { rules } from './validation';
 import useForm from './useForm';
 import useMediaQuery from '../../../../hooks/useMediaQuery';
 import { IDetails } from '../../../../helpers/types';
-import { Form as Aform } from 'antd';
+import { Form as Aform, message } from 'antd';
 import { capitalizeFirstLetter } from '../../../../helpers/capitalizeFirstLetter';
+import { IErrorResponse } from '../../../../helpers/types/response.interface';
 
 interface EditDetailsProps {
   isModalOpen: boolean;
@@ -46,8 +47,10 @@ const EditDetails: React.FC<EditDetailsProps> = ({
       const values = await form.validateFields();
       await handleSubmit(values);
       handleOk();
+      message.success('Profile updated successfully');
     } catch (err) {
-      console.log(err);
+      const error = err as IErrorResponse;
+      message.error(capitalizeFirstLetter(error.message));
     }
   };
 

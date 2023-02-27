@@ -1,4 +1,3 @@
-import { VoidFunctionComponent } from 'react';
 import {
   ICheckDomainRequest,
   ICheckDomainResponse,
@@ -13,6 +12,8 @@ import {
   IGetMerchantProductListResponse,
   IGetMerchantProductListRequest,
   ICreateProductRequest,
+  IGetMerchantActivitiesResponse,
+  IGetMerchantActivitiesRequest,
 } from '../../../helpers/types';
 import { IGetMerchantCategoriesResponse } from '../../../helpers/types';
 import {
@@ -21,7 +22,9 @@ import {
   ICheckProductNameRequest,
   IGetProductByIDResponse,
   IGetVariantsByIDResponse,
+  IUpdateProductStatusRequest,
 } from '../../../helpers/types/merchant/product.interface';
+import { IWithdrawFundRequest } from '../../../helpers/types/merchant/wallet.interface';
 import { apiSlice } from '../../api/apiSlice';
 
 export const merchantApi = apiSlice.injectEndpoints({
@@ -213,6 +216,49 @@ export const merchantApi = apiSlice.injectEndpoints({
       transformErrorResponse: (response) => response.data,
       invalidatesTags: ['Product'],
     }),
+    getMerchantFundActivities: build.query<
+      IGetMerchantActivitiesResponse,
+      IGetMerchantActivitiesRequest
+    >({
+      query: (params) => ({
+        url: '/merchants/funds/activities',
+        method: 'GET',
+        params,
+      }),
+      transformResponse: (response: { data: IGetMerchantActivitiesResponse }) =>
+        response.data,
+      transformErrorResponse: (response) => response.data,
+      providesTags: ['Wallet'],
+    }),
+    getMerchantFundBalance: build.query<null, void>({
+      query: () => ({
+        url: '/merchants/funds/balance',
+        method: 'GET',
+      }),
+      transformResponse: (response: { data: null }) => response.data,
+      transformErrorResponse: (response) => response.data,
+      providesTags: ['Wallet'],
+    }),
+    updateProductStatus: build.mutation<null, IUpdateProductStatusRequest>({
+      query: ({ id, ...body }) => ({
+        url: `/merchants/products/${id}/status`,
+        method: 'PATCH',
+        body,
+      }),
+      transformResponse: (response: { data: null }) => response.data,
+      transformErrorResponse: (response) => response.data,
+      invalidatesTags: ['Product'],
+    }),
+    withdrawFund: build.mutation<null, IWithdrawFundRequest>({
+      query: (body) => ({
+        url: '/merchants/funds/withdraw',
+        method: 'POST',
+        body,
+      }),
+      transformResponse: (response: { data: null }) => response.data,
+      transformErrorResponse: (response) => response.data,
+      invalidatesTags: ['Wallet'],
+    }),
   }),
 });
 
@@ -234,6 +280,10 @@ export const {
   useGetProductByIDQuery,
   useGetVariantsByIDQuery,
   useUpdateProductMutation,
+  useGetMerchantFundActivitiesQuery,
+  useGetMerchantFundBalanceQuery,
   useGetMerchantProfileQuery,
   useLazyGetMerchantProfileQuery,
+  useUpdateProductStatusMutation,
+  useWithdrawFundMutation,
 } = merchantApi;
