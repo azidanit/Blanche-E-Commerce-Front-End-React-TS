@@ -3,22 +3,52 @@ import style from './index.module.scss';
 import { MdAccountBalanceWallet } from 'react-icons/md';
 import { Badge, Button, Tag } from '../../../atoms';
 import {
+  ICheckoutResponse,
   IGetWalletDetailsResponse,
   ISealabsPayAccounts,
 } from '../../../../helpers/types';
 import { toRupiah } from '../../../../helpers/toRupiah';
 import classNames from 'classnames';
+import { useNavigate } from 'react-router-dom';
 
 interface CardWalletProps {
   wallet: IGetWalletDetailsResponse | undefined;
   defaultPayment?: IGetWalletDetailsResponse | ISealabsPayAccounts;
+  order: ICheckoutResponse;
 }
 
-const CardWallet: React.FC<CardWalletProps> = ({ wallet, defaultPayment }) => {
+const CardWallet: React.FC<CardWalletProps> = ({
+  wallet,
+  defaultPayment,
+  order,
+}) => {
   const classProps = classNames(
     style.card__payment,
     defaultPayment === wallet ? style.card__payment__active : '',
   );
+
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    navigate('/wallet/topup', {
+      state: {
+        from: location,
+        search: order.order_code,
+      },
+      replace: true,
+    });
+  };
+
+  const handleNavigateActivate = () => {
+    navigate('/wallet', {
+      state: {
+        from: location,
+        search: order.order_code,
+      },
+      replace: true,
+    });
+  };
+
   return (
     <div className={classProps}>
       <div className={style.card__payment__icon}>
@@ -33,11 +63,17 @@ const CardWallet: React.FC<CardWalletProps> = ({ wallet, defaultPayment }) => {
         </p>
       </div>
       <div className={style.card__payment__wallet}>
-        {wallet && wallet.balance === 0 && (
-          <Button type="primary">Topup</Button>
+        {wallet && wallet.balance < order.total && (
+          <Button type="primary" onClick={handleNavigate}>
+            Topup
+          </Button>
         )}
 
-        {!wallet && <Button type="primary">Activate Wallet</Button>}
+        {!wallet && (
+          <Button type="primary" onClick={handleNavigateActivate}>
+            Activate Wallet
+          </Button>
+        )}
       </div>
     </div>
   );

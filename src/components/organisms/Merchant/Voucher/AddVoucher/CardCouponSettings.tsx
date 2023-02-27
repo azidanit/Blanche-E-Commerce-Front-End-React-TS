@@ -29,16 +29,16 @@ const CardCouponSettings: React.FC = () => {
         <FormLabel
           className={style.form__item}
           label="Discount Amount"
-          name="amount"
-          rules={rules.amount}
+          name="discount_nominal"
+          rules={rules.discount_nominal}
         >
           <InputNumber className={style.form__item__input} addonBefore={'Rp'} />
         </FormLabel>
         <FormLabel
           className={style.form__item}
           label="Minimum Purchase"
-          name="minimum"
-          rules={rules.minimum}
+          name="min_order_nominal"
+          rules={rules.min_order_nominal}
         >
           <InputNumber className={style.form__item__input} addonBefore={'Rp'} />
         </FormLabel>

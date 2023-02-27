@@ -5,10 +5,12 @@ import style from './index.module.scss';
 import { PinInput } from 'react-input-pin-code';
 import { message } from 'antd';
 import { useCreatePinMutation } from '../../../../app/features/wallet/walletApiSlice';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const initialPin = ['', '', '', '', '', ''];
 
 const ActiveWallet: React.FC = () => {
+  const locationURL = useLocation();
   const [isPinModalOpen, setIsPinModalOpen] = useState(false);
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [pin, setPin] = useState(initialPin);
@@ -16,6 +18,10 @@ const ActiveWallet: React.FC = () => {
   const [messageApi, contextHolder] = message.useMessage();
   const [createPin] = useCreatePinMutation();
 
+  const from =
+    locationURL.state?.from?.pathname + locationURL.state?.from?.search;
+
+  const navigate = useNavigate();
   const showModal = () => {
     setIsPinModalOpen(true);
   };
@@ -33,6 +39,7 @@ const ActiveWallet: React.FC = () => {
       });
       return;
     }
+
     setIsPinModalOpen(false);
     setIsConfirmModalOpen(true);
   };
@@ -59,6 +66,9 @@ const ActiveWallet: React.FC = () => {
         pin: confirm.join(''),
       };
       await createPin(body).unwrap();
+      if (from) {
+        return navigate(from);
+      }
       setIsConfirmModalOpen(false);
       messageApi.open({
         type: 'success',

@@ -62,12 +62,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
       ) : (
         <Logo className={style.sidebar__logo} size="extrasmall" />
       )}
-      <Menu
-        theme="light"
-        className={style.sidebar__menu}
-        defaultSelectedKeys={['1']}
-        items={items}
-      />
+      <Menu theme="light" className={style.sidebar__menu} items={items} />
     </Sider>
   );
 };

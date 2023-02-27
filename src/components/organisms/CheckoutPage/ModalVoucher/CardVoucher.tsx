@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
+import { dateToMinuteHourMonthStringDayYear } from '../../../../helpers/parseDate';
 import { toRupiah } from '../../../../helpers/toRupiah';
 import {
   IVoucherMarketplaceResponse,
@@ -39,7 +40,10 @@ const CardVoucher: React.FC<CardVoucherProps> = ({ item, voucher }) => {
             ? ` ${item.discount_percentage}%`
             : toRupiah(item.discount_nominal)}
         </li>
-        <li>{item.expired_at}</li>
+        <li>
+          Expired at{' '}
+          {dateToMinuteHourMonthStringDayYear(new Date(item.expired_at))}
+        </li>
       </ul>
     </Card>
   );

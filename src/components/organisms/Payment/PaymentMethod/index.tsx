@@ -48,8 +48,7 @@ const ModalPayment: React.FC<ModalPaymentPageProps> = ({
     IGetWalletDetailsResponse | ISealabsPayAccounts
   >();
   const { data: sealabs } = useGetSealabsPayAccountQuery();
-  const { data: wallet, isLoading: isLoadingWallet } =
-    useGetWalletDetailsQuery();
+  const { data: wallet } = useGetWalletDetailsQuery();
 
   const [isModalSLPOpen, setIsModalSLPOpen] = useState(false);
   const [isIFrameOpen, setIsIFrameOpen] = useState(false);
@@ -176,7 +175,7 @@ const ModalPayment: React.FC<ModalPaymentPageProps> = ({
           value={wallet}
           disabled={isLoading}
         >
-          <CardWallet wallet={wallet} defaultPayment={payment} />
+          <CardWallet wallet={wallet} defaultPayment={payment} order={order} />
         </Radio>
         {wallet && wallet.balance < order.total && (
           <Alert

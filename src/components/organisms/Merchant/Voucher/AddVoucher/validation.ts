@@ -1,5 +1,5 @@
 export const rules = {
-  name: [
+  code: [
     {
       required: true,
       message: 'Please input voucher name',
@@ -19,13 +19,13 @@ export const rules = {
       message: 'Please input voucher period',
     },
   ],
-  amount: [
+  discount_nominal: [
     {
       required: true,
       message: 'Please input voucher amount',
     },
   ],
-  minimum: [
+  min_order_nominal: [
     {
       required: true,
       message: 'Please input voucher minimum',
