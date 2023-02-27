@@ -21,7 +21,7 @@ const Nav: React.FC = () => {
   const [search, setSearch] = useState('');
   const [searchParams] = useSearchParams();
 
-  const { user } = useAppSelector((state) => state.auth);
+  const { isLoggedIn, user } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
   const [logOut, { isLoading }] = useLogoutMutation();
 
@@ -67,7 +67,7 @@ const Nav: React.FC = () => {
           className={style.header__button}
           style={{ display: 'flex', gap: 10 }}
         >
-          {!user ? (
+          {!isLoggedIn && !user ? (
             <>
               <Button
                 type="primary"

@@ -47,6 +47,12 @@ const AddPromotion = lazy(
 );
 const ChangePassword = lazy(() => import('../../pages/ChangePassword'));
 const WalletPayment = lazy(() => import('../../pages/WalletPayment'));
+const EditVoucher = lazy(
+  () => import('../../pages/Merchant/Voucher/EditVoucher'),
+);
+const DuplicateVoucher = lazy(
+  () => import('../../pages/Merchant/Voucher/DuplicateVoucher'),
+);
 const Address = lazy(() => import('../../pages/Merchant/Address'));
 const ChangePin = lazy(() => import('../../pages/ChangePin'));
 const ForgetPassword = lazy(() => import('../../pages/ForgetPassword'));
@@ -159,6 +165,17 @@ export const router = createBrowserRouter([
       {
         path: '/merchant/vouchers',
         element: <Voucher />,
+        children: [],
+      },
+
+      {
+        path: '/merchant/vouchers/edit/:code',
+        element: <EditVoucher />,
+        children: [],
+      },
+      {
+        path: '/merchant/vouchers/copy/:code',
+        element: <DuplicateVoucher />,
         children: [],
       },
       {

@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import style from './index.module.scss';
 
 interface TopupIframeProps {
@@ -10,15 +10,21 @@ const TopupIframe: React.FC<TopupIframeProps> = ({ src }) => {
   const ref = useRef<HTMLIFrameElement>(null);
   const navigate = useNavigate();
 
+  const locationURL = useLocation();
   const handleLocationChange = () => {
     if (!ref?.current?.contentWindow?.location) return;
     const location = ref.current.contentWindow.location;
     const url = location.href;
+    console.log(locationURL);
+    const from =
+      locationURL.state?.from?.pathname + locationURL.state?.from?.search ||
+      '/wallet';
+
     const urlSearchParams = new URLSearchParams(url?.split('?')[1]);
     const urlSearchParamsObj = Object.fromEntries(urlSearchParams);
     if (!urlSearchParamsObj.status) return;
     setTimeout(() => {
-      navigate('/wallet');
+      navigate(from);
     }, 1000);
   };
 

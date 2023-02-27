@@ -7,11 +7,7 @@ import style from './index.module.scss';
 const MerchantInfo: React.FC = () => {
   const { store, slug } = useParams();
 
-  const {
-    data: merchant,
-    error: merchantError,
-    isLoading: merchantLoading,
-  } = useGetMerchantInfoQuery(store as string);
+  const { data: merchant } = useGetMerchantInfoQuery(store as string);
 
   return (
     <Card className={style.merchant__info}>

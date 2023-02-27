@@ -1,3 +1,4 @@
+import { VoidFunctionComponent } from 'react';
 import {
   ICheckDomainRequest,
   ICheckDomainResponse,
@@ -35,13 +36,22 @@ export const merchantApi = apiSlice.injectEndpoints({
       transformErrorResponse: (response) => response.data,
       providesTags: ['Merchant'],
     }),
-    createMerchant: build.mutation<null, ICreateMerchantRequest>({
+    getMerchantProfile: build.query<IMerchantInfoResponse, void>({
+      query: () => ({
+        url: '/merchants/profile',
+        method: 'GET',
+      }),
+      transformResponse: (response: { data: IMerchantInfoResponse }) =>
+        response.data,
+      transformErrorResponse: (response) => response.data,
+    }),
+    createMerchant: build.mutation<void, ICreateMerchantRequest>({
       query: (body) => ({
         url: '/merchants/register',
         method: 'POST',
         body,
       }),
-      transformResponse: (response: null) => response,
+      transformResponse: (response: { data: void }) => response.data,
       transformErrorResponse: (response) => response.data,
       invalidatesTags: ['Merchant'],
     }),
@@ -224,4 +234,6 @@ export const {
   useGetProductByIDQuery,
   useGetVariantsByIDQuery,
   useUpdateProductMutation,
+  useGetMerchantProfileQuery,
+  useLazyGetMerchantProfileQuery,
 } = merchantApi;

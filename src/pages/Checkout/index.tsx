@@ -133,9 +133,8 @@ const Checkout: React.FC = () => {
     }
 
     const isMerchantDeliveryOptionEmpty =
-      (merchant.filter((item) => !item.delivery_option).length > 0 &&
-        merchant.length > 0) ||
-      merchant.length === 0;
+      merchant.filter((item) => !item.delivery_option).length > 0 ||
+      merchant.length !== orderSummary.orders.length;
 
     if (isMerchantDeliveryOptionEmpty) {
       setErrorDeliveryOption('Please select delivery option');

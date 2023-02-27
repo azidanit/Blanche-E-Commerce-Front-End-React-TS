@@ -4,24 +4,40 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { setParams } from '../../app/features/home/paramsSlice';
 import { parseSearchParams } from '../../helpers/parseSearchParams';
 import { Container, Nav } from '../molecules';
-import { useGetProfileQuery } from '../../app/features/profile/profileApiSlice';
-import { setIsLoggedIn, setUser } from '../../app/features/auth/authSlice';
+import {
+  useLazyGetProfileQuery,
+} from '../../app/features/profile/profileApiSlice';
+import {  setUser } from '../../app/features/auth/authSlice';
+import { message } from 'antd';
 
 const AppLayout = (): JSX.Element => {
   const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useAppDispatch();
 
+  const [getProfile, { isLoading }] = useLazyGetProfileQuery();
   const { user, isLoggedIn } = useAppSelector((state) => state.auth);
 
-  const { data: profile, isLoading } = useGetProfileQuery();
+  const fetchProfile = async () => {
+    try {
+      const result = await getProfile().unwrap();
+      console.log(result);
+
+      if (result) {
+        dispatch(setUser(result));
+      }
+    } catch (err) {
+      const error = err as Error;
+      message.error(error.message);
+    }
+  };
 
   useEffect(() => {
-    if (!isLoggedIn) {
+    if (!isLoggedIn || user) {
       return;
     }
 
-    dispatch(setUser(profile));
-  }, [profile, user]);
+    fetchProfile();
+  }, [user]);
 
   useEffect(() => {
     dispatch(setParams(parseSearchParams(searchParams)));

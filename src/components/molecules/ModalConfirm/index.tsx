@@ -28,7 +28,7 @@ const ModalConfirm: React.FC<ModalConfirmPageProps> = (props) => {
     info,
     handleOk,
     cancelButton = false,
-    confirmButtonText,
+    confirmButtonText = 'Confirm',
     confirmButtonProps,
     handleCancel,
     children,

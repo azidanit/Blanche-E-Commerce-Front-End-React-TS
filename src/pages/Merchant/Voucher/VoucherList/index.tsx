@@ -1,5 +1,6 @@
 import React from 'react';
 import { VoucherList } from '../../../../components';
+import FilterStatus from '../../../../components/organisms/TransactionsPage/FilterStatus';
 import style from './index.module.scss';
 
 const Voucher: React.FC = () => {

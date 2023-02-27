@@ -10,6 +10,8 @@ import { useTopUpWalletMutation } from '../../app/features/wallet/walletApiSlice
 import TopupIframe from '../../components/organisms/TopupIframe';
 import { ValidateStatus } from 'antd/es/form/FormItem';
 import { capitalizeFirstLetter } from '../../helpers/capitalizeFirstLetter';
+import { MdAddCircleOutline } from 'react-icons/md';
+import AddSealabsPay from '../../components/organisms/UserSealabsPay/AddSealabsPay';
 
 const { Group } = Radio;
 
@@ -33,6 +35,12 @@ const TopupWallet: React.FC = () => {
   const [topup] = useTopUpWalletMutation();
   const [status, setStatus] = useState<ValidateStatus>('');
   const [errorInput, setErrorInput] = useState('');
+
+  const [isModalSLPOpen, setIsModalSLPOpen] = useState(false);
+
+  const handleOpenModalSLP = () => {
+    setIsModalSLPOpen(true);
+  };
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -60,6 +68,9 @@ const TopupWallet: React.FC = () => {
 
   const handleFrameCancel = () => {
     setIsIFrameOpen(false);
+  };
+  const handleCloseModalSLP = () => {
+    setIsModalSLPOpen(false);
   };
 
   const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -141,6 +152,21 @@ const TopupWallet: React.FC = () => {
               )}
             </div>
           )}
+          <Button
+            block
+            size="large"
+            icon={<MdAddCircleOutline />}
+            className={style.choose__payment__modal__button}
+            onClick={handleOpenModalSLP}
+          >
+            Add Sealabs Pay account
+          </Button>
+
+          <AddSealabsPay
+            isModalOpen={isModalSLPOpen}
+            handleCancel={handleCloseModalSLP}
+            handleOk={handleCloseModalSLP}
+          />
           <Button
             className={style.tw__button}
             type="primary"
