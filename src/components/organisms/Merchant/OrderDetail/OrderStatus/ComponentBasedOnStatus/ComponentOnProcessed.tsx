@@ -1,11 +1,18 @@
 import { message } from 'antd';
-import React, { useState } from 'react';
-import { Form, ModalConfirm } from '../../../../..';
+import React, { useRef, useState } from 'react';
+import {
+  Form,
+  ModalConfirm,
+  ModalHeader,
+  ShippingLabel,
+  Modal,
+} from '../../../../..';
 import { useUpdateMerchantOrderStatusMutation } from '../../../../../../app/features/merchant/merchantOrderApiSlice';
 import { Button, FormLabel, Input } from '../../../../../atoms';
 import { ComponentBasedOnStatusProps } from './ComponentOnCanceled';
 import style from '../index.module.scss';
 import { EnumUpdateStatus } from '..';
+import { useReactToPrint } from 'react-to-print';
 import { capitalizeFirstLetter } from '../../../../../../helpers/capitalizeFirstLetter';
 
 const ComponentOnProcessed: React.FC<ComponentBasedOnStatusProps> = ({
@@ -15,6 +22,17 @@ const ComponentOnProcessed: React.FC<ComponentBasedOnStatusProps> = ({
   const [receiptCode, setReceiptCode] = useState<string | undefined>(undefined);
   const [updateOrderStatus, { isLoading }] =
     useUpdateMerchantOrderStatusMutation();
+
+  const [isLabelVisible, setIsLabelVisible] = useState(false);
+
+  const componentRef = useRef(null);
+
+  const handlePrintLabel = () => {
+    setIsLabelVisible(true);
+  };
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -61,7 +79,7 @@ const ComponentOnProcessed: React.FC<ComponentBasedOnStatusProps> = ({
         </p>
       </div>
       <div className={style.os__status__action}>
-        <Button type="primary" size="large" ghost>
+        <Button type="primary" size="large" ghost onClick={handlePrintLabel}>
           Print Label
         </Button>
         <Button type="primary" size="large" onClick={handleOpenModal}>
@@ -96,6 +114,20 @@ const ComponentOnProcessed: React.FC<ComponentBasedOnStatusProps> = ({
             />
           </Form>
         </ModalConfirm>
+        <Modal
+          open={isLabelVisible}
+          onOk={handlePrint}
+          width={600}
+          onCancel={() => setIsLabelVisible(false)}
+        >
+          <ModalHeader
+            title="Print Label"
+            info='Print the label and paste it on the package. Then, click "Deliver Order" button to deliver the order.'
+          />
+          <div ref={componentRef}>
+            <ShippingLabel transaction={transaction} />
+          </div>
+        </Modal>
       </div>
     </div>
   );

@@ -136,6 +136,7 @@ const CardOrder: React.FC<CardOrderProps> = ({ transaction }) => {
       <Divider className={style.card__order__divider} />
       <div className={style.card__order__body}>
         <Product productOverview={transaction.product_overview} />
+
         <div className={style.card__order__body__address}>
           <p className={style.card__order__body__address__title}>Address</p>
           <p className={style.card__order__body__address__text}>

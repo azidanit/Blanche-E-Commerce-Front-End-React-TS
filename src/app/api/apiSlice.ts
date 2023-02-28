@@ -4,6 +4,7 @@ const baseQuery = fetchBaseQuery({
   baseUrl: process.env.REACT_APP_API_URL,
   credentials: 'include',
 });
+import Cookies from 'universal-cookie';
 
 const baseQueryWithReauth: typeof baseQuery = async (
   args,
@@ -12,16 +13,17 @@ const baseQueryWithReauth: typeof baseQuery = async (
 ) => {
   let result = await baseQuery(args, api, extraOptions);
 
+  const cookie = new Cookies();
+
   if (result.error) {
     const { status } = result.error;
     if (status === 403) {
       window.location.href = '/';
     } else if (status === 401) {
-      const token = localStorage.getItem('token');
+      const is_logged_in = cookie.get('is_logged_in');
 
-      if (!token) {
+      if (!is_logged_in) {
         api.dispatch(logout());
-        localStorage.removeItem('token');
         return result;
       }
 
@@ -29,7 +31,6 @@ const baseQueryWithReauth: typeof baseQuery = async (
       result = await baseQuery(args, api, extraOptions);
       if (refreshResult.error) {
         api.dispatch(logout());
-        localStorage.removeItem('token');
       }
       return result;
     }

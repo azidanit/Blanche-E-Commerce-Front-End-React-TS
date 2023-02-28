@@ -27,11 +27,8 @@ function useForm(): FormReturnAuth<LoginProps> {
         email: values.email,
         password: values.password.trim(),
       };
-      const data = await login(body).unwrap();
-      localStorage.setItem('token', data.access_token);
+      await login(body).unwrap();
       const profile = await getProfile().unwrap();
-
-      console.log(profile, 'hihihihih');
 
       dispatch(setUser(profile));
       dispatch(setIsLoggedIn(true));
