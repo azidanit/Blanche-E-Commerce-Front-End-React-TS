@@ -95,6 +95,11 @@
     padding: 1rem;
     gap: 1rem;
 
+    &__more {
+      margin-top: 1rem;
+      color: $gray;
+    }
+
     &__image {
       width: 75px;
       height: 75px;

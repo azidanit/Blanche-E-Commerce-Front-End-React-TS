@@ -3,6 +3,7 @@ import {
   IGetProfileResponse,
   IMerchantInfoResponse,
 } from '../../../helpers/types';
+import Cookies from 'universal-cookie';
 
 interface StateProps {
   user: IGetProfileResponse | null;
@@ -10,10 +11,14 @@ interface StateProps {
   isLoggedIn: boolean;
 }
 
+const cookie = new Cookies();
+
+console.log(cookie.get('is_logged_in'), 'hhhihihi');
+
 const initialState: StateProps = {
   user: null,
   merchant: null,
-  isLoggedIn: localStorage.getItem('token') ? true : false,
+  isLoggedIn: cookie.get('is_logged_in'),
 };
 
 export const authSlice = createSlice({
@@ -30,9 +35,7 @@ export const authSlice = createSlice({
       state.isLoggedIn = action.payload;
     },
     logout: (state) => {
-      localStorage.removeItem('token');
       state.user = null;
-      state.isLoggedIn = false;
     },
   },
 });

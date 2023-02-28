@@ -1,27 +1,34 @@
 import { message } from 'antd';
 import React, { useRef, useState } from 'react';
-import { Form, ModalConfirm, ShippingLabel } from '../../../../..';
+import {
+  Form,
+  ModalConfirm,
+  ShippingLabel,
+  Modal,
+  ModalHeader,
+} from '../../../../..';
 import { useUpdateMerchantOrderStatusMutation } from '../../../../../../app/features/merchant/merchantOrderApiSlice';
 import { Button, FormLabel, Input } from '../../../../../atoms';
 import { ComponentBasedOnStatusProps } from './ComponentOnCanceled';
 import style from '../index.module.scss';
 import { UpdateStatus } from '../utils';
-import { useReactToPrint } from 'react-to-print';
+import ReactToPrint, { useReactToPrint } from 'react-to-print';
 import { capitalizeFirstLetter } from '../../../../../../helpers/capitalizeFirstLetter';
 
 const ComponentOnProcessed: React.FC<ComponentBasedOnStatusProps> = ({
   transaction,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLabelVisible, setIsLabelVisible] = useState(false);
   const [receiptCode, setReceiptCode] = useState<string | undefined>(undefined);
   const [updateOrderStatus, { isLoading }] =
     useUpdateMerchantOrderStatusMutation();
 
   const componentRef = useRef(null);
 
-  const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
-  });
+  const handlePrintLabel = () => {
+    setIsLabelVisible(true);
+  };
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -34,6 +41,10 @@ const ComponentOnProcessed: React.FC<ComponentBasedOnStatusProps> = ({
   const handleChangeReceiptCode = (e: React.ChangeEvent<HTMLInputElement>) => {
     setReceiptCode(e.target.value);
   };
+
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
 
   const handleSubmit = async () => {
     try {
@@ -59,12 +70,9 @@ const ComponentOnProcessed: React.FC<ComponentBasedOnStatusProps> = ({
   return (
     <>
       <div className={style.card__order__actions__btn}>
-        <Button type="primary" size="large" onClick={handlePrint} ghost>
+        <Button type="primary" size="large" ghost onClick={handlePrintLabel}>
           Print Label
         </Button>
-        <div ref={componentRef}>
-          <ShippingLabel transaction={transaction} />
-        </div>
         <Button type="primary" size="large" onClick={handleOpenModal}>
           Deliver Order
         </Button>
@@ -98,6 +106,20 @@ const ComponentOnProcessed: React.FC<ComponentBasedOnStatusProps> = ({
           />
         </Form>
       </ModalConfirm>
+      <Modal
+        open={isLabelVisible}
+        onOk={handlePrint}
+        width={600}
+        onCancel={() => setIsLabelVisible(false)}
+      >
+        <ModalHeader
+          title="Print Label"
+          info='Print the label and paste it on the package. Then, click "Deliver Order" button to deliver the order.'
+        />
+        <div ref={componentRef}>
+          <ShippingLabel transaction={transaction} />
+        </div>
+      </Modal>
     </>
   );
 };

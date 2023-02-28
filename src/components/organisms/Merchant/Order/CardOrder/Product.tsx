@@ -11,21 +11,28 @@ interface ProductProps {
 
 const Product: React.FC<ProductProps> = ({ productOverview }) => {
   return (
-    <div className={style.card__order__product}>
-      <Image
-        src={productOverview.product.image}
-        alt="product"
-        className={style.card__order__product__image}
-      />
-      <div className={style.card__order__product__desc}>
-        <p className={style.card__order__product__desc__name}>
-          {textTruncate(productOverview.product.name, 40)}
-        </p>
-        <p className={style.card__order__product__details__quantity}>
-          {toRupiah(productOverview.product.real_price)} x{' '}
-          {productOverview.product.quantity}
-        </p>
+    <div>
+      <div className={style.card__order__product}>
+        <Image
+          src={productOverview.product.image}
+          alt="product"
+          className={style.card__order__product__image}
+        />
+        <div className={style.card__order__product__desc}>
+          <p className={style.card__order__product__desc__name}>
+            {textTruncate(productOverview.product.name, 40)}
+          </p>
+          <p className={style.card__order__product__details__quantity}>
+            {toRupiah(productOverview.product.real_price)} x{' '}
+            {productOverview.product.quantity}
+          </p>
+        </div>
       </div>
+      {productOverview.total_product > 1 && (
+        <p className={style.card__order__product__more}>
+          + {productOverview.total_product - 1} more
+        </p>
+      )}
     </div>
   );
 };
