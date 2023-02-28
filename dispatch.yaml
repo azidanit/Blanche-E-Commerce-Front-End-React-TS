@@ -1,0 +1,12 @@
+dispatch:
+# - url: "blanche.life/*"
+#   service: production
+
+- url: "staging.blanche.life/*"
+  service: staging
+
+- url: "dev.blanche.life/*"
+  service: default
+
+- url: "www.blanche.life/*"
+  service: frontend
