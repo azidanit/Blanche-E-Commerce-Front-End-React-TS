@@ -9,6 +9,7 @@ import ProductVariant from './ProductVariant';
 import { SEO } from '../../../atoms';
 import useProduct from '../../../../hooks/useProduct';
 import ProductReviews from '../ProductReviews';
+import ProductAction from './ProductAction';
 
 const ProductDetail: React.FC = () => {
   const { product } = useProduct();
@@ -21,6 +22,7 @@ const ProductDetail: React.FC = () => {
       <Row className={style.product__detail} gutter={[32, 16]}>
         <Col xs={24} sm={24} md={24} lg={10} xl={10}>
           <ProductGallery />
+          <ProductAction />
         </Col>
         <Col
           xs={24}
