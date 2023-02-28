@@ -31,7 +31,7 @@ const CardMenu: React.FC<CardMenuProps> = ({ items, total, ...props }) => {
         <p className={style.cart__menu__action__total}>
           Total:{' '}
           <span className={style.cart__menu__action__number}>
-            {total} items
+            {total || 0} items
           </span>
         </p>
         <Link to="/cart" className={style.cart__menu__action__button}>

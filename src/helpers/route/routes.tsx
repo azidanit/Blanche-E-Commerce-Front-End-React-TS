@@ -70,10 +70,6 @@ export const router = createBrowserRouter([
             path: '/profile',
             element: <Profile />,
           },
-          {
-            path: '/merchant-register',
-            element: <MerchantRegister />,
-          },
 
           {
             path: '/cart',

@@ -155,7 +155,7 @@ const EditAddress: React.FC<EditAddressPageProps> = ({
               <Input placeholder="Name" />
             </FormLabel>
             <FormLabel label="Phone" name="phone" rules={rules.phone}>
-              <Input placeholder="Phone" />
+              <Input placeholder="Phone" maxLength={15} />
             </FormLabel>
           </Space>
           <FormLabel label="Label Address" name="label" rules={rules.label}>
@@ -243,7 +243,7 @@ const EditAddress: React.FC<EditAddressPageProps> = ({
               options={option.subDistrict ? option.subDistrict : []}
             />
           </FormLabel>
-          <FormLabel label="More Details" name="details">
+          <FormLabel label="More Details" name="details" rules={rules.details}>
             <TextArea />
           </FormLabel>
           {isError && (

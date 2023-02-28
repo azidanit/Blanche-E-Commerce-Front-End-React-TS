@@ -209,7 +209,7 @@ const CardAddress: React.FC<CardAddressProps> = ({ data }) => {
               size="middle"
               type="primary"
               loading={isLoadingDelete}
-              disabled={data.is_default}
+              disabled={data.is_default || data.is_merchant_address}
               danger
             >
               Delete Address

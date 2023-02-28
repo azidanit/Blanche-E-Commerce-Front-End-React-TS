@@ -123,14 +123,14 @@ const Cart: React.FC = () => {
             <CartSummary
               carts={carts?.carts ? carts?.carts : []}
               quantity={carts?.quantity ? carts?.quantity : 0}
-              total={carts?.total ? carts?.total : 0}
+              total={carts?.total || 0}
             />
           </Col>
         ) : (
           <CartSummaryMobile
             carts={carts?.carts ? carts?.carts : []}
             quantity={carts?.quantity ? carts?.quantity : 0}
-            total={carts?.total ? carts?.total : 0}
+            total={carts?.total || 0}
           />
         )}
       </Row>

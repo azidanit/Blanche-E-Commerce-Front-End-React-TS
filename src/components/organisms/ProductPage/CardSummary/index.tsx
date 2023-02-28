@@ -63,16 +63,6 @@ const CardSummary: React.FC = () => {
     }
   };
 
-  const handleCheckQty = () => {
-    if (quantity > Number(stock)) {
-      setError('Quantity is more than stock');
-    } else if (variant == undefined && isHaveVariant) {
-      setError('Please select variant');
-    } else {
-      setError('');
-    }
-  };
-
   const handleSubmit = async () => {
     try {
       const body = {
@@ -149,11 +139,9 @@ const CardSummary: React.FC = () => {
             handleIncrement={handleIncrement}
             handleChange={handleChange}
             size="middle"
-            disabledIncrement={quantity >= (stock as number)}
-            disableDecrement={quantity <= 1 || quantity > (stock as number)}
+            disabledIncrement={quantity >= Number(stock)}
+            disableDecrement={quantity <= 1 || quantity > Number(stock)}
             min={1}
-            onBlur={handleCheckQty}
-            onPressEnter={handleCheckQty}
           />
           <p>
             Stock: <span>{stock}</span>
@@ -167,11 +155,27 @@ const CardSummary: React.FC = () => {
             closable
           />
         )}
+        {isHaveVariant && !variant && (
+          <Alert
+            message="Please select variant before add to cart"
+            type="info"
+            showIcon
+            closable
+          />
+        )}
+        {quantity > Number(stock) && (
+          <Alert
+            message="Quantity is more than stock, please reduce the quantity"
+            type="warning"
+            showIcon
+            closable
+          />
+        )}
         {error && <Alert message={error} type="error" showIcon closable />}
         {errorAddToCart && variant && (
           <Alert
             message={errorAddToCart.message}
-            type="error"
+            type="warning"
             showIcon
             closable
           />
@@ -205,7 +209,11 @@ const CardSummary: React.FC = () => {
               size="large"
               block
               onClick={handleSubmit}
-              disabled={(!variant && isHaveVariant) || stock === 0}
+              disabled={
+                (!variant && isHaveVariant) ||
+                stock === 0 ||
+                quantity > Number(stock)
+              }
               loading={isLoadingAddToCart}
             >
               Add to Cart
@@ -214,7 +222,11 @@ const CardSummary: React.FC = () => {
               type="primary"
               size="large"
               ghost
-              disabled={(!variant && isHaveVariant) || stock === 0}
+              disabled={
+                (!variant && isHaveVariant) ||
+                stock === 0 ||
+                quantity > Number(stock)
+              }
               onClick={handleBuyNow}
               block
               loading={isLoadingCheckout}

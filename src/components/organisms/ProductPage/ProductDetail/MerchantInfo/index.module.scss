@@ -3,8 +3,14 @@
   display: flex;
   gap: 1rem;
   align-items: center;
+  justify-content: space-between;
   box-shadow: $box-shadow;
 
+  &__body {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
   &__desc {
     display: flex;
     flex-direction: column;

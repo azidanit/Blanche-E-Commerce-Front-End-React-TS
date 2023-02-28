@@ -1,6 +1,6 @@
 import { Skeleton } from 'antd';
 import classNames from 'classnames';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useProduct from '../../../../hooks/useProduct';
 import { Image } from '../../../atoms';
 import Modal from '../../../molecules/Modal';
@@ -25,6 +25,10 @@ const ModalGallery: React.FC<ModalGalleryProps> = ({
   const handleActiveImage = (image: string) => {
     setActiveImg(image);
   };
+
+  useEffect(() => {
+    setActiveImg(img);
+  }, [img]);
 
   return (
     <Modal
