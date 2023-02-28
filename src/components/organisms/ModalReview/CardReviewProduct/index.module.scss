@@ -3,5 +3,9 @@
   box-shadow: $box-shadow;
   display: flex;
   flex-direction: column;
+
+  &__label {
+    margin: 0.5rem;
+  }
   gap: 1rem;
 }

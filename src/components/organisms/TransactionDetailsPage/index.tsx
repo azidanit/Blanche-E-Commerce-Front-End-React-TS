@@ -21,6 +21,7 @@ const TransactionDetailsPage: React.FC = () => {
   const MapComponent: {
     [key: number]: React.ReactNode;
   } = {
+    [0]: <></>,
     [OrderStatus.TransactionStatusDelivered]: (
       <TransactionActionOnDelivered transaction={data} />
     ),
@@ -38,6 +39,7 @@ const TransactionDetailsPage: React.FC = () => {
       return;
     }
     if (data.transaction_status.on_canceled_at) {
+      setStatusIdx(0);
       return;
     }
     if (data.transaction_status.on_completed_at) {
@@ -49,9 +51,11 @@ const TransactionDetailsPage: React.FC = () => {
       return;
     }
     if (data.transaction_status.on_processed_at) {
+      setStatusIdx(0);
       return;
     }
     if (data.transaction_status.on_waited_at) {
+      setStatusIdx(0);
       return;
     }
   }, [data]);

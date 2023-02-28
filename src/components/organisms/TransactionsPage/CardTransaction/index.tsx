@@ -35,6 +35,7 @@ const CardTransaction: React.FC<CardTransactionProps> = ({ transaction }) => {
   const MapComponent: {
     [key: number]: React.ReactNode;
   } = {
+    [0]: <></>,
     [OrderStatus.TransactionStatusDelivered]: (
       <ComponentOnDelivered transaction={transaction} />
     ),
@@ -50,6 +51,8 @@ const CardTransaction: React.FC<CardTransactionProps> = ({ transaction }) => {
   useEffect(() => {
     if (transaction.transaction_status.on_canceled_at) {
       setStatus('canceled');
+
+      setStatusIdx(0);
       return;
     }
     if (transaction.transaction_status.on_completed_at) {
@@ -64,13 +67,15 @@ const CardTransaction: React.FC<CardTransactionProps> = ({ transaction }) => {
     }
     if (transaction.transaction_status.on_processed_at) {
       setStatus('processed');
+      setStatusIdx(0);
       return;
     }
     if (transaction.transaction_status.on_waited_at) {
       setStatus('waiting');
+      setStatusIdx(0);
       return;
     }
-  }, [transaction]);
+  }, [transaction, status, statusIdx]);
 
   return (
     <Card className={style.ct}>

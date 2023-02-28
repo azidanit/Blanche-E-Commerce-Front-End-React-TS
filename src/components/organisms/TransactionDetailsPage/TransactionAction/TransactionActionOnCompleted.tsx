@@ -5,6 +5,7 @@ import { IGetTransactionDetailsResponse } from '../../../../helpers/types';
 import { UpdateStatus } from '../../Merchant/Order/CardOrder/utils';
 import style from './index.module.scss';
 import { useUpdateTransactionStatusMutation } from '../../../../app/features/transactions/transactionsApiSlice';
+import { useGetProductReviewByInvCodeQuery } from '../../../../app/features/reviews/reviewsApiSlice';
 
 interface TransactionActionProps {
   transaction: IGetTransactionDetailsResponse | undefined;
@@ -14,10 +15,15 @@ const TransactionActionOnCompleted: React.FC<TransactionActionProps> = ({
   transaction,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isModalDeclineOpen, setIsModalDeclineOpen] = useState(false);
-  const [updateOrderStatus, { isLoading }] =
-    useUpdateTransactionStatusMutation();
-
+  const { data, isLoading: isLoadingGetReview } =
+    useGetProductReviewByInvCodeQuery(
+      {
+        invoice_code: transaction?.invoice_code ? transaction.invoice_code : '',
+      },
+      {
+        skip: !transaction,
+      },
+    );
   const handleOpenModal = () => {
     setIsModalOpen(true);
   };
@@ -43,9 +49,11 @@ const TransactionActionOnCompleted: React.FC<TransactionActionProps> = ({
       </div>
 
       <ModalReview
+        data={data}
         isModalOpen={isModalOpen}
         handleCancel={handleCloseModal}
         handleOk={handleProcess}
+        transaction={transaction}
       />
     </>
   );

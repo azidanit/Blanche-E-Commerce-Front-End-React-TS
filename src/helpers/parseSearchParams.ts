@@ -12,6 +12,7 @@ const searchParamsKeys = [
   'limit',
   'page',
   'status',
+  'rating',
 ];
 
 export const parseSearchParams = (searchParams: URLSearchParams): IParams => {

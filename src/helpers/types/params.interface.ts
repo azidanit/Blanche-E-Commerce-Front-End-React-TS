@@ -8,6 +8,7 @@ export interface IParams {
   min_price?: number;
   max_price?: number;
   min_rating?: number;
+  rating?: number;
   limit?: number;
   page?: number;
   status?: string;

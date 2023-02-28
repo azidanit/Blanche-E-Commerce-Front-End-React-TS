@@ -1,28 +1,35 @@
 import React from 'react';
+import { dateToMinuteHourMonthStringDayYear } from '../../../../../helpers/parseDate';
+import { IReview } from '../../../../../helpers/types/review.interface';
 import { Avatar, Card, Image, Rate } from '../../../../atoms';
 import style from './index.module.scss';
 
-const CardReview: React.FC = () => {
+interface CardReviewProps {
+  data: IReview;
+}
+
+const CardReview: React.FC<CardReviewProps> = ({ data }) => {
   return (
     <Card className={style.card__review}>
       <div className={style.card__review__rating}>
-        <Rate />
-        <p>2 Days ago</p>
+        <Rate disabled value={data.rating} />
+        <p>{dateToMinuteHourMonthStringDayYear(new Date(data.reviewed_at))}</p>
       </div>
       <div className={style.card__review__body}>
         <div className={style.card__review__body__user}>
           <Avatar />
           <p>Giwang</p>
         </div>
-        <Image
-          src="https://images.tokopedia.net/img/cache/500-square/VqbcmM/2022/11/24/f9af4537-4e7e-48ae-9e5d-c5736865c793.jpg.webp?ect=4g"
-          alt=""
-          className={style.card__review__body__img}
-        />
-        <p className={style.card__review__body__text}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
-          auctor, nisl eget ultricies tincidunt, nunc
-        </p>
+        {data.image_url && (
+          <Image
+            src={data.image_url}
+            alt=""
+            className={style.card__review__body__img}
+          />
+        )}
+        {data.description && (
+          <p className={style.card__review__body__text}>{data.description}</p>
+        )}
       </div>
     </Card>
   );
