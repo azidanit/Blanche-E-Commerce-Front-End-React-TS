@@ -127,3 +127,7 @@ export interface IVerifyForgetPasswordRequest {
 export interface IResetForgetPasswordRequest {
   password: string;
 }
+
+export interface ILoginGoogleResponse {
+  url: string;
+}

@@ -88,7 +88,7 @@ const EditDetails: React.FC<EditDetailsProps> = ({
           form={form}
         >
           <FormLabel label="Fullname" name="fullname" rules={rules.fullname}>
-            <Input placeholder="Fullname" />
+            <Input placeholder="Fullname" maxLength={32} showCount />
           </FormLabel>
           <FormLabel
             label="Birth Date"
@@ -102,6 +102,7 @@ const EditDetails: React.FC<EditDetailsProps> = ({
               placeholder="Phone"
               className={style.edit__profile__input}
               size="large"
+              maxLength={15}
             />
           </FormLabel>
           <FormLabel label="Gender" name="gender" rules={rules.gender}>

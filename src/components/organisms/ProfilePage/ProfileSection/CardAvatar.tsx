@@ -13,6 +13,8 @@ import { Avatar, Button, Card } from '../../../atoms';
 import style from './index.module.scss';
 import { Modal } from '../../../';
 import classNames from 'classnames';
+import { IErrorResponse } from '../../../../helpers/types/response.interface';
+import { capitalizeFirstLetter } from '../../../../helpers/capitalizeFirstLetter';
 
 interface CardAvatarProps {
   src: string;
@@ -60,7 +62,8 @@ const CardAvatar: React.FC<CardAvatarProps> = ({ src }) => {
       await patch(formData).unwrap();
       setIsModalOpen(false);
     } catch (err) {
-      console.log(err);
+      const error = err as IErrorResponse;
+      message.error(capitalizeFirstLetter(error.message));
     }
   };
 

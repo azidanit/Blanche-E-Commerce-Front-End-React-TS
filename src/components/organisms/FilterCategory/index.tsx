@@ -11,17 +11,16 @@ interface FilterCategoryProps {
   onSelectCategory: (selectedKeysValue: Key[]) => void;
   selectedCategory: string | undefined;
   categoriesData?: ICategory[];
+  skipFetch?: boolean;
 }
 
 const FilterCategory: React.FC<FilterCategoryProps> = ({
   onSelectCategory,
   selectedCategory,
   categoriesData,
+  skipFetch,
 }) => {
-  const { data, isLoading } = useGetCategoriesQuery(
-    {},
-    { skip: Boolean(categoriesData) },
-  );
+  const { data, isLoading } = useGetCategoriesQuery({}, { skip: skipFetch });
   const [categories, setCategories] = React.useState<DataNode[]>([]);
 
   useEffect(() => {
