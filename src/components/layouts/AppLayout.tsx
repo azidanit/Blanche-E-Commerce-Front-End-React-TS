@@ -4,10 +4,8 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { setParams } from '../../app/features/home/paramsSlice';
 import { parseSearchParams } from '../../helpers/parseSearchParams';
 import { Container, Nav } from '../molecules';
-import {
-  useLazyGetProfileQuery,
-} from '../../app/features/profile/profileApiSlice';
-import {  setUser } from '../../app/features/auth/authSlice';
+import { useLazyGetProfileQuery } from '../../app/features/profile/profileApiSlice';
+import { setUser } from '../../app/features/auth/authSlice';
 import { message } from 'antd';
 
 const AppLayout = (): JSX.Element => {

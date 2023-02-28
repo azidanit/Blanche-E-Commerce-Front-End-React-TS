@@ -1,4 +1,5 @@
-import { Divider, Skeleton } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
+import { Divider, message, Skeleton } from 'antd';
 import React, { Fragment, useState } from 'react';
 import { UserSealabsPay } from '../../..';
 import {
@@ -6,6 +7,8 @@ import {
   useGetSealabsPayAccountQuery,
   usePatchDefaultSealabsPayAccountMutation,
 } from '../../../../app/features/profile/profileApiSlice';
+import { capitalizeFirstLetter } from '../../../../helpers/capitalizeFirstLetter';
+import { IErrorResponse } from '../../../../helpers/types/response.interface';
 import { Button, SEO } from '../../../atoms';
 import AddSealabsPay from '../../UserSealabsPay/AddSealabsPay';
 import style from './index.module.scss';
@@ -30,17 +33,19 @@ const SealabsPaySection: React.FC = () => {
 
   const onDelete = async (id: number) => {
     try {
-      await deleteAccount(id);
+      await deleteAccount(id).unwrap();
     } catch (err) {
-      console.log(err);
+      const error = err as IErrorResponse;
+      message.error(capitalizeFirstLetter(error.message));
     }
   };
 
   const onSetDefault = async (id: number) => {
     try {
-      await patchDefault(id);
+      await patchDefault(id).unwrap();
     } catch (err) {
-      console.log(err);
+      const error = err as IErrorResponse;
+      message.error(capitalizeFirstLetter(error.message));
     }
   };
 
@@ -62,44 +67,16 @@ const SealabsPaySection: React.FC = () => {
             className={style.sps__header__add}
             type="primary"
             size="large"
+            icon={<PlusOutlined />}
           >
             Add new account
           </Button>
         </div>
         <div className={style.sps__list}>
-          <h4 className={style.sps__list__header}>Default</h4>
-          <p className={style.sps__list__info}>
-            Automatically selected for your payment.
-          </p>
           <Skeleton loading={isLoading}>
             {data
               ?.filter((item) => item.is_default)
-              .map((item) => (
-                <Fragment key={item.id}>
-                  <UserSealabsPay
-                    cardNumber={item.card_number}
-                    activeDate={item.active_date}
-                    nameOnCard={item.name_on_card}
-                    onDelete={() => {
-                      onDelete(Number(item.id));
-                    }}
-                    onSetDefault={() => {
-                      onSetDefault(Number(item.id));
-                    }}
-                    isDefault={item.is_default}
-                  />
-                </Fragment>
-              ))}
-          </Skeleton>
-        </div>
-        <div className={style.sps__list}>
-          <h4 className={style.sps__list__header}>Others</h4>
-          <p className={style.sps__list__info}>
-            You can set default payment account here.
-          </p>
-          <Skeleton loading={isLoading}>
-            {data
-              ?.filter((item) => !item.is_default)
+              .concat(data?.filter((item) => !item.is_default))
               .map((item, index) => (
                 <Fragment key={item.id}>
                   <UserSealabsPay
@@ -114,7 +91,7 @@ const SealabsPaySection: React.FC = () => {
                     }}
                     isDefault={item.is_default}
                   />
-                  {index < data.length - 2 && (
+                  {index < data.length - 1 && (
                     <Divider className={style.sps__list__divider} />
                   )}
                 </Fragment>

@@ -13,13 +13,14 @@ const MostPurchased: React.FC = () => {
     sort_dir: 'desc',
     sort_by: 'num_of_sale',
   });
+
   return (
     <div className={style.most__purchased}>
       <div className={style.most__purchased__title}>
         <h2 className={style.most__purchased__header}>
           Most Purchased Product
         </h2>
-        <Link to="/products" className={style.most__purchased__link}>
+        <Link to="products" className={style.most__purchased__link}>
           View all
         </Link>
       </div>

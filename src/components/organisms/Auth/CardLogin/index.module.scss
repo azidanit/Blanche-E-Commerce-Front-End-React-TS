@@ -44,4 +44,15 @@
   &__forget {
     text-align: right;
   }
+
+  &__google {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    &__icon {
+      margin: 0;
+      height: 0.875rem;
+    }
+  }
 }

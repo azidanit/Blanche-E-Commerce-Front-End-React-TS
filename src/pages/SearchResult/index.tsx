@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useAppSelector } from '../../app/hooks';
 import { ProductContent, SEO } from '../../components';
 import { FilterProduct } from '../../components';
@@ -19,6 +19,10 @@ const SearchResult: React.FC = () => {
       skip: isEmpty(params.search),
     },
   );
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [params.search.page]);
 
   const onSelectCategory = (selectedKeysValue: Key[]) => {
     searchParams.delete('page');

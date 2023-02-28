@@ -33,8 +33,23 @@ export const parseSearchParams = (searchParams: URLSearchParams): IParams => {
 export const deleteAllSearchParams = (
   searchParams: URLSearchParams,
 ): URLSearchParams => {
-  for (const key of searchParams.keys()) {
+  const keys = Array.from(searchParams.keys());
+  for (const key of keys) {
     if (key !== 'q') searchParams.delete(key);
   }
   return searchParams;
+};
+
+export const parseQueryString = (
+  searchParams: URLSearchParams,
+): { [key: string]: string } => {
+  const params: { [key: string]: string } = {};
+  const keys = Array.from(searchParams.keys());
+  keys.forEach((key) => {
+    const value = searchParams.get(key);
+    if (value) {
+      params[key] = value;
+    }
+  });
+  return params;
 };

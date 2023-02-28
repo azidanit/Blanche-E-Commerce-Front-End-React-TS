@@ -1,7 +1,7 @@
 import { Divider } from 'antd';
 import React from 'react';
 import { dateToYearMonth } from '../../../helpers/parseDate';
-import { Button } from '../../atoms';
+import { Badge, Button, Tag } from '../../atoms';
 import style from './index.module.scss';
 
 interface UserSealabsPayProps {
@@ -24,15 +24,22 @@ const UserSealabsPay: React.FC<UserSealabsPayProps> = ({
   return (
     <div className={style.usp}>
       <div className={style.usp__info}>
-        <div>
+        <div className={style.usp__info__top}>
           <p className={style.usp__info__number}>
             {nameOnCard}
             <span> - </span>
             {cardNumber.match(/.{1,4}/g)?.join(' ')}
           </p>
+          {isDefault && (
+            <Badge
+              className={style.card__address__badge}
+              count="Default"
+              color={'gray'}
+            />
+          )}
         </div>
         <p className={style.usp__info__active}>
-          Active until <span>{dateToYearMonth(new Date(activeDate))}</span>
+          Active until <span>{dateToYearMonth(new Date(activeDate), '/')}</span>
         </p>
       </div>
       <Button

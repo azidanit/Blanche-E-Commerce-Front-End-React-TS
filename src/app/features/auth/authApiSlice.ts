@@ -16,6 +16,7 @@ import {
   IForgetPasswordRequest,
   IVerifyForgetPasswordRequest,
   IResetForgetPasswordRequest,
+  ILoginGoogleResponse,
 } from '../../../helpers/types';
 import { apiSlice } from '../../api/apiSlice';
 
@@ -134,6 +135,15 @@ const authApi = apiSlice.injectEndpoints({
       transformResponse: (response: { data: null }) => response.data,
       transformErrorResponse: (response) => response.data,
     }),
+    requestLoginGoogle: build.mutation<ILoginGoogleResponse, void>({
+      query: () => ({
+        url: '/google/request-login',
+        method: 'GET',
+      }),
+      transformResponse: (response: { data: ILoginGoogleResponse }) =>
+        response.data,
+      transformErrorResponse: (response) => response.data,
+    }),
   }),
 });
 
@@ -151,4 +161,5 @@ export const {
   useForgetPasswordSendCodeMutation,
   useForgetPasswordVerifyCodeMutation,
   useResetForgetPasswordMutation,
+  useRequestLoginGoogleMutation,
 } = authApi;

@@ -30,6 +30,7 @@ const FilterSellerProduct: React.FC<FilterSellerProductProps> = ({
           onSelectCategory={onSelectCategory}
           selectedCategory={selectedCategory}
           categoriesData={categories.data}
+          skipFetch
         />
       ),
       key: 'category',

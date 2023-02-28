@@ -28,7 +28,7 @@ const useForm = ({
         password: password.trim(),
         fullname,
       };
-      await register(body);
+      await register(body).unwrap();
 
       navigate(from, { replace: true });
     } catch (error) {

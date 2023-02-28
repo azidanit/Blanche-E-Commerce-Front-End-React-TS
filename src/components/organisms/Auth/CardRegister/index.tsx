@@ -1,18 +1,31 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import style from './index.module.scss';
 import { Card } from '../../../atoms';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import FirstStep from './FirstStep';
 import SecondStep from './SecondStep';
+import {
+  deleteAllSearchParams,
+  parseQueryString,
+} from '../../../../helpers/parseSearchParams';
 
 const CardRegister: React.FC = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [step, setStep] = useState(1);
   const [email, setEmail] = useState('');
+  const qs = parseQueryString(searchParams);
 
   const handleNext = (newEmail: string) => {
-    setStep((prevValue) => prevValue + 1);
+    setStep(2);
     setEmail(newEmail);
   };
+
+  useEffect(() => {
+    if (qs.email && qs.name) {
+      handleNext(qs.email);
+      setSearchParams(deleteAllSearchParams(searchParams));
+    }
+  }, [qs]);
 
   const renderForm = () => {
     switch (step) {

@@ -19,6 +19,11 @@ export const rules = {
           if (value.split(' ').length > 1) {
             reject(new Error('Username cannot contain spaces.'));
           }
+          if (!/^[a-z0-9]+$/i.test(value)) {
+            reject(
+              new Error('Username can only contain alphanumeric characters.'),
+            );
+          }
           resolve();
         });
       },

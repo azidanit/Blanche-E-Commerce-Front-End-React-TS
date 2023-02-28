@@ -6,7 +6,7 @@ import { useGetProductsQuery } from '../../../../app/features/home/homeApiSlice'
 import { useAppSelector } from '../../../../app/hooks';
 import style from './index.module.scss';
 
-const limit = 30;
+const limit = 20;
 
 const ListProducts: React.FC = () => {
   const { store } = useParams();

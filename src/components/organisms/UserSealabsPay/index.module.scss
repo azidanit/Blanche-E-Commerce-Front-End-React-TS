@@ -9,6 +9,13 @@
     gap: 1rem;
     flex-wrap: wrap;
 
+    &__top {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
     &__delete {
       color: $red;
       padding: 0;

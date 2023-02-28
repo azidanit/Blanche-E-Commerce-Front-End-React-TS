@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useGetMerchantInfoQuery } from '../../app/features/merchant/merchantApiSlice';
+import { useAppSelector } from '../../app/hooks';
 import {
   Button,
   CardSellerProfile,
@@ -12,6 +13,11 @@ import style from './index.module.scss';
 const Seller: React.FC = () => {
   const params = useParams();
   const navigate = useNavigate();
+  const param = useAppSelector((state) => state.params);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [param.search.page]);
 
   const handleNavigate = () => {
     navigate('/', { replace: true });

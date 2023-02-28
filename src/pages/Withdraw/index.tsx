@@ -42,7 +42,6 @@ const Withdraw: React.FC = () => {
       message.success('Withdraw success');
     } catch (err) {
       setIsModalOpen(false);
-      console.log(err);
       message.error(capitalizeFirstLetter((err as IErrorResponse).message));
     }
   };
