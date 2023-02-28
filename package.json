@@ -73,5 +73,6 @@
     "*.{js,ts,tsx,json,md,html}": [
       "prettier --write"
     ]
-  }
+  },
+  "proxy": "https://staging.blanche.life/api/v1"
 }
