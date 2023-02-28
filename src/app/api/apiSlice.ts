@@ -49,7 +49,7 @@ export const apiSlice = createApi({
     'SLP',
     'Transaction',
     'Wallet',
-    'CartHome',
+    'Cart Home',
     'Delivery',
     'Merchant Transaction',
     'Merchant Transaction Detail',

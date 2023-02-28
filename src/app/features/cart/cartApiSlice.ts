@@ -27,7 +27,7 @@ const cartApi = apiSlice.injectEndpoints({
       }),
       transformResponse: (response: { data: ICartResponse }) => response.data,
       transformErrorResponse: (response) => response.data,
-      invalidatesTags: ['Cart', 'CartHome'],
+      invalidatesTags: ['Cart', 'Cart Home'],
     }),
     updateCarts: build.mutation<ICartResponse, IUpdateCartRequest[]>({
       query: (body) => ({
@@ -37,7 +37,7 @@ const cartApi = apiSlice.injectEndpoints({
       }),
       transformResponse: (response: { data: ICartResponse }) => response.data,
       transformErrorResponse: (response) => response.data,
-      invalidatesTags: ['Cart', 'CartHome'],
+      invalidatesTags: ['Cart', 'Cart Home'],
     }),
     updateCartItem: build.mutation<ICartResponse, IUpdateCartItemRequest>({
       query: (body) => ({
@@ -47,7 +47,7 @@ const cartApi = apiSlice.injectEndpoints({
       }),
       transformResponse: (response: { data: ICartResponse }) => response.data,
       transformErrorResponse: (response) => response.data,
-      invalidatesTags: ['Cart', 'CartHome'],
+      invalidatesTags: ['Cart', 'Cart Home'],
     }),
     deleteCartItem: build.mutation<ICartResponse, number>({
       query: (cart_item_id) => ({
@@ -56,7 +56,7 @@ const cartApi = apiSlice.injectEndpoints({
       }),
       transformResponse: (response: { data: ICartResponse }) => response.data,
       transformErrorResponse: (response) => response.data,
-      invalidatesTags: ['Cart', 'CartHome'],
+      invalidatesTags: ['Cart', 'Cart Home'],
     }),
     deleteSelectedCart: build.mutation<ICartResponse, void>({
       query: () => ({
@@ -65,7 +65,7 @@ const cartApi = apiSlice.injectEndpoints({
       }),
       transformResponse: (response: { data: ICartResponse }) => response.data,
       transformErrorResponse: (response) => response.data,
-      invalidatesTags: ['Cart'],
+      invalidatesTags: ['Cart', 'Cart Home'],
     }),
     getCartHome: build.query<ICartHomeResponse, void>({
       query: () => ({
@@ -75,7 +75,7 @@ const cartApi = apiSlice.injectEndpoints({
       transformResponse: (response: { data: ICartHomeResponse }) =>
         response.data,
       transformErrorResponse: (response) => response.data,
-      providesTags: ['CartHome'],
+      providesTags: ['Cart Home'],
     }),
   }),
 });

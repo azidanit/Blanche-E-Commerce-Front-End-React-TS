@@ -1,7 +1,7 @@
 import { InputNumberProps } from 'antd';
 import { valueType } from 'antd/es/statistic/utils';
 import React from 'react';
-import { Button, InputNumber } from '../../atoms';
+import { InputNumber } from '../../atoms';
 import style from './index.module.scss';
 import './override.scss';
 import classNames from 'classnames';

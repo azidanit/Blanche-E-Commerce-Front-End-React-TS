@@ -39,7 +39,7 @@ export const checkoutApi = apiSlice.injectEndpoints({
       }),
       transformResponse: (response: { data: IPayResponse }) => response.data,
       transformErrorResponse: (response) => response.data,
-      invalidatesTags: ['CartHome'],
+      invalidatesTags: ['Cart Home'],
     }),
   }),
 });

@@ -16,9 +16,11 @@ const ProductInfo: React.FC = () => {
           {product?.title} <br /> {variant?.key}{' '}
         </h3>
         <div className={style.product__info__rating}>
-          <span>Sold : {product?.unit_sold}</span>
-          <Rate value={product?.rating?.avg_rating} disabled /> (
-          {product?.rating?.count})
+          {product?.unit_sold !== 0 && <span>Sold : {product?.unit_sold}</span>}
+          {product?.rating?.avg_rating !== 0 && (
+            <Rate value={product?.rating?.avg_rating} disabled />
+          )}
+          {product?.rating.count !== 0 && product?.rating?.count}
         </div>
         <ProductPrice />
       </Skeleton>
