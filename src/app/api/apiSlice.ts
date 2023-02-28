@@ -56,6 +56,8 @@ export const apiSlice = createApi({
     'Merchant Transaction Detail',
     'Shipping',
     'Transaction Details',
+    'Reviews',
+    'Review',
     'Merchant Vouchers',
   ],
   endpoints: () => ({}),

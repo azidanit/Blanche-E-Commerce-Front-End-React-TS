@@ -19,27 +19,35 @@ const options = [...Array(4)].map((val, index) => {
   };
 });
 
-const Rating: React.FC = () => {
+interface RatingProps {
+  paramsQuery?: string;
+}
+
+const Rating: React.FC<RatingProps> = ({ paramsQuery = 'min_rating' }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const params = useAppSelector((state) => state.params);
 
   const onChange = (checkedValues: CheckboxValueType[]) => {
     searchParams.delete('page');
     if (!checkedValues.length) {
-      searchParams.delete('min_rating');
+      searchParams.delete(paramsQuery);
       setSearchParams(searchParams);
       return;
     }
     const lastValue = checkedValues[checkedValues.length - 1];
-    searchParams.set('min_rating', lastValue.toString());
+    searchParams.set(paramsQuery, lastValue.toString());
     setSearchParams(searchParams);
   };
   return (
     <CheckboxGroup
       options={options}
       onChange={onChange}
-      value={[(params.search.min_rating || '').toString()]}
-      defaultValue={[(params.search.min_rating || '').toString()]}
+      value={[
+        (params.search.min_rating || params.search.rating || '').toString(),
+      ]}
+      defaultValue={[
+        (params.search.min_rating || params.search.rating || '').toString(),
+      ]}
       className={style.rating}
     />
   );
