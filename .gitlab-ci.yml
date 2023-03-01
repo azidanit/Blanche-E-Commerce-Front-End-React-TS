@@ -12,7 +12,7 @@ deploy_dev:
   - ./setup_env.sh
   - apk add --no-cache nodejs npm
   - npm install
-  - npm run build
+  - CI=false npm run build
   - gcloud --quiet --project $PROJECT_ID app deploy dev-app.yaml dispatch.yaml
 
 after_script:
