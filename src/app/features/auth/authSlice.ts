@@ -13,8 +13,6 @@ interface StateProps {
 
 const cookie = new Cookies();
 
-console.log(cookie.get('is_logged_in'), 'hhhihihi');
-
 const initialState: StateProps = {
   user: null,
   merchant: null,
