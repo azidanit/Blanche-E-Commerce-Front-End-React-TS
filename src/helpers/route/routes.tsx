@@ -59,6 +59,7 @@ const ChangePin = lazy(() => import('../../pages/ChangePin'));
 const ForgetPassword = lazy(() => import('../../pages/ForgetPassword'));
 const SellerFund = lazy(() => import('../../pages/SellerFund'));
 const Withdraw = lazy(() => import('../../pages/Withdraw'));
+const Dashboard = lazy(() => import('../../pages/Dashboard'));
 
 export const router = createBrowserRouter([
   {
@@ -154,16 +155,11 @@ export const router = createBrowserRouter([
     element: <MerchantLayout />,
     children: [
       {
-        path: '/merchant',
+        path: '/merchant/orders',
         element: <Order />,
       },
       {
-        path: '/order',
-        element: <Order />,
-        children: [],
-      },
-      {
-        path: '/order/:invoice',
+        path: '/merchant/orders/:invoice',
         element: <OrderDetail />,
       },
       {
@@ -171,7 +167,6 @@ export const router = createBrowserRouter([
         element: <Voucher />,
         children: [],
       },
-
       {
         path: '/merchant/vouchers/edit/:code',
         element: <EditVoucher />,
@@ -216,7 +211,6 @@ export const router = createBrowserRouter([
         path: '/merchant/shipping',
         element: <Shipping />,
       },
-
       {
         path: '/merchant/address',
         element: <Address />,
@@ -228,6 +222,10 @@ export const router = createBrowserRouter([
       {
         path: '/merchant/payment/withdraw',
         element: <Withdraw />,
+      },
+      {
+        path: '/merchant',
+        element: <Dashboard />,
       },
     ],
   },
