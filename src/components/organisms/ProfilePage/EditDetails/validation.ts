@@ -2,7 +2,7 @@ import { Rule } from 'antd/es/form';
 
 export const rules = {
   fullname: [
-    { required: true, message: 'Fullname must be at least 2 characters long.' },
+    { required: true, message: 'Please input your fullname.' },
     { min: 2, message: 'Fullname must be at least 2 characters long.' },
     { max: 32, message: 'Fullname must be at most 32 characters long.' },
   ],
