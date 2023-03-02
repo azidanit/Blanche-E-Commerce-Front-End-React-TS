@@ -1,7 +1,7 @@
 import React from 'react';
-import { Image } from '../../../atoms';
 import style from './index.module.scss';
 import { IPromotionBanner } from '../../../../helpers/types';
+import classNames from 'classnames';
 
 interface CardBannerProps {
   banner: IPromotionBanner
@@ -9,13 +9,10 @@ interface CardBannerProps {
 
 const CardBanner: React.FC<CardBannerProps> = ({banner}) => {
   return (
-    <div className={style.card__banner}>
-      <Image
-        src={banner.image_url}
-        alt={"image promotion banner"}
-        className={style.card__banner__img}
-        imageClassName={style.card__banner__img__img}
-      />
+    <div  className={style.card__banner}>
+      <div style={{backgroundImage: `url(${banner.image_url})`}} 
+        className={classNames(style.card__banner__img)}>
+      </div>
       <div className={style.card__banner__content}>
         <h4>{banner.name}</h4>
         <p>

@@ -9,9 +9,10 @@
 
   &__img {
     max-width: 100%;
-    height: auto;
+    height: 100%;
+    width: 100%;
     background-size: cover;
-    background-position: center left;
+    background-position: center center;
     position: relative;
     z-index: 1;
 
