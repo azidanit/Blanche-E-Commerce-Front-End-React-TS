@@ -56,7 +56,7 @@ const MerchantLayout: React.FC = () => {
 
   if (!merchant && !isLoggedIn) {
     // TODO: redirect to login page
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
   return (

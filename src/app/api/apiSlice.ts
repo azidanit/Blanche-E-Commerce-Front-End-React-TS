@@ -60,6 +60,7 @@ export const apiSlice = createApi({
     'Reviews',
     'Review',
     'Merchant Vouchers',
+    'Merchant Profile',
   ],
   endpoints: () => ({}),
 });
