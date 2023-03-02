@@ -3,7 +3,12 @@ import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import { Layout, message } from 'antd';
 import Sidebar from '../../molecules/Sidebar';
 import style from './index.module.scss';
-import { Navigate, Outlet, useSearchParams } from 'react-router-dom';
+import {
+  Navigate,
+  Outlet,
+  useNavigate,
+  useSearchParams,
+} from 'react-router-dom';
 import './override.scss';
 import classNames from 'classnames';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
@@ -50,7 +55,8 @@ const MerchantLayout: React.FC = () => {
   }, [searchParams]);
 
   if (!merchant && !isLoggedIn) {
-    return <Navigate to="/login" state={{ from: location }} replace />;
+    // TODO: redirect to login page
+    return <Navigate to="/login" replace />;
   }
 
   return (

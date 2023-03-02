@@ -10,3 +10,4 @@ export * from './wallet.interface';
 export * from './params.interface';
 export * from './marketplace.interface';
 export * from './checkout.interface';
+export * from './merchant/dashboard.interface';

@@ -34,6 +34,7 @@ import ModalReview from './ModalReview';
 import ForgetPasswordPage from './ForgetPasswordPage';
 import SetNewPassword from './ForgetPasswordPage/SetNewPassword';
 import SellerFundPage from './SellerFundPage';
+import DashboardPage from './DashboardPage';
 
 export {
   CategoryCarousel,
@@ -63,4 +64,5 @@ export {
   ForgetPasswordPage,
   SetNewPassword,
   SellerFundPage,
+  DashboardPage,
 };

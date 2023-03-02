@@ -8,7 +8,7 @@ import { Menu } from '../..';
 import style from './index.module.scss';
 import { Logo, LogoIcon } from '../../atoms';
 import { Layout } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 interface SidebarProps {
   collapsed: boolean;
@@ -16,32 +16,37 @@ interface SidebarProps {
 
 const items = [
   {
-    key: '1',
+    key: '',
     icon: <UserOutlined />,
-    label: <Link to="/merchant">My Order</Link>,
+    label: <Link to="/merchant">Dashboard</Link>,
   },
   {
-    key: '2',
+    key: 'orders',
+    icon: <UserOutlined />,
+    label: <Link to="/merchant/orders">Orders</Link>,
+  },
+  {
+    key: 'products',
     icon: <VideoCameraOutlined />,
-    label: <Link to="/merchant/products">My Product</Link>,
+    label: <Link to="/merchant/products">Products</Link>,
   },
   {
-    key: '3',
+    key: 'shipping',
     icon: <UploadOutlined />,
     label: <Link to="/merchant/shipping">Shipping</Link>,
   },
   {
-    key: '4',
+    key: 'vouchers',
     icon: <UploadOutlined />,
-    label: <Link to="/merchant/vouchers">Voucher</Link>,
+    label: <Link to="/merchant/vouchers">Vouchers</Link>,
   },
   {
-    key: '5',
+    key: 'promotions',
     icon: <UploadOutlined />,
     label: <Link to="/merchant/promotions">Promotions</Link>,
   },
   {
-    key: '6',
+    key: 'address',
     icon: <UploadOutlined />,
     label: <Link to="/merchant/address">Address</Link>,
   },
@@ -49,6 +54,8 @@ const items = [
 const { Sider } = Layout;
 
 const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
+  const location = useLocation();
+  const lastPath = location.pathname.split('/').pop();
   return (
     <Sider
       trigger={null}
@@ -62,7 +69,12 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
       ) : (
         <Logo className={style.sidebar__logo} size="extrasmall" />
       )}
-      <Menu theme="light" className={style.sidebar__menu} items={items} />
+      <Menu
+        theme="light"
+        className={style.sidebar__menu}
+        defaultSelectedKeys={lastPath ? [lastPath] : ['']}
+        items={items}
+      />
     </Sider>
   );
 };
