@@ -22,3 +22,9 @@ export interface IErrorResponse {
   data: string;
   code: string;
 }
+
+export interface IGeneralResponse {
+  message: string;
+  code: string;
+  data: any;
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Divider } from 'antd';
+import { Row, Col } from 'antd';
 import style from './index.module.scss';
 import ProductDescription from './ProductDescription';
 import MerchantInfo from './MerchantInfo';
@@ -22,7 +22,7 @@ const ProductDetail: React.FC = () => {
       <Row className={style.product__detail} gutter={[32, 16]}>
         <Col xs={24} sm={24} md={24} lg={10} xl={10}>
           <ProductGallery />
-          <ProductAction />
+          <ProductAction product={product || undefined}/>
         </Col>
         <Col
           xs={24}

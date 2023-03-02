@@ -46,6 +46,7 @@ export const apiSlice = createApi({
     'Merchant',
     'Cart',
     'User',
+    'User Favorite Products',
     'Address',
     'SLP',
     'Transaction',

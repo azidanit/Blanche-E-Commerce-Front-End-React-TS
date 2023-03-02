@@ -33,8 +33,8 @@ const items: MenuProps['items'] = [
   {
     key: '4',
     label: (
-      <Link to="transactions" className={style.menu__profile__item}>
-        <p>Favorite Product</p>
+      <Link to="favorite-products" className={style.menu__profile__item}>
+        <p>My Favorite Products</p>
       </Link>
     ),
   },
