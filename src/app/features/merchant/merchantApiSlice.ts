@@ -264,7 +264,7 @@ export const merchantApi = apiSlice.injectEndpoints({
     updateMerchantProfile: build.mutation<null, FormData>({
       query: (body) => ({
         url: '/merchants/profile',
-        method: 'POST',
+        method: 'PATCH',
         body,
       }),
       transformResponse: (response: { data: null }) => response.data,

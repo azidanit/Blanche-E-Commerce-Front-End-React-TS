@@ -39,7 +39,7 @@ const EditProfile: React.FC<EditProfileProps> = ({
     >
       <div className={style.ea}>
         <div className={style.ea__header}>
-          <h5 className={style.ea__header__title}>Edit Details</h5>
+          <h5 className={style.ea__header__title}>Edit Profile</h5>
           <p className={style.ea__header__info}>
             Make sure the data is correct before submitting.
           </p>

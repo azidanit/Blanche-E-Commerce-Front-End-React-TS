@@ -20,28 +20,31 @@ interface CardAvatarProps {
   src: string;
 }
 
-const beforeUpload = (file: RcFile) => {
-  const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
-  if (!isJpgOrPng) {
-    message.error('You can only upload JPG/PNG file!');
-  }
-  const isLt2M = file.size / 1024 / 1024 < 2;
-  if (!isLt2M) {
-    message.error('Image must smaller than 2MB!');
-  }
-  return false;
-};
-
 const CardAvatar: React.FC<CardAvatarProps> = ({ src }) => {
   const isMobile = useMediaQuery('(max-width: 768px)');
   const [patch] = useUpdateMerchantProfileMutation();
   const [file, setFile] = useState<File>();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isError, setIsError] = useState(false);
+
+  const beforeUpload = (file: RcFile) => {
+    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+    if (!isJpgOrPng) {
+      message.error('You can only upload JPG/PNG file!');
+    }
+    const isLt2M = file.size / 1024 / 1024 < 2;
+    if (!isLt2M) {
+      message.error('Image must smaller than 2MB!');
+    }
+    setIsError(!isJpgOrPng || !isLt2M);
+    return false;
+  };
 
   const handleUpload: UploadProps['onChange'] = (
     info: UploadChangeParam<UploadFile>,
   ) => {
     setFile(info.fileList[0].originFileObj);
+    if (isError) return;
     showModal();
   };
 
