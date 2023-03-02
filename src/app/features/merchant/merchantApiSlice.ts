@@ -24,6 +24,7 @@ import {
   IGetVariantsByIDResponse,
   IUpdateProductStatusRequest,
 } from '../../../helpers/types/merchant/product.interface';
+import { IGetMerchantProfileResponse } from '../../../helpers/types/merchant/profile.interface';
 import { IWithdrawFundRequest } from '../../../helpers/types/merchant/wallet.interface';
 import { apiSlice } from '../../api/apiSlice';
 
@@ -47,6 +48,7 @@ export const merchantApi = apiSlice.injectEndpoints({
       transformResponse: (response: { data: IMerchantInfoResponse }) =>
         response.data,
       transformErrorResponse: (response) => response.data,
+      providesTags: ['Merchant Profile'],
     }),
     createMerchant: build.mutation<void, ICreateMerchantRequest>({
       query: (body) => ({
@@ -259,6 +261,16 @@ export const merchantApi = apiSlice.injectEndpoints({
       transformErrorResponse: (response) => response.data,
       invalidatesTags: ['Wallet'],
     }),
+    updateMerchantProfile: build.mutation<null, FormData>({
+      query: (body) => ({
+        url: '/merchants/profile',
+        method: 'PATCH',
+        body,
+      }),
+      transformResponse: (response: { data: null }) => response.data,
+      transformErrorResponse: (response) => response.data,
+      invalidatesTags: ['Merchant Profile'],
+    }),
   }),
 });
 
@@ -286,4 +298,5 @@ export const {
   useLazyGetMerchantProfileQuery,
   useUpdateProductStatusMutation,
   useWithdrawFundMutation,
+  useUpdateMerchantProfileMutation,
 } = merchantApi;

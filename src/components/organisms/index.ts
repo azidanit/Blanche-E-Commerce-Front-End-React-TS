@@ -35,6 +35,7 @@ import ForgetPasswordPage from './ForgetPasswordPage';
 import SetNewPassword from './ForgetPasswordPage/SetNewPassword';
 import SellerFundPage from './SellerFundPage';
 import DashboardPage from './DashboardPage';
+import MerchantProfile from './Merchant/Profile';
 
 export {
   CategoryCarousel,
@@ -65,4 +66,5 @@ export {
   SetNewPassword,
   SellerFundPage,
   DashboardPage,
+  MerchantProfile,
 };

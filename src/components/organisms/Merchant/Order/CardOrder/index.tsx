@@ -169,7 +169,7 @@ const CardOrder: React.FC<CardOrderProps> = ({ transaction }) => {
       <div className={style.card__order__actions}>
         <Link
           className={style.card__order__actions__link}
-          to={`/order/${transaction.invoice_code}`}
+          to={`/merchant/order/${transaction.invoice_code}`}
         >
           Detail Order
         </Link>

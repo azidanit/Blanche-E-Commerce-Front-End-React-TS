@@ -60,6 +60,7 @@ const ForgetPassword = lazy(() => import('../../pages/ForgetPassword'));
 const SellerFund = lazy(() => import('../../pages/SellerFund'));
 const Withdraw = lazy(() => import('../../pages/Withdraw'));
 const Dashboard = lazy(() => import('../../pages/Dashboard'));
+const MerchantProfile = lazy(() => import('../../pages/Merchant/Profile'));
 
 export const router = createBrowserRouter([
   {
@@ -190,9 +191,8 @@ export const router = createBrowserRouter([
         path: '/merchant/promotions/create',
         element: <AddPromotion />,
       },
-
       {
-        path: '/order/:invoice',
+        path: '/merchant/order/:invoice',
         element: <OrderDetail />,
       },
       {
@@ -226,6 +226,10 @@ export const router = createBrowserRouter([
       {
         path: '/merchant',
         element: <Dashboard />,
+      },
+      {
+        path: '/merchant/profile',
+        element: <MerchantProfile />,
       },
     ],
   },

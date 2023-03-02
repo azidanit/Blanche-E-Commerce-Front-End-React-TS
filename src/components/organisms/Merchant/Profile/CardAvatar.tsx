@@ -7,7 +7,6 @@ import {
 } from 'antd/es/upload';
 import React, { useState } from 'react';
 import { ModalHeader } from '../../..';
-import { usePatchProfileDetailsMutation } from '../../../../app/features/profile/profileApiSlice';
 import useMediaQuery from '../../../../hooks/useMediaQuery';
 import { Avatar, Button, Card } from '../../../atoms';
 import style from './index.module.scss';
@@ -15,6 +14,7 @@ import { Modal } from '../../../';
 import classNames from 'classnames';
 import { IErrorResponse } from '../../../../helpers/types/response.interface';
 import { capitalizeFirstLetter } from '../../../../helpers/capitalizeFirstLetter';
+import { useUpdateMerchantProfileMutation } from '../../../../app/features/merchant/merchantApiSlice';
 
 interface CardAvatarProps {
   src: string;
@@ -22,7 +22,7 @@ interface CardAvatarProps {
 
 const CardAvatar: React.FC<CardAvatarProps> = ({ src }) => {
   const isMobile = useMediaQuery('(max-width: 768px)');
-  const [patch] = usePatchProfileDetailsMutation();
+  const [patch] = useUpdateMerchantProfileMutation();
   const [file, setFile] = useState<File>();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -61,7 +61,7 @@ const CardAvatar: React.FC<CardAvatarProps> = ({ src }) => {
     try {
       if (!file) return;
       const formData = new FormData();
-      formData.append('profile_picture', file);
+      formData.append('image', file);
       await patch(formData).unwrap();
       setIsModalOpen(false);
     } catch (err) {
