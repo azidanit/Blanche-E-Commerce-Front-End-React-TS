@@ -15,6 +15,7 @@ const MerchantRegister = lazy(
 const Seller = lazy(() => import('../../pages/Seller'));
 const Cart = lazy(() => import('../../pages/Cart'));
 const Profile = lazy(() => import('../../pages/Profile'));
+const FavoriteProduct = lazy(() => import('../../pages/FavoriteProduct'));
 const Category = lazy(() => import('../../pages/Category'));
 const Recommendation = lazy(() => import('../../pages/Recommendation'));
 const SearchResult = lazy(() => import('../../pages/SearchResult'));
@@ -69,6 +70,11 @@ export const router = createBrowserRouter([
           {
             path: '/profile',
             element: <Profile />,
+          },
+
+          {
+            path: '/favorite-products',
+            element: <FavoriteProduct />,
           },
 
           {

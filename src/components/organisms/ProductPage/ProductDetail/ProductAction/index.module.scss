@@ -17,6 +17,11 @@
     border-radius: 0;
   }
 
+  &__fav_filled{
+    @extend .product__action__btn;
+    color: $red;
+  }
+
   &__modal {
     display: flex;
     align-items: center;

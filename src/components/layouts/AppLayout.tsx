@@ -18,7 +18,7 @@ const AppLayout = (): JSX.Element => {
   const fetchProfile = async () => {
     try {
       const result = await getProfile().unwrap();
-      console.log(result);
+      // console.log(result);
 
       if (result) {
         dispatch(setUser(result));
