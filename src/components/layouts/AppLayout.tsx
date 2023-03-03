@@ -7,9 +7,11 @@ import { Container, Nav } from '../molecules';
 import { useLazyGetProfileQuery } from '../../app/features/profile/profileApiSlice';
 import { setUser } from '../../app/features/auth/authSlice';
 import { message } from 'antd';
+import { IErrorResponse } from '../../helpers/types/response.interface';
+import { capitalizeFirstLetter } from '../../helpers/capitalizeFirstLetter';
 
 const AppLayout = (): JSX.Element => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const dispatch = useAppDispatch();
 
   const [getProfile, { isLoading }] = useLazyGetProfileQuery();
@@ -18,14 +20,13 @@ const AppLayout = (): JSX.Element => {
   const fetchProfile = async () => {
     try {
       const result = await getProfile().unwrap();
-      // console.log(result);
 
       if (result) {
         dispatch(setUser(result));
       }
     } catch (err) {
-      const error = err as Error;
-      message.error(error.message);
+      const error = err as IErrorResponse;
+      message.error(capitalizeFirstLetter(error.message));
     }
   };
 

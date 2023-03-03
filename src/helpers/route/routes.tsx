@@ -4,6 +4,7 @@ import ProtectedPage from '../../components/layouts/Auth/ProtectedPage';
 import AppLayout from '../../components/layouts/AppLayout';
 import MerchantLayout from '../../components/layouts/Merchant/MerchantLayout';
 import { SetNewPassword } from '../../components';
+import MerchantProtectedPage from '../../components/layouts/Auth/MerchantProtectedPage';
 
 const Home = lazy(() => import('../../pages/Home'));
 const Login = lazy(() => import('../../pages/Auth/Login'));
@@ -63,8 +64,31 @@ const Refund = lazy(() => import('../../pages/Refund'));
 const MerchantRefund = lazy(() => import('../../pages/Merchant/Refund'));
 const Dashboard = lazy(() => import('../../pages/Dashboard'));
 const MerchantProfile = lazy(() => import('../../pages/Merchant/Profile'));
+const Messages = lazy(() => import('../../pages/Messages'));
+const MerchantMessages = lazy(() => import('../../pages/Merchant/Messages'));
 
 export const router = createBrowserRouter([
+  {
+    element: <ProtectedPage />,
+    children: [
+      {
+        path: '/refund/:id/messages',
+        element: <Messages />,
+      },
+      {
+        path: '/wallet/topup/status',
+        element: <TopupStatus />,
+      },
+      {
+        path: '/transactions/:order_code/payment-status',
+        element: <PaymentStatus />,
+      },
+      {
+        path: '/payment/wallet',
+        element: <WalletPayment />,
+      },
+    ],
+  },
   {
     element: <AppLayout />,
     children: [
@@ -159,87 +183,101 @@ export const router = createBrowserRouter([
     ],
   },
   {
+    element: <MerchantProtectedPage />,
+    children: [
+      {
+        path: '/merchant/refund/:id/messages',
+        element: <MerchantMessages />,
+      },
+    ],
+  },
+  {
     element: <MerchantLayout />,
     children: [
       {
-        path: '/merchant/orders',
-        element: <Order />,
-      },
-      {
-        path: '/merchant/orders/:invoice',
-        element: <OrderDetail />,
-      },
-      {
-        path: '/merchant/vouchers',
-        element: <Voucher />,
-        children: [],
-      },
-      {
-        path: '/merchant/vouchers/edit/:code',
-        element: <EditVoucher />,
-        children: [],
-      },
-      {
-        path: '/merchant/vouchers/copy/:code',
-        element: <DuplicateVoucher />,
-        children: [],
-      },
-      {
-        path: '/merchant/vouchers/create',
-        element: <AddVoucher />,
-      },
-      {
-        path: '/merchant/promotions',
-        element: <Promotion />,
-        children: [],
-      },
-      {
-        path: '/merchant/promotions/create',
-        element: <AddPromotion />,
-      },
-      {
-        path: '/merchant/order/:invoice',
-        element: <OrderDetail />,
-      },
-      {
-        path: '/merchant/products/create',
-        element: <AddProduct />,
-      },
-      {
-        path: '/merchant/products/edit/:id',
-        element: <AddProduct />,
-      },
-      {
-        path: '/merchant/products',
-        element: <ProductList />,
-      },
-      {
-        path: '/merchant/shipping',
-        element: <Shipping />,
-      },
-      {
-        path: '/merchant/address',
-        element: <Address />,
-      },
-      {
-        path: '/merchant/payment',
-        element: <SellerFund />,
-      },
-      {
-        path: '/merchant/refund',
-        element: <MerchantRefund />,
-      },
-      {
-        path: '/merchant/payment/withdraw',
-        element: <Withdraw />,
-      },
-      {
-        path: '/merchant',
-        element: <Dashboard />,
-      },
-      {
-        path: '/merchant/profile',
-        element: <MerchantProfile />,
+        element: <MerchantProtectedPage />,
+        children: [
+          {
+            path: '/merchant/orders',
+            element: <Order />,
+          },
+          {
+            path: '/merchant/orders/:invoice',
+            element: <OrderDetail />,
+          },
+          {
+            path: '/merchant/vouchers',
+            element: <Voucher />,
+            children: [],
+          },
+          {
+            path: '/merchant/vouchers/edit/:code',
+            element: <EditVoucher />,
+            children: [],
+          },
+          {
+            path: '/merchant/vouchers/copy/:code',
+            element: <DuplicateVoucher />,
+            children: [],
+          },
+          {
+            path: '/merchant/vouchers/create',
+            element: <AddVoucher />,
+          },
+          {
+            path: '/merchant/promotions',
+            element: <Promotion />,
+            children: [],
+          },
+          {
+            path: '/merchant/promotions/create',
+            element: <AddPromotion />,
+          },
+          {
+            path: '/merchant/order/:invoice',
+            element: <OrderDetail />,
+          },
+          {
+            path: '/merchant/products/create',
+            element: <AddProduct />,
+          },
+          {
+            path: '/merchant/products/edit/:id',
+            element: <AddProduct />,
+          },
+          {
+            path: '/merchant/products',
+            element: <ProductList />,
+          },
+          {
+            path: '/merchant/shipping',
+            element: <Shipping />,
+          },
+          {
+            path: '/merchant/address',
+            element: <Address />,
+          },
+          {
+            path: '/merchant/payment',
+            element: <SellerFund />,
+          },
+          {
+            path: '/merchant/refund',
+            element: <MerchantRefund />,
+          },
+          {
+            path: '/merchant/payment/withdraw',
+            element: <Withdraw />,
+          },
+          {
+            path: '/merchant',
+            element: <Dashboard />,
+          },
+          {
+            path: '/merchant/profile',
+            element: <MerchantProfile />,
+          },
+        ],
       },
     ],
   },
@@ -251,22 +289,7 @@ export const router = createBrowserRouter([
     path: '/register',
     element: <Register />,
   },
-  {
-    path: '/wallet/topup/status',
-    element: <TopupStatus />,
-  },
-  {
-    path: '/transactions/:order_code/payment-status',
-    element: <PaymentStatus />,
-  },
-  {
-    path: '/payment/wallet',
-    element: <WalletPayment />,
-  },
-  {
-    path: '/transactions/:order_code/payment-status',
-    element: <PaymentStatus />,
-  },
+
   {
     path: '/reset-password',
     element: <ForgetPassword />,

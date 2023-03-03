@@ -24,6 +24,7 @@ import Menu from './Menu';
 import CardWallet from './MenuProfile/CardWallet';
 import Countdown from './Countdown';
 import ModalConfirm from './ModalConfirm';
+import Chat from './Chat';
 
 export {
   AuthSectionLeft,
@@ -52,4 +53,5 @@ export {
   CardWallet,
   Countdown,
   ModalConfirm,
+  Chat,
 };
