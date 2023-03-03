@@ -1,9 +1,9 @@
-import { EyeOutlined, StarOutlined } from '@ant-design/icons';
 import { message, Switch, Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import classNames from 'classnames';
 import { PaginationProps } from 'rc-pagination';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { MdOutlineShoppingBag } from 'react-icons/md';
 import { Link, useNavigate } from 'react-router-dom';
 import { Pagination } from '../../../..';
 import {
@@ -71,52 +71,21 @@ const columns: ColumnsType<Row> = [
 const ProductTable: React.FC<ProductTableProps> = ({ search }) => {
   const [page, setPage] = useState(1);
   const navigate = useNavigate();
-  const { data } = useGetProductListQuery({
+  const { data, isLoading: isLoadingGetProducts } = useGetProductListQuery({
     page,
     limit,
     q: search,
   });
-  const [updateStatus] = useUpdateProductStatusMutation();
-  const [deleteProduct, { isLoading }] = useDeleteProductMutation();
+  const [updateStatus, { isLoading: isLoadingUpdate }] =
+    useUpdateProductStatusMutation();
+  const [deleteProduct, { isLoading: isLoadingDelete }] =
+    useDeleteProductMutation();
   const [dataSource, setDataSource] = useState<Row[]>();
+  const [selectedProducts, setSelectedProducts] = useState<{
+    [key: string]: string[];
+  }>();
 
-  const onChange: PaginationProps['onChange'] = (page) => {
-    setPage(page);
-  };
-
-  const onDelete = async (item: IMerchantProductOverview) => {
-    try {
-      await deleteProduct(item.id).unwrap();
-      message.success(`Product ${item.title} is deleted`);
-    } catch (err) {
-      const error = err as IErrorResponse;
-      message.error(capitalizeFirstLetter(error.message));
-    }
-  };
-
-  const onEdit = (item: IMerchantProductOverview) => {
-    navigate(`/merchant/products/edit/${item.id}`);
-  };
-
-  const onUpdateStatus = async (
-    item: IMerchantProductOverview,
-    checked: boolean,
-  ) => {
-    try {
-      await updateStatus({
-        id: item.id,
-        is_archived: !checked,
-      }).unwrap();
-      message.success(
-        `Product ${item.title} is ${
-          item.is_archived ? 'unarchived' : 'archived'
-        }`,
-      );
-    } catch (err) {
-      const error = err as IErrorResponse;
-      message.error(capitalizeFirstLetter(error.message));
-    }
-  };
+  const isLoading = isLoadingGetProducts || isLoadingUpdate || isLoadingDelete;
 
   useEffect(() => {
     if (!data) return;
@@ -134,7 +103,7 @@ const ProductTable: React.FC<ProductTableProps> = ({ search }) => {
           ),
         status: (
           <Switch
-            defaultChecked={!item.is_archived}
+            checked={!item.is_archived}
             onClick={(checked: boolean) => {
               onUpdateStatus(item, checked);
             }}
@@ -158,15 +127,9 @@ const ProductTable: React.FC<ProductTableProps> = ({ search }) => {
         statistic: (
           <div className={style.pt__row__statistic} key={item.id}>
             <div className={style.pt__row__statistic__item}>
-              <EyeOutlined size={16} />
+              <MdOutlineShoppingBag size={16} />
               <span className={style.pt__row__statistic__item__value}>
                 {item.num_of_sale}
-              </span>
-            </div>
-            <div className={style.pt__row__statistic__item}>
-              <StarOutlined size={16} />
-              <span className={style.pt__row__statistic__item__value}>
-                {item.avg_rating}
               </span>
             </div>
           </div>
@@ -197,24 +160,163 @@ const ProductTable: React.FC<ProductTableProps> = ({ search }) => {
     setDataSource(res);
   }, [data]);
 
+  const onChange: PaginationProps['onChange'] = (page) => {
+    setPage(page);
+  };
+
+  const onDelete = async (item: IMerchantProductOverview) => {
+    try {
+      await deleteProduct(item.id.toString()).unwrap();
+      message.success(`Product ${item.title} is deleted`);
+    } catch (err) {
+      const error = err as IErrorResponse;
+      message.error(capitalizeFirstLetter(error.message));
+    }
+  };
+
+  const onEdit = (item: IMerchantProductOverview) => {
+    navigate(`/merchant/products/edit/${item.id}`);
+  };
+
+  const onUpdateStatus = async (
+    item: IMerchantProductOverview,
+    checked: boolean,
+  ) => {
+    try {
+      await updateStatus({
+        id: item.id.toString(),
+        is_archived: !checked,
+      }).unwrap();
+      message.success(
+        `Product ${item.title} is ${
+          item.is_archived ? 'unarchived' : 'archived'
+        }`,
+      );
+    } catch (err) {
+      const error = err as IErrorResponse;
+      message.error(capitalizeFirstLetter(error.message));
+    }
+  };
+
+  const onBulkUpdateStatus = async (is_archived: boolean) => {
+    try {
+      if (!selectedProducts) return;
+      const keys = Object.keys(selectedProducts);
+      const res = keys.map((key) => {
+        return selectedProducts[key].join(',');
+      });
+      const ids = res.join(',');
+      await updateStatus({
+        id: ids,
+        is_archived,
+      }).unwrap();
+      message.success('Products are archived');
+      setSelectedProducts({});
+    } catch (err) {
+      const error = err as IErrorResponse;
+      message.error(capitalizeFirstLetter(error.message));
+    }
+  };
+
+  const onBulkDelete = async () => {
+    try {
+      if (!selectedProducts) return;
+      const keys = Object.keys(selectedProducts);
+      const res = keys.map((key) => {
+        return selectedProducts[key].join(',');
+      });
+      const ids = res.join(',');
+      await deleteProduct(ids).unwrap();
+      message.success('Products are deleted');
+      setSelectedProducts({});
+    } catch (err) {
+      const error = err as IErrorResponse;
+      message.error(capitalizeFirstLetter(error.message));
+    }
+  };
+
+  const rowSelection = {
+    onChange: (selectedRowKeys: React.Key[]) => {
+      setSelectedProducts((prevValue) => ({
+        ...prevValue,
+        [page]: selectedRowKeys,
+      }));
+    },
+  };
+
+  const countSelectedLength = useCallback(() => {
+    if (!selectedProducts) return 0;
+    const keys = Object.keys(selectedProducts);
+    let total = 0;
+    keys.forEach((key) => {
+      total += selectedProducts[key].length;
+    });
+    return total;
+  }, [selectedProducts]);
+
   return (
-    <Card className={classNames(style.pt, 'pt')}>
-      <Table
-        columns={columns}
-        dataSource={dataSource}
-        pagination={false}
-        scroll={{ x: 800 }}
-      />
-      <div className={style.pt__pagination}>
-        <Pagination
-          total={data?.total_data}
-          pageSize={limit}
-          onChange={onChange}
-          current={page}
-          showSizeChanger={false}
+    <>
+      <Card className={classNames(style.pt, 'pt')}>
+        <Table
+          columns={columns}
+          dataSource={dataSource}
+          pagination={false}
+          scroll={{ x: 800 }}
+          rowSelection={{
+            type: 'checkbox',
+            ...rowSelection,
+            selectedRowKeys: selectedProducts?.[page]?.filter((item) =>
+              selectedProducts?.[page].includes(item),
+            ),
+          }}
+          loading={isLoading}
         />
-      </div>
-    </Card>
+        <div className={style.pt__pagination}>
+          <Pagination
+            total={data?.total_data}
+            pageSize={limit}
+            onChange={onChange}
+            current={page}
+            showSizeChanger={false}
+          />
+        </div>
+      </Card>
+      {countSelectedLength() ? (
+        <div className={style.pt__bulk}>
+          <p className={style.pt__bulk__count}>
+            {countSelectedLength()} / {data?.total_data} products selected
+          </p>
+          <Button
+            type="primary"
+            className={style.pt__bulk__active}
+            onClick={() => {
+              onBulkUpdateStatus(false);
+            }}
+          >
+            Activate
+          </Button>
+          <Button
+            type="primary"
+            ghost
+            className={style.pt__bulk__active}
+            onClick={() => {
+              onBulkUpdateStatus(true);
+            }}
+          >
+            Archive
+          </Button>
+          <Button
+            type="primary"
+            danger
+            ghost
+            className={style.pt__bulk__delete}
+            onClick={onBulkDelete}
+          >
+            Delete
+          </Button>
+        </div>
+      ) : null}
+    </>
   );
 };
 

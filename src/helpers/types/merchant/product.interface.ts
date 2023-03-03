@@ -74,5 +74,5 @@ export interface IGetVariantsByIDResponse {
 
 export interface IUpdateProductStatusRequest {
   is_archived: boolean;
-  id: number;
+  id: string;
 }
