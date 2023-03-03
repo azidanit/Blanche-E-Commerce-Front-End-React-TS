@@ -24,7 +24,6 @@ import {
   IGetVariantsByIDResponse,
   IUpdateProductStatusRequest,
 } from '../../../helpers/types/merchant/product.interface';
-import { IGetMerchantProfileResponse } from '../../../helpers/types/merchant/profile.interface';
 import { IWithdrawFundRequest } from '../../../helpers/types/merchant/wallet.interface';
 import { apiSlice } from '../../api/apiSlice';
 
@@ -179,7 +178,7 @@ export const merchantApi = apiSlice.injectEndpoints({
         response.data,
       transformErrorResponse: (response) => response.data,
     }),
-    deleteProduct: build.mutation<null, number>({
+    deleteProduct: build.mutation<null, string>({
       query: (id) => ({
         url: `/merchants/products/${id}`,
         method: 'DELETE',

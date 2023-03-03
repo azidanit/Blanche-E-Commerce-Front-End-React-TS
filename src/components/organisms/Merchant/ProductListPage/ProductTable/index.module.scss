@@ -39,4 +39,23 @@
     margin-top: 1rem;
     text-align: right;
   }
+  &__bulk {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 1.5rem;
+    position: sticky;
+    bottom: 0;
+    gap: 1rem;
+    box-shadow: $box-shadow;
+    padding: 1rem;
+    background-color: white;
+    z-index: 2;
+    border-top-right-radius: 1rem;
+    border-top-left-radius: 1rem;
+
+    &__count {
+      font-weight: $text-medium;
+    }
+  }
 }
