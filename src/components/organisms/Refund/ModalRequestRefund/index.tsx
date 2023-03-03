@@ -8,7 +8,9 @@ import Upload, {
 } from 'antd/es/upload';
 import React, { useState } from 'react';
 import { useMakeRequestRefundMutation } from '../../../../app/features/refund/refundApiSlice';
+import { capitalizeFirstLetter } from '../../../../helpers/capitalizeFirstLetter';
 import { IRequestRefund } from '../../../../helpers/types/refund.interface';
+import { IErrorResponse } from '../../../../helpers/types/response.interface';
 import { Button, FormLabel, TextArea } from '../../../atoms';
 import { Form, Modal, ModalConfirm, ModalHeader } from '../../../molecules';
 import style from './index.module.scss';
@@ -62,8 +64,8 @@ const ModalRequestRefund: React.FC<ModalRequestRefundProps> = ({
       message.success('Request refund success');
       handleCancel();
     } catch (err) {
-      const error = err as Error;
-      message.error(error.message);
+      const error = err as IErrorResponse;
+      message.error(capitalizeFirstLetter(error.message));
     }
   };
 

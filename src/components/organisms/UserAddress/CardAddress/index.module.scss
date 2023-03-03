@@ -26,7 +26,9 @@
 
   &__content {
     li {
+      line-height: 1.25rem;
       &:first-child {
+        margin-bottom: 0.25rem;
         font-size: 1.1rem;
         font-weight: $text-medium;
       }
@@ -37,6 +39,11 @@
     display: flex;
     justify-content: space-between;
     gap: 1rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
 
     &__left {
       display: flex;

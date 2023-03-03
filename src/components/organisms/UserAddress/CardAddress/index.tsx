@@ -12,6 +12,7 @@ import {
 import { notification } from 'antd';
 import { Popconfirm } from '../../..';
 import { QuestionCircleOutlined } from '@ant-design/icons';
+import { capitalizeFirstLetter } from '../../../../helpers/capitalizeFirstLetter';
 
 interface CardAddressProps {
   data: IUserAddress;
@@ -112,7 +113,7 @@ const CardAddress: React.FC<CardAddressProps> = ({ data }) => {
 
       notification.error({
         message: 'Error Set Default Address',
-        description: error.message,
+        description: capitalizeFirstLetter(error.message),
       });
     }
   };
@@ -132,7 +133,7 @@ const CardAddress: React.FC<CardAddressProps> = ({ data }) => {
 
       notification.error({
         message: 'Error Set Default Address',
-        description: error.message,
+        description: capitalizeFirstLetter(error.message),
       });
     }
   };

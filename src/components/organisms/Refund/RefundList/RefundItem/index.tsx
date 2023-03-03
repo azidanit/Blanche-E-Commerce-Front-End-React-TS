@@ -11,6 +11,7 @@ import {
 import { capitalizeFirstLetter } from '../../../../../helpers/capitalizeFirstLetter';
 import { dateToMinuteHourMonthStringDayYear } from '../../../../../helpers/parseDate';
 import { IRefundRequest } from '../../../../../helpers/types/refund.interface';
+import { IErrorResponse } from '../../../../../helpers/types/response.interface';
 import { Button, Card, Tag } from '../../../../atoms';
 import style from './index.module.scss';
 
@@ -71,8 +72,8 @@ const RefundItem: React.FC<RefundItemProps> = ({ refund }) => {
       );
       handleCloseModalAccept();
     } catch (error) {
-      const err = error as Error;
-      message.error(err.message);
+      const err = error as IErrorResponse;
+      message.error(capitalizeFirstLetter(err.message));
     }
   };
 
@@ -82,8 +83,8 @@ const RefundItem: React.FC<RefundItemProps> = ({ refund }) => {
       message.success('Reject refund request successfully');
       handleCloseModalReject();
     } catch (error) {
-      const err = error as Error;
-      message.error(err.message);
+      const err = error as IErrorResponse;
+      message.error(capitalizeFirstLetter(err.message));
     }
   };
 
@@ -93,8 +94,8 @@ const RefundItem: React.FC<RefundItemProps> = ({ refund }) => {
       message.success('Cancel refund request successfully');
       handleCloseModalCancel();
     } catch (error) {
-      const err = error as Error;
-      message.error(err.message);
+      const err = error as IErrorResponse;
+      message.error(capitalizeFirstLetter(err.message));
     }
   };
 

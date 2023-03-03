@@ -8,6 +8,7 @@ import { message } from 'antd';
 import { UpdateStatus } from '../../../Order/CardOrder/utils';
 import { EnumUpdateStatus } from '..';
 import { capitalizeFirstLetter } from '../../../../../../helpers/capitalizeFirstLetter';
+import { IErrorResponse } from '../../../../../../helpers/types/response.interface';
 
 const ComponentOnDelivery: React.FC<ComponentBasedOnStatusProps> = ({
   transaction,
@@ -35,7 +36,7 @@ const ComponentOnDelivery: React.FC<ComponentBasedOnStatusProps> = ({
       );
       handleCloseModal();
     } catch (e) {
-      const err = e as Error;
+      const err = e as IErrorResponse;
 
       message.error(capitalizeFirstLetter(err.message));
     }

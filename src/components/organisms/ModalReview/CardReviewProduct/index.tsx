@@ -4,10 +4,12 @@ import { RcFile, UploadChangeParam, UploadFile } from 'antd/es/upload';
 import React, { useEffect, useState } from 'react';
 import { Form } from '../../..';
 import { useAddProductReviewByInvCodeMutation } from '../../../../app/features/reviews/reviewsApiSlice';
+import { capitalizeFirstLetter } from '../../../../helpers/capitalizeFirstLetter';
 import {
   IGetTransactionDetailsResponse,
   ITransaction,
 } from '../../../../helpers/types';
+import { IErrorResponse } from '../../../../helpers/types/response.interface';
 import {
   IAddProductReviewRequest,
   IGetProductReviewByInvCodeResponse,
@@ -78,8 +80,8 @@ const CardReviewProduct: React.FC<CardReviewProductProps> = ({
       await addReview(formData).unwrap();
       message.success('Review Product Success');
     } catch (error) {
-      const err = error as Error;
-      message.error(err.message);
+      const err = error as IErrorResponse;
+      message.error(capitalizeFirstLetter(err.message));
     }
   };
 

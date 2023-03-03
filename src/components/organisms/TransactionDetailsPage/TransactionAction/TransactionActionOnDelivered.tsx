@@ -6,6 +6,7 @@ import { UpdateStatus } from '../../Merchant/Order/CardOrder/utils';
 import style from './index.module.scss';
 import { useUpdateTransactionStatusMutation } from '../../../../app/features/transactions/transactionsApiSlice';
 import { capitalizeFirstLetter } from '../../../../helpers/capitalizeFirstLetter';
+import { IErrorResponse } from '../../../../helpers/types/response.interface';
 
 interface TransactionActionProps {
   transaction: IGetTransactionDetailsResponse | undefined;
@@ -46,7 +47,7 @@ const TransactionActionOnDelivered: React.FC<TransactionActionProps> = ({
       );
       handleCloseModal();
     } catch (e) {
-      const err = e as Error;
+      const err = e as IErrorResponse;
 
       message.error(capitalizeFirstLetter(err.message));
     }

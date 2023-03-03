@@ -21,7 +21,9 @@ const MoreProducts: React.FC<MoreProductsProps> = ({ title, data, to }) => {
     <div className={style.seller__products}>
       <div className={style.seller__products__header}>
         <h2>{title}</h2>
-        <Link to={to}>View All</Link>
+        <Link to={to} className={style.seller__products__header__link}>
+          View All
+        </Link>
       </div>
       {data && <ListCardProduct data={data} />}
     </div>

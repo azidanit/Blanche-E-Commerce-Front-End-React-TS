@@ -14,6 +14,7 @@ import style from '../index.module.scss';
 import { UpdateStatus } from '../utils';
 import ReactToPrint, { useReactToPrint } from 'react-to-print';
 import { capitalizeFirstLetter } from '../../../../../../helpers/capitalizeFirstLetter';
+import { IErrorResponse } from '../../../../../../helpers/types/response.interface';
 
 const ComponentOnProcessed: React.FC<ComponentBasedOnStatusProps> = ({
   transaction,
@@ -62,7 +63,7 @@ const ComponentOnProcessed: React.FC<ComponentBasedOnStatusProps> = ({
       );
       handleCloseModal();
     } catch (e) {
-      const err = e as Error;
+      const err = e as IErrorResponse;
 
       message.error(capitalizeFirstLetter(err.message));
     }

@@ -7,8 +7,10 @@ import CardCouponSettings from './CardCouponSettings';
 import CardCouponType from './CardCouponType';
 import style from './index.module.scss';
 import useForms from './useForm';
-import { Form as AForm } from 'antd';
+import { Form as AForm, message } from 'antd';
 import dayjs from 'dayjs';
+import { capitalizeFirstLetter } from '../../../../../helpers/capitalizeFirstLetter';
+import { IErrorResponse } from '../../../../../helpers/types/response.interface';
 
 interface AddVoucherProps {
   isEdit?: boolean;
@@ -46,10 +48,9 @@ const AddVoucher: React.FC<AddVoucherProps> = ({
         min_order_nominal: voucher.min_order_nominal,
         quota: voucher.quota,
       });
-
-      console.log(voucher);
     } catch (err) {
-      console.log(err);
+      const error = err as IErrorResponse;
+      message.error(capitalizeFirstLetter(error.message));
     }
   };
 

@@ -16,6 +16,7 @@ import {
 } from '../../components';
 import { capitalizeFirstLetter } from '../../helpers/capitalizeFirstLetter';
 import { ICart, IUpdateCartRequest } from '../../helpers/types';
+import { IErrorResponse } from '../../helpers/types/response.interface';
 import useMediaQuery from '../../hooks/useMediaQuery';
 import style from './index.module.scss';
 
@@ -57,7 +58,7 @@ const Cart: React.FC = () => {
     try {
       await updateCarts(req).unwrap();
     } catch (e) {
-      const err = e as Error;
+      const err = e as IErrorResponse;
       notification.error({
         message: 'Error',
         description: capitalizeFirstLetter(err.message),
@@ -73,7 +74,7 @@ const Cart: React.FC = () => {
         description: 'Delete all carts successfully',
       });
     } catch (e) {
-      const err = e as Error;
+      const err = e as IErrorResponse;
       notification.error({
         message: 'Error',
         description: capitalizeFirstLetter(err.message),

@@ -2,6 +2,7 @@ import { message } from 'antd';
 import React, { useState } from 'react';
 import { Form } from '../../..';
 import { useConfirmChangePinMutation } from '../../../../app/features/wallet/walletApiSlice';
+import { capitalizeFirstLetter } from '../../../../helpers/capitalizeFirstLetter';
 import { IErrorResponse } from '../../../../helpers/types/response.interface';
 import { Button, FormLabel, InputPassword } from '../../../atoms';
 import style from './index.module.scss';
@@ -23,7 +24,7 @@ const ConfirmPassword: React.FC<ConfirmPasswordProps> = ({ handleNext }) => {
       handleNext();
     } catch (err) {
       const error = err as IErrorResponse;
-      message.error(error.message);
+      message.error(capitalizeFirstLetter(error.message));
     }
   };
 

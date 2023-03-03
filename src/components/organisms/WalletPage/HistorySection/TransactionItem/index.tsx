@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { dateToDayMonthStringYear } from '../../../../../helpers/parseDate';
+import { dateToMinuteHourMonthStringDayYear } from '../../../../../helpers/parseDate';
 import { toRupiah } from '../../../../../helpers/toRupiah';
 import { ITransactionOverview } from '../../../../../helpers/types';
 import style from './index.module.scss';
@@ -17,7 +17,10 @@ const TransactionItem: React.FC<TransactionItemProps> = ({ transaction }) => {
       <div className={style.ti__header}>
         <p className={style.ti__header__title}>{transaction.title}</p>
         <p className={style.ti__header__date}>
-          {dateToDayMonthStringYear(new Date(transaction.issued_at), ' ')}
+          {dateToMinuteHourMonthStringDayYear(
+            new Date(transaction.issued_at),
+            ' ',
+          )}
         </p>
       </div>
       <p className={style.ti__notes}>
