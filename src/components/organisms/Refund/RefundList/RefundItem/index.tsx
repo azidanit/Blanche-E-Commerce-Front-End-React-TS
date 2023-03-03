@@ -1,7 +1,7 @@
 import { Divider, Image, message } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { MdChatBubbleOutline } from 'react-icons/md';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ModalConfirm } from '../../../..';
 import {
   useUserApproveResultMutation,
@@ -9,10 +9,7 @@ import {
   useUserRejectResultMutation,
 } from '../../../../../app/features/refund/refundApiSlice';
 import { capitalizeFirstLetter } from '../../../../../helpers/capitalizeFirstLetter';
-import {
-  dateToDayMonthStringYear,
-  dateToMinuteHourMonthStringDayYear,
-} from '../../../../../helpers/parseDate';
+import { dateToMinuteHourMonthStringDayYear } from '../../../../../helpers/parseDate';
 import { IRefundRequest } from '../../../../../helpers/types/refund.interface';
 import { Button, Card, Tag } from '../../../../atoms';
 import style from './index.module.scss';
@@ -31,6 +28,7 @@ const mapStatusToColor = {
 };
 
 const RefundItem: React.FC<RefundItemProps> = ({ refund }) => {
+  const navigate = useNavigate();
   const [status, setStatus] = useState('waiting');
   const [isModalAcceptOpen, setIsModalAcceptOpen] = useState(false);
   const [isModalRejectOpen, setIsModalRejectOpen] = useState(false);
@@ -100,6 +98,10 @@ const RefundItem: React.FC<RefundItemProps> = ({ refund }) => {
     }
   };
 
+  const onNavigate = () => {
+    navigate(`/refund/${refund.id}/messages`);
+  };
+
   useEffect(() => {
     if (!refund.refund_request_statuses) {
       return;
@@ -161,7 +163,12 @@ const RefundItem: React.FC<RefundItemProps> = ({ refund }) => {
       <div className={style.ti__notes}>
         <p>
           Refund request for invoice{' '}
-          <span className={style.ti__invoice}>{refund.invoice_code}</span>
+          <Link
+            to={`/merchant/orders/${refund.invoice_code}`}
+            className={style.ti__invoice}
+          >
+            {refund.invoice_code}
+          </Link>
         </p>
       </div>
       <div className={style.ti__flex}>
@@ -246,9 +253,13 @@ const RefundItem: React.FC<RefundItemProps> = ({ refund }) => {
               />
             </>
           )}
-        <Button type="primary" className={style.ti__footer__chat}>
+        <Button
+          onClick={onNavigate}
+          type="primary"
+          className={style.ti__footer__chat}
+        >
           <MdChatBubbleOutline />
-          <Link to={`/refund/${refund.id}`}>Chat</Link>
+          <span>Chat</span>
         </Button>
       </div>
     </Card>

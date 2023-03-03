@@ -1,7 +1,7 @@
 import { Divider, Image } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { MdChatBubbleOutline } from 'react-icons/md';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { capitalizeFirstLetter } from '../../../../../../helpers/capitalizeFirstLetter';
 import { dateToMinuteHourMonthStringDayYear } from '../../../../../../helpers/parseDate';
 import { IRefundRequest } from '../../../../../../helpers/types/refund.interface';
@@ -36,6 +36,7 @@ enum RefundStatus {
 }
 
 const MerchantRefundItem: React.FC<MerchantRefundItemProps> = ({ refund }) => {
+  const navigate = useNavigate();
   const MapComponent: {
     [key: number]: React.ReactNode;
   } = {
@@ -54,6 +55,10 @@ const MerchantRefundItem: React.FC<MerchantRefundItemProps> = ({ refund }) => {
 
   const renderComponent = () => {
     return MapComponent[statusIdx];
+  };
+
+  const onNavigate = () => {
+    navigate(`/merchant/refund/${refund.id}/messages`);
   };
 
   useEffect(() => {
@@ -132,7 +137,12 @@ const MerchantRefundItem: React.FC<MerchantRefundItemProps> = ({ refund }) => {
       <div className={style.ti__notes}>
         <p>
           Refund request for invoice{' '}
-          <span className={style.ti__invoice}>{refund.invoice_code}</span>
+          <Link
+            to={`/merchant/orders/${refund.invoice_code}`}
+            className={style.ti__invoice}
+          >
+            {refund.invoice_code}
+          </Link>
         </p>
       </div>
       <div className={style.ti__flex}>
@@ -164,9 +174,13 @@ const MerchantRefundItem: React.FC<MerchantRefundItemProps> = ({ refund }) => {
 
       <div className={style.ti__footer}>
         {renderComponent()}
-        <Button type="primary" className={style.ti__footer__chat}>
+        <Button
+          onClick={onNavigate}
+          type="primary"
+          className={style.ti__footer__chat}
+        >
           <MdChatBubbleOutline />
-          <Link to={`/refund/${refund.id}`}>Chat</Link>
+          <span>Chat</span>
         </Button>
       </div>
     </Card>

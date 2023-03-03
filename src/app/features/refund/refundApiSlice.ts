@@ -1,5 +1,10 @@
 import { IParams } from '../../../helpers/types';
-import { IGetRefundResponse } from '../../../helpers/types/refund.interface';
+import {
+  IActionRefundResponse,
+  IGetRefundResponse,
+  IPostRefundMessageRequest,
+  IRefundMessageResponse,
+} from '../../../helpers/types/refund.interface';
 import { apiSlice } from '../../api/apiSlice';
 
 export const refundApiSlice = apiSlice.injectEndpoints({
@@ -25,21 +30,23 @@ export const refundApiSlice = apiSlice.injectEndpoints({
       transformErrorResponse: (response) => response.data,
       providesTags: ['Refunds'],
     }),
-    userApproveResult: build.mutation<void, number>({
+    userApproveResult: build.mutation<IActionRefundResponse, number>({
       query: (id) => ({
         url: `/users/refund-requests/${id}/accept`,
         method: 'POST',
       }),
-      transformResponse: (response: { data: void }) => response.data,
+      transformResponse: (response: { data: IActionRefundResponse }) =>
+        response.data,
       transformErrorResponse: (response) => response.data,
       invalidatesTags: ['Refunds'],
     }),
-    userRejectResult: build.mutation<void, number>({
+    userRejectResult: build.mutation<IActionRefundResponse, number>({
       query: (id) => ({
         url: `/users/refund-requests/${id}/reject`,
         method: 'POST',
       }),
-      transformResponse: (response: { data: void }) => response.data,
+      transformResponse: (response: { data: IActionRefundResponse }) =>
+        response.data,
       transformErrorResponse: (response) => response.data,
       invalidatesTags: ['Refunds'],
     }),
@@ -52,6 +59,26 @@ export const refundApiSlice = apiSlice.injectEndpoints({
       transformErrorResponse: (response) => response.data,
       invalidatesTags: ['Refunds'],
     }),
+    getMessageRefundRequest: build.query<IRefundMessageResponse, number>({
+      query: (id) => ({
+        url: `/users/refund-requests/${id}/messages`,
+        method: 'GET',
+      }),
+      transformResponse: (response: { data: IRefundMessageResponse }) =>
+        response.data,
+      transformErrorResponse: (response) => response.data,
+      providesTags: ['Message'],
+    }),
+    postMessageRefundRequest: build.mutation<null, IPostRefundMessageRequest>({
+      query: ({ id, ...body }) => ({
+        url: `/users/refund-requests/${id}/messages`,
+        method: 'POST',
+        body,
+      }),
+      transformResponse: (response: { data: null }) => response.data,
+      transformErrorResponse: (response) => response.data,
+      invalidatesTags: ['Message'],
+    }),
   }),
 });
 
@@ -61,4 +88,7 @@ export const {
   useUserApproveResultMutation,
   useUserRejectResultMutation,
   useUserCancelRefundMutation,
+  useLazyGetMessageRefundRequestQuery,
+  usePostMessageRefundRequestMutation,
+  useGetMessageRefundRequestQuery,
 } = refundApiSlice;

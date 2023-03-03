@@ -31,3 +31,44 @@ export interface IRefundStatus {
   accepted_by_admin_at?: string;
   rejected_by_admin_at?: string;
 }
+
+export interface IRefundMessageDetails {
+  buyer_username: string;
+  invoice_code: string;
+  merchant_domain: string;
+  closed_at: Date | null;
+}
+
+export interface IMessage {
+  id: number;
+  role: {
+    id: number;
+    name: string;
+  };
+  sender_name: string;
+  message: string;
+  image: string | null;
+  created_at: Date;
+}
+
+export interface IRefundMessageResponse {
+  messages: IMessage[];
+  details: IRefundMessageDetails;
+}
+
+export interface IPostRefundMessageRequest {
+  id: number;
+  message: string;
+}
+
+export interface IActionRefundResponse {
+  id: number;
+  invoice_code: string;
+}
+
+export interface IRefundMessageDetails {
+  buyer_username: string;
+  invoice_code: string;
+  merchant_domain: string;
+  closed_at: Date | null;
+}
