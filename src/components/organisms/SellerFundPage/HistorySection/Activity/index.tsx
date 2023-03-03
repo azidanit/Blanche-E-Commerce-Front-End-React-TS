@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { dateToDayMonthStringYear } from '../../../../../helpers/parseDate';
+import { dateToMinuteHourMonthStringDayYear } from '../../../../../helpers/parseDate';
 import { toRupiah } from '../../../../../helpers/toRupiah';
 import { IFundActivity } from '../../../../../helpers/types';
 import style from './index.module.scss';
@@ -19,7 +19,10 @@ const Activity: React.FC<ActivityProps> = ({ activity }) => {
           {activity.type === 'CR' ? 'Credit' : 'Debit'}
         </p>
         <p className={style.ti__header__date}>
-          {dateToDayMonthStringYear(new Date(activity.issued_at), ' ')}
+          {dateToMinuteHourMonthStringDayYear(
+            new Date(activity.issued_at),
+            ' ',
+          )}
         </p>
       </div>
       <p className={style.ti__notes}>
@@ -48,6 +51,7 @@ const Activity: React.FC<ActivityProps> = ({ activity }) => {
             : style.ti__amount__green
         }`}
       >
+        {activity.type !== 'CR' && '-'}
         {toRupiah(activity.amount)}
       </p>
     </div>

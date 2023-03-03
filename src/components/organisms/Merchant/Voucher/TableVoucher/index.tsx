@@ -8,7 +8,9 @@ import {
   useGetMerchantVouchersQuery,
 } from '../../../../../app/features/merchant/voucherApiSlice';
 import { useAppSelector } from '../../../../../app/hooks';
+import { capitalizeFirstLetter } from '../../../../../helpers/capitalizeFirstLetter';
 import { IVoucher } from '../../../../../helpers/types/merchant/voucher.interface';
+import { IErrorResponse } from '../../../../../helpers/types/response.interface';
 import { Button } from '../../../../atoms';
 import CardQuota from './CardQuota';
 import CardTimePeriod from './CardTimePerod';
@@ -73,8 +75,8 @@ const TableVoucher: React.FC = () => {
       handleCloseModal();
       message.success('Delete voucher success');
     } catch (e) {
-      const err = e as Error;
-      message.error(err.message);
+      const err = e as IErrorResponse;
+      message.error(capitalizeFirstLetter(err.message));
     }
   };
 

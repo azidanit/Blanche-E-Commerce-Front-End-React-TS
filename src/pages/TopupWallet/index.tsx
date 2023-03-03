@@ -159,9 +159,8 @@ const TopupWallet: React.FC = () => {
             className={style.choose__payment__modal__button}
             onClick={handleOpenModalSLP}
           >
-            Add Sealabs Pay account
+            Add Sealabs Pay Account
           </Button>
-
           <AddSealabsPay
             isModalOpen={isModalSLPOpen}
             handleCancel={handleCloseModalSLP}

@@ -16,6 +16,7 @@ import {
   IUserAddress,
   IVoucherMarketplaceResponse,
 } from '../../helpers/types';
+import { IErrorResponse } from '../../helpers/types/response.interface';
 import style from './index.module.scss';
 
 const Checkout: React.FC = () => {
@@ -51,7 +52,7 @@ const Checkout: React.FC = () => {
 
       setOrderSummary(order);
     } catch (e) {
-      const err = e as Error;
+      const err = e as IErrorResponse;
       message.error(capitalizeFirstLetter(err.message));
     }
   }, [checkoutSummary, address, merchant, mpVoucher]);

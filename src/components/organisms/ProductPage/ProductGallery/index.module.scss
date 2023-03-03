@@ -25,6 +25,10 @@
     flex-direction: row;
     flex-wrap: nowrap;
     overflow-x: scroll;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
 
     &__container {
       overflow: hidden;

@@ -4,6 +4,7 @@ import { ModalConfirm, ModalRequestRefund } from '../../..';
 import { useUpdateTransactionStatusMutation } from '../../../../app/features/transactions/transactionsApiSlice';
 import { capitalizeFirstLetter } from '../../../../helpers/capitalizeFirstLetter';
 import { ITransaction } from '../../../../helpers/types';
+import { IErrorResponse } from '../../../../helpers/types/response.interface';
 import { Button } from '../../../atoms';
 import { UpdateStatus } from '../../Merchant/Order/CardOrder/utils';
 import style from './index.module.scss';
@@ -47,7 +48,7 @@ const ComponentOnDelivered: React.FC<ComponentOnDeliveredProps> = ({
       );
       handleCloseModalRefund();
     } catch (e) {
-      const err = e as Error;
+      const err = e as IErrorResponse;
 
       message.error(capitalizeFirstLetter(err.message));
     }

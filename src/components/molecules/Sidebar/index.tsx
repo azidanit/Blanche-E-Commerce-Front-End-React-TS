@@ -1,71 +1,77 @@
 import {
-  UploadOutlined,
+  HomeOutlined,
+  SettingOutlined,
+  ShopOutlined,
+  ShoppingOutlined,
+  TagOutlined,
+  TagsOutlined,
   UserOutlined,
-  VideoCameraOutlined,
 } from '@ant-design/icons';
 import React from 'react';
 import { Menu } from '../..';
 import style from './index.module.scss';
 import { Logo, LogoIcon } from '../../atoms';
-import { Layout } from 'antd';
-import { Link, useLocation } from 'react-router-dom';
+import { Layout, MenuProps } from 'antd';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 interface SidebarProps {
   collapsed: boolean;
 }
 
+type MenuItem = Required<MenuProps>['items'][number];
+
+function getItem(
+  label: React.ReactNode,
+  key: React.Key,
+  icon?: React.ReactNode,
+  children?: MenuItem[],
+  type?: 'group',
+): MenuItem {
+  return {
+    key,
+    icon,
+    children,
+    label,
+    type,
+  } as MenuItem;
+}
+
 const items = [
-  {
-    key: '',
-    icon: <UserOutlined />,
-    label: <Link to="/merchant">Dashboard</Link>,
-  },
-  {
-    key: 'orders',
-    icon: <UserOutlined />,
-    label: <Link to="/merchant/orders">Orders</Link>,
-  },
-  {
-    key: 'products',
-    icon: <VideoCameraOutlined />,
-    label: <Link to="/merchant/products">Products</Link>,
-  },
-  {
-    key: 'shipping',
-    icon: <UploadOutlined />,
-    label: <Link to="/merchant/shipping">Shipping</Link>,
-  },
-  {
-    key: 'vouchers',
-    icon: <UploadOutlined />,
-    label: <Link to="/merchant/vouchers">Vouchers</Link>,
-  },
-  {
-    key: 'promotions',
-    icon: <UploadOutlined />,
-    label: <Link to="/merchant/promotions">Promotions</Link>,
-  },
-  {
-    key: 'address',
-    icon: <UploadOutlined />,
-    label: <Link to="/merchant/refund">Refund</Link>,
-  },
-  {
-    key: '7',
-    icon: <UploadOutlined />,
-    label: <Link to="/merchant/address">Address</Link>,
-  },
-  {
-    key: 'profile',
-    icon: <UploadOutlined />,
-    label: <Link to="/merchant/profile">Profile</Link>,
-  },
+  getItem('Home', '', <HomeOutlined />),
+  getItem('Profile', 'profile', <UserOutlined />),
+  getItem('Products', 'sub1', <ShopOutlined />, [
+    getItem('Product List', 'products'),
+    getItem('Create Product', 'products/create'),
+  ]),
+  getItem('Orders', 'orders', <ShoppingOutlined />),
+  getItem('Promotions', 'sub2', <TagOutlined />, [
+    getItem('Promotion List', 'promotions'),
+    getItem('Create Promotion', 'promotions/create'),
+  ]),
+  getItem('Vouchers', 'sub3', <TagsOutlined />, [
+    getItem('Voucher List', 'vouchers'),
+    getItem('Create Voucher', 'vouchers/create'),
+  ]),
+  getItem('Settings', 'sub4', <SettingOutlined />, [
+    getItem('Address', 'address'),
+    getItem('Shipping', 'shipping'),
+  ]),
 ];
+
 const { Sider } = Layout;
+
+const defaultOpenKeys = ['sub1', 'sub2', 'sub3', 'sub4'];
 
 const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
   const location = useLocation();
-  const lastPath = location.pathname.split('/').pop();
+  const navigate = useNavigate();
+  const lastPath = location.pathname.split('/').slice(2).join('/');
+  console.log(lastPath);
+
+  const onClick: MenuProps['onClick'] = (e) => {
+    navigate(`/merchant/${e.key}`);
+  };
+
   return (
     <Sider
       trigger={null}
@@ -82,8 +88,11 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
       <Menu
         theme="light"
         className={style.sidebar__menu}
-        defaultSelectedKeys={lastPath ? [lastPath] : ['']}
         items={items}
+        onClick={onClick}
+        mode="inline"
+        defaultOpenKeys={defaultOpenKeys}
+        defaultSelectedKeys={[lastPath || '']}
       />
     </Sider>
   );

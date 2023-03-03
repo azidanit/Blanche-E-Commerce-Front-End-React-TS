@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { PinInput } from 'react-input-pin-code';
 import { useNavigate } from 'react-router';
 import { useSetNewPinMutation } from '../../../../app/features/wallet/walletApiSlice';
+import { capitalizeFirstLetter } from '../../../../helpers/capitalizeFirstLetter';
 import { IErrorResponse } from '../../../../helpers/types/response.interface';
 import { Button } from '../../../atoms';
 import style from './index.module.scss';
@@ -23,7 +24,7 @@ const SetPin: React.FC = () => {
       navigate('/wallet');
     } catch (err) {
       const error = err as IErrorResponse;
-      message.error(error.message);
+      message.error(capitalizeFirstLetter(error.message));
     }
   };
 

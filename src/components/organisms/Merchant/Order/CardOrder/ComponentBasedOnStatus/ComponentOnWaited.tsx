@@ -7,6 +7,7 @@ import style from '../index.module.scss';
 import { UpdateStatus } from '../utils';
 import { ModalConfirm } from '../../../../..';
 import { capitalizeFirstLetter } from '../../../../../../helpers/capitalizeFirstLetter';
+import { IErrorResponse } from '../../../../../../helpers/types/response.interface';
 
 const ComponentOnWaited: React.FC<ComponentBasedOnStatusProps> = ({
   transaction,
@@ -43,7 +44,7 @@ const ComponentOnWaited: React.FC<ComponentBasedOnStatusProps> = ({
       );
       handleCloseModal();
     } catch (e) {
-      const err = e as Error;
+      const err = e as IErrorResponse;
 
       message.error(capitalizeFirstLetter(err.message));
     }
@@ -62,7 +63,7 @@ const ComponentOnWaited: React.FC<ComponentBasedOnStatusProps> = ({
 
       handleCloseModalDecline();
     } catch (e) {
-      const err = e as Error;
+      const err = e as IErrorResponse;
 
       message.error(capitalizeFirstLetter(err.message));
     }

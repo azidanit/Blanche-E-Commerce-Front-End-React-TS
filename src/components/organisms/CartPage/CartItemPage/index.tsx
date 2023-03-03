@@ -26,6 +26,7 @@ import { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { useGetProductVariantBySlugQuery } from '../../../../app/features/product/productApiSlice';
 import { IVariantItem } from '../../../../helpers/types';
 import { capitalizeFirstLetter } from '../../../../helpers/capitalizeFirstLetter';
+import { IErrorResponse } from '../../../../helpers/types/response.interface';
 
 interface CartItemProps {
   item: ICartItem;
@@ -78,7 +79,7 @@ const CartItemPage: React.FC<CartItemProps> = ({ item, isLoading }) => {
         is_checked: item.is_checked,
       }).unwrap();
     } catch (err) {
-      const e = err as Error;
+      const e = err as IErrorResponse;
       notification.error({
         message: 'Error',
         description: capitalizeFirstLetter(e.message),
@@ -95,7 +96,7 @@ const CartItemPage: React.FC<CartItemProps> = ({ item, isLoading }) => {
 
       await updateCarts([body]).unwrap();
     } catch (err) {
-      const e = err as Error;
+      const e = err as IErrorResponse;
 
       notification.error({
         message: 'Error',
@@ -113,7 +114,7 @@ const CartItemPage: React.FC<CartItemProps> = ({ item, isLoading }) => {
         is_checked: item.is_checked,
       }).unwrap();
     } catch (err) {
-      const e = err as Error;
+      const e = err as IErrorResponse;
       notification.error({
         message: 'Error',
         description: capitalizeFirstLetter(e.message),
@@ -141,7 +142,7 @@ const CartItemPage: React.FC<CartItemProps> = ({ item, isLoading }) => {
         is_checked: item.is_checked,
       }).unwrap();
     } catch (err) {
-      const e = err as Error;
+      const e = err as IErrorResponse;
       notification.error({
         message: 'Error',
         description: capitalizeFirstLetter(e.message),
@@ -158,7 +159,7 @@ const CartItemPage: React.FC<CartItemProps> = ({ item, isLoading }) => {
         is_checked: item.is_checked,
       }).unwrap();
     } catch (err) {
-      const e = err as Error;
+      const e = err as IErrorResponse;
       notification.error({
         message: 'Error',
         description: capitalizeFirstLetter(e.message),
@@ -174,7 +175,7 @@ const CartItemPage: React.FC<CartItemProps> = ({ item, isLoading }) => {
         description: 'Item deleted from cart',
       });
     } catch (err) {
-      const e = err as Error;
+      const e = err as IErrorResponse;
       notification.error({
         message: 'Error',
         description: capitalizeFirstLetter(e.message),

@@ -2,11 +2,12 @@ import { Button, message } from 'antd';
 import { CheckboxValueType } from 'antd/es/checkbox/Group';
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
-import { CheckboxGroup } from '../../../..';
+import { CheckboxGroup, ModalConfirm } from '../../../..';
 import {
   useGetShippingOptionsQuery,
   usePutShippingOptionsMutation,
 } from '../../../../../app/features/merchant/merchantApiSlice';
+import { capitalizeFirstLetter } from '../../../../../helpers/capitalizeFirstLetter';
 import { IShippingOption } from '../../../../../helpers/types';
 import { IErrorResponse } from '../../../../../helpers/types/response.interface';
 import ShippingCard from '../ShippingCard';
@@ -15,6 +16,7 @@ import './override.scss';
 
 const ShippingList: React.FC = () => {
   const [values, setValues] = useState<IShippingOption[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { data, isLoading } = useGetShippingOptionsQuery();
   const [putShippingOptions, { isLoading: isLoadingSave }] =
     usePutShippingOptionsMutation();
@@ -51,10 +53,19 @@ const ShippingList: React.FC = () => {
     try {
       await putShippingOptions(values).unwrap();
       message.success('Success updating shipping options');
+      setIsModalOpen(false);
     } catch (err) {
       const error = err as IErrorResponse;
-      message.error(error.message);
+      message.error(capitalizeFirstLetter(error.message));
     }
+  };
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -71,12 +82,22 @@ const ShippingList: React.FC = () => {
       )}
       <Button
         type="primary"
-        loading={isLoadingSave}
-        onClick={onSave}
+        onClick={handleOpenModal}
         className={style.sl__button}
+        loading={isLoading}
       >
         Save
       </Button>
+      <ModalConfirm
+        isModalOpen={isModalOpen}
+        title="Edit Shipping Options"
+        info="Are you sure you want to change the shipping options?"
+        handleOk={onSave}
+        handleCancel={handleCloseModal}
+        cancelButton={true}
+        closable={true}
+        confirmButtonProps={{ loading: isLoadingSave }}
+      />
     </div>
   );
 };

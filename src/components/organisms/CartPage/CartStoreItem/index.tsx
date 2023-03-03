@@ -2,7 +2,9 @@ import { notification, Skeleton, Spin } from 'antd';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
 import React, { useEffect, useState } from 'react';
 import { useUpdateCartsMutation } from '../../../../app/features/cart/cartApiSlice';
+import { capitalizeFirstLetter } from '../../../../helpers/capitalizeFirstLetter';
 import { ICart, ICartItem } from '../../../../helpers/types';
+import { IErrorResponse } from '../../../../helpers/types/response.interface';
 import useMediaQuery from '../../../../hooks/useMediaQuery';
 import { Avatar, Card } from '../../../atoms';
 import { Checkbox } from '../../../molecules';
@@ -50,11 +52,11 @@ const CartStoreItem: React.FC<CartStoreItemProps> = ({ cart, isLoading }) => {
     try {
       updateCarts(body).unwrap();
     } catch (err) {
-      const e = err as Error;
+      const e = err as IErrorResponse;
 
       notification.error({
         message: 'Error',
-        description: e.message,
+        description: capitalizeFirstLetter(e.message),
       });
     }
   };

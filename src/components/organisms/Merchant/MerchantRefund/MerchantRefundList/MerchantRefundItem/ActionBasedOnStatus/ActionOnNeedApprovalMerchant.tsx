@@ -7,7 +7,9 @@ import {
   useMerchantAcceptRequestMutation,
   useMerchantRejectRequestMutation,
 } from '../../../../../../../app/features/merchant/refundApiSlice';
+import { capitalizeFirstLetter } from '../../../../../../../helpers/capitalizeFirstLetter';
 import { IRefundRequest } from '../../../../../../../helpers/types/refund.interface';
+import { IErrorResponse } from '../../../../../../../helpers/types/response.interface';
 import style from '../index.module.scss';
 
 interface ActionProps {
@@ -45,8 +47,8 @@ const ActionOnNeedApprovalMerchant: React.FC<ActionProps> = ({ refund }) => {
       );
       handleCloseModalAccept();
     } catch (error) {
-      const err = error as Error;
-      message.error(err.message);
+      const err = error as IErrorResponse;
+      message.error(capitalizeFirstLetter(err.message));
     }
   };
 
@@ -56,8 +58,8 @@ const ActionOnNeedApprovalMerchant: React.FC<ActionProps> = ({ refund }) => {
       message.success('Reject refund request successfully');
       handleCloseModalReject();
     } catch (error) {
-      const err = error as Error;
-      message.error(err.message);
+      const err = error as IErrorResponse;
+      message.error(capitalizeFirstLetter(err.message));
     }
   };
   return (

@@ -4,6 +4,8 @@ import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { setMerchant } from '../../../app/features/auth/authSlice';
 import { useLazyGetMerchantProfileQuery } from '../../../app/features/merchant/merchantApiSlice';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import { capitalizeFirstLetter } from '../../../helpers/capitalizeFirstLetter';
+import { IErrorResponse } from '../../../helpers/types/response.interface';
 
 const MerchantProtectedPage = (): JSX.Element => {
   const location = useLocation();
@@ -22,14 +24,13 @@ const MerchantProtectedPage = (): JSX.Element => {
   const fetchProfile = async () => {
     try {
       const result = await getMerchantProfile().unwrap();
-      console.log(result);
 
       if (result) {
         dispatch(setMerchant(result));
       }
     } catch (err) {
-      const error = err as Error;
-      message.error(error.message);
+      const error = err as IErrorResponse;
+      message.error(capitalizeFirstLetter(error.message));
     }
   };
 
