@@ -48,6 +48,11 @@ const items = [
   {
     key: 'address',
     icon: <UploadOutlined />,
+    label: <Link to="/merchant/refund">Refund</Link>,
+  },
+  {
+    key: '7',
+    icon: <UploadOutlined />,
     label: <Link to="/merchant/address">Address</Link>,
   },
   {

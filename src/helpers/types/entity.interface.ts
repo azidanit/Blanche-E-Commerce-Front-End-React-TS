@@ -248,6 +248,7 @@ export interface ITransactionStatus {
   on_delivered_at: Date | null;
   on_completed_at: Date | null;
   on_canceled_at: Date | null;
+  on_request_refund_at: Date | null;
   on_refunded_at: Date | null;
 }
 

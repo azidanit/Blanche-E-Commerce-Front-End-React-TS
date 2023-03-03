@@ -16,6 +16,7 @@ import { CardOrderProps, mapStatusToColor, OrderStatus } from './utils';
 import { Link } from 'react-router-dom';
 import ComponentOnDelivered from './ComponentBasedOnStatus/ComponentOnDelivered';
 import ComponentOnCompleted from './ComponentBasedOnStatus/ComponentOnCompleted';
+import ComponentOnRequestRefund from './ComponentBasedOnStatus/ComponentOnRequestRefund';
 
 const CardOrder: React.FC<CardOrderProps> = ({ transaction }) => {
   const MapComponent: {
@@ -37,9 +38,7 @@ const CardOrder: React.FC<CardOrderProps> = ({ transaction }) => {
     [OrderStatus.TransactionStatusDelivered]: (
       <ComponentOnDelivered transaction={transaction} />
     ),
-    [OrderStatus.TransactionStatusRequestRefund]: (
-      <ComponentOnDelivery transaction={transaction} />
-    ),
+    [OrderStatus.TransactionStatusRequestRefund]: <ComponentOnRequestRefund />,
     [OrderStatus.TransactionStatusOnCompleted]: (
       <ComponentOnCompleted transaction={transaction} />
     ),
@@ -74,6 +73,10 @@ const CardOrder: React.FC<CardOrderProps> = ({ transaction }) => {
       setStatusIdx(OrderStatus.TransactionStatusDelivered);
 
       return;
+    }
+    if (transaction.transaction_status.on_request_refund_at) {
+      setStatus('request refund');
+      setStatusIdx(OrderStatus.TransactionStatusRequestRefund);
     }
 
     if (

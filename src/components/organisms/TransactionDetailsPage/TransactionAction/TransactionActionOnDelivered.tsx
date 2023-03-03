@@ -1,6 +1,6 @@
 import { Divider, message } from 'antd';
 import React, { useState } from 'react';
-import { ModalConfirm, Button } from '../../..';
+import { ModalConfirm, Button, ModalRequestRefund } from '../../..';
 import { IGetTransactionDetailsResponse } from '../../../../helpers/types';
 import { UpdateStatus } from '../../Merchant/Order/CardOrder/utils';
 import style from './index.module.scss';
@@ -15,7 +15,7 @@ const TransactionActionOnDelivered: React.FC<TransactionActionProps> = ({
   transaction,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isModalDeclineOpen, setIsModalDeclineOpen] = useState(false);
+  const [isModalRefundOpen, setIsModalRefundOpen] = useState(false);
   const [updateOrderStatus, { isLoading }] =
     useUpdateTransactionStatusMutation();
 
@@ -24,15 +24,15 @@ const TransactionActionOnDelivered: React.FC<TransactionActionProps> = ({
   };
 
   const handleOpenModalRequestRefund = () => {
-    setIsModalDeclineOpen(true);
+    setIsModalRefundOpen(true);
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
 
-  const handleCloseModalDecline = () => {
-    setIsModalDeclineOpen(false);
+  const handleCloseModalRefund = () => {
+    setIsModalRefundOpen(false);
   };
 
   const handleProcess = async () => {
@@ -67,7 +67,6 @@ const TransactionActionOnDelivered: React.FC<TransactionActionProps> = ({
           <Button
             type="primary"
             ghost
-            danger
             size="large"
             onClick={handleOpenModalRequestRefund}
           >
@@ -86,15 +85,11 @@ const TransactionActionOnDelivered: React.FC<TransactionActionProps> = ({
         cancelButton={true}
         confirmButtonProps={{ loading: isLoading }}
       />
-      <ModalConfirm
-        isModalOpen={isModalDeclineOpen}
-        handleCancel={handleCloseModalDecline}
-        handleOk={handleRequestRefund}
-        title="Request Refund"
-        info=" Are you sure to request refund for this order? "
-        confirmButtonText="Request"
-        cancelButton={true}
-        confirmButtonProps={{ loading: isLoading, danger: true }}
+
+      <ModalRequestRefund
+        isModalOpen={isModalRefundOpen}
+        handleCancel={handleCloseModalRefund}
+        invoice_code={transaction?.invoice_code || ''}
       />
     </>
   );

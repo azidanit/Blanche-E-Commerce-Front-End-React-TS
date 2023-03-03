@@ -1,6 +1,6 @@
 import { message } from 'antd';
 import React, { useState } from 'react';
-import { ModalConfirm } from '../../..';
+import { ModalConfirm, ModalRequestRefund } from '../../..';
 import { useUpdateTransactionStatusMutation } from '../../../../app/features/transactions/transactionsApiSlice';
 import { capitalizeFirstLetter } from '../../../../helpers/capitalizeFirstLetter';
 import { ITransaction } from '../../../../helpers/types';
@@ -16,7 +16,7 @@ const ComponentOnDelivered: React.FC<ComponentOnDeliveredProps> = ({
   transaction,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isModalDeclineOpen, setIsModalDeclineOpen] = useState(false);
+  const [isModalRefundOpen, setIsModalRefundOpen] = useState(false);
   const [updateOrderStatus, { isLoading }] =
     useUpdateTransactionStatusMutation();
 
@@ -25,15 +25,15 @@ const ComponentOnDelivered: React.FC<ComponentOnDeliveredProps> = ({
   };
 
   const handleOpenModalRequestRefund = () => {
-    setIsModalDeclineOpen(true);
+    setIsModalRefundOpen(true);
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
 
-  const handleCloseModalDecline = () => {
-    setIsModalDeclineOpen(false);
+  const handleCloseModalRefund = () => {
+    setIsModalRefundOpen(false);
   };
 
   const handleProcess = async () => {
@@ -45,16 +45,12 @@ const ComponentOnDelivered: React.FC<ComponentOnDeliveredProps> = ({
       message.success(
         'Order has been completed. You can see the detail in the Completed tab.',
       );
-      handleCloseModal();
+      handleCloseModalRefund();
     } catch (e) {
       const err = e as Error;
 
       message.error(capitalizeFirstLetter(err.message));
     }
-  };
-
-  const handleRequestRefund = async () => {
-    console.log('request refund');
   };
 
   return (
@@ -81,15 +77,10 @@ const ComponentOnDelivered: React.FC<ComponentOnDeliveredProps> = ({
         cancelButton={true}
         confirmButtonProps={{ loading: isLoading }}
       />
-      <ModalConfirm
-        isModalOpen={isModalDeclineOpen}
-        handleCancel={handleCloseModalDecline}
-        handleOk={handleRequestRefund}
-        title="Request Refund"
-        info=" Are you sure to request refund for this order? "
-        confirmButtonText="Request"
-        cancelButton={true}
-        confirmButtonProps={{ loading: isLoading, danger: true }}
+      <ModalRequestRefund
+        isModalOpen={isModalRefundOpen}
+        handleCancel={handleCloseModalRefund}
+        invoice_code={transaction.invoice_code}
       />
     </div>
   );
