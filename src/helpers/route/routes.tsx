@@ -59,6 +59,8 @@ const ChangePin = lazy(() => import('../../pages/ChangePin'));
 const ForgetPassword = lazy(() => import('../../pages/ForgetPassword'));
 const SellerFund = lazy(() => import('../../pages/SellerFund'));
 const Withdraw = lazy(() => import('../../pages/Withdraw'));
+const Refund = lazy(() => import('../../pages/Refund'));
+const MerchantRefund = lazy(() => import('../../pages/Merchant/Refund'));
 const Dashboard = lazy(() => import('../../pages/Dashboard'));
 const MerchantProfile = lazy(() => import('../../pages/Merchant/Profile'));
 
@@ -98,6 +100,10 @@ export const router = createBrowserRouter([
           {
             path: '/transactions',
             element: <Transactions />,
+          },
+          {
+            path: '/refund',
+            element: <Refund />,
           },
           {
             path: '/transactions/:invoice',
@@ -218,6 +224,10 @@ export const router = createBrowserRouter([
       {
         path: '/merchant/payment',
         element: <SellerFund />,
+      },
+      {
+        path: '/merchant/refund',
+        element: <MerchantRefund />,
       },
       {
         path: '/merchant/payment/withdraw',

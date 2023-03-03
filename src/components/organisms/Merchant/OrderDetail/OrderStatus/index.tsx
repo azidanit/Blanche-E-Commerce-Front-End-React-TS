@@ -11,6 +11,7 @@ import ComponentOnCanceled from './ComponentBasedOnStatus/ComponentOnCanceled';
 import ComponentOnProcessed from './ComponentBasedOnStatus/ComponentOnProcessed';
 import ComponentOnWaited from './ComponentBasedOnStatus/ComponentOnWaited';
 import ComponentOnCompleted from './ComponentBasedOnStatus/ComponentOnCompleted';
+import ComponentOnRequestRefund from './ComponentBasedOnStatus/ComponentOnRequestRefund';
 
 export enum EnumOrderStatus {
   TransactionStatusWaited = 1,
@@ -41,6 +42,7 @@ interface ShippingDetailsProps {
 const OrderStatus: React.FC<ShippingDetailsProps> = ({ transaction }) => {
   const [current, setCurrent] = useState(-1);
   const [isCanceled, setIsCanceled] = useState(false);
+  const [isRefund, setIsRefund] = useState(false);
 
   const MapComponent: {
     [key: number]: React.ReactNode;
@@ -62,7 +64,7 @@ const OrderStatus: React.FC<ShippingDetailsProps> = ({ transaction }) => {
       <ComponentOnDelivery transaction={transaction} />
     ),
     [EnumOrderStatus.TransactionStatusRequestRefund]: (
-      <ComponentOnDelivery transaction={transaction} />
+      <ComponentOnRequestRefund transaction={transaction} />
     ),
     [EnumOrderStatus.TransactionStatusOnCompleted]: (
       <ComponentOnCompleted transaction={transaction} />
@@ -88,6 +90,19 @@ const OrderStatus: React.FC<ShippingDetailsProps> = ({ transaction }) => {
     if (transaction.transaction_status.on_completed_at) {
       setCurrent(4);
       setStatusIdx(EnumOrderStatus.TransactionStatusOnCompleted);
+      return;
+    }
+    if (transaction.transaction_status.on_refunded_at) {
+      setCurrent(4);
+      setIsRefund(true);
+      setStatusIdx(EnumOrderStatus.TransactionStatusOnRefund);
+      return;
+    }
+
+    if (transaction.transaction_status.on_request_refund_at) {
+      setCurrent(3);
+      setIsRefund(true);
+      setStatusIdx(EnumOrderStatus.TransactionStatusRequestRefund);
       return;
     }
 
@@ -175,6 +190,59 @@ const OrderStatus: React.FC<ShippingDetailsProps> = ({ transaction }) => {
     },
   ];
 
+  const itemsRefund: StepProps[] = [
+    {
+      title: 'Order Created',
+      description: transaction.transaction_status.on_waited_at
+        ? dateToMinuteHourMonthStringDayYear(
+            new Date(transaction.transaction_status.on_waited_at),
+            ' ',
+          )
+        : '-',
+    },
+    {
+      title: 'Order Processed',
+      description: transaction.transaction_status.on_processed_at
+        ? dateToMinuteHourMonthStringDayYear(
+            new Date(transaction.transaction_status.on_processed_at),
+            ' ',
+          )
+        : '-',
+    },
+
+    {
+      title: 'Order On Delivery',
+      description: transaction.shipping_details.transaction_delivery_status
+        .on_delivery_at
+        ? dateToMinuteHourMonthStringDayYear(
+            new Date(
+              transaction.shipping_details.transaction_delivery_status.on_delivery_at,
+            ),
+            ' ',
+          )
+        : '-',
+    },
+
+    {
+      title: 'Buyer Request Refund',
+      description: transaction.transaction_status.on_request_refund_at
+        ? dateToMinuteHourMonthStringDayYear(
+            new Date(transaction.transaction_status.on_request_refund_at),
+            ' ',
+          )
+        : '-',
+    },
+    {
+      title: 'Order Refunded',
+      description: transaction.transaction_status.on_refunded_at
+        ? dateToMinuteHourMonthStringDayYear(
+            new Date(transaction.transaction_status.on_refunded_at),
+            ' ',
+          )
+        : '-',
+    },
+  ];
+
   const itemsCanceled: StepProps[] = [
     {
       title: 'Order Created',
@@ -210,7 +278,7 @@ const OrderStatus: React.FC<ShippingDetailsProps> = ({ transaction }) => {
         <div className={classNames(style.os__tracking__status, 'delivery')}>
           <Steps
             current={current}
-            items={isCanceled ? itemsCanceled : items}
+            items={isCanceled ? itemsCanceled : isRefund ? itemsRefund : items}
             labelPlacement="vertical"
             progressDot
             className={style.os__tracking__steps}

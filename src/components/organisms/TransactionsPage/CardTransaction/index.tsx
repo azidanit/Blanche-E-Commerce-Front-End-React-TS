@@ -24,7 +24,7 @@ const mapStatusToColor = {
   onDelivery: 'blue',
   canceled: 'red',
   delivered: 'blue',
-  requestRefund: 'warning',
+  'request refund': 'warning',
   refunded: 'green',
 };
 
@@ -49,6 +49,16 @@ const CardTransaction: React.FC<CardTransactionProps> = ({ transaction }) => {
   };
 
   useEffect(() => {
+    if (transaction.transaction_status.on_refunded_at) {
+      setStatus('refunded');
+      setStatusIdx(0);
+      return;
+    }
+    if (transaction.transaction_status.on_request_refund_at) {
+      setStatus('request refund');
+      setStatusIdx(0);
+      return;
+    }
     if (transaction.transaction_status.on_canceled_at) {
       setStatus('canceled');
 
