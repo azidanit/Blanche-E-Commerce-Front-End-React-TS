@@ -19,6 +19,17 @@ const CustomerSatisfactions: React.FC<CustomerSatisfactionsProps> = ({
   const config = {
     xField: 'date',
     yField: ['review', 'count'],
+    meta: {
+      review: {
+        min: 0,
+        max: 5,
+        alias: 'Rating',
+      },
+      count: {
+        min: 0,
+        alias: 'Count',
+      },
+    },
     geometryOptions: [
       {
         geometry: 'column',
@@ -45,7 +56,7 @@ const CustomerSatisfactions: React.FC<CustomerSatisfactionsProps> = ({
       {data ? (
         <DualAxes loading={isLoading} data={[data, data]} {...config} />
       ) : (
-        <Empty />
+        <Empty description="We are still working on your data. Please comeback later." />
       )}
     </div>
   );

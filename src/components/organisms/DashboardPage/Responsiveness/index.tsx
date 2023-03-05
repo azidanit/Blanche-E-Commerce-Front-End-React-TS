@@ -35,7 +35,7 @@ const Responsiveness: React.FC<ResponsivenessProps> = ({ date }) => {
           seriesField="type"
         />
       ) : (
-        <Empty />
+        <Empty description="We are still working on your data. Please comeback later." />
       )}
     </div>
   );

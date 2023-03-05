@@ -39,7 +39,12 @@ export const dateToMinuteHourMonthStringDayYear = (
   date: Date,
   separator = '-',
 ): string => {
-  return `${date.getDate()}${separator}${
-    months[date.getMonth()]
-  }${separator}${date.getUTCFullYear()} ${date.getHours()}:${date.getMinutes()}`;
+  const newDate = date.getDate();
+  const newMonths = months[date.getMonth()];
+  const newYear = date.getFullYear();
+  const hour = date.getHours();
+  const parseHour = hour < 10 ? `0${hour}` : hour;
+  const minute = date.getHours();
+  const parseMinute = hour < 10 ? `0${minute}` : minute;
+  return `${newDate}${separator}${newMonths}${separator}${newYear} ${parseHour}:${parseMinute}`;
 };

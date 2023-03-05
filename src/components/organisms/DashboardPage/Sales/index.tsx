@@ -17,6 +17,16 @@ const Sales: React.FC<SalesProps> = ({ date }) => {
   const config = {
     xField: 'date',
     yField: ['rev', 'trx'],
+    meta: {
+      rev: {
+        min: 0,
+        alias: 'Revenue',
+      },
+      trx: {
+        min: 0,
+        alias: 'Number of Transactions',
+      },
+    },
     geometryOptions: [
       {
         geometry: 'column',
@@ -43,7 +53,7 @@ const Sales: React.FC<SalesProps> = ({ date }) => {
       {data ? (
         <DualAxes loading={isLoading} data={[data, data]} {...config} />
       ) : (
-        <Empty />
+        <Empty description="We are still working on your data. Please comeback later." />
       )}
     </div>
   );
