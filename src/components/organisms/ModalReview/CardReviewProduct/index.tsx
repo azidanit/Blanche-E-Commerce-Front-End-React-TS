@@ -86,7 +86,6 @@ const CardReviewProduct: React.FC<CardReviewProductProps> = ({
   };
 
   const onFinish = (values: ValuesForm) => {
-    console.log(values);
     const formData = new FormData();
 
     if (!transaction) {

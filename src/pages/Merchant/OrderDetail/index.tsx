@@ -1,9 +1,7 @@
-import { ArrowLeftOutlined } from '@ant-design/icons';
 import { Divider, Skeleton } from 'antd';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useGetMerchantOrderDetailsQuery } from '../../../app/features/merchant/merchantOrderApiSlice';
-import { useGetTransactionDetailsQuery } from '../../../app/features/transactions/transactionsApiSlice';
 import {
   OrderDetail,
   OrderStatus,

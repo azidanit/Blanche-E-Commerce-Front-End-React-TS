@@ -47,6 +47,12 @@ const Promotion = lazy(
 const AddPromotion = lazy(
   () => import('../../pages/Merchant/Promotion/AddPromotion'),
 );
+const EditPromotion = lazy(
+  () => import('../../pages/Merchant/Promotion/EditPromotion'),
+);
+const DuplicatePromotion = lazy(
+  () => import('../../pages/Merchant/Promotion/DuplicatePromotion'),
+);
 const ChangePassword = lazy(() => import('../../pages/ChangePassword'));
 const WalletPayment = lazy(() => import('../../pages/WalletPayment'));
 const EditVoucher = lazy(
@@ -98,6 +104,12 @@ export const router = createBrowserRouter([
           {
             path: '/profile',
             element: <Profile />,
+          },
+
+          {
+            path: '/merchant-register',
+            element: <MerchantRegister />,
+            children: [],
           },
 
           {
@@ -153,11 +165,7 @@ export const router = createBrowserRouter([
         element: <ProductDetail />,
         children: [],
       },
-      {
-        path: '/merchant-register',
-        element: <MerchantRegister />,
-        children: [],
-      },
+
       {
         path: '/:store',
         element: <Seller />,
@@ -232,6 +240,14 @@ export const router = createBrowserRouter([
           {
             path: '/merchant/promotions/create',
             element: <AddPromotion />,
+          },
+          {
+            path: '/merchant/promotions/edit/:id',
+            element: <EditPromotion />,
+          },
+          {
+            path: '/merchant/promotions/copy/:id',
+            element: <DuplicatePromotion />,
           },
           {
             path: '/merchant/order/:invoice',

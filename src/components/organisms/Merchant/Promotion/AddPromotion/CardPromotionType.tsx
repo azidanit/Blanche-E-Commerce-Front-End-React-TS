@@ -13,7 +13,7 @@ const CardPromotionType: React.FC = () => {
       <div className={style.form__promotion__item__type}>
         <Image
           className={style.form__promotion__item__type__image}
-          src="/assets/png/voucher-merchant.png"
+          src="/assets/png/promotion.png"
           alt=""
           imageClassName={style.form__promotion__item__type__img}
         />

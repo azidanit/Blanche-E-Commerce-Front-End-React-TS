@@ -1,9 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Card } from '../../../../atoms';
-import TableVoucher from '../TablePromotion';
+import FilterStatus from '../../../TransactionsPage/FilterStatus';
+import TablePromotion from '../TablePromotion';
 import style from './index.module.scss';
 
+const values = ['All', 'On Going', 'Incoming', 'Has Ended'];
 const PromotionList: React.FC = () => {
   const navigate = useNavigate();
 
@@ -19,8 +21,9 @@ const PromotionList: React.FC = () => {
           Create Promotion
         </Button>
       </div>
-      <TableVoucher />
-      <p>hhahahha</p>
+
+      <FilterStatus values={values} />
+      <TablePromotion />
     </Card>
   );
 };

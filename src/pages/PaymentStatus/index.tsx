@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import style from './index.module.scss';
 import { Image } from '../../components';
@@ -7,8 +7,6 @@ import { Image } from '../../components';
 const PaymentStatus: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
-
-  const { order_code } = useParams();
 
   const urlSearchParams = new URLSearchParams(location.search?.split('?')[1]);
   const urlSearchParamsObj = Object.fromEntries(urlSearchParams);

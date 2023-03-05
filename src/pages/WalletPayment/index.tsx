@@ -1,6 +1,6 @@
 import { message, Spin } from 'antd';
 import React, { useEffect } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { useCancelPaymentMutation } from '../../app/features/wallet/walletApiSlice';
 import {
   Button,

@@ -60,6 +60,7 @@ export const apiSlice = createApi({
     'Reviews',
     'Review',
     'Merchant Vouchers',
+    'Merchant Promotions',
     'Refunds',
     'Merchant Profile',
     'Message',

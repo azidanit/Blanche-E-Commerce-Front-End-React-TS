@@ -12,6 +12,7 @@ import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { useLogoutMutation } from '../../../app/features/auth/authApiSlice';
 import { logout } from '../../../app/features/auth/authSlice';
 import MenuProfile from '../MenuProfile';
+import MenuMerchant from '../MenuMerchant';
 
 const { Header } = Layout;
 
@@ -45,10 +46,6 @@ const Nav: React.FC = () => {
     await logOut().unwrap();
     dispatch(logout());
     navigate(0);
-  };
-
-  const handleWallet = () => {
-    navigate('/wallet');
   };
 
   return (
@@ -87,6 +84,7 @@ const Nav: React.FC = () => {
             </>
           ) : (
             <>
+              <MenuMerchant />
               <MenuProfile />
               <Button onClick={handleLogout} loading={isLoading}>
                 Logout

@@ -24,7 +24,7 @@ interface DataType {
   period: React.ReactNode;
 }
 
-const limit = 8;
+const limit = 2;
 
 const TableVoucher: React.FC = () => {
   const params = useAppSelector((state) => state.params);
@@ -40,9 +40,9 @@ const TableVoucher: React.FC = () => {
     useDeleteVoucherMutation();
   const [isModalOpen, setIsModalOpen] = React.useState(false);
 
-  const handleOpenModal = (vocucher: IVoucher) => {
+  const handleOpenModal = (voucher: IVoucher) => {
     setIsModalOpen(true);
-    setVoucherToDelete(vocucher);
+    setVoucherToDelete(voucher);
   };
 
   const handleCloseModal = () => {

@@ -5,7 +5,7 @@ import FilterStatus from '../../../TransactionsPage/FilterStatus';
 import TableVoucher from '../TableVoucher';
 import style from './index.module.scss';
 
-const values = ['All', 'On Going', 'Will Come', 'Has Ended'];
+const values = ['All', 'On Going', 'Incoming', 'Has Ended'];
 const VoucherList: React.FC = () => {
   const navigate = useNavigate();
 

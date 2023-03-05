@@ -1,6 +1,6 @@
 import { RootState } from '../app/store';
 import { useSelector } from 'react-redux';
-import { IMerchantInfo, IProductDetail, IVariantItem } from '../helpers/types';
+import { IProductDetail, IVariantItem } from '../helpers/types';
 
 export interface ProductState {
   product: IProductDetail | null;

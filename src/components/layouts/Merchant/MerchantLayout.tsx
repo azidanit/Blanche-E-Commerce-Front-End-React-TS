@@ -10,7 +10,7 @@ import { useAppDispatch } from '../../../app/hooks';
 import { parseSearchParams } from '../../../helpers/parseSearchParams';
 import { setParams } from '../../../app/features/home/paramsSlice';
 
-const { Header, Sider, Content } = Layout;
+const { Header, Content } = Layout;
 
 const MerchantLayout: React.FC = () => {
   const [searchParams] = useSearchParams();

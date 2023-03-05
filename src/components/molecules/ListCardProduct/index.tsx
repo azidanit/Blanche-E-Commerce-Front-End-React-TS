@@ -20,14 +20,14 @@ const ListCardProduct: React.FC<ListCardProductProps> = ({
 }) => {
   return (
     <Row gutter={[16, 32]}>
-      {data.products.map((product) => (
+      {data.products.map((product, index) => (
         <Col
           xs={grid.xs}
           sm={grid.sm}
           md={grid.md}
           lg={grid.lg}
           xl={grid.xl}
-          key={`product-${product.id}`}
+          key={`product-${product.id + index}`}
         >
           <CardProduct product={product} />
         </Col>

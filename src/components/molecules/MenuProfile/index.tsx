@@ -8,40 +8,40 @@ import CardProfile from './CardProfile';
 import CardWallet from './CardWallet';
 import style from './index.module.scss';
 
-const items: MenuProps['items'] = [
-  {
-    key: '1',
-    label: <CardProfile />,
-  },
-  {
-    key: '2',
-    label: (
-      <>
-        <CardWallet />
-        <Divider style={{ marginBottom: 0 }} />
-      </>
-    ),
-  },
-  {
-    key: '3',
-    label: (
-      <Link to="transactions" className={style.menu__profile__item}>
-        <p>My Transaction</p>
-      </Link>
-    ),
-  },
-  {
-    key: '4',
-    label: (
-      <Link to="favorite-products" className={style.menu__profile__item}>
-        <p>My Favorite Products</p>
-      </Link>
-    ),
-  },
-];
 const MenuProfile: React.FC = () => {
   const { user } = useAppSelector((state: RootState) => state.auth);
 
+  const items: MenuProps['items'] = [
+    {
+      key: '1',
+      label: <CardProfile />,
+    },
+    {
+      key: '2',
+      label: (
+        <>
+          <CardWallet />
+          <Divider style={{ marginBottom: 0 }} />
+        </>
+      ),
+    },
+    {
+      key: '3',
+      label: (
+        <Link to="transactions" className={style.menu__profile__item}>
+          <p>My Transaction</p>
+        </Link>
+      ),
+    },
+    {
+      key: '4',
+      label: (
+        <Link to="favorite-products" className={style.menu__profile__item}>
+          <p>My Favorite Products</p>
+        </Link>
+      ),
+    },
+  ];
   return (
     <Dropdown
       menu={{ items }}
@@ -49,7 +49,7 @@ const MenuProfile: React.FC = () => {
       overlayClassName={style.menu__profile}
     >
       <Button className={style.menu__profile__btn} type="text">
-        <Avatar />
+        <Avatar src={user?.profile_picture} />
         {user?.username}
       </Button>
     </Dropdown>

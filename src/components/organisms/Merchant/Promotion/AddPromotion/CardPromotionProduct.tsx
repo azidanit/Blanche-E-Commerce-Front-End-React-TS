@@ -1,12 +1,65 @@
-import { DatePicker } from 'antd';
-import dayjs, { Dayjs } from 'dayjs';
+import { Table } from 'antd';
+import { ColumnsType } from 'antd/es/table';
 import React, { useState } from 'react';
-import { Button, Card, FormLabel, Input } from '../../../../atoms';
+import { IGetMerchantProductListResponse } from '../../../../../helpers/types';
+import { Button, Card } from '../../../../atoms';
 import ModalProduct from '../ModalProduct';
+import { TableProductDataType } from '../TableProduct';
 import style from './index.module.scss';
-import { rules } from './validation';
 
-const CardPromotionProduct: React.FC = () => {
+interface CardPromotionProductProps {
+  products: TableProductDataType[] | undefined;
+  rowSelection:
+    | {
+        onChange: (
+          selectedRowKeys: React.Key[],
+          selectedRows: TableProductDataType[],
+        ) => void;
+      }
+    | undefined;
+  handleCloseModal: () => void;
+  data: IGetMerchantProductListResponse | undefined;
+  onChange: ((page: number, pageSize: number) => void) | undefined;
+  isLoading: boolean;
+  page: number;
+  selectedProducts: {
+    [key: string]: TableProductDataType[];
+  };
+  productKeys: React.Key[];
+  isEdit: boolean | undefined;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+const columns: ColumnsType<TableProductDataType> = [
+  {
+    title: 'Product',
+    dataIndex: 'product',
+  },
+  {
+    title: 'Sold',
+    dataIndex: 'sold',
+  },
+  {
+    title: 'Price',
+    dataIndex: 'price',
+  },
+  {
+    title: 'Stock',
+    dataIndex: 'stock',
+  },
+];
+
+const CardPromotionProduct: React.FC<CardPromotionProductProps> = ({
+  products,
+  rowSelection,
+  handleCloseModal,
+  data,
+  onChange,
+  isLoading,
+  page,
+  selectedProducts,
+  productKeys,
+  handleChange,
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const showModal = () => {
@@ -18,6 +71,7 @@ const CardPromotionProduct: React.FC = () => {
   };
 
   const handleOk = () => {
+    handleCloseModal();
     setIsModalOpen(false);
   };
 
@@ -32,11 +86,21 @@ const CardPromotionProduct: React.FC = () => {
           Add Product
         </Button>
       </div>
-      <div className={style.form}></div>
+      <div className={style.form}>
+        <Table dataSource={products} rowKey="id" columns={columns} />
+      </div>
       <ModalProduct
+        data={data}
+        isLoading={isLoading}
+        onChange={onChange}
         isModalOpen={isModalOpen}
         handleOk={handleOk}
         handleCancel={handleCancel}
+        rowSelection={rowSelection}
+        page={page}
+        selectedProducts={selectedProducts}
+        productKeys={productKeys}
+        handleChange={handleChange}
       />
     </Card>
   );

@@ -38,6 +38,7 @@ export interface IGetProfileResponse {
   gender: string;
   profile_picture: string;
   username: string;
+  role: string;
 }
 
 export type IGetSealabsPayAccountsResponse = ISealabsPayAccounts[];

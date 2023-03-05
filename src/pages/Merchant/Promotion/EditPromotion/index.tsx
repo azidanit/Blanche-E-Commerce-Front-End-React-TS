@@ -1,24 +1,23 @@
 import { Divider } from 'antd';
 import React from 'react';
-import { AddVoucherPage } from '../../../../components';
+import { AddPromotionPage } from '../../../../components';
 import style from './index.module.scss';
 
-const DuplicateVoucher: React.FC = () => {
+const EditPromotion: React.FC = () => {
   return (
     <div className={style.add__voucher__page}>
       <div className={style.add__voucher__page__header}>
         <h3 className={style.add__voucher__page__header__title}>
-          Create Voucher
+          Edit Promotion
         </h3>
         <p className={style.add__voucher__page__header__subtitle}>
-          Buyer can use this voucher to buy your product or service at your
-          store.
+          Create a promotion for your products
         </p>
       </div>
       <Divider />
-      <AddVoucherPage isDuplicate={true} />
+      <AddPromotionPage isEdit={true} />
     </div>
   );
 };
 
-export default DuplicateVoucher;
+export default EditPromotion;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Alert, FormLabel, Input, Select } from '../../../atoms';
 import { Form, ModalHeader } from '../../../molecules';
 import Modal from '../../../molecules/Modal';
@@ -6,7 +6,7 @@ import style from './index.module.scss';
 import { rules } from './validation';
 import useForms from './useForm';
 import TextArea from 'antd/es/input/TextArea';
-import { notification, Space } from 'antd';
+import { Space } from 'antd';
 import {
   useGetCitiesByProvinceIdQuery,
   useGetDistrictByCityIdQuery,

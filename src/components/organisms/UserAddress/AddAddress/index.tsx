@@ -6,7 +6,7 @@ import style from './index.module.scss';
 import { rules } from './validation';
 import useForms from './useForm';
 import TextArea from 'antd/es/input/TextArea';
-import { notification, Space } from 'antd';
+import { message, Space } from 'antd';
 import {
   useGetCitiesByProvinceIdQuery,
   useGetDistrictByCityIdQuery,
@@ -127,8 +127,9 @@ const AddAddress: React.FC<AddAddressPageProps> = ({
             handleSubmit(values);
             form.resetFields();
           })
-          .catch((info) => {
-            console.log('Validate Failed:', info);
+          .catch((err) => {
+            const error = err as Error;
+            message.error(error.message);
           });
       }}
       centered

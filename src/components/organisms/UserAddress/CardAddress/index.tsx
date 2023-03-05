@@ -13,6 +13,7 @@ import { notification } from 'antd';
 import { Popconfirm } from '../../..';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import { capitalizeFirstLetter } from '../../../../helpers/capitalizeFirstLetter';
+import { useAppSelector } from '../../../../app/hooks';
 
 interface CardAddressProps {
   data: IUserAddress;
@@ -37,6 +38,8 @@ export interface initialValueType {
 const CardAddress: React.FC<CardAddressProps> = ({ data }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [error, setError] = useState<Error>();
+
+  const { user } = useAppSelector((state) => state.auth);
 
   const [initialValue, setInitialValue] = useState<initialValueType>({
     id: 0,
@@ -217,18 +220,20 @@ const CardAddress: React.FC<CardAddressProps> = ({ data }) => {
             </Button>
           </Popconfirm>
         </div>
-        <div className={style.card__address__button__right}>
-          <Button
-            type="primary"
-            ghost
-            size="middle"
-            disabled={data.is_merchant_address}
-            onClick={handleSetMerchantAddress}
-            loading={isLoadingMerchant}
-          >
-            Set as Merchant Address
-          </Button>
-        </div>
+        {user?.role === 'merchant' && (
+          <div className={style.card__address__button__right}>
+            <Button
+              type="primary"
+              ghost
+              size="middle"
+              disabled={data.is_merchant_address}
+              onClick={handleSetMerchantAddress}
+              loading={isLoadingMerchant}
+            >
+              Set as Merchant Address
+            </Button>
+          </div>
+        )}
       </div>
       <EditAddress
         isModalOpen={isModalOpen}
