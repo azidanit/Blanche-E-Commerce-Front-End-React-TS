@@ -1,8 +1,14 @@
 import React from 'react';
 import { MerchantRefundList } from '../../../components';
+import style from './index.module.scss';
 
 const Refund: React.FC = () => {
-  return <MerchantRefundList />;
+  return (
+    <div className={style.refund__page}>
+      <h2 className={style.refund__page__title}>Refund List</h2>
+      <MerchantRefundList />;
+    </div>
+  );
 };
 
 export default Refund;

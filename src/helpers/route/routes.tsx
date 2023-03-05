@@ -282,7 +282,7 @@ export const router = createBrowserRouter([
             element: <MerchantRefund />,
           },
           {
-            path: '/merchant/payment/withdraw',
+            path: '/merchant/wallet/withdraw',
             element: <Withdraw />,
           },
           {

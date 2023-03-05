@@ -31,6 +31,7 @@ const baseQueryWithReauth: typeof baseQuery = async (
       result = await baseQuery(args, api, extraOptions);
       if (refreshResult.error) {
         api.dispatch(logout());
+        
       }
       return result;
     }

@@ -45,17 +45,20 @@ const AppLayout = (): JSX.Element => {
       dispatch(setMerchant(merchant));
     } catch (err) {
       const error = err as Error;
-      message.error(error.message);
+      message.error(capitalizeFirstLetter(error.message));
     }
   };
 
   useEffect(() => {
-    if (!isLoggedIn || user) {
+    if (isLoggedIn && !user) {
+      fetchProfile();
       return;
     }
 
-    fetchProfile();
-    fetchMerchantProfile();
+    if (isLoggedIn && !merchant) {
+      fetchMerchantProfile();
+      return;
+    }
   }, [user, merchant, isLoggedIn]);
 
   useEffect(() => {

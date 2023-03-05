@@ -43,7 +43,7 @@ const MenuProfile: React.FC = () => {
     },
 
     {
-      key: '4',
+      key: '5',
       label: (
         <Link to="refunds" className={style.menu__profile__item}>
           <p>Refunds</p>
