@@ -57,13 +57,11 @@ const CardOrder: React.FC<CardOrderProps> = ({ transaction }) => {
     if (transaction.transaction_status.on_canceled_at) {
       setStatus('canceled');
       setStatusIdx(OrderStatus.TransactionStatusCanceled);
-
       return;
     }
     if (transaction.transaction_status.on_completed_at) {
       setStatus('completed');
       setStatusIdx(OrderStatus.TransactionStatusOnCompleted);
-
       return;
     }
     if (transaction.transaction_status.on_refunded_at) {
@@ -78,14 +76,10 @@ const CardOrder: React.FC<CardOrderProps> = ({ transaction }) => {
     }
 
     if (
-      (transaction.shipping_details.transaction_delivery_status
-        .on_delivered_at &&
-        !transaction.transaction_status.on_request_refund_at) ||
-      !transaction.transaction_status.on_refunded_at
+      transaction.shipping_details.transaction_delivery_status.on_delivered_at
     ) {
       setStatus('delivered');
       setStatusIdx(OrderStatus.TransactionStatusDelivered);
-
       return;
     }
 
@@ -94,7 +88,6 @@ const CardOrder: React.FC<CardOrderProps> = ({ transaction }) => {
     ) {
       setStatus('on delivery');
       setStatusIdx(OrderStatus.TransactionStatusOnDelivery);
-
       return;
     }
     if (
@@ -103,13 +96,11 @@ const CardOrder: React.FC<CardOrderProps> = ({ transaction }) => {
     ) {
       setStatus('need to be delivered');
       setStatusIdx(OrderStatus.TransactionStatusProcessed);
-
       return;
     }
     if (transaction.transaction_status.on_waited_at) {
       setStatus('need to be processed');
       setStatusIdx(OrderStatus.TransactionStatusWaited);
-
       return;
     }
   }, [transaction, statusIdx]);

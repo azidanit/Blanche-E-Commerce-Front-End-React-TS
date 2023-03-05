@@ -7,6 +7,7 @@ import {
   ShoppingOutlined,
   TagOutlined,
   UserOutlined,
+  WalletOutlined,
 } from '@ant-design/icons';
 import React from 'react';
 import { Menu } from '../..';
@@ -41,6 +42,9 @@ function getItem(
 const items = [
   getItem('Home', '', <HomeOutlined />),
   getItem('Profile', 'profile', <UserOutlined />),
+  { type: 'divider' } as MenuDividerType,
+  getItem('Wallet', 'wallet/withdraw', <WalletOutlined />),
+  { type: 'divider' } as MenuDividerType,
   getItem('Products', 'sub1', <ShopOutlined />, [
     getItem('Product List', 'products'),
     getItem('Create Product', 'products/create'),
