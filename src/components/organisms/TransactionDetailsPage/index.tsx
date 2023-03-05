@@ -46,6 +46,14 @@ const TransactionDetailsPage: React.FC = () => {
       setStatusIdx(OrderStatus.TransactionStatusOnCompleted);
       return;
     }
+    if (data.transaction_status.on_request_refund_at) {
+      setStatusIdx(0);
+      return;
+    }
+    if (data.transaction_status.on_refunded_at) {
+      setStatusIdx(0);
+      return;
+    }
     if (data.transaction_status.on_delivered_at) {
       setStatusIdx(OrderStatus.TransactionStatusDelivered);
       return;

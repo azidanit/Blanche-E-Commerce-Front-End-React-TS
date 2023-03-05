@@ -26,6 +26,7 @@ const mapStatusToColor = {
   'rejected by seller': 'red',
   'rejected by admin': 'red',
   'cancelled by buyer': 'blue',
+  'need approval': 'orange',
 };
 
 const RefundItem: React.FC<RefundItemProps> = ({ refund }) => {
@@ -115,12 +116,24 @@ const RefundItem: React.FC<RefundItemProps> = ({ refund }) => {
       setStatus('rejected by seller');
       return;
     }
+    if (refund.refund_request_statuses[0].rejected_by_buyer_at) {
+      setStatus('rejected by buyer');
+      return;
+    }
     if (refund.refund_request_statuses[0].rejected_by_admin_at) {
       setStatus('rejected by admin');
       return;
     }
     if (refund.refund_request_statuses[0].accepted_by_admin_at) {
       setStatus('refunded');
+      return;
+    }
+    if (
+      refund.refund_request_statuses[0].rejected_by_admin_at &&
+      !refund.refund_request_statuses[0].accepted_by_buyer_at &&
+      !refund.refund_request_statuses[0].rejected_by_buyer_at
+    ) {
+      setStatus('need approval');
       return;
     }
 
@@ -200,7 +213,8 @@ const RefundItem: React.FC<RefundItemProps> = ({ refund }) => {
       <Divider className={style.ti__divider} />
       <div className={style.ti__footer}>
         {refund.refund_request_statuses[0].rejected_by_admin_at &&
-          refund.refund_request_statuses[0].rejected_by_seller_at && (
+          !refund.refund_request_statuses[0].accepted_by_buyer_at &&
+          !refund.refund_request_statuses[0].rejected_by_buyer_at && (
             <>
               <Button type="primary" ghost onClick={handleOpenModalAccept}>
                 Accept

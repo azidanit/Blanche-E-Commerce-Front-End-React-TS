@@ -66,17 +66,27 @@ const CardOrder: React.FC<CardOrderProps> = ({ transaction }) => {
 
       return;
     }
-    if (
-      transaction.shipping_details.transaction_delivery_status.on_delivered_at
-    ) {
-      setStatus('delivered');
-      setStatusIdx(OrderStatus.TransactionStatusDelivered);
-
+    if (transaction.transaction_status.on_refunded_at) {
+      setStatus('refunded');
+      setStatusIdx(OrderStatus.TransactionStatusRequestRefund);
       return;
     }
     if (transaction.transaction_status.on_request_refund_at) {
       setStatus('request refund');
       setStatusIdx(OrderStatus.TransactionStatusRequestRefund);
+      return;
+    }
+
+    if (
+      (transaction.shipping_details.transaction_delivery_status
+        .on_delivered_at &&
+        !transaction.transaction_status.on_request_refund_at) ||
+      !transaction.transaction_status.on_refunded_at
+    ) {
+      setStatus('delivered');
+      setStatusIdx(OrderStatus.TransactionStatusDelivered);
+
+      return;
     }
 
     if (

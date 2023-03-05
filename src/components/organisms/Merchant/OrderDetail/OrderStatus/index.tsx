@@ -69,7 +69,7 @@ const OrderStatus: React.FC<ShippingDetailsProps> = ({ transaction }) => {
       <ComponentOnCompleted transaction={transaction} />
     ),
     [EnumOrderStatus.TransactionStatusOnRefund]: (
-      <ComponentOnDelivery transaction={transaction} />
+      <ComponentOnRequestRefund transaction={transaction} />
     ),
   };
   const [statusIdx, setStatusIdx] = useState(0);
