@@ -1,5 +1,5 @@
 @use 'src/styles/variables' as *;
-.menu__profile {
+.menu__merchant {
   &__btn {
     display: flex;
     align-items: center;
@@ -64,6 +64,17 @@
       p {
         font-size: 1rem;
       }
+    }
+  }
+
+  &__register {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    p {
+      font-size: 1rem;
+      color: $gray;
+      font-weight: $text-bold;
     }
   }
 }

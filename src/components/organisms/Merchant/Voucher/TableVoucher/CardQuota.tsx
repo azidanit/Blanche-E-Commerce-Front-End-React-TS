@@ -1,6 +1,5 @@
 import React from 'react';
 import { IVoucher } from '../../../../../helpers/types/merchant/voucher.interface';
-import { Image } from '../../../../atoms';
 import style from './index.module.scss';
 
 export interface CardVoucherProps {

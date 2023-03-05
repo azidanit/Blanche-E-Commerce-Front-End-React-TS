@@ -1,40 +1,61 @@
-import { Dropdown, MenuProps, Space } from 'antd';
+import { Dropdown, MenuProps } from 'antd';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useAppSelector } from '../../../app/hooks';
 import { Avatar, Button } from '../../atoms';
-import CardProfile from './CardProfile';
+import CardMerchant from './CardMerchant';
 import style from './index.module.scss';
 
-const items: MenuProps['items'] = [
-  {
-    key: '1',
-    label: <CardProfile />,
-  },
-  {
-    key: '2',
-    label: (
-      <Link to="transactions" className={style.menu__merchant__item}>
-        <p>My Transaction</p>
-      </Link>
-    ),
-  },
-  {
-    key: '3',
-    label: (
-      <Link to="transactions" className={style.menu__merchant__item}>
-        <p>Favorite Product</p>
-      </Link>
-    ),
-  },
-];
 const MenuMerchant: React.FC = () => {
+  const { merchant } = useAppSelector((state) => state.auth);
+
+  const items: MenuProps['items'] = merchant
+    ? [
+        {
+          key: '1',
+          label: <CardMerchant />,
+        },
+        {
+          key: '2',
+          label: (
+            <Link to="/merchant" className={style.menu__merchant__item}>
+              <p>Go to Store</p>
+            </Link>
+          ),
+        },
+        {
+          key: '3',
+          label: (
+            <Link to="/merchant/orders" className={style.menu__merchant__item}>
+              <p>My Orders</p>
+            </Link>
+          ),
+        },
+      ]
+    : [
+        {
+          key: '1',
+          label: <CardMerchant />,
+        },
+      ];
+
+  if (!merchant) {
+    return (
+      <Dropdown menu={{ items }} className={style.menu__merchant}>
+        <Button className={style.menu__merchant__btn} type="text">
+          <Avatar />
+          Store
+        </Button>
+      </Dropdown>
+    );
+  }
+
   return (
     <Dropdown menu={{ items }} className={style.menu__merchant}>
       <Button className={style.menu__merchant__btn} type="text">
-        <Avatar />
-        Giwang
+        <Avatar src={merchant?.image} />
+        {merchant?.name}
       </Button>
-      <p>Merchant</p>
     </Dropdown>
   );
 };

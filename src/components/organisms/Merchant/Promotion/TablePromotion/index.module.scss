@@ -1,5 +1,5 @@
 @use 'src/styles/variables.scss' as *;
-.table__voucher {
+.table__promotions {
   &__cv {
     display: flex;
     gap: 1rem;
@@ -16,6 +16,10 @@
 
     flex-direction: column;
 
+    &__header__tag {
+      width: fit-content;
+    }
+
     &__item {
       display: flex;
       gap: 1rem;
@@ -24,5 +28,13 @@
         font-weight: $text-bold;
       }
     }
+  }
+  .list {
+    list-style-type: disc;
+  }
+
+  &__pagination {
+    text-align: center;
+    margin-top: 1rem;
   }
 }

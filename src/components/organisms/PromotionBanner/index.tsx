@@ -8,9 +8,9 @@ import { IParams } from '../../../helpers/types';
 import { useGetPromotionsQuery } from '../../../app/features/marketplace/promotionApiSlice';
 
 const PromotionBanner: React.FC = () => {
-  const paramPromotion : IParams = {
+  const paramPromotion: IParams = {
     limit: 5,
-  }
+  };
 
   const { data, isSuccess } = useGetPromotionsQuery(paramPromotion);
 
@@ -21,9 +21,10 @@ const PromotionBanner: React.FC = () => {
       swipeToSlide
       draggable
     >
-      {isSuccess && data?.promotion_banners.map((banner) => (
-        <CardBanner key={banner.id} banner={banner} />
-      ))}
+      {isSuccess &&
+        data?.promotion_banners?.map((banner) => (
+          <CardBanner key={banner.id} banner={banner} />
+        ))}
     </Carousel>
   );
 };

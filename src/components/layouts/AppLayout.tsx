@@ -5,8 +5,9 @@ import { setParams } from '../../app/features/home/paramsSlice';
 import { parseSearchParams } from '../../helpers/parseSearchParams';
 import { Container, Nav } from '../molecules';
 import { useLazyGetProfileQuery } from '../../app/features/profile/profileApiSlice';
-import { setUser } from '../../app/features/auth/authSlice';
+import { setMerchant, setUser } from '../../app/features/auth/authSlice';
 import { message } from 'antd';
+import { useLazyGetMerchantProfileQuery } from '../../app/features/merchant/merchantApiSlice';
 import { IErrorResponse } from '../../helpers/types/response.interface';
 import { capitalizeFirstLetter } from '../../helpers/capitalizeFirstLetter';
 
@@ -15,7 +16,9 @@ const AppLayout = (): JSX.Element => {
   const dispatch = useAppDispatch();
 
   const [getProfile, { isLoading }] = useLazyGetProfileQuery();
-  const { user, isLoggedIn } = useAppSelector((state) => state.auth);
+
+  const [getMerchantProfile] = useLazyGetMerchantProfileQuery();
+  const { user, isLoggedIn, merchant } = useAppSelector((state) => state.auth);
 
   const fetchProfile = async () => {
     try {
@@ -23,10 +26,26 @@ const AppLayout = (): JSX.Element => {
 
       if (result) {
         dispatch(setUser(result));
+
+        if (result.role == 'merchant') {
+          const merchant = await getMerchantProfile().unwrap();
+          dispatch(setMerchant(merchant));
+        }
       }
     } catch (err) {
       const error = err as IErrorResponse;
       message.error(capitalizeFirstLetter(error.message));
+    }
+  };
+
+  const fetchMerchantProfile = async () => {
+    if (!user || user.role !== 'merchant') return;
+    try {
+      const merchant = await getMerchantProfile().unwrap();
+      dispatch(setMerchant(merchant));
+    } catch (err) {
+      const error = err as Error;
+      message.error(error.message);
     }
   };
 
@@ -36,7 +55,8 @@ const AppLayout = (): JSX.Element => {
     }
 
     fetchProfile();
-  }, [user]);
+    fetchMerchantProfile();
+  }, [user, merchant, isLoggedIn]);
 
   useEffect(() => {
     dispatch(setParams(parseSearchParams(searchParams)));

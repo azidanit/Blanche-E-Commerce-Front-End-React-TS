@@ -5,7 +5,10 @@ import { IProductDetail } from '../../../../../helpers/types';
 import { Button } from '../../../../atoms';
 import style from './index.module.scss';
 import ModalShare from './ModalShare';
-import { useGetFavoriteProductsQuery, useUpdateFavoriteProductMutation } from '../../../../../app/features/profile/favoriteProductApiSlice';
+import {
+  useGetFavoriteProductsQuery,
+  useUpdateFavoriteProductMutation,
+} from '../../../../../app/features/profile/favoriteProductApiSlice';
 import { useAppSelector } from '../../../../../app/hooks';
 import { IErrorResponse } from '../../../../../helpers/types/response.interface';
 import { capitalizeFirstLetter } from '../../../../../helpers/capitalizeFirstLetter';
@@ -14,13 +17,16 @@ interface ProductActionProps {
   product?: IProductDetail;
 }
 
-const ProductAction: React.FC<ProductActionProps> = ({product}) => {
+const ProductAction: React.FC<ProductActionProps> = ({ product }) => {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const { isLoggedIn } = useAppSelector((state) => state.auth);
-  
-  const {data: dataFavProduct} = useGetFavoriteProductsQuery({
-    productId: product?.id || 0,
-  }, {skip: !isLoggedIn});
+
+  const { data: dataFavProduct } = useGetFavoriteProductsQuery(
+    {
+      productId: product?.id || 0,
+    },
+    { skip: !isLoggedIn },
+  );
 
   const [updateFavoriteProduct] = useUpdateFavoriteProductMutation();
 
@@ -37,13 +43,19 @@ const ProductAction: React.FC<ProductActionProps> = ({product}) => {
   const handleButtonFavClick = async () => {
     try {
       if (!isLoggedIn || !product) {
-        message.warning("Please Login To Add Favorite Product");
-        return
+        message.warning('Please Login To Add Favorite Product');
+        return;
       }
       await updateFavoriteProduct({
         product_id: product?.id || 0,
         is_favorited: !isFavorite,
       }).unwrap();
+
+      message.success(
+        isFavorite
+          ? 'Successfully remove favorite product'
+          : 'Succesfully favorite product',
+      );
     } catch (err) {
       const error = err as IErrorResponse;
       message.error(capitalizeFirstLetter(error.message));
@@ -62,10 +74,16 @@ const ProductAction: React.FC<ProductActionProps> = ({product}) => {
         <MdShare /> Share{' '}
       </Button>
       <Divider type="vertical" />
-      <Button type="link" size="large" onClick={handleButtonFavClick} className={
-          isFavorite ? 
-          style.product__action__fav_filled : 
-          style.product__action__btn}>
+      <Button
+        type="link"
+        size="large"
+        onClick={handleButtonFavClick}
+        className={
+          isFavorite
+            ? style.product__action__fav_filled
+            : style.product__action__btn
+        }
+      >
         <MdFavorite />
         Favorite
       </Button>

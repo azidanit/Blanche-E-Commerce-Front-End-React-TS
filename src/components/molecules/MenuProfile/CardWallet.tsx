@@ -1,16 +1,13 @@
 import React from 'react';
 import style from './index.module.scss';
 import { MdAccountBalanceWallet } from 'react-icons/md';
-import classNames from 'classnames';
 import { toRupiah } from '../../../helpers/toRupiah';
 import { useGetWalletDetailsQuery } from '../../../app/features/wallet/walletApiSlice';
 import { Button } from 'antd';
-import { Card } from '../../atoms';
 import { Link } from 'react-router-dom';
 
 const CardWallet: React.FC = () => {
-  const { data: wallet, isLoading: isLoadingWallet } =
-    useGetWalletDetailsQuery();
+  const { data: wallet } = useGetWalletDetailsQuery();
 
   return (
     <Link to="/wallet" className={style.menu__profile__card__wallet}>

@@ -92,8 +92,8 @@ export interface IGetMerchantProductListResponse {
 }
 
 export interface IGetMerchantProductListRequest {
-  page: number;
-  limit: number;
+  page?: number;
+  limit?: number;
   q?: string;
 }
 

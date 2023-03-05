@@ -1,8 +1,6 @@
 import React from 'react';
 import {
   CategoryCarousel,
-  Container,
-  Nav,
   PromotionBanner,
   Recommended,
   SEO,

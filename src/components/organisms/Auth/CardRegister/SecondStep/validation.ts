@@ -47,7 +47,7 @@ export const rules = {
           if (splitted.includes('')) {
             reject(new Error('Fullname cannot contain consecutive spaces.'));
           }
-          if (!/^[a-z0-9.']+$/i.test(value)) {
+          if (!/^[a-z0-9. ']+$/i.test(value)) {
             reject(
               new Error(
                 'Fullname can only contain alphanumeric characters, single quote, and dot.',

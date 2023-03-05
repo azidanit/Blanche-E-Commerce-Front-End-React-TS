@@ -1,17 +1,21 @@
-import React, { useState } from 'react';
-import { Divider, Radio, Table } from 'antd';
+import React from 'react';
+import { Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
-import CardProduct from './';
+import CardProduct from './CardProduct';
+import CardPrice from './CardPrice';
+import { Pagination } from '../../../..';
+import style from './index.module.scss';
+import { IGetMerchantProductListResponse } from '../../../../../helpers/types';
 
-interface DataType {
+export interface TableProductDataType {
   key: React.Key;
-  product: string;
+  product: React.ReactNode;
   sold: number;
-  price: string;
+  price: React.ReactNode;
   stock: number;
 }
 
-const columns: ColumnsType<DataType> = [
+const columns: ColumnsType<TableProductDataType> = [
   {
     title: 'Product',
     dataIndex: 'product',
@@ -30,37 +34,75 @@ const columns: ColumnsType<DataType> = [
   },
 ];
 
-const data: DataType[] = [
-  {
-    key: '1',
-    product: 'gagag',
-    sold: 32,
-    price: 'Rp 10.000',
-    stock: 10,
-  },
-];
+interface TableProductProps {
+  rowSelection:
+    | {
+        onChange: (
+          selectedRowKeys: React.Key[],
+          selectedRows: TableProductDataType[],
+        ) => void;
+      }
+    | undefined;
 
-// rowSelection object indicates the need for row selection
-const rowSelection = {
-  onChange: (selectedRowKeys: React.Key[], selectedRows: DataType[]) => {
-    console.log(
-      `selectedRowKeys: ${selectedRowKeys}`,
-      'selectedRows: ',
-      selectedRows,
-    );
-  },
-};
+  data: IGetMerchantProductListResponse | undefined;
+  onChange: ((page: number, pageSize: number) => void) | undefined;
+  isLoading: boolean;
+  page: number;
+  selectedProducts: {
+    [key: string]: TableProductDataType[];
+  };
+  productKeys: React.Key[];
+}
 
-const TableProduct: React.FC = () => {
+const limit = 5;
+
+const TableProduct: React.FC<TableProductProps> = ({
+  rowSelection,
+  data,
+  onChange,
+  isLoading,
+  page,
+  selectedProducts,
+  productKeys,
+}) => {
+  const dataSource: TableProductDataType[] | undefined = data?.products.map(
+    (item) => ({
+      key: item.id,
+      product: <CardProduct product={item} />,
+      sold: item.num_of_sale || 0,
+      price: <CardPrice product={item} />,
+      stock: item.total_stock,
+    }),
+  );
   return (
-    <Table
-      rowSelection={{
-        type: 'checkbox',
-        ...rowSelection,
-      }}
-      columns={columns}
-      dataSource={data}
-    />
+    <>
+      <Table
+        rowSelection={{
+          type: 'checkbox',
+          selectedRowKeys: selectedProducts[page.toString()]?.map(
+            (item: any) => item.key,
+          ),
+          defaultSelectedRowKeys: productKeys,
+
+          ...rowSelection,
+        }}
+        columns={columns}
+        loading={isLoading}
+        dataSource={dataSource}
+        pagination={false}
+      />
+      {data && data.total_data > limit && Boolean(data.products.length) && (
+        <div className={style.table__product__pagination}>
+          <Pagination
+            total={data?.total_data}
+            pageSize={limit}
+            onChange={onChange}
+            current={page}
+            showSizeChanger={false}
+          />
+        </div>
+      )}
+    </>
   );
 };
 

@@ -1,6 +1,6 @@
 import { message, Skeleton, Spin } from 'antd';
 import React, { useCallback, useEffect, useState } from 'react';
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useCheckoutSummaryMutation } from '../../app/features/checkout/checkoutApiSlice';
 import {
   AddressCheckout,

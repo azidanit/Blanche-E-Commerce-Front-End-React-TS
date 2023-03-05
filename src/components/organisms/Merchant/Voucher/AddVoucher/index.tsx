@@ -28,8 +28,7 @@ const AddVoucher: React.FC<AddVoucherProps> = ({
 
   const [form] = useForm();
 
-  const [getVoucherByCode, { isLoading: isLoadingVoucher }] =
-    useLazyGetMerchantVoucherByCodeQuery();
+  const [getVoucherByCode] = useLazyGetMerchantVoucherByCodeQuery();
 
   const fetchDetailVoucher = async () => {
     try {

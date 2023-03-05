@@ -24,10 +24,6 @@ export interface FormReturn<T> {
   error?: Error;
   values?: T;
   handleClick?: () => void;
-  onRangeChange?: (
-    dates: null | (Dayjs | null)[],
-    dateStrings: string[],
-  ) => void;
 }
 
 export interface IGetVoucherResponse {

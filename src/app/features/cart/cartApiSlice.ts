@@ -2,7 +2,6 @@ import {
   ICartHomeResponse,
   ICartResponse,
   ICreateCartRequest,
-  IDeleteSelectedCartRequest,
   IUpdateCartItemRequest,
   IUpdateCartRequest,
 } from '../../../helpers/types';

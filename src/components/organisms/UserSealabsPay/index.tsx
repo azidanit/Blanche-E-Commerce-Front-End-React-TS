@@ -1,7 +1,7 @@
 import { Divider } from 'antd';
 import React from 'react';
 import { dateToYearMonth } from '../../../helpers/parseDate';
-import { Badge, Button, Tag } from '../../atoms';
+import { Badge, Button } from '../../atoms';
 import style from './index.module.scss';
 
 interface UserSealabsPayProps {

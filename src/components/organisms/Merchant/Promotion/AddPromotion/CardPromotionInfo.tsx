@@ -17,17 +17,7 @@ const CardPromotionInfo: React.FC = () => {
     { label: 'Last 30 Days', value: [dayjs().add(-30, 'd'), dayjs()] },
     { label: 'Last 90 Days', value: [dayjs().add(-90, 'd'), dayjs()] },
   ];
-  const onRangeChange = (
-    dates: null | (Dayjs | null)[],
-    dateStrings: string[],
-  ) => {
-    if (dates) {
-      console.log('From: ', dates[0], ', to: ', dates[1]);
-      console.log('From: ', dateStrings[0], ', to: ', dateStrings[1]);
-    } else {
-      console.log('Clear');
-    }
-  };
+
   return (
     <Card className={style.form__promotion__item}>
       <div className={style.form__promotion__item__header}>
@@ -37,9 +27,9 @@ const CardPromotionInfo: React.FC = () => {
       </div>
       <div className={style.form}>
         <FormLabel
-          name="name"
+          name="title"
           label="Promotion Name"
-          rules={rules.name}
+          rules={rules.title}
           className={style.form__item}
         >
           <Input type="text" className={style.form__item__input} />
@@ -56,7 +46,6 @@ const CardPromotionInfo: React.FC = () => {
             showTime
             className={style.form__item__input}
             format="YYYY/MM/DD HH:mm:ss"
-            onChange={onRangeChange}
             size="large"
           />
         </FormLabel>

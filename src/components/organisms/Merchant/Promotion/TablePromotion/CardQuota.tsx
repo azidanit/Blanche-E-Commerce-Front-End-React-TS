@@ -1,14 +1,15 @@
 import React from 'react';
 import { Image } from '../../../../atoms';
+import { TableItemProps } from './CardPromotion';
 import style from './index.module.scss';
 
-const CardQuota: React.FC = () => {
+const CardQuota: React.FC<TableItemProps> = ({ promotion }) => {
   return (
-    <div className={style.table__voucher__qu}>
-      <div className={style.table__voucher__qu__info}>
-        <p className={style.table__voucher__qu__info__name}>Used</p>
-        <p className={style.table__voucher__qu__info__desc}>0/35</p>
-      </div>
+    <div className={style.table__promotions__qu__info}>
+      <p className={style.table__promotions__qu__info__name}>Used</p>
+      <p className={style.table__promotions__qu__info__desc}>
+        {promotion.used_quota} /{promotion.quota}
+      </p>
     </div>
   );
 };

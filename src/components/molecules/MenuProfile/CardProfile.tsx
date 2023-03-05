@@ -11,7 +11,7 @@ const CardProfile: React.FC = () => {
   return (
     <Link to="/profile" className={style.menu__profile__card__profile}>
       <div className={style.menu__profile__card__profile__icon}>
-        <Avatar size={50} />
+        <Avatar size={50} src={user?.profile_picture} />
       </div>
       <div className={style.menu__profile__card__profile__content}>
         <h6>{user?.fullname}</h6>

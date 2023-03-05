@@ -1,7 +1,5 @@
 import { message } from 'antd';
 import React, { useState } from 'react';
-import { MdChatBubbleOutline } from 'react-icons/md';
-import { Link } from 'react-router-dom';
 import { ModalConfirm, Button } from '../../../../../..';
 import {
   useMerchantAcceptRequestMutation,

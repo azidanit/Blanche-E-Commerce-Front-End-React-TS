@@ -2,7 +2,6 @@ import { Divider, StepProps, Steps } from 'antd';
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
 import { dateToMinuteHourMonthStringDayYear } from '../../../../../helpers/parseDate';
-import { Button, Card } from '../../../../atoms';
 import style from './index.module.scss';
 import './override.scss';
 import { IMerchantDetailTransactionResponse } from '../../../../../helpers/types/merchant/merchant-order.interface';
@@ -73,7 +72,6 @@ const OrderStatus: React.FC<ShippingDetailsProps> = ({ transaction }) => {
       <ComponentOnDelivery transaction={transaction} />
     ),
   };
-  const [status, setStatus] = useState('need to be processed');
   const [statusIdx, setStatusIdx] = useState(0);
 
   const renderComponent = () => {

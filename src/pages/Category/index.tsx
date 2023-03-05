@@ -3,7 +3,7 @@ import React from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router';
 import { useSearchParams } from 'react-router-dom';
 import { useGetProductsQuery } from '../../app/features/home/homeApiSlice';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { useAppSelector } from '../../app/hooks';
 import { FilterProduct, ProductContent, SEO } from '../../components';
 import { capitalizeFirstLetter } from '../../helpers/capitalizeFirstLetter';
 import style from './index.module.scss';

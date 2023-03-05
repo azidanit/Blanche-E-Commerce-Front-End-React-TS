@@ -15,7 +15,6 @@ const TopupIframe: React.FC<TopupIframeProps> = ({ src }) => {
     if (!ref?.current?.contentWindow?.location) return;
     const location = ref.current.contentWindow.location;
     const url = location.href;
-
     const from =
       locationURL.state?.from?.pathname + locationURL.state?.from?.search ||
       '/wallet';

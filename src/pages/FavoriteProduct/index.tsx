@@ -1,6 +1,11 @@
 import { Skeleton } from 'antd';
 import React, { useState } from 'react';
-import { Input, ItemNotFound, ListCardProduct, Pagination } from '../../components';
+import {
+  Input,
+  ItemNotFound,
+  ListCardProduct,
+  Pagination,
+} from '../../components';
 import style from './index.module.scss';
 import { useGetFavoriteProductsQuery } from '../../app/features/profile/favoriteProductApiSlice';
 import { debounce } from 'lodash';
@@ -14,7 +19,7 @@ const FavoriteProduct: React.FC = () => {
   const { data, isLoading } = useGetFavoriteProductsQuery({
     limit,
     page: page,
-    q: search,
+    q: search || undefined,
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,13 +55,18 @@ const FavoriteProduct: React.FC = () => {
             )}
           </>
         )}
-        {(!data?.total_data && search === '') && (
-          <ItemNotFound title='Product Not Found' body="You don't have any favorited products"/>
+        {!data?.total_data && search === '' && (
+          <ItemNotFound
+            title="Product Not Found"
+            body="You don't have any favorited products"
+          />
         )}
-        {(!data?.total_data && search !== '') && (
-          <ItemNotFound title='Product Not Found' body="You don't have any favorited products with your search keyword"/>
+        {!data?.total_data && search !== '' && (
+          <ItemNotFound
+            title="Product Not Found"
+            body="You don't have any favorited products with your search keyword"
+          />
         )}
-
       </Skeleton>
     </div>
   );
