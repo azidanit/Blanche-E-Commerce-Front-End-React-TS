@@ -10,14 +10,11 @@ const ComponentOnRequestRefund: React.FC = () => {
   const navigate = useNavigate();
 
   const handleNavigate = () => {
-    navigate('/merchant/refund');
+    navigate('/merchant/refunds');
   };
 
   return (
     <div className={classProps}>
-      <div className={style.os__status__item}>
-        <p className={style.os__status__item__text}>Buyer request to refund</p>
-      </div>
       <Button size="large" danger onClick={handleNavigate} type="link">
         Go to refund list
       </Button>

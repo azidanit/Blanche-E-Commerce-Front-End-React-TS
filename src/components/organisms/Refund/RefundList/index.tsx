@@ -17,6 +17,7 @@ const values = [
   'Canceled By User',
   'Rejected',
   'Refunded',
+  'Need Approval',
 ];
 
 const RefundList: React.FC = () => {

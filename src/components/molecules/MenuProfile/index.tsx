@@ -41,6 +41,15 @@ const MenuProfile: React.FC = () => {
         </Link>
       ),
     },
+
+    {
+      key: '4',
+      label: (
+        <Link to="refunds" className={style.menu__profile__item}>
+          <p>Refunds</p>
+        </Link>
+      ),
+    },
   ];
   return (
     <Dropdown

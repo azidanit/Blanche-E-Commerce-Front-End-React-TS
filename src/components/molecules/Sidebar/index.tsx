@@ -46,7 +46,7 @@ const items = [
     getItem('Create Product', 'products/create'),
   ]),
   getItem('Orders', 'orders', <ShoppingOutlined />),
-  getItem('Refund', 'refund', <ReloadOutlined />),
+  getItem('Refund', 'refunds', <ReloadOutlined />),
   { type: 'divider' } as MenuDividerType,
   getItem('Promotions', 'sub2', <PercentageOutlined />, [
     getItem('Promotion List', 'promotions'),

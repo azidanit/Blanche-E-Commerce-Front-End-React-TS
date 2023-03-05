@@ -18,6 +18,7 @@ const values = [
   'Canceled By User',
   'Rejected',
   'Refunded',
+  'Waiting Buyer Approval',
 ];
 
 const MerchantRefundList: React.FC = () => {

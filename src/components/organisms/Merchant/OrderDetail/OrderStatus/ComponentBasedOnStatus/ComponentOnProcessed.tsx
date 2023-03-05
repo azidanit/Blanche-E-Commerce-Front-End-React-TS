@@ -120,6 +120,7 @@ const ComponentOnProcessed: React.FC<ComponentBasedOnStatusProps> = ({
           onOk={handlePrint}
           width={600}
           onCancel={() => setIsLabelVisible(false)}
+          okText="Print"
         >
           <ModalHeader
             title="Print Label"

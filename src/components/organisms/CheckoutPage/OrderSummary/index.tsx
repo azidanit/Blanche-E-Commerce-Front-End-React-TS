@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useGetUserAddressQuery } from '../../../../app/features/address/userAddressApiSlice';
 import { Alert, Button, Card } from '../../../atoms';
 import style from './index.module.scss';
 import { Divider } from 'antd';

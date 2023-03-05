@@ -138,7 +138,7 @@ export const router = createBrowserRouter([
             element: <Transactions />,
           },
           {
-            path: '/refund',
+            path: '/refunds',
             element: <Refund />,
           },
           {
@@ -278,7 +278,7 @@ export const router = createBrowserRouter([
             element: <SellerFund />,
           },
           {
-            path: '/merchant/refund',
+            path: '/merchant/refunds',
             element: <MerchantRefund />,
           },
           {
