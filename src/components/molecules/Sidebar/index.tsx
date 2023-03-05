@@ -1,10 +1,11 @@
 import {
   HomeOutlined,
+  PercentageOutlined,
+  ReloadOutlined,
   SettingOutlined,
   ShopOutlined,
   ShoppingOutlined,
   TagOutlined,
-  TagsOutlined,
   UserOutlined,
 } from '@ant-design/icons';
 import React from 'react';
@@ -13,6 +14,7 @@ import style from './index.module.scss';
 import { Logo, LogoIcon } from '../../atoms';
 import { Layout, MenuProps } from 'antd';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { MenuDividerType } from 'antd/es/menu/hooks/useItems';
 
 interface SidebarProps {
   collapsed: boolean;
@@ -44,14 +46,17 @@ const items = [
     getItem('Create Product', 'products/create'),
   ]),
   getItem('Orders', 'orders', <ShoppingOutlined />),
-  getItem('Promotions', 'sub2', <TagOutlined />, [
+  getItem('Refund', 'refund', <ReloadOutlined />),
+  { type: 'divider' } as MenuDividerType,
+  getItem('Promotions', 'sub2', <PercentageOutlined />, [
     getItem('Promotion List', 'promotions'),
     getItem('Create Promotion', 'promotions/create'),
   ]),
-  getItem('Vouchers', 'sub3', <TagsOutlined />, [
+  getItem('Vouchers', 'sub3', <TagOutlined />, [
     getItem('Voucher List', 'vouchers'),
     getItem('Create Voucher', 'vouchers/create'),
   ]),
+  { type: 'divider' } as MenuDividerType,
   getItem('Settings', 'sub4', <SettingOutlined />, [
     getItem('Address', 'address'),
     getItem('Shipping', 'shipping'),
@@ -66,7 +71,6 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const lastPath = location.pathname.split('/').slice(2).join('/');
-  console.log(lastPath);
 
   const onClick: MenuProps['onClick'] = (e) => {
     navigate(`/merchant/${e.key}`);
