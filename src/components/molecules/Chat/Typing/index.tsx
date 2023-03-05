@@ -43,10 +43,10 @@ const Typing: React.FC<TypingProps> = ({ isClosed, sender_id }) => {
         message: newMessage,
       };
       switch (sender_id) {
-        case 1:
+        case 2:
           await merchantSendMessage(body).unwrap();
           break;
-        case 2:
+        case 3:
           await sendMessage(body).unwrap();
           break;
       }

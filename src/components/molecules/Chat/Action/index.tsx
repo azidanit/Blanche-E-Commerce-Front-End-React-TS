@@ -34,10 +34,10 @@ const Action: React.FC<ActionProps> = ({ sender_id }) => {
     try {
       let data;
       switch (sender_id) {
-        case 1:
+        case 2:
           data = await acceptMerchant(Number(params.id) || 0).unwrap();
           break;
-        case 2:
+        case 3:
           data = await accept(Number(params.id) || 0).unwrap();
           break;
         default:
