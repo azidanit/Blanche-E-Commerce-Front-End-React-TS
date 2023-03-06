@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-  IGetReviewsResponse,
-  IReview,
-} from '../../../../../helpers/types/review.interface';
+import { IGetReviewsResponse } from '../../../../../helpers/types/review.interface';
 import CardReview from './CardReview';
 import style from './index.module.scss';
 
@@ -11,13 +8,17 @@ interface ListReviewsProps {
 }
 
 const ListReviews: React.FC<ListReviewsProps> = ({ data }) => {
-  if (!data) {
-    return <></>;
+  if (data?.reviews.length === 0) {
+    return (
+      <p className={style.no__review}>
+        This product doesnt have any review yet
+      </p>
+    );
   }
 
   return (
     <div className={style.list__reviews}>
-      {data.reviews.map((review, index) => (
+      {data?.reviews.map((review, index) => (
         <CardReview key={review.product_name + index} data={review} />
       ))}
     </div>

@@ -1,5 +1,6 @@
 import { Col, Row } from 'antd';
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import { IGetProductListResponse } from '../../../helpers/types';
 import CardProduct from '../CardProduct';
 
@@ -18,20 +19,23 @@ const ListCardProduct: React.FC<ListCardProductProps> = ({
   data,
   grid = { xs: 24, sm: 8, md: 6, lg: 6, xl: 4 },
 }) => {
+  const { slug } = useParams();
   return (
     <Row gutter={[16, 32]}>
-      {data.products.map((product, index) => (
-        <Col
-          xs={grid.xs}
-          sm={grid.sm}
-          md={grid.md}
-          lg={grid.lg}
-          xl={grid.xl}
-          key={`product-${product.id + index}`}
-        >
-          <CardProduct product={product} />
-        </Col>
-      ))}
+      {data.products
+        .filter((product) => product.slug !== slug)
+        .map((product, index) => (
+          <Col
+            xs={grid.xs}
+            sm={grid.sm}
+            md={grid.md}
+            lg={grid.lg}
+            xl={grid.xl}
+            key={`product-${product.id + index}`}
+          >
+            <CardProduct product={product} />
+          </Col>
+        ))}
     </Row>
   );
 };

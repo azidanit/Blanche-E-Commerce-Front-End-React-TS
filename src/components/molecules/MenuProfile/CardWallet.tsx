@@ -3,7 +3,6 @@ import style from './index.module.scss';
 import { MdAccountBalanceWallet } from 'react-icons/md';
 import { toRupiah } from '../../../helpers/toRupiah';
 import { useGetWalletDetailsQuery } from '../../../app/features/wallet/walletApiSlice';
-import { Button } from 'antd';
 import { Link } from 'react-router-dom';
 
 const CardWallet: React.FC = () => {

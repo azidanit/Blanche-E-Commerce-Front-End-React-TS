@@ -15,7 +15,7 @@ const ProductReviews: React.FC = () => {
 
   const params = useAppSelector((state) => state.params);
 
-  const { data, isLoading } = useGetReviewsQuery(
+  const { data } = useGetReviewsQuery(
     {
       ...params.search,
       limit,

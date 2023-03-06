@@ -36,6 +36,7 @@ export interface IGetReviewsRequest {
 }
 
 export interface IReview {
+  username: string;
   product_id: number;
   variant_item_id: number;
   product_name: string;
