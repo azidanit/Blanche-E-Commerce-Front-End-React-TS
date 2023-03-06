@@ -14,7 +14,6 @@ import style from './index.module.scss';
 
 const WalletPayment: React.FC = () => {
   const [cancelPayment, { isLoading }] = useCancelPaymentMutation();
-
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [isPageLoading, setIsPageLoading] = React.useState(true);
 
@@ -47,13 +46,11 @@ const WalletPayment: React.FC = () => {
         amount: Number(amount),
         payment_id: payment_id ? payment_id : '',
       }).unwrap();
-
       window.location.replace(
         `/payment/wallet?payment_id=${res.payment_id}&amount=${res.amount}&status=${res.status}`,
       );
     } catch (error) {
       const err = error as IErrorResponse;
-
       message.error(capitalizeFirstLetter(err.message));
     }
   };
@@ -66,11 +63,9 @@ const WalletPayment: React.FC = () => {
           <h1>Wallet Payment</h1>
         </div>
         <CardPaymentWallet />
-
         <Button danger type="link" onClick={handleModalOpen}>
           Cancel Payment
         </Button>
-
         <ModalConfirm
           title="Cancel Payment"
           info="Are you sure to cancel this payment?"

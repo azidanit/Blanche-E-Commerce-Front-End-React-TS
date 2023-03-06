@@ -8,10 +8,12 @@
   min-height: 350px;
   border-radius: 0.75rem;
   overflow: hidden;
+  min-width: 230px;
   flex-basis: 15.77%;
 
   @media screen and (max-width: 768px) {
     flex-basis: 40%;
+    min-width: 200px;
   }
 
   &:hover {

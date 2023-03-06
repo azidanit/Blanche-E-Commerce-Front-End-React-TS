@@ -24,7 +24,6 @@ const CartSummary: React.FC<CartSummaryProps> = ({
   const isLoading = false;
   const [checkout, { isLoading: isLoadingCheckout }] = useCheckoutMutation();
   const navigate = useNavigate();
-
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const showModal = () => {
