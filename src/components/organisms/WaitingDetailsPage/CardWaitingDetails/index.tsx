@@ -2,7 +2,6 @@ import React from 'react';
 import { MdOutlineStorefront } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import { ITransactionWaiting } from '../../../../helpers/types';
-import { Card } from '../../../atoms';
 import DetailProduct from '../../TransactionDetailsPage/DetailProduct';
 import style from './index.module.scss';
 
