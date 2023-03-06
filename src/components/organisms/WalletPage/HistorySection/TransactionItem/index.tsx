@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { dateToMinuteHourMonthStringDayYear } from '../../../../../helpers/parseDate';
 import { toRupiah } from '../../../../../helpers/toRupiah';
@@ -10,8 +10,19 @@ interface TransactionItemProps {
 }
 
 const TransactionItem: React.FC<TransactionItemProps> = ({ transaction }) => {
-  const invoices = transaction.notes.match(/\[(.*?)\]/);
+  const [newNotes, setNewNotes] = React.useState<string>(transaction.notes);
 
+  useEffect(() => {
+    const invoices = transaction.notes.match(/\[(.*?)\]/);
+    // if (!invoices) {
+
+    if (invoices) {
+      setNewNotes(transaction.notes.replace(invoices[0], ''));
+    }
+  }, [newNotes]);
+
+  const invoices = transaction.notes.match(/\[(.*?)\]/);
+  console.log(invoices);
   return (
     <div className={style.ti}>
       <div className={style.ti__header}>
@@ -26,7 +37,7 @@ const TransactionItem: React.FC<TransactionItemProps> = ({ transaction }) => {
       <p className={style.ti__notes}>
         {invoices ? (
           <>
-            Pay Transaction for{' '}
+            {newNotes}{' '}
             {invoices[1].split(',').map((invoice, index) => (
               <Link
                 key={invoice}
@@ -37,6 +48,7 @@ const TransactionItem: React.FC<TransactionItemProps> = ({ transaction }) => {
                 {index < invoices[1].split(',').length - 1 && ', '}
               </Link>
             ))}
+            `{' '}
           </>
         ) : (
           transaction.notes
