@@ -5,7 +5,7 @@ import React, { Key, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Form, Button } from '../../../..';
 import { useGetProductListQuery } from '../../../../../app/features/merchant/merchantApiSlice';
-import { useLazyGetPromotionByIdQuery } from '../../../../../app/features/merchant/promotionApiSlice';
+import { useGetPromotionByIdQuery } from '../../../../../app/features/merchant/promotionApiSlice';
 import { IProductPromotion } from '../../../../../helpers/types/merchant/promotion.merchant.inteface';
 import { TableProductDataType } from '../TableProduct';
 import CardPrice from '../TableProduct/CardPrice';
@@ -71,7 +71,9 @@ const AddPromotion: React.FC<AddPromotionProps> = ({ isEdit, isDuplicate }) => {
 
   const { id } = useParams();
 
-  const [getPromotionById] = useLazyGetPromotionByIdQuery();
+  const { data: promotion } = useGetPromotionByIdQuery(Number(id), {
+    skip: !id,
+  });
 
   const { handleCloseModal, rowSelection, handleSubmit, selectedProducts } =
     useForms(
@@ -85,67 +87,47 @@ const AddPromotion: React.FC<AddPromotionProps> = ({ isEdit, isDuplicate }) => {
       Number(id),
     );
 
-  const fetchDetailPromotion = async () => {
-    try {
-      const promotion = await getPromotionById(Number(id)).unwrap();
-
-      if (!promotion) {
-        return;
-      }
-
-      if (dayjs(promotion.end_date).isBefore(dayjs())) {
-        message.error('Promotion has expired');
-        navigate('/merchant/promotions');
-        return;
-      }
-
-      setDiscountType(
-        promotion.promotion_type_id === 1 ? 'Fixed Amount' : 'Percentage',
-      );
-
-      form.setFieldsValue({
-        title: promotion.title,
-        period: [dayjs(promotion.start_date), dayjs(promotion.end_date)],
-        nominal: promotion.nominal,
-        max_discounted_quantity: promotion.max_discounted_quantity,
-        promotion_type_id: promotion.promotion_type_id,
-        quota: promotion.quota,
-      });
-
-      if (promotion.products.length === 0) {
-        return;
-      }
-
-      const result: TableProductDataType[] = [];
-      promotion.products.forEach((product: IProductPromotion) => {
-        result.push({
-          key: product.id,
-          product: <CardProduct product={product} />,
-          price: <CardPrice product={product} />,
-          stock: product.total_stock,
-          sold: product.num_of_sale,
-        });
-      });
-
-      setProducts([...result]);
-
-      const newProductKeys = [...promotion.product_ids];
-      setProductKeys(newProductKeys);
-    } catch (err) {
-      const error = err as Error;
-      message.error(error.message);
-    }
-  };
-
   useEffect(() => {
-    if ((!isEdit && !isDuplicate) || !id) {
+    if (!promotion) return;
+    if (dayjs(promotion.end_date).isBefore(dayjs())) {
+      message.error('Promotion has expired');
+      navigate('/merchant/promotions');
       return;
     }
 
-    if (id) {
-      fetchDetailPromotion();
+    setDiscountType(
+      promotion.promotion_type_id === 1 ? 'Fixed Amount' : 'Percentage',
+    );
+
+    form.setFieldsValue({
+      title: promotion.title,
+      period: [dayjs(promotion.start_date), dayjs(promotion.end_date)],
+      nominal: promotion.nominal,
+      max_discounted_quantity: promotion.max_discounted_quantity,
+      promotion_type_id: promotion.promotion_type_id,
+      quota: promotion.quota,
+    });
+
+    if (promotion.products.length === 0) {
+      return;
     }
-  }, [isEdit, isDuplicate]);
+
+    const result: TableProductDataType[] = [];
+    promotion.products.forEach((product: IProductPromotion) => {
+      result.push({
+        key: product.id,
+        product: <CardProduct product={product} />,
+        price: <CardPrice product={product} />,
+        stock: product.total_stock,
+        sold: product.num_of_sale,
+      });
+    });
+
+    setProducts([...result]);
+
+    const newProductKeys = [...promotion.product_ids];
+    setProductKeys(newProductKeys);
+  }, [promotion]);
 
   return (
     <Form className={style.form__promotion} onFinish={handleSubmit} form={form}>
