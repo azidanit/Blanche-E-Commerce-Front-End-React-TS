@@ -35,7 +35,7 @@ const ModalShare: React.FC<ModalShareProps> = ({
   `;
 
   const { store, slug } = useParams();
-  const shareUrl = `blanche.life/${store}/${slug}}`;
+  const shareUrl = `https://www.blanche.life/${store}/${slug}`;
 
   const handleCopyShareLink = () => {
     navigator.clipboard.writeText(shareUrl);
