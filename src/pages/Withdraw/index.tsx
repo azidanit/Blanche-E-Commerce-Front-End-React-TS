@@ -38,7 +38,7 @@ const Withdraw: React.FC = () => {
       };
       await withdraw(body).unwrap();
       setIsModalOpen(false);
-      navigate('/merchant/payment', { replace: true });
+      navigate('/merchant/wallet', { replace: true });
       message.success('Withdraw success');
     } catch (err) {
       setIsModalOpen(false);
