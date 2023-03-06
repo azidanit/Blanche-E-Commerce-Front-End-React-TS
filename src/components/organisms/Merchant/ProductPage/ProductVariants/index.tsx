@@ -209,17 +209,14 @@ const ProductVariants: React.FC = () => {
       const res: Row[] = [];
       firstSelect.forEach((firstItem, firstIndex) =>
         secondSelect.forEach((secondItem, secondIndex) => {
+          const idx = firstIndex * secondSelect.length + secondIndex;
           res.push({
             key: `${firstIndex}-${secondIndex}`,
             firstVariant: firstItem,
             secondVariant: secondItem,
             image: (
               <FormLabel
-                name={[
-                  'variantItems',
-                  firstIndex * secondSelect.length + secondIndex,
-                  'image',
-                ]}
+                name={['variantItems', idx, 'image']}
                 valuePropName="fileList"
                 getValueFromEvent={getFile}
                 rules={rules.images}
@@ -231,15 +228,9 @@ const ProductVariants: React.FC = () => {
                   showUploadList={{ showPreviewIcon: false }}
                 >
                   {variantItems &&
-                    variantItems[
-                      firstIndex * secondSelect.length + secondIndex
-                    ] &&
-                    (!variantItems[
-                      firstIndex * secondSelect.length + secondIndex
-                    ].image ||
-                      variantItems[
-                        firstIndex * secondSelect.length + secondIndex
-                      ].image.length !== 1) && (
+                    variantItems[idx] &&
+                    (!variantItems[idx].image ||
+                      variantItems[idx].image.length !== 1) && (
                       <div className={style.pm__upload}>
                         <PlusOutlined />
                         <p>Upload</p>
@@ -250,11 +241,7 @@ const ProductVariants: React.FC = () => {
             ),
             price: (
               <FormLabel
-                name={[
-                  'variantItems',
-                  firstIndex * secondSelect.length + secondIndex,
-                  'price',
-                ]}
+                name={['variantItems', idx, 'price']}
                 rules={rules.price}
                 preserve={false}
               >
@@ -263,11 +250,7 @@ const ProductVariants: React.FC = () => {
             ),
             stock: (
               <FormLabel
-                name={[
-                  'variantItems',
-                  firstIndex * secondSelect.length + secondIndex,
-                  'stock',
-                ]}
+                name={['variantItems', idx, 'stock']}
                 rules={rules.stock}
                 preserve={false}
               >

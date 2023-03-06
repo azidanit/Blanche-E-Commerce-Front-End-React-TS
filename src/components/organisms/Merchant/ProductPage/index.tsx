@@ -82,7 +82,7 @@ const ProductPage: React.FC = () => {
                   variants?.variant_items
                     .map((item) => item.image)
                     .indexOf(item.image[0].url) || 0;
-                variantItems.push({
+                variantItems.unshift({
                   image: item.image[0].url,
                   price: item.price,
                   stock: item.stock,
@@ -145,6 +145,7 @@ const ProductPage: React.FC = () => {
         is_used: values.condition === 'new' ? false : true,
         images,
       };
+
       params.id
         ? await updateProduct({ id: params.id, ...body })
         : await createProduct(body).unwrap();
