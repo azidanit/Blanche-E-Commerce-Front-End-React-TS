@@ -45,10 +45,8 @@ const Seller: React.FC = () => {
   }
   return (
     <div className={style.seller__page}>
-      <>
-        <CardSellerProfile data={data} isLoading={isLoading} />
-        <SellerProducts />
-      </>
+      <CardSellerProfile data={data} isLoading={isLoading} />
+      <SellerProducts />
     </div>
   );
 };

@@ -16,18 +16,20 @@ const AppLayout = (): JSX.Element => {
   const { isLoggedIn, user, merchant } = useAppSelector((state) => state.auth);
 
   const { data: result, isLoading } = useGetProfileQuery(undefined, {
-    skip: !isLoggedIn || (isLoggedIn && !user),
+    skip: !isLoggedIn || (!isLoggedIn && !user),
   });
   const { data: resultMerchant, isLoading: isLoadingMerchant } =
     useGetMerchantProfileQuery(undefined, {
       skip:
+        !isLoggedIn ||
         result?.role !== 'merchant' ||
         (result?.role !== 'merchant' && !isLoggedIn) ||
-        (result?.role !== 'merchant' && isLoggedIn && !merchant),
+        (result?.role !== 'merchant' && !isLoggedIn && !merchant),
     });
 
   useEffect(() => {
     if (!result) return;
+    console.log(result);
     dispatch(setUser(result));
     if (result.role === 'merchant') {
       setIsMerchant(true);

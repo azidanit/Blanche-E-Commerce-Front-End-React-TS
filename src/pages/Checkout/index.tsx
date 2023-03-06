@@ -82,7 +82,6 @@ const Checkout: React.FC = () => {
         voucher_merchant,
         delivery_option,
       };
-
       setMerchant([...merchant, newMerchant]);
     } else {
       const newMerchant = [...merchant];
@@ -91,7 +90,6 @@ const Checkout: React.FC = () => {
         voucher_merchant,
         delivery_option,
       };
-
       setMerchant(newMerchant);
     }
   };

@@ -61,7 +61,7 @@ const Product = (): JSX.Element => {
 
   const { data: similarProducts } = useGetProductsQuery(
     {
-      limit: 6,
+      limit: 24,
       cat: data?.category?.url,
     },
     {
@@ -71,7 +71,7 @@ const Product = (): JSX.Element => {
 
   const { data: sellerProducts } = useGetProductsQuery(
     {
-      limit: 6,
+      limit: 12,
       merchant: store as string,
     },
     {
@@ -112,7 +112,6 @@ const Product = (): JSX.Element => {
           <CardSummary />
         )}
       </div>
-
       <div className={style.product__page__lists}>
         {Boolean(sellerProducts?.products.length) && (
           <MoreProducts

@@ -25,10 +25,12 @@ import CardWallet from './MenuProfile/CardWallet';
 import Countdown from './Countdown';
 import ModalConfirm from './ModalConfirm';
 import Chat from './Chat';
+import CarouselProducts from './CarouselProducts';
 
 export {
   AuthSectionLeft,
   AuthSectionRight,
+  CarouselProducts,
   Container,
   Form,
   Tabs,

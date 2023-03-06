@@ -7,7 +7,6 @@ import { Image } from '../../components';
 const TopupStatus: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
-
   const urlSearchParams = new URLSearchParams(location.search?.split('?')[1]);
   const urlSearchParamsObj = Object.fromEntries(urlSearchParams);
   const isSuccess = urlSearchParamsObj.status === 'TXN_PAID';

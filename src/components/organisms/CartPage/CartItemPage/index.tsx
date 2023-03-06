@@ -24,6 +24,7 @@ import classNames from 'classnames';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { capitalizeFirstLetter } from '../../../../helpers/capitalizeFirstLetter';
 import { IErrorResponse } from '../../../../helpers/types/response.interface';
+import { debounce } from 'lodash';
 
 interface CartItemProps {
   item: ICartItem;
@@ -33,7 +34,8 @@ interface CartItemProps {
 const CartItemPage: React.FC<CartItemProps> = ({ item, isLoading }) => {
   const [deleteCart, { isLoading: isLoadingDelete }] =
     useDeleteCartItemMutation();
-  const [updateCartItem] = useUpdateCartItemMutation();
+  const [updateCartItem, { isLoading: isLoadingUpdateCartItem }] =
+    useUpdateCartItemMutation();
   const [notes, setNotes] = useState(item?.notes);
 
   const [updateCarts, { isLoading: isLoadingUpdateCarts }] =
@@ -140,7 +142,11 @@ const CartItemPage: React.FC<CartItemProps> = ({ item, isLoading }) => {
     item.is_valid ? style.cart__item : style.cart__item__invalid,
   );
   return (
-    <Spin spinning={isLoadingUpdateCarts || isLoadingDelete}>
+    <Spin
+      spinning={
+        isLoadingUpdateCarts || isLoadingDelete || isLoadingUpdateCartItem
+      }
+    >
       <Checkbox checked={item?.is_checked} onChange={onChange}>
         <div className={classProps}>
           <div className={style.cart__item__content}>
@@ -187,8 +193,8 @@ const CartItemPage: React.FC<CartItemProps> = ({ item, isLoading }) => {
                   <div className={style.cart__item__qty}>
                     <InputQuantity
                       value={item.quantity}
-                      handleDecrement={handleDecrement}
-                      handleIncrement={handleIncrement}
+                      handleDecrement={debounce(handleDecrement, 500)}
+                      handleIncrement={debounce(handleIncrement, 500)}
                       handleChange={handleChange}
                       disabledIncrement={
                         !item?.is_valid || item?.stock <= item?.quantity
@@ -205,7 +211,7 @@ const CartItemPage: React.FC<CartItemProps> = ({ item, isLoading }) => {
                     danger
                     icon={<RiDeleteBinLine />}
                     loading={isLoadingDelete}
-                    onClick={handleDelete}
+                    onClick={debounce(handleDelete, 500)}
                   ></Button>
                 </div>
               </div>
@@ -217,7 +223,7 @@ const CartItemPage: React.FC<CartItemProps> = ({ item, isLoading }) => {
                       placeholder="add notes"
                       rows={1}
                       value={notes}
-                      onChange={handleChangeNotes}
+                      onChange={debounce(handleChangeNotes, 500)}
                       maxLength={50}
                       showCount
                       disabled={!item?.is_valid}

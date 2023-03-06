@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { IGetProductListResponse } from '../../../../helpers/types';
-import { ListCardProduct } from '../../../molecules';
+import { CarouselProducts } from '../../../molecules';
 import style from './index.module.scss';
 
 interface MoreProductsProps {
@@ -23,7 +23,7 @@ const MoreProducts: React.FC<MoreProductsProps> = ({ title, data, to }) => {
           View All
         </Link>
       </div>
-      {data && <ListCardProduct data={data} />}
+      {data && <CarouselProducts data={data} />}
     </div>
   );
 };
