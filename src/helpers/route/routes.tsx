@@ -267,7 +267,7 @@ export const router = createBrowserRouter([
             element: <Address />,
           },
           {
-            path: '/merchant/payment',
+            path: '/merchant/wallet',
             element: <SellerFund />,
           },
           {

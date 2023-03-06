@@ -1,5 +1,8 @@
 @use 'src/styles/variables' as *;
 .choose__payment__modal {
+  ::-webkit-scrollbar {
+    display: none;
+  }
   &__radio {
     display: flex;
     flex-direction: column;

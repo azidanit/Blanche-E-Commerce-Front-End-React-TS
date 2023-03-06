@@ -14,7 +14,6 @@ import Modal from '../../../molecules/Modal';
 import style from './index.module.scss';
 import { rules } from './validation';
 import useForm from './useForm';
-import useMediaQuery from '../../../../hooks/useMediaQuery';
 import { IDetails } from '../../../../helpers/types';
 import { Form as Aform, message } from 'antd';
 import { capitalizeFirstLetter } from '../../../../helpers/capitalizeFirstLetter';
@@ -40,7 +39,6 @@ const EditDetails: React.FC<EditDetailsProps> = ({
 }) => {
   const { handleSubmit, error, isLoading, isError } = useForm();
   const [form] = Aform.useForm();
-  const isMobile = useMediaQuery('(max-width: 768px)');
 
   const onOk = async () => {
     try {

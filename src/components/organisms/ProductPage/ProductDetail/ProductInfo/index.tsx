@@ -1,6 +1,5 @@
 import { Skeleton } from 'antd';
 import React from 'react';
-import { IProductDetail } from '../../../../../helpers/types';
 import useProduct from '../../../../../hooks/useProduct';
 import { Rate } from '../../../../atoms';
 import style from './index.module.scss';

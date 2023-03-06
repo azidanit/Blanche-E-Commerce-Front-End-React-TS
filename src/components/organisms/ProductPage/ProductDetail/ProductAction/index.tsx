@@ -12,6 +12,7 @@ import {
 import { useAppSelector } from '../../../../../app/hooks';
 import { IErrorResponse } from '../../../../../helpers/types/response.interface';
 import { capitalizeFirstLetter } from '../../../../../helpers/capitalizeFirstLetter';
+import { useNavigate } from 'react-router-dom';
 
 interface ProductActionProps {
   product?: IProductDetail;
@@ -20,6 +21,7 @@ interface ProductActionProps {
 const ProductAction: React.FC<ProductActionProps> = ({ product }) => {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const { isLoggedIn } = useAppSelector((state) => state.auth);
+  const navigate = useNavigate();
 
   const { data: dataFavProduct } = useGetFavoriteProductsQuery(
     {
@@ -44,6 +46,8 @@ const ProductAction: React.FC<ProductActionProps> = ({ product }) => {
     try {
       if (!isLoggedIn || !product) {
         message.warning('Please Login To Add Favorite Product');
+
+        navigate('/login');
         return;
       }
       await updateFavoriteProduct({
@@ -58,6 +62,7 @@ const ProductAction: React.FC<ProductActionProps> = ({ product }) => {
       );
     } catch (err) {
       const error = err as IErrorResponse;
+
       message.error(capitalizeFirstLetter(error.message));
     }
   };

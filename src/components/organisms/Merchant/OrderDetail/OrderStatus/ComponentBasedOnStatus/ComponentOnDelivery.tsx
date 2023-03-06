@@ -5,7 +5,6 @@ import style from '../index.module.scss';
 import { ModalConfirm } from '../../../../..';
 import { useUpdateMerchantOrderStatusMutation } from '../../../../../../app/features/merchant/merchantOrderApiSlice';
 import { message } from 'antd';
-import { UpdateStatus } from '../../../Order/CardOrder/utils';
 import { EnumUpdateStatus } from '..';
 import { capitalizeFirstLetter } from '../../../../../../helpers/capitalizeFirstLetter';
 import { IErrorResponse } from '../../../../../../helpers/types/response.interface';

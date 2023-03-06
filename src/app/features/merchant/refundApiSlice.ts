@@ -28,7 +28,7 @@ export const refundApiSlice = apiSlice.injectEndpoints({
       transformResponse: (response: { data: IActionRefundResponse }) =>
         response.data,
       transformErrorResponse: (response) => response.data,
-      invalidatesTags: ['Refunds'],
+      invalidatesTags: ['Refunds', 'Message'],
     }),
     merchantRejectRequest: build.mutation<IActionRefundResponse, number>({
       query: (id) => ({
@@ -38,7 +38,7 @@ export const refundApiSlice = apiSlice.injectEndpoints({
       transformResponse: (response: { data: IActionRefundResponse }) =>
         response.data,
       transformErrorResponse: (response) => response.data,
-      invalidatesTags: ['Refunds'],
+      invalidatesTags: ['Refunds', 'Message'],
     }),
     merchantGetMessageRefundRequest: build.query<
       IRefundMessageResponse,

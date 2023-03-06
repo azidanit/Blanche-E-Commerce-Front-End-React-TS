@@ -60,9 +60,6 @@ const ModalPayment: React.FC<ModalPaymentPageProps> = ({
     setIsModalSLPOpen(true);
   };
 
-  const handleFrameCancel = () => {
-    setIsIFrameOpen(false);
-  };
   const handleCloseModalSLP = () => {
     setIsModalSLPOpen(false);
   };
@@ -161,7 +158,13 @@ const ModalPayment: React.FC<ModalPaymentPageProps> = ({
       okType="primary"
       className={style.choose__payment__modal}
       width={500}
-      okButtonProps={{ loading: isLoading, disabled: !order.is_order_valid }}
+      okButtonProps={{
+        loading: isLoading,
+        disabled:
+          !order.is_order_valid ||
+          !payment ||
+          (isPaymentWallet(payment) && wallet && wallet.balance < order.total),
+      }}
     >
       <ModalHeader title="Choose Payment Method" />
       <Radio.Group

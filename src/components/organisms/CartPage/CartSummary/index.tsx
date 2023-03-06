@@ -1,4 +1,4 @@
-import { Divider, notification, Skeleton } from 'antd';
+import { Divider, message, Skeleton } from 'antd';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ModalConfirm } from '../../..';
@@ -57,10 +57,7 @@ const CartSummary: React.FC<CartSummaryProps> = ({
 
     try {
       const data = await checkout(body).unwrap();
-      notification.success({
-        message: 'Success',
-        description: 'Checkout success',
-      });
+      message.success('Checkout success');
       navigate('/checkout?data=' + data.order_code);
     } catch (err) {
       const error = err as IErrorResponse;
@@ -70,10 +67,7 @@ const CartSummary: React.FC<CartSummaryProps> = ({
         return;
       }
 
-      notification.error({
-        message: 'Error',
-        description: capitalizeFirstLetter(error.message),
-      });
+      message.error(capitalizeFirstLetter(error.message));
     }
   };
   return (

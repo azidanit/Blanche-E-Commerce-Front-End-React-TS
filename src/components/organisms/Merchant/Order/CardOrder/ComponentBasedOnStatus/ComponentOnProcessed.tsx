@@ -111,6 +111,7 @@ const ComponentOnProcessed: React.FC<ComponentBasedOnStatusProps> = ({
         open={isLabelVisible}
         onOk={handlePrint}
         width={600}
+        okText="Print"
         onCancel={() => setIsLabelVisible(false)}
       >
         <ModalHeader

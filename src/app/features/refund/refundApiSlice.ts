@@ -38,7 +38,7 @@ export const refundApiSlice = apiSlice.injectEndpoints({
       transformResponse: (response: { data: IActionRefundResponse }) =>
         response.data,
       transformErrorResponse: (response) => response.data,
-      invalidatesTags: ['Refunds'],
+      invalidatesTags: ['Refunds', 'Message'],
     }),
     userRejectResult: build.mutation<IActionRefundResponse, number>({
       query: (id) => ({
@@ -48,7 +48,7 @@ export const refundApiSlice = apiSlice.injectEndpoints({
       transformResponse: (response: { data: IActionRefundResponse }) =>
         response.data,
       transformErrorResponse: (response) => response.data,
-      invalidatesTags: ['Refunds'],
+      invalidatesTags: ['Refunds', 'Message'],
     }),
     userCancelRefund: build.mutation<void, number>({
       query: (id) => ({
@@ -57,7 +57,7 @@ export const refundApiSlice = apiSlice.injectEndpoints({
       }),
       transformResponse: (response: { data: void }) => response.data,
       transformErrorResponse: (response) => response.data,
-      invalidatesTags: ['Refunds'],
+      invalidatesTags: ['Refunds', 'Message'],
     }),
     getMessageRefundRequest: build.query<IRefundMessageResponse, number>({
       query: (id) => ({

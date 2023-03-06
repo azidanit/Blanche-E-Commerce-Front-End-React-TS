@@ -18,7 +18,7 @@ const VoucherList: React.FC = () => {
       <div className={style.voucher__list__header}>
         <h6>List Of my Voucher</h6>
         <Button type="primary" size="large" onClick={handleNavigate}>
-          Create Coupon
+          Create Voucher
         </Button>
       </div>
 

@@ -54,7 +54,7 @@ const MenuMerchant: React.FC = () => {
     <Dropdown menu={{ items }} className={style.menu__merchant}>
       <Button className={style.menu__merchant__btn} type="text">
         <Avatar src={merchant?.image} />
-        {merchant?.name}
+        <p>{merchant?.name}</p>
       </Button>
     </Dropdown>
   );

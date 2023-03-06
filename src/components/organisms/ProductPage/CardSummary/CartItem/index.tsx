@@ -11,7 +11,7 @@ interface CartItemProps {
 }
 
 const CartItem: React.FC<CartItemProps> = ({ quantity }) => {
-  const { product, isLoading, price } = useProduct();
+  const { product, isLoading, price, isDiscount } = useProduct();
 
   if (!product) {
     return <></>;
@@ -31,7 +31,7 @@ const CartItem: React.FC<CartItemProps> = ({ quantity }) => {
           <span className={style.cart__item__quantity}>{quantity} items</span>
         </div>
         <p className={style.cart__item__price}>
-          {toRupiah(price ? price : product.max_real_price)}
+          {toRupiah(price ? price : product.max_discount_price)}
         </p>
       </div>
     </Skeleton>

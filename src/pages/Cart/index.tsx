@@ -1,4 +1,4 @@
-import { Col, notification, Row } from 'antd';
+import { Col, message, Row } from 'antd';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
 import React, { useEffect, useState } from 'react';
 import {
@@ -59,26 +59,17 @@ const Cart: React.FC = () => {
       await updateCarts(req).unwrap();
     } catch (e) {
       const err = e as IErrorResponse;
-      notification.error({
-        message: 'Error',
-        description: capitalizeFirstLetter(err.message),
-      });
+      message.error(capitalizeFirstLetter(err.message));
     }
   };
 
   const handleDeleteCarts = async () => {
     try {
       await deleteCarts().unwrap();
-      notification.success({
-        message: 'Success',
-        description: 'Delete all carts successfully',
-      });
+      message.success('Delete all carts successfully');
     } catch (e) {
       const err = e as IErrorResponse;
-      notification.error({
-        message: 'Error',
-        description: capitalizeFirstLetter(err.message),
-      });
+      message.error(capitalizeFirstLetter(err.message));
     }
   };
 
