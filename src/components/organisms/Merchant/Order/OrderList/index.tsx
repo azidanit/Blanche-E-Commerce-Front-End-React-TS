@@ -35,10 +35,13 @@ const values = [
 const OrderList: React.FC = () => {
   const params = useAppSelector((state) => state.params);
 
-  const { data, isLoading } = useGetMerchantOrdersQuery({
-    ...params.search,
-    limit,
-  });
+  const { data, isLoading } = useGetMerchantOrdersQuery(
+    {
+      ...params.search,
+      limit,
+    },
+    { refetchOnMountOrArgChange: true },
+  );
 
   return (
     <Skeleton loading={isLoading} active>

@@ -149,6 +149,7 @@ const ActiveWallet: React.FC = () => {
           containerClassName={style.aw__container}
           mask
           showState={false}
+          placeholder=""
         />
       </Modal>
     </>

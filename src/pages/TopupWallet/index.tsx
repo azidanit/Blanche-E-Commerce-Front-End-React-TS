@@ -119,39 +119,37 @@ const TopupWallet: React.FC = () => {
               />
             </FormLabel>
           </div>
-          {inputState.value && (
-            <div className={style.tw__card__list}>
-              <h4 className={style.tw__card__subtitle}>Pay with:</h4>
-              {data && (
-                <Group
-                  name="group"
-                  className={classNames(style.tw__radio, 'topup__radio')}
-                  onChange={onChangeRadio}
-                >
-                  {data.map((item, index) => (
-                    <Fragment key={item.id}>
-                      <div className={style.tw__radio__item}>
-                        <Radio
-                          value={item.card_number}
-                          className={style.tw__radio__item__group}
-                        >
-                          <p className={style.tw__radio__item__name}>
-                            {item.name_on_card}
-                          </p>
-                          <p className={style.tw__radio__item__number}>
-                            {item.card_number.match(/.{1,4}/g)?.join(' ') || ''}
-                          </p>
-                        </Radio>
-                      </div>
-                      {index < data.length - 1 && (
-                        <Divider className={style.tw__divider} />
-                      )}
-                    </Fragment>
-                  ))}
-                </Group>
-              )}
-            </div>
-          )}
+          <div className={style.tw__card__list}>
+            <h4 className={style.tw__card__subtitle}>Pay with:</h4>
+            {data && (
+              <Group
+                name="group"
+                className={classNames(style.tw__radio, 'topup__radio')}
+                onChange={onChangeRadio}
+              >
+                {data.map((item, index) => (
+                  <Fragment key={item.id}>
+                    <div className={style.tw__radio__item}>
+                      <Radio
+                        value={item.card_number}
+                        className={style.tw__radio__item__group}
+                      >
+                        <p className={style.tw__radio__item__name}>
+                          {item.name_on_card}
+                        </p>
+                        <p className={style.tw__radio__item__number}>
+                          {item.card_number.match(/.{1,4}/g)?.join(' ') || ''}
+                        </p>
+                      </Radio>
+                    </div>
+                    {index < data.length - 1 && (
+                      <Divider className={style.tw__divider} />
+                    )}
+                  </Fragment>
+                ))}
+              </Group>
+            )}
+          </div>
           <Button
             block
             size="large"

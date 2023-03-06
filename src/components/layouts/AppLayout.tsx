@@ -13,10 +13,10 @@ const AppLayout = (): JSX.Element => {
   const [isMerchant, setIsMerchant] = useState(false);
   const dispatch = useAppDispatch();
 
-  const { isLoggedIn } = useAppSelector((state) => state.auth);
+  const { isLoggedIn, user } = useAppSelector((state) => state.auth);
 
   const { data: result, isLoading } = useGetProfileQuery(undefined, {
-    skip: !isLoggedIn,
+    skip: !isLoggedIn || (isLoggedIn && !user),
   });
   const { data: resultMerchant, isLoading: isLoadingMerchant } =
     useGetMerchantProfileQuery(undefined, {

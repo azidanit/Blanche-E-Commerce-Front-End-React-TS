@@ -17,7 +17,7 @@ export const refundApiSlice = apiSlice.injectEndpoints({
       }),
       transformResponse: (response: { data: void }) => response.data,
       transformErrorResponse: (response) => response.data,
-      invalidatesTags: ['Refunds'],
+      invalidatesTags: ['Refunds', 'Transaction'],
     }),
     getRefundList: build.query<IGetRefundResponse, IParams>({
       query: (params) => ({

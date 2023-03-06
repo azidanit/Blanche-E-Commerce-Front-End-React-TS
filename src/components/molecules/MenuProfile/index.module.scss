@@ -63,9 +63,10 @@
       h6 {
         font-weight: $text-bold;
       }
-
-      p {
-        font-size: 0.7rem;
+      &__amount {
+        margin-top: 0.25rem;
+        font-size: 1.1rem;
+        color: $primary-60;
       }
     }
   }
