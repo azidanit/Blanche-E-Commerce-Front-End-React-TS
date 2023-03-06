@@ -16,18 +16,11 @@ const CardWallet: React.FC = () => {
       </div>
       <div className={style.menu__profile__card__wallet__content}>
         <h6>Wallet</h6>
-        <p>
+        <p className={style.menu__profile__card__wallet__content__amount}>
           {wallet
             ? toRupiah(wallet.balance)
             : 'You havent activate your wallet!'}
         </p>
-      </div>
-      <div className={style.menu__profile__card__wallet__wallet}>
-        {wallet && wallet.balance === 0 && (
-          <Button type="primary">Topup</Button>
-        )}
-
-        {!wallet && <Button type="primary">Activate Wallet</Button>}
       </div>
     </Link>
   );

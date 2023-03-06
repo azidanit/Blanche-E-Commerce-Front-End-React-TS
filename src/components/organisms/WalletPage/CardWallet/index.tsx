@@ -1,13 +1,21 @@
 import React from 'react';
-import { useGetWalletDetailsQuery } from '../../../../app/features/wallet/walletApiSlice';
 import { Card } from '../../../atoms';
 import style from './index.module.scss';
 import ActiveWallet from '../ActivateWallet';
 import WalletInfo from '../WalletInfo';
+import { IGetWalletDetailsResponse } from '../../../../helpers/types';
 
-const CardWallet: React.FC = () => {
-  const { data, isError, isLoading } = useGetWalletDetailsQuery();
+interface CardWalletProps {
+  data: IGetWalletDetailsResponse | undefined;
+  isError: boolean;
+  isLoading: boolean;
+}
 
+const CardWallet: React.FC<CardWalletProps> = ({
+  isLoading,
+  data,
+  isError,
+}) => {
   return (
     <Card className={style.card__wallet}>
       {isError && <ActiveWallet />}

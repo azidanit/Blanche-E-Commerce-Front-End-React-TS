@@ -63,7 +63,7 @@ export interface IConfirmChangePinRequest {
 }
 
 export interface ISetNewPinRequest {
-  pin: string;
+  new_pin: string;
 }
 
 export interface IGetWalletHistoryRequest {

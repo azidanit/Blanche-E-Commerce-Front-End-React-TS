@@ -49,6 +49,14 @@ const MenuProfile: React.FC = () => {
         </Link>
       ),
     },
+    {
+      key: '6',
+      label: (
+        <Link to="transactions/waiting" className={style.menu__profile__item}>
+          <p>Waiting Transactions</p>
+        </Link>
+      ),
+    },
   ];
   return (
     <Dropdown

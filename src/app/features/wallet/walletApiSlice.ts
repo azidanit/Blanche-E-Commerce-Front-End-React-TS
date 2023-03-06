@@ -10,6 +10,7 @@ import {
   IValidateResponse,
   IConfirmChangePinRequest,
   IGetWalletHistoryRequest,
+  ISetNewPinRequest,
 } from '../../../helpers/types';
 import { apiSlice } from '../../api/apiSlice';
 
@@ -105,9 +106,9 @@ export const walletApi = apiSlice.injectEndpoints({
       transformResponse: (response: { data: null }) => response.data,
       transformErrorResponse: (response) => response.data,
     }),
-    setNewPin: build.mutation<null, ICreatePinRequest>({
+    setNewPin: build.mutation<null, ISetNewPinRequest>({
       query: (body) => ({
-        url: '/step-up/pin',
+        url: '/users/wallet/change-pin',
         method: 'POST',
         body,
       }),

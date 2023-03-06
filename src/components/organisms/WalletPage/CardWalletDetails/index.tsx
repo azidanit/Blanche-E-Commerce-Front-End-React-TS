@@ -4,12 +4,16 @@ import { Card, Tabs } from '../../..';
 import HistorySection from '../HistorySection';
 import style from './index.module.scss';
 
-const CardWalletDetails: React.FC = () => {
+interface CardWalletDetailsProps {
+  isSuccess: boolean;
+}
+
+const CardWalletDetails: React.FC<CardWalletDetailsProps> = ({ isSuccess }) => {
   const items: TabsProps['items'] = [
     {
       key: '1',
       label: `History`,
-      children: <HistorySection />,
+      children: <HistorySection isSuccess={isSuccess} />,
     },
   ];
 

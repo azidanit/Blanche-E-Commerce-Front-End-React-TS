@@ -5,6 +5,7 @@ import CartMenu from './CartMenu';
 import { Badge } from '../../atoms';
 import { useGetCartHomeQuery } from '../../../app/features/cart/cartApiSlice';
 import { ICartHomeResponse } from '../../../helpers/types';
+import { useAppSelector } from '../../../app/hooks';
 
 interface CartButtonProps {
   onClick: () => void;
@@ -12,11 +13,13 @@ interface CartButtonProps {
 
 const CartButton: React.FC<CartButtonProps> = ({ onClick }) => {
   const [showDetails, setShowDetails] = useState(false);
+  const { user } = useAppSelector((state) => state.auth);
   const [carts, setCarts] = useState<ICartHomeResponse>();
 
-  const { data } = useGetCartHomeQuery();
+  const { data } = useGetCartHomeQuery(undefined, { skip: !user });
 
   useEffect(() => {
+    if (!data) return;
     setCarts(data);
   }, [data]);
 

@@ -17,8 +17,13 @@ const SetPin: React.FC = () => {
 
   const handleSubmit = async () => {
     try {
+      const new_pin = pin.join('');
+      if (new_pin.length < 6) {
+        message.error('Pin must be 6 digits');
+        return;
+      }
       const body = {
-        pin: pin.join(''),
+        new_pin,
       };
       await setNewPin(body).unwrap();
       navigate('/wallet');
@@ -30,9 +35,9 @@ const SetPin: React.FC = () => {
 
   return (
     <div className={style.sp}>
-      <h1 className={style.sp__title}>Set PIN</h1>
+      <h1 className={style.sp__title}>Set New PIN</h1>
       <p className={style.sp__info}>
-        Please set your PIN to secure your account.
+        Please set your new PIN to secure your account.
       </p>
       <PinInput
         values={pin}
