@@ -21,10 +21,10 @@ const mapStatusToColor = {
   completed: 'green',
   waiting: 'warning',
   processed: 'blue',
-  onDelivery: 'blue',
   canceled: 'red',
+  'On Delivery': 'blue',
   delivered: 'blue',
-  'request refund': 'warning',
+  'Request Refund': 'warning',
   refunded: 'green',
 };
 
@@ -73,6 +73,13 @@ const CardTransaction: React.FC<CardTransactionProps> = ({ transaction }) => {
     if (transaction.transaction_status.on_delivered_at) {
       setStatus('delivered');
       setStatusIdx(OrderStatus.TransactionStatusDelivered);
+      return;
+    }
+    if (
+      transaction.shipping_details.transaction_delivery_status.on_delivery_at
+    ) {
+      setStatus('on delivery');
+      setStatusIdx(OrderStatus.TransactionStatusOnDelivery);
       return;
     }
     if (transaction.transaction_status.on_processed_at) {

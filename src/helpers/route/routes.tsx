@@ -72,6 +72,7 @@ const Dashboard = lazy(() => import('../../pages/Dashboard'));
 const MerchantProfile = lazy(() => import('../../pages/Merchant/Profile'));
 const Messages = lazy(() => import('../../pages/Messages'));
 const MerchantMessages = lazy(() => import('../../pages/Merchant/Messages'));
+const Waiting = lazy(() => import('../../pages/Waiting'));
 
 export const router = createBrowserRouter([
   {
@@ -80,18 +81,6 @@ export const router = createBrowserRouter([
       {
         path: '/refund/:id/messages',
         element: <Messages />,
-      },
-      {
-        path: '/wallet/topup/status',
-        element: <TopupStatus />,
-      },
-      {
-        path: '/transactions/:order_code/payment-status',
-        element: <PaymentStatus />,
-      },
-      {
-        path: '/payment/wallet',
-        element: <WalletPayment />,
       },
     ],
   },
@@ -136,6 +125,10 @@ export const router = createBrowserRouter([
           {
             path: '/transactions',
             element: <Transactions />,
+          },
+          {
+            path: '/transactions/waiting',
+            element: <Waiting />,
           },
           {
             path: '/refunds',
@@ -313,5 +306,17 @@ export const router = createBrowserRouter([
   {
     path: '/reset-password/:code',
     element: <SetNewPassword />,
+  },
+  {
+    path: '/payment/wallet',
+    element: <WalletPayment />,
+  },
+  {
+    path: '/wallet/topup/status',
+    element: <TopupStatus />,
+  },
+  {
+    path: '/transactions/:order_code/payment-status',
+    element: <PaymentStatus />,
   },
 ]);

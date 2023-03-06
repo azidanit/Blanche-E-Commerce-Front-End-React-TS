@@ -12,3 +12,4 @@ export * from './marketplace.interface';
 export * from './checkout.interface';
 export * from './merchant/dashboard.interface';
 export * from './refund.interface';
+export * from './transaction.interface';

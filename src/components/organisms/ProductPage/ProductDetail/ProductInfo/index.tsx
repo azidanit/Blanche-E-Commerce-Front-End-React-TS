@@ -13,7 +13,8 @@ const ProductInfo: React.FC = () => {
     <div className={style.product__info}>
       <Skeleton loading={isLoading}>
         <h3>
-          {product?.title} <br /> {variant?.key}{' '}
+          {product?.title}
+          {variant ? ` - ${variant?.key.split(',').join(', ')}` : ''}
         </h3>
         <div className={style.product__info__rating}>
           {product?.unit_sold !== 0 && <span>Sold : {product?.unit_sold}</span>}

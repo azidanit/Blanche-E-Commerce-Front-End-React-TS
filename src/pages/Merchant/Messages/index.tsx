@@ -8,7 +8,7 @@ const Messages: React.FC = () => {
   const params = useParams();
   const { data, isLoading } = useMerchantGetMessageRefundRequestQuery(
     Number(params.id) || 0,
-    { pollingInterval: 60000 },
+    { pollingInterval: 60000, refetchOnFocus: true },
   );
 
   return (

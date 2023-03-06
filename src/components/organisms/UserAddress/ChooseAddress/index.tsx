@@ -29,14 +29,14 @@ const ChooseAddress: React.FC<ChooseAddessProps> = ({
   return (
     <>
       <div className={style.choose__address}>
-        <p>Address</p>
+        <p className={style.choose__address__title}>Address</p>
         <div className={style.choose__address__info}>
           <div className={style.choose__address__info__content}>
             <h6>
               {address.label} - {address.name}({address.phone})
             </h6>
             <p>
-              {address.province_name}, {address.city_name},
+              {address.province_name}, {address.city_name},{' '}
               {address.district_name}
             </p>
           </div>

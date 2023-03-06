@@ -179,7 +179,7 @@ const AddSealabsPay: React.FC<AddSealabsPayProps> = ({
       centered
       onCancel={handleCancel}
       width={600}
-      confirmLoading={isLoading}
+      okButtonProps={{ loading: isLoading, disabled: isLoading }}
     >
       <ModalHeader
         title="Add Sealabs Pay Account"

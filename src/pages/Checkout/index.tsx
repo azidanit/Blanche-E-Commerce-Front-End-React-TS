@@ -125,7 +125,12 @@ const Checkout: React.FC = () => {
       return <Skeleton />;
     }
 
-    return <ItemNotFound title="Order not found" />;
+    return (
+      <ItemNotFound
+        className={style.checkout__page__itn}
+        title="Order not found"
+      />
+    );
   }
 
   const handleMakeTx = (): boolean => {

@@ -3,11 +3,16 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   gap: 2rem;
-  padding: 0.5rem;
+  padding: 1rem;
   border: 1px solid rgba(128, 128, 128, 0.329) !important;
   border-radius: 0.7rem;
+
+  &__desc {
+    &__name {
+      margin-bottom: 0.5rem;
+    }
+  }
 
   &:last-child {
     border: none;

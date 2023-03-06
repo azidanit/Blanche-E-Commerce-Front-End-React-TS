@@ -35,7 +35,7 @@ const EditProfile: React.FC<EditProfileProps> = ({
       onCancel={handleCancel}
       width={600}
       destroyOnClose
-      confirmLoading={isLoading}
+      okButtonProps={{ loading: isLoading, disabled: isLoading }}
     >
       <div className={style.ea}>
         <div className={style.ea__header}>

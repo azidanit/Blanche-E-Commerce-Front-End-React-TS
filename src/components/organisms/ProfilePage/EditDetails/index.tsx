@@ -62,7 +62,7 @@ const EditDetails: React.FC<EditDetailsProps> = ({
       onCancel={handleCancel}
       width={600}
       destroyOnClose
-      confirmLoading={isLoading}
+      okButtonProps={{ loading: isLoading, disabled: isLoading }}
     >
       <div className={style.edit__profile}>
         <div className={style.edit__profile__header}>
