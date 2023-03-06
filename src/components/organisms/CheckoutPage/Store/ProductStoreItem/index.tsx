@@ -89,24 +89,33 @@ const ProductStoreItem: React.FC<ProductStoreProps> = ({
         <>
           <div className={style.product__store__item__desc}>
             <ul className={style.product__store__item__desc__list}>
-              <li className={style.product__store__item__desc__item}>
-                <p>
-                  {order.delivery_service.merchant_city} <RiArrowRightLine />
+              <li className={style.product__store__item__desc__items}>
+                <p className={style.product__store__item__desc__items__bold}>
+                  {order.delivery_service.merchant_city}
                 </p>
-                <p>{order.delivery_service.user_city}</p>
+                <RiArrowRightLine />
+                <p className={style.product__store__item__desc__items__bold}>
+                  {order.delivery_service.user_city}
+                </p>
               </li>
-              <li className={style.product__store__item__desc__item}>
-                <p>{order.delivery_service.description}</p>
-              </li>
-              <li className={style.product__store__item__desc__item}>
-                <p>
+              <li className={style.product__store__item__desc__items}>
+                <p className={style.product__store__item__desc__items__gray}>
+                  Courier
+                </p>
+                <p className={style.product__store__item__desc__items__bold}>
+                  {order.delivery_service.description}
+                  {' - '}
                   {order.delivery_service.delivery_option.toUpperCase()}{' '}
                   {order.delivery_service.service}
                 </p>
               </li>
               <li className={style.product__store__item__desc__item}>
-                <p>Estimated Delivery Time</p>
-                <p>{order.delivery_service.etd} Days</p>
+                <p className={style.product__store__item__desc__items__gray}>
+                  Estimated Delivery Time
+                </p>
+                <p className={style.product__store__item__desc__items__bold}>
+                  {order.delivery_service.etd} Days
+                </p>
               </li>
             </ul>
           </div>
@@ -116,23 +125,29 @@ const ProductStoreItem: React.FC<ProductStoreProps> = ({
       <div className={style.product__store__item__desc}>
         <ul className={style.product__store__item__desc__list}>
           <li className={style.product__store__item__desc__item}>
-            <p>Subtotal</p>
+            <p className={style.product__store__item__desc__item__label}>
+              Subtotal
+            </p>
             <p>{toRupiah(order.sub_total)}</p>
           </li>
           <li className={style.product__store__item__desc__item}>
-            <p>Shipping</p>
+            <p className={style.product__store__item__desc__item__label}>
+              Shipping
+            </p>
             <p>+{toRupiah(order.delivery_cost)}</p>
           </li>
           <li className={style.product__store__item__desc__item}>
-            <p>Discount</p>
+            <p className={style.product__store__item__desc__item__label}>
+              Discount
+            </p>
             <p>-{toRupiah(order.discount)}</p>
           </li>
         </ul>
       </div>
       <Divider style={{ margin: 0 }} />
       <div className={style.product__store__item__subtotal}>
-        <p>Subtotal</p>
-        <p>{toRupiah(order.total)}</p>
+        <p>Total</p>
+        <p>{delivery ? toRupiah(order.total) : '-'}</p>
       </div>
     </Card>
   );

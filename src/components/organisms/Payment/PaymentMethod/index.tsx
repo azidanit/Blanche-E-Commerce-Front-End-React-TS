@@ -157,7 +157,7 @@ const ModalPayment: React.FC<ModalPaymentPageProps> = ({
       }}
       onCancel={handleCancel}
       onOk={handleSetPayment}
-      okText="Crete Order"
+      okText="Create Order"
       okType="primary"
       className={style.choose__payment__modal}
       width={500}
@@ -238,15 +238,7 @@ const ModalPayment: React.FC<ModalPaymentPageProps> = ({
           closable
         />
       )}
-
-      <PaymentIframe
-        src={src}
-        isIFrameOpen={isIFrameOpen}
-        handleFrameCancel={handleFrameCancel}
-        handleCancel={handleCancel}
-        order_code={order.order_code}
-        className={style.ti}
-      />
+      <PaymentIframe src={src} isIFrameOpen={isIFrameOpen} />
     </Modal>
   );
 };

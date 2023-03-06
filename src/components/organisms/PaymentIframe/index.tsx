@@ -5,11 +5,7 @@ import style from './index.module.scss';
 
 interface PaymentIframeProps {
   src: string;
-  order_code: string;
-  handleCancel: () => void;
-  handleFrameCancel: () => void;
   isIFrameOpen: boolean;
-  className: string;
 }
 
 const PaymentIframe: React.FC<PaymentIframeProps> = ({ src, isIFrameOpen }) => {

@@ -61,10 +61,10 @@ const Typing: React.FC<TypingProps> = ({ isClosed, sender_id }) => {
   const handleGetMessages = async () => {
     try {
       switch (sender_id) {
-        case 1:
+        case 2:
           await merchantGetMessages(Number(params.id) || 0).unwrap();
           break;
-        case 2:
+        case 3:
           await getMessages(Number(params.id) || 0).unwrap();
           break;
       }

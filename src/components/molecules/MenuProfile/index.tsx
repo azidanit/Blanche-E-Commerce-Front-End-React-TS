@@ -29,7 +29,7 @@ const MenuProfile: React.FC = () => {
       key: '3',
       label: (
         <Link to="transactions" className={style.menu__profile__item}>
-          <p>My Transaction</p>
+          <p>My Transactions</p>
         </Link>
       ),
     },
@@ -41,7 +41,6 @@ const MenuProfile: React.FC = () => {
         </Link>
       ),
     },
-
     {
       key: '5',
       label: (

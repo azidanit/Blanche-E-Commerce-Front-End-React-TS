@@ -1,4 +1,3 @@
-
 import React from 'react';
 import style from './index.module.scss';
 import { Image, StrikethroughText } from '../../../../atoms';
@@ -15,9 +14,7 @@ interface ProductItemProps {
   ) => void;
 }
 
-const ProductItem: React.FC<ProductItemProps> = ({
-  item,
-}) => {
+const ProductItem: React.FC<ProductItemProps> = ({ item }) => {
   return (
     <div className={style.product__item}>
       <div className={style.product__item__details__item}>
@@ -27,13 +24,17 @@ const ProductItem: React.FC<ProductItemProps> = ({
             alt="cart-img"
             className={style.product__item__img}
           />
-          <div className={style.desc}>
-            <p>{textTruncate(item.name, 60)}</p>
-            <p>
-              Variant : <span>{item.variant_name}</span>
+          <div className={style.product__item__desc}>
+            <p className={style.product__item__desc__name}>
+              {textTruncate(item.name, 60)}
             </p>
+            {item.variant_name && (
+              <p>
+                Variant : <span>{item.variant_name}</span>
+              </p>
+            )}
             <div className={style.product__item__details__item__qty}>
-              <p>{item.quantity}pcs</p>
+              <p>{item.quantity} pcs</p>
             </div>
           </div>
         </div>

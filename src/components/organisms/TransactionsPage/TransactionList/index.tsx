@@ -22,7 +22,10 @@ const values = [
 ];
 const TransactionList: React.FC = () => {
   const params = useAppSelector((state) => state.params);
-  const { data } = useGetTransactionsQuery({ ...params.search, limit });
+  const { data } = useGetTransactionsQuery(
+    { ...params.search, limit },
+    { refetchOnMountOrArgChange: true },
+  );
 
   return (
     <Card className={style.tl}>

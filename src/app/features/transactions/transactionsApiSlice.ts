@@ -3,6 +3,8 @@ import {
   IGetTransactionListResponse,
   IGetTransactionDetailsResponse,
   IUpdateTransactionStatus,
+  IGetWaitingForPaymentResponse,
+  IGetWaitingForPaymentDetailsReponse,
 } from '../../../helpers/types';
 import { apiSlice } from '../../api/apiSlice';
 
@@ -42,6 +44,30 @@ export const transactionsApi = apiSlice.injectEndpoints({
       transformErrorResponse: (response) => response.data,
       invalidatesTags: ['Transaction', 'Transaction Details'],
     }),
+    getWaitingForPayment: build.query<IGetWaitingForPaymentResponse, void>({
+      query: () => ({
+        url: '/orders/waiting-for-payment',
+        method: 'GET',
+      }),
+      transformResponse: (response: { data: IGetWaitingForPaymentResponse }) =>
+        response.data,
+      transformErrorResponse: (response) => response.data,
+      providesTags: ['Transaction'],
+    }),
+    getWaitingForPaymentDetails: build.query<
+      IGetWaitingForPaymentDetailsReponse,
+      number
+    >({
+      query: (id) => ({
+        url: `/orders/waiting-for-payment/${id}`,
+        method: 'GET',
+      }),
+      transformResponse: (response: {
+        data: IGetWaitingForPaymentDetailsReponse;
+      }) => response.data,
+      transformErrorResponse: (response) => response.data,
+      providesTags: ['Transaction Details'],
+    }),
   }),
 });
 
@@ -49,4 +75,6 @@ export const {
   useGetTransactionsQuery,
   useGetTransactionDetailsQuery,
   useUpdateTransactionStatusMutation,
+  useGetWaitingForPaymentDetailsQuery,
+  useGetWaitingForPaymentQuery,
 } = transactionsApi;

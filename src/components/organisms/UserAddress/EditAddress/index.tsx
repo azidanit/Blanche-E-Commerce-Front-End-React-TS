@@ -144,8 +144,7 @@ const EditAddress: React.FC<EditAddressPageProps> = ({
       centered
       onCancel={handleCancel}
       width={600}
-      confirmLoading={isLoading}
-      okButtonProps={{ loading: isLoading }}
+      okButtonProps={{ loading: isLoading, disabled: isLoading }}
     >
       <ModalHeader title="Edit user address" />
       <div className={style.edit__profile}>

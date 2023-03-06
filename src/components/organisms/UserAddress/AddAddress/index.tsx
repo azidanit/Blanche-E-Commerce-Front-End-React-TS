@@ -135,7 +135,7 @@ const AddAddress: React.FC<AddAddressPageProps> = ({
       centered
       onCancel={handleCancel}
       width={600}
-      confirmLoading={isLoading}
+      okButtonProps={{ loading: isLoading, disabled: isLoading }}
     >
       <ModalHeader
         title="Add user address"

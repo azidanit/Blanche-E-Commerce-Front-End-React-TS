@@ -272,6 +272,12 @@ export interface ITransaction {
   };
   transaction_status: ITransactionStatus;
   total_price: number;
+  shipping_details: {
+    transaction_delivery_status: {
+      on_delivered_at: Date | null;
+      on_delivery_at: Date | null;
+    };
+  };
 }
 
 export interface IProductOverview {

@@ -207,7 +207,10 @@ const CardAddress: React.FC<CardAddressProps> = ({ data }) => {
             description="Are you sure to delete this address?"
             icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
             onConfirm={handleDeleteAddress}
-            okButtonProps={{ loading: isLoadingDelete }}
+            okButtonProps={{
+              loading: isLoadingDelete,
+              disabled: isLoadingDelete,
+            }}
           >
             <Button
               size="middle"

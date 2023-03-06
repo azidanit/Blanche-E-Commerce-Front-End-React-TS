@@ -22,7 +22,7 @@ interface CardAvatarProps {
 
 const CardAvatar: React.FC<CardAvatarProps> = ({ src }) => {
   const isMobile = useMediaQuery('(max-width: 768px)');
-  const [patch] = usePatchProfileDetailsMutation();
+  const [patch, { isLoading }] = usePatchProfileDetailsMutation();
   const [file, setFile] = useState<File>();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -98,17 +98,20 @@ const CardAvatar: React.FC<CardAvatarProps> = ({ src }) => {
           File format must be in JPG or PNG. File size must be less than 2MB.
         </p>
       </Card>
-      <Modal
-        open={isModalOpen}
-        onCancel={handleCancel}
-        onOk={handleSubmit}
-        centered
-      >
-        <ModalHeader
-          title="Edit profile Picture"
-          info="Are you sure you want to change your profile picture?"
-        />
-      </Modal>
+      {isModalOpen && (
+        <Modal
+          open={isModalOpen}
+          onCancel={handleCancel}
+          onOk={handleSubmit}
+          okButtonProps={{ loading: isLoading, disabled: isLoading }}
+          centered
+        >
+          <ModalHeader
+            title="Edit profile Picture"
+            info="Are you sure you want to change your profile picture?"
+          />
+        </Modal>
+      )}
     </>
   );
 };
