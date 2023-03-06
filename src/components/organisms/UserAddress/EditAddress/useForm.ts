@@ -1,4 +1,4 @@
-import { notification } from 'antd';
+import { message } from 'antd';
 import { useState } from 'react';
 import { useUpdateUserAddressMutation } from '../../../../app/features/address/userAddressApiSlice';
 import {
@@ -78,10 +78,7 @@ function useForm(
     };
     try {
       await updateUserAddress(body).unwrap();
-      notification.success({
-        message: 'Success',
-        description: 'Address successfully updated',
-      });
+      message.success('Address successfully updated');
       handleOk();
     } catch (error) {
       setError(error as Error);

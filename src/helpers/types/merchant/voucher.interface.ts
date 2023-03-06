@@ -42,6 +42,7 @@ export interface IGetVoucherRequest {
 export interface IVoucher {
   id: number;
   code: string;
+  code_suffix: string;
   discount_nominal: number;
   min_order_nominal: number;
   start_date: string;

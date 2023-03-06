@@ -1,11 +1,10 @@
 import { valueType } from 'antd/es/statistic/utils';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { textTruncate } from '../../../../helpers/textTruncate';
 import { toRupiah } from '../../../../helpers/toRupiah';
 import {
   Alert,
   Button,
-  FormLabel,
   Image,
   StrikethroughText,
   TextArea,
@@ -18,13 +17,11 @@ import {
   useUpdateCartItemMutation,
   useUpdateCartsMutation,
 } from '../../../../app/features/cart/cartApiSlice';
-import { notification, Skeleton, Spin } from 'antd';
+import { message, Skeleton, Spin } from 'antd';
 import { ICartItem } from '../../../../helpers/types/cart.interface';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
-import { useGetProductVariantBySlugQuery } from '../../../../app/features/product/productApiSlice';
-import { IVariantItem } from '../../../../helpers/types';
 import { capitalizeFirstLetter } from '../../../../helpers/capitalizeFirstLetter';
 import { IErrorResponse } from '../../../../helpers/types/response.interface';
 
@@ -34,37 +31,13 @@ interface CartItemProps {
 }
 
 const CartItemPage: React.FC<CartItemProps> = ({ item, isLoading }) => {
-  const [deleteCart, { isSuccess, isLoading: isLoadingDelete }] =
+  const [deleteCart, { isLoading: isLoadingDelete }] =
     useDeleteCartItemMutation();
   const [updateCartItem] = useUpdateCartItemMutation();
   const [notes, setNotes] = useState(item?.notes);
-  const [variant, setVariant] = useState<IVariantItem>();
 
   const [updateCarts, { isLoading: isLoadingUpdateCarts }] =
     useUpdateCartsMutation();
-
-  const store = item.product_slug.split('/')[0].trim();
-  const product = item.product_slug.split('/')[1].trim();
-
-  const { data: variants, error } = useGetProductVariantBySlugQuery(
-    {
-      store: store || '',
-      slug: product || '',
-    },
-    {
-      skip: !store || !product,
-    },
-  );
-
-  useEffect(() => {
-    if (variants) {
-      variants.variant_items.filter((v) => {
-        if (v.id === item.variant_item_id) {
-          setVariant(v);
-        }
-      });
-    }
-  }, [variants]);
 
   const handleChangeNotes = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNotes(e.target.value);
@@ -80,10 +53,7 @@ const CartItemPage: React.FC<CartItemProps> = ({ item, isLoading }) => {
       }).unwrap();
     } catch (err) {
       const e = err as IErrorResponse;
-      notification.error({
-        message: 'Error',
-        description: capitalizeFirstLetter(e.message),
-      });
+      message.error(capitalizeFirstLetter(e.message));
     }
   };
 
@@ -98,10 +68,7 @@ const CartItemPage: React.FC<CartItemProps> = ({ item, isLoading }) => {
     } catch (err) {
       const e = err as IErrorResponse;
 
-      notification.error({
-        message: 'Error',
-        description: capitalizeFirstLetter(e.message),
-      });
+      message.error(capitalizeFirstLetter(e.message));
     }
   };
 
@@ -115,10 +82,7 @@ const CartItemPage: React.FC<CartItemProps> = ({ item, isLoading }) => {
       }).unwrap();
     } catch (err) {
       const e = err as IErrorResponse;
-      notification.error({
-        message: 'Error',
-        description: capitalizeFirstLetter(e.message),
-      });
+      message.error(capitalizeFirstLetter(e.message));
     }
   };
 
@@ -143,10 +107,7 @@ const CartItemPage: React.FC<CartItemProps> = ({ item, isLoading }) => {
       }).unwrap();
     } catch (err) {
       const e = err as IErrorResponse;
-      notification.error({
-        message: 'Error',
-        description: capitalizeFirstLetter(e.message),
-      });
+      message.error(capitalizeFirstLetter(e.message));
     }
   };
 
@@ -160,26 +121,17 @@ const CartItemPage: React.FC<CartItemProps> = ({ item, isLoading }) => {
       }).unwrap();
     } catch (err) {
       const e = err as IErrorResponse;
-      notification.error({
-        message: 'Error',
-        description: capitalizeFirstLetter(e.message),
-      });
+      message.error(capitalizeFirstLetter(e.message));
     }
   };
 
   const handleDelete = async () => {
     try {
       await deleteCart(item.cart_item_id).unwrap();
-      notification.success({
-        message: 'Success',
-        description: 'Item deleted from cart',
-      });
+      message.success('Item deleted from cart');
     } catch (err) {
       const e = err as IErrorResponse;
-      notification.error({
-        message: 'Error',
-        description: capitalizeFirstLetter(e.message),
-      });
+      message.error(capitalizeFirstLetter(e.message));
     }
   };
 
@@ -227,7 +179,7 @@ const CartItemPage: React.FC<CartItemProps> = ({ item, isLoading }) => {
                           text={toRupiah(Number(item?.real_price))}
                         />
                       )}
-                    {variant && <p>Variant: {variant.key}</p>}
+                    {item.variant_name && <p>Variant: {item.variant_name}</p>}
                   </div>
                 </div>
 

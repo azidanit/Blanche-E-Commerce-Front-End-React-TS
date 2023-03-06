@@ -8,7 +8,7 @@ import { useGetProfileQuery } from '../../../../app/features/profile/profileApiS
 import { IAccount, IDetails } from '../../../../helpers/types';
 
 const ProfileSection: React.FC = () => {
-  const { data, isLoading } = useGetProfileQuery();
+  const { data } = useGetProfileQuery();
   const [details, setDetails] = useState<IDetails>();
   const [account, setAccount] = useState<IAccount>();
 

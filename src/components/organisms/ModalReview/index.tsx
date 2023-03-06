@@ -11,7 +11,6 @@ import style from './index.module.scss';
 interface ModalReviewProps {
   isModalOpen: boolean;
   handleCancel: () => void;
-  handleOk: () => void;
   data: IGetProductReviewByInvCodeResponse[] | undefined;
   transaction: ITransaction | IGetTransactionDetailsResponse | undefined;
 }

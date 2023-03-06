@@ -38,6 +38,7 @@ const Typing: React.FC<TypingProps> = ({ isClosed, sender_id }) => {
   const handleSendMessage = async () => {
     if (!newMessage) return;
     try {
+      setNewMessage('');
       const body = {
         id: Number(params.id) || 0,
         message: newMessage,
@@ -53,7 +54,6 @@ const Typing: React.FC<TypingProps> = ({ isClosed, sender_id }) => {
     } catch (err) {
       const error = err as IErrorResponse;
       message.error(capitalizeFirstLetter(error.message));
-    } finally {
       setNewMessage('');
     }
   };
@@ -98,7 +98,7 @@ const Typing: React.FC<TypingProps> = ({ isClosed, sender_id }) => {
         type="primary"
         shape="circle"
         loading={isLoading || isLoadingMerchant}
-        disabled={isClosed}
+        disabled={isClosed || isLoading || isLoadingMerchant || !newMessage}
       >
         Send
         <SendOutlined />

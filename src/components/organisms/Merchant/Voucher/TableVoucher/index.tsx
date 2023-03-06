@@ -24,7 +24,7 @@ interface DataType {
   period: React.ReactNode;
 }
 
-const limit = 2;
+const limit = 5;
 
 const TableVoucher: React.FC = () => {
   const params = useAppSelector((state) => state.params);

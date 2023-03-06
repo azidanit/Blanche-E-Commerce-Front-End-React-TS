@@ -5,6 +5,7 @@ const baseQuery = fetchBaseQuery({
   credentials: 'include',
 });
 import Cookies from 'universal-cookie';
+import { useNavigate } from 'react-router-dom';
 
 const baseQueryWithReauth: typeof baseQuery = async (
   args,
@@ -31,7 +32,6 @@ const baseQueryWithReauth: typeof baseQuery = async (
       result = await baseQuery(args, api, extraOptions);
       if (refreshResult.error) {
         api.dispatch(logout());
-        
       }
       return result;
     }

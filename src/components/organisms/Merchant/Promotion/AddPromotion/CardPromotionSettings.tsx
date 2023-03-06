@@ -20,7 +20,7 @@ const CardPromotionSettings: React.FC<CardPromotionSettingsProps> = ({
     <Card className={style.form__promotion__item}>
       <div className={style.form__promotion__item__header}>
         <h3 className={style.form__promotion__item__header__title}>
-          Voucher Settings
+          Promotion Settings
         </h3>
       </div>
       <div className={style.form}>

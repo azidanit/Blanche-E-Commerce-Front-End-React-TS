@@ -8,7 +8,6 @@ import {
 import React, { useState } from 'react';
 import { ModalHeader } from '../../..';
 import { usePatchProfileDetailsMutation } from '../../../../app/features/profile/profileApiSlice';
-import useMediaQuery from '../../../../hooks/useMediaQuery';
 import { Avatar, Button, Card } from '../../../atoms';
 import style from './index.module.scss';
 import { Modal } from '../../../';
@@ -21,7 +20,6 @@ interface CardAvatarProps {
 }
 
 const CardAvatar: React.FC<CardAvatarProps> = ({ src }) => {
-  const isMobile = useMediaQuery('(max-width: 768px)');
   const [patch, { isLoading }] = usePatchProfileDetailsMutation();
   const [file, setFile] = useState<File>();
   const [isModalOpen, setIsModalOpen] = useState(false);

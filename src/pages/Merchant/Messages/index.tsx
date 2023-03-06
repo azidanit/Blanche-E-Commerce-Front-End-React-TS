@@ -6,14 +6,25 @@ import style from './index.module.scss';
 
 const Messages: React.FC = () => {
   const params = useParams();
-  const { data, isLoading } = useMerchantGetMessageRefundRequestQuery(
+  const { data } = useMerchantGetMessageRefundRequestQuery(
     Number(params.id) || 0,
     { pollingInterval: 60000, refetchOnFocus: true },
   );
 
   return (
     <div className={style.messages}>
-      {data && <Chat sender_id={2} data={data} />}
+      {data && (
+        <Chat
+          sender_id={2}
+          data={data}
+          isAction={
+            !data.refund_request_status[0].accepted_by_seller_at &&
+            !data.refund_request_status[0].rejected_by_seller_at
+              ? true
+              : false
+          }
+        />
+      )}
     </div>
   );
 };

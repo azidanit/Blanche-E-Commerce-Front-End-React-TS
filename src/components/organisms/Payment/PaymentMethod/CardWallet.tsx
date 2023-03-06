@@ -35,7 +35,6 @@ const CardWallet: React.FC<CardWalletProps> = ({
         from: location,
         search: order.order_code,
       },
-      replace: true,
     });
   };
 
@@ -45,7 +44,6 @@ const CardWallet: React.FC<CardWalletProps> = ({
         from: location,
         search: order.order_code,
       },
-      replace: true,
     });
   };
 

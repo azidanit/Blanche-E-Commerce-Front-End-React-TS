@@ -4,7 +4,6 @@ import { Form, Modal } from '../../../../';
 import { Alert, FormLabel } from '../../../../atoms';
 import { Form as Aform } from 'antd';
 import useForm from './useForm';
-import useMediaQuery from '../../../../../hooks/useMediaQuery';
 import style from './index.module.scss';
 import { rules } from './validation';
 import { capitalizeFirstLetter } from '../../../../../helpers/capitalizeFirstLetter';
@@ -25,7 +24,6 @@ const EditProfile: React.FC<EditProfileProps> = ({
 }) => {
   const { handleSubmit, error, isLoading, isError } = useForm({ handleOk });
   const [form] = Aform.useForm();
-  const isMobile = useMediaQuery('(max-width: 768px)');
 
   return (
     <Modal

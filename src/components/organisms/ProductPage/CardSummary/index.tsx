@@ -1,4 +1,4 @@
-import { Divider, notification, Skeleton } from 'antd';
+import { Divider, message, Skeleton } from 'antd';
 import { valueType } from 'antd/es/statistic/utils';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -71,10 +71,7 @@ const CardSummary: React.FC = () => {
         variant_item_id: variant?.id ? variant.id : undefined,
       };
       await addToCart(body).unwrap();
-      notification.success({
-        message: 'Success',
-        description: 'Product added to cart',
-      });
+      message.success('Product added to cart');
     } catch (err) {
       const error = err as IErrorResponse;
       setErrorAddToCart(error);
@@ -82,10 +79,7 @@ const CardSummary: React.FC = () => {
       if (error.message === 'Unauthorized') {
         navigate('/login');
 
-        notification.error({
-          message: 'Error',
-          description: 'Please login first',
-        });
+        message.error('Please login first');
       }
     }
   };
@@ -107,10 +101,7 @@ const CardSummary: React.FC = () => {
 
     try {
       const data = await checkout(body).unwrap();
-      notification.success({
-        message: 'Success',
-        description: 'Buy Now success',
-      });
+      message.success('Buy Now success');
       navigate('/checkout?data=' + data.order_code);
     } catch (err) {
       const error = err as IErrorResponse;
@@ -120,10 +111,13 @@ const CardSummary: React.FC = () => {
         return;
       }
 
-      notification.error({
-        message: 'Error',
-        description: capitalizeFirstLetter(error.message),
-      });
+      if (error.message === 'Unauthorized') {
+        navigate('/login');
+
+        message.error('Please login first');
+      }
+
+      message.error(capitalizeFirstLetter(error.message));
     }
   };
 

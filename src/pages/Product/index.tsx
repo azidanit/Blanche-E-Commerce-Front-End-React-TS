@@ -45,8 +45,8 @@ const Product = (): JSX.Element => {
         isRangePrice: data?.min_real_price !== data?.max_real_price,
         price:
           data?.min_real_price !== data?.min_discount_price
-            ? data?.min_real_price
-            : data?.min_discount_price,
+            ? data?.min_discount_price
+            : data?.min_real_price,
         stock: variant === null ? data?.total_stock : variant.stock,
         activeImage: data?.images?.[0],
         isLoading: isLoading,
@@ -101,7 +101,11 @@ const Product = (): JSX.Element => {
       <div className={style.product__page}>
         <ProductDetail />
         {data?.is_my_product ? (
-          <Button size="large" type="primary">
+          <Button
+            size="large"
+            type="primary"
+            onClick={() => navigate(`/merchant/products/edit/${data.id}`)}
+          >
             Edit My Product
           </Button>
         ) : (

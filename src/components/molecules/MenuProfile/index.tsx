@@ -58,7 +58,7 @@ const MenuProfile: React.FC = () => {
     >
       <Button className={style.menu__profile__btn} type="text">
         <Avatar src={user?.profile_picture} />
-        {user?.username}
+        <p> {user?.username}</p>
       </Button>
     </Dropdown>
   );

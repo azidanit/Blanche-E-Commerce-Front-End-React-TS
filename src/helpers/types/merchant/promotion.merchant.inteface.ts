@@ -22,6 +22,7 @@ export interface IPromotion {
   products: IProductPromotion[];
   discount_percentage?: number;
   product_ids: Key[];
+  promotion_type_id: number;
   discount_nominal?: number;
 }
 

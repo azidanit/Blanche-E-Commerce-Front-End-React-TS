@@ -9,6 +9,7 @@ import Typing from './Typing';
 interface ChatProps {
   sender_id: number;
   data: IRefundMessageResponse;
+  isAction: boolean;
 }
 
 const reverseArray = (arr: IMessage[]): IMessage[] => {
@@ -19,7 +20,7 @@ const reverseArray = (arr: IMessage[]): IMessage[] => {
   return reversedArray;
 };
 
-const Chat: React.FC<ChatProps> = ({ sender_id, data }) => {
+const Chat: React.FC<ChatProps> = ({ sender_id, data, isAction }) => {
   const [messages, setMessages] = useState<IMessage[]>([]);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -38,7 +39,7 @@ const Chat: React.FC<ChatProps> = ({ sender_id, data }) => {
   return (
     <div className={style.chat}>
       {data && <Header details={data.details} sender_id={sender_id} />}
-      {!isClosed && <Action sender_id={sender_id} />}
+      {!isClosed && isAction && <Action sender_id={sender_id} />}
       <Typing sender_id={sender_id} isClosed={isClosed} />
       {data && messages && (
         <Messages

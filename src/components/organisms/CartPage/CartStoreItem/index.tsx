@@ -1,4 +1,4 @@
-import { notification, Skeleton, Spin } from 'antd';
+import { message, Spin } from 'antd';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
 import React, { useEffect, useState } from 'react';
 import { useUpdateCartsMutation } from '../../../../app/features/cart/cartApiSlice';
@@ -54,10 +54,7 @@ const CartStoreItem: React.FC<CartStoreItemProps> = ({ cart, isLoading }) => {
     } catch (err) {
       const e = err as IErrorResponse;
 
-      notification.error({
-        message: 'Error',
-        description: capitalizeFirstLetter(e.message),
-      });
+      message.error(capitalizeFirstLetter(e.message));
     }
   };
 

@@ -23,13 +23,16 @@ function useForms(
   productKey: React.Key[],
   products: TableProductDataType[],
   handleSetProductKeys: (productKey: React.Key[]) => void,
+  discountType: 'Fixed Amount' | 'Percentage',
   id?: number,
 ): FormReturnPromotion<ICreatePromotionValues> {
   const navigate = useNavigate();
 
   const [selectedProducts, setSelectedProducts] =
     useState<selectedProductProps>({});
-  const [selectedKey, setSelectedKey] = useState<React.Key[]>([]);
+  const [selectedKey, setSelectedKey] = useState<React.Key[]>(
+    isEdit ? productKey : [],
+  );
   const [createPromotion, { isError, isLoading }] =
     useCreatePromotionMutation();
   const [editPromotion, { isError: isEditError, isLoading: isEditLoading }] =
@@ -47,7 +50,16 @@ function useForms(
       }));
 
       setSelectedKey([...new Set([...selectedRowKeys, ...productKey])]);
+
+      setSelectedKey(
+        isEdit
+          ? [...new Set([...selectedRowKeys, ...productKey])]
+          : selectedRowKeys,
+      );
     },
+    getCheckboxProps: (record: TableProductDataType) => ({
+      disabled: record.key === productKey.find((key) => key === record.key),
+    }),
   };
 
   const handleCloseModal = () => {
@@ -57,18 +69,11 @@ function useForms(
       result.push(...selectedProducts[key]);
     });
 
-    console.log(result, 'result close');
-
-    const filteredResult: TableProductDataType[] = result.filter((product) =>
-      selectedKey.includes(product.key),
+    const filteredEditResult = [...result, ...products].filter((item) =>
+      selectedKey.includes(item.key),
     );
 
-    const filteredEditresult: TableProductDataType[] = [
-      ...filteredResult,
-      ...products,
-    ].filter((product) => selectedKey.includes(product.key));
-
-    handleSetProducts(isEdit ? filteredEditresult : filteredResult);
+    handleSetProducts(isEdit ? filteredEditResult : result);
   };
 
   const handleCreate = async (values: ICreatePromotionValues) => {
@@ -81,7 +86,7 @@ function useForms(
       const body: ICreatePromotionRequest = {
         title: values.title,
         max_discounted_quantity: values.max_discounted_quantity,
-        promotion_type_id: values.promotion_type_id === 'Fixed Amount' ? 1 : 2,
+        promotion_type_id: discountType === 'Fixed Amount' ? 1 : 2,
         nominal: values.nominal,
         quota: values.quota,
         start_date: values.period[0].toDate(),
@@ -102,21 +107,25 @@ function useForms(
   };
 
   const handleEdit = async (values: ICreatePromotionValues) => {
-    if (selectedKey.length === 0) {
+    if (selectedKey.length === 0 && products.length === 0) {
       message.error('Please select at least one product');
       return;
     }
+
     try {
       const body: ICreatePromotionRequest = {
         id: id,
         title: values.title,
         max_discounted_quantity: values.max_discounted_quantity,
-        promotion_type_id: values.promotion_type_id === 'Fixed Amount' ? 1 : 2,
+        promotion_type_id: discountType === 'Fixed Amount' ? 1 : 2,
         nominal: values.nominal,
         quota: values.quota,
         start_date: values.period[0].toDate(),
         end_date: values.period[1].toDate(),
-        product_ids: selectedKey,
+        product_ids:
+          selectedKey.length === 0
+            ? [...new Set([...productKey])]
+            : [...new Set([...selectedKey])],
       };
       await editPromotion(body).unwrap();
       message.success(

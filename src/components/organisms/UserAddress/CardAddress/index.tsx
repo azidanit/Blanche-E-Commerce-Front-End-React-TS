@@ -9,7 +9,7 @@ import {
   useSetDefaultAddressMutation,
   useSetDefaultMerchantAddressMutation,
 } from '../../../../app/features/address/userAddressApiSlice';
-import { notification } from 'antd';
+import { message } from 'antd';
 import { Popconfirm } from '../../..';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import { capitalizeFirstLetter } from '../../../../helpers/capitalizeFirstLetter';
@@ -106,18 +106,12 @@ const CardAddress: React.FC<CardAddressProps> = ({ data }) => {
       await setDefaultAddress(data?.id).unwrap();
 
       document.documentElement.scrollTop = 0;
-      notification.success({
-        message: 'Success',
-        description: 'Set default address success',
-      });
+      message.success('Set default address success');
     } catch (e) {
       const error = e as Error;
       setError(error);
 
-      notification.error({
-        message: 'Error Set Default Address',
-        description: capitalizeFirstLetter(error.message),
-      });
+      message.error(capitalizeFirstLetter(error.message));
     }
   };
 
@@ -126,28 +120,19 @@ const CardAddress: React.FC<CardAddressProps> = ({ data }) => {
       await setDefaultMerchantAddress(data?.id).unwrap();
 
       document.documentElement.scrollTop = 0;
-      notification.success({
-        message: 'Success',
-        description: 'Set default Merhcant address success',
-      });
+      message.success('Set default Merchant address success');
     } catch (e) {
       const error = e as Error;
       setError(error);
 
-      notification.error({
-        message: 'Error Set Default Address',
-        description: capitalizeFirstLetter(error.message),
-      });
+      message.error(capitalizeFirstLetter(error.message));
     }
   };
 
   const handleDeleteAddress = async () => {
     try {
       await deleteAddress(data?.id).unwrap();
-      notification.success({
-        message: 'Success',
-        description: 'Delete address success',
-      });
+      message.success('Delete address success');
     } catch (e) {
       const error = e as Error;
       setError(error);

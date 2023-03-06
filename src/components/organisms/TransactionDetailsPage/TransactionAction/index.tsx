@@ -1,10 +1,7 @@
 import { message } from 'antd';
 import React, { useState } from 'react';
 import { ModalConfirm, Button } from '../../..';
-import {
-  IGetTransactionDetailsResponse,
-  ITransaction,
-} from '../../../../helpers/types';
+import { IGetTransactionDetailsResponse } from '../../../../helpers/types';
 import { UpdateStatus } from '../../Merchant/Order/CardOrder/utils';
 import style from './index.module.scss';
 import { useUpdateTransactionStatusMutation } from '../../../../app/features/transactions/transactionsApiSlice';
@@ -56,9 +53,6 @@ const TransactionAction: React.FC<TransactionActionProps> = ({
     }
   };
 
-  const handleRequestRefund = async () => {
-    console.log('request refund');
-  };
   return (
     <>
       <div className={style.ta__actions}>
@@ -95,7 +89,6 @@ const TransactionAction: React.FC<TransactionActionProps> = ({
       <ModalConfirm
         isModalOpen={isModalDeclineOpen}
         handleCancel={handleCloseModalDecline}
-        handleOk={handleRequestRefund}
         title="Request Refund"
         info=" Are you sure to request refund for this order? "
         confirmButtonText="Request"

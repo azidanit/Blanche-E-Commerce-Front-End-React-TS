@@ -7,7 +7,7 @@ import style from './index.module.scss';
 
 interface ModalConfirmPageProps {
   isModalOpen: boolean;
-  handleOk: () => void;
+  handleOk?: () => void;
   handleCancel?: () => void;
   title: string;
   info?: string;

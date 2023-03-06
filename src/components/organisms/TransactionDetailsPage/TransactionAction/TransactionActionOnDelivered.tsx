@@ -53,9 +53,6 @@ const TransactionActionOnDelivered: React.FC<TransactionActionProps> = ({
     }
   };
 
-  const handleRequestRefund = async () => {
-    console.log('request refund');
-  };
   return (
     <>
       <Divider />

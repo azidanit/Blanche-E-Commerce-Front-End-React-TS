@@ -1,4 +1,4 @@
-import { notification } from 'antd';
+import { message } from 'antd';
 import { useState } from 'react';
 import { useAddUserAddressMutation } from '../../../../app/features/address/userAddressApiSlice';
 import {
@@ -72,10 +72,7 @@ function useForm(handleOk: () => void): FormReturnAddress<AddAddressProps> {
     };
     try {
       await createAddress(body).unwrap();
-      notification.success({
-        message: 'Success',
-        description: 'Address has been added',
-      });
+      message.success('Address has been added');
       handleOk();
     } catch (error) {
       setError(error as Error);

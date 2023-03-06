@@ -43,7 +43,7 @@ const items = [
   getItem('Home', '', <HomeOutlined />),
   getItem('Profile', 'profile', <UserOutlined />),
   { type: 'divider' } as MenuDividerType,
-  getItem('Wallet', 'wallet/withdraw', <WalletOutlined />),
+  getItem('Fund', 'wallet', <WalletOutlined />),
   { type: 'divider' } as MenuDividerType,
   getItem('Products', 'sub1', <ShopOutlined />, [
     getItem('Product List', 'products'),

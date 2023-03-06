@@ -1,10 +1,8 @@
-import { Divider, message } from 'antd';
+import { Divider } from 'antd';
 import React, { useState } from 'react';
-import { ModalConfirm, Button, ModalReview } from '../../..';
+import { Button, ModalReview } from '../../..';
 import { IGetTransactionDetailsResponse } from '../../../../helpers/types';
-import { UpdateStatus } from '../../Merchant/Order/CardOrder/utils';
 import style from './index.module.scss';
-import { useUpdateTransactionStatusMutation } from '../../../../app/features/transactions/transactionsApiSlice';
 import { useGetProductReviewByInvCodeQuery } from '../../../../app/features/reviews/reviewsApiSlice';
 
 interface TransactionActionProps {
@@ -15,25 +13,20 @@ const TransactionActionOnCompleted: React.FC<TransactionActionProps> = ({
   transaction,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { data, isLoading: isLoadingGetReview } =
-    useGetProductReviewByInvCodeQuery(
-      {
-        invoice_code: transaction?.invoice_code ? transaction.invoice_code : '',
-      },
-      {
-        skip: !transaction,
-      },
-    );
+  const { data } = useGetProductReviewByInvCodeQuery(
+    {
+      invoice_code: transaction?.invoice_code ? transaction.invoice_code : '',
+    },
+    {
+      skip: !transaction,
+    },
+  );
   const handleOpenModal = () => {
     setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
-  };
-
-  const handleProcess = async () => {
-    console.log('process');
   };
 
   return (
@@ -52,7 +45,6 @@ const TransactionActionOnCompleted: React.FC<TransactionActionProps> = ({
         data={data}
         isModalOpen={isModalOpen}
         handleCancel={handleCloseModal}
-        handleOk={handleProcess}
         transaction={transaction}
       />
     </>

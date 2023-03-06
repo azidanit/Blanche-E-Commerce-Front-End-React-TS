@@ -82,8 +82,6 @@ const TableProduct: React.FC<TableProductProps> = ({
           selectedRowKeys: selectedProducts[page.toString()]?.map(
             (item: any) => item.key,
           ),
-          defaultSelectedRowKeys: productKeys,
-
           ...rowSelection,
         }}
         columns={columns}

@@ -28,7 +28,9 @@ const AddPromotion: React.FC<AddPromotionProps> = ({ isEdit, isDuplicate }) => {
   const [productKeys, setProductKeys] = useState<Key[]>([]);
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
-  const [discountType, setDiscountType] = useState<string>('Fixed Amount');
+  const [discountType, setDiscountType] = useState<
+    'Fixed Amount' | 'Percentage'
+  >('Fixed Amount');
 
   const handleChange = (e: RadioChangeEvent) => {
     setDiscountType(e.target.value);
@@ -76,6 +78,7 @@ const AddPromotion: React.FC<AddPromotionProps> = ({ isEdit, isDuplicate }) => {
       productKeys,
       products,
       handleSetProductKeys,
+      discountType,
       Number(id),
     );
 
@@ -94,7 +97,7 @@ const AddPromotion: React.FC<AddPromotionProps> = ({ isEdit, isDuplicate }) => {
       }
 
       setDiscountType(
-        promotion.promotion_type === 'nominal' ? 'Fixed Amount' : 'Percentage',
+        promotion.promotion_type_id === 1 ? 'Fixed Amount' : 'Percentage',
       );
 
       form.setFieldsValue({
@@ -102,9 +105,13 @@ const AddPromotion: React.FC<AddPromotionProps> = ({ isEdit, isDuplicate }) => {
         period: [dayjs(promotion.start_date), dayjs(promotion.end_date)],
         nominal: promotion.nominal,
         max_discounted_quantity: promotion.max_discounted_quantity,
-        promotion_type_id: promotion.promotion_type === 'nominal' ? 1 : 2,
+        promotion_type_id: promotion.promotion_type_id,
         quota: promotion.quota,
       });
+
+      if (promotion.products.length === 0) {
+        return;
+      }
 
       const result: TableProductDataType[] = [];
       promotion.products.forEach((product: IProductPromotion) => {
@@ -120,8 +127,6 @@ const AddPromotion: React.FC<AddPromotionProps> = ({ isEdit, isDuplicate }) => {
       setProducts([...result]);
 
       const newProductKeys = [...promotion.product_ids];
-
-      console.log(newProductKeys, 'key');
       setProductKeys(newProductKeys);
     } catch (err) {
       const error = err as Error;

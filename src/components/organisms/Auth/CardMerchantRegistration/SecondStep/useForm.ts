@@ -1,11 +1,10 @@
-import { notification } from 'antd';
+import { message } from 'antd';
 import { useState } from 'react';
 import { useCreateMerchantMutation } from '../../../../../app/features/merchant/merchantApiSlice';
 import {
   FormReturnAuth,
   ICreateMerchantRequest,
   IUserAddress,
-  RegisterMerchantFirstStepProps,
 } from '../../../../../helpers/types';
 
 interface useFormProps {
@@ -25,7 +24,7 @@ const useForm = ({
   const [registerMerchant, { isLoading, isError }] =
     useCreateMerchantMutation();
 
-  const handleSubmit = async (values: ICreateMerchantRequest) => {
+  const handleSubmit = async () => {
     const body = {
       domain: domain,
       name: store,
@@ -34,10 +33,7 @@ const useForm = ({
 
     try {
       await registerMerchant(body).unwrap();
-      notification.success({
-        message: 'Success',
-        description: 'Merchant has been created',
-      });
+      message.success('Merchant has been created');
       countDown();
     } catch (e) {
       setError(e as Error);

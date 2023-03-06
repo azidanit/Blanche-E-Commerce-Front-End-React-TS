@@ -11,6 +11,7 @@ import ComponentOnProcessed from './ComponentBasedOnStatus/ComponentOnProcessed'
 import ComponentOnWaited from './ComponentBasedOnStatus/ComponentOnWaited';
 import ComponentOnCompleted from './ComponentBasedOnStatus/ComponentOnCompleted';
 import ComponentOnRequestRefund from './ComponentBasedOnStatus/ComponentOnRequestRefund';
+import ComponentOnDelivered from './ComponentBasedOnStatus/ComponentOnDelivered';
 
 export enum EnumOrderStatus {
   TransactionStatusWaited = 1,
@@ -59,9 +60,7 @@ const OrderStatus: React.FC<ShippingDetailsProps> = ({ transaction }) => {
     [EnumOrderStatus.TransactionStatusOnDelivery]: (
       <ComponentOnDelivery transaction={transaction} />
     ),
-    [EnumOrderStatus.TransactionStatusDelivered]: (
-      <ComponentOnDelivery transaction={transaction} />
-    ),
+    [EnumOrderStatus.TransactionStatusDelivered]: <ComponentOnDelivered />,
     [EnumOrderStatus.TransactionStatusRequestRefund]: (
       <ComponentOnRequestRefund transaction={transaction} />
     ),

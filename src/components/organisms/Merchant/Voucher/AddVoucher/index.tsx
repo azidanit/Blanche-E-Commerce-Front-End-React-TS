@@ -41,7 +41,7 @@ const AddVoucher: React.FC<AddVoucherProps> = ({
       }
 
       form.setFieldsValue({
-        code: isDuplicate ? '' : voucher.code,
+        code: isDuplicate ? '' : voucher.code_suffix,
         period: [dayjs(voucher.start_date), dayjs(voucher.expired_at)],
         discount_nominal: voucher.discount_nominal,
         min_order_nominal: voucher.min_order_nominal,

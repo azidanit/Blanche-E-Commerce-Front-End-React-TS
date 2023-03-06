@@ -22,9 +22,9 @@ const mapStatusToColor = {
   waiting: 'warning',
   processed: 'blue',
   canceled: 'red',
-  'On Delivery': 'blue',
+  'on delivery': 'blue',
   delivered: 'blue',
-  'Request Refund': 'warning',
+  'request refund': 'warning',
   refunded: 'green',
 };
 
