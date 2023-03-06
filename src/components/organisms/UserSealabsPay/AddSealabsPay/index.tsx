@@ -1,6 +1,8 @@
 import { message } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useAddSealabsPayAccountMutation } from '../../../../app/features/profile/profileApiSlice';
+import { capitalizeFirstLetter } from '../../../../helpers/capitalizeFirstLetter';
+import { IErrorResponse } from '../../../../helpers/types/response.interface';
 import { FormLabel, Input } from '../../../atoms';
 import { Form, Modal, ModalHeader } from '../../../molecules';
 import style from './index.module.scss';
@@ -165,7 +167,8 @@ const AddSealabsPay: React.FC<AddSealabsPayProps> = ({
       await submit(body).unwrap();
       handleOk();
     } catch (err) {
-      message.error('Failed to add Sealabs Pay account');
+      const error = err as IErrorResponse;
+      message.error(capitalizeFirstLetter(error.message));
     }
   };
 
