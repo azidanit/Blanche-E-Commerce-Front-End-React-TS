@@ -43,4 +43,7 @@ export interface IGetWaitingForPaymentDetailsReponse {
   amount: number;
   redirect_url: string;
   transactions: ITransactionWaiting[];
+  pay_before: Date;
+  created_at: Date;
+  payment_method: string;
 }

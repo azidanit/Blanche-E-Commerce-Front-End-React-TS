@@ -44,7 +44,7 @@ export const dateToMinuteHourMonthStringDayYear = (
   const newYear = date.getFullYear();
   const hour = date.getHours();
   const parseHour = hour < 10 ? `0${hour}` : hour;
-  const minute = date.getHours();
-  const parseMinute = hour < 10 ? `0${minute}` : minute;
+  const minute = date.getMinutes();
+  const parseMinute = minute < 10 ? `0${minute}` : minute;
   return `${newDate}${separator}${newMonths}${separator}${newYear} ${parseHour}:${parseMinute}`;
 };

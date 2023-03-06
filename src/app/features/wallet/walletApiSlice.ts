@@ -24,7 +24,6 @@ export const walletApi = apiSlice.injectEndpoints({
       transformResponse: (response: { data: IGetWalletDetailsResponse }) =>
         response.data,
       transformErrorResponse: (response) => response.data,
-      providesTags: ['Wallet'],
     }),
     createPin: build.mutation<null, ICreatePinRequest>({
       query: (body) => ({
@@ -34,7 +33,6 @@ export const walletApi = apiSlice.injectEndpoints({
       }),
       transformResponse: (response: { data: null }) => response.data,
       transformErrorResponse: (response) => response.data,
-      invalidatesTags: ['Wallet'],
     }),
     topUpWallet: build.mutation<ITopupWalletResponse, ITopupWalletRequest>({
       query: (body) => ({
@@ -55,7 +53,6 @@ export const walletApi = apiSlice.injectEndpoints({
       }),
       transformResponse: (response: IValidateResponse) => response,
       transformErrorResponse: (response) => response.data,
-      invalidatesTags: ['Wallet'],
     }),
     cancelPayment: build.mutation<
       IMakePaymentWithWalletRes,

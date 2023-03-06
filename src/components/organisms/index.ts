@@ -38,6 +38,7 @@ import SellerFundPage from './SellerFundPage';
 import DashboardPage from './DashboardPage';
 import MerchantProfile from './Merchant/Profile';
 import WaitingPage from './WaitingPage';
+import WaitingDetailsPage from './WaitingDetailsPage';
 
 export {
   CategoryCarousel,
@@ -70,4 +71,5 @@ export {
   DashboardPage,
   MerchantProfile,
   WaitingPage,
+  WaitingDetailsPage,
 };

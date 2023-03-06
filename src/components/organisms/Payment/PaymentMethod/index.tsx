@@ -163,7 +163,7 @@ const ModalPayment: React.FC<ModalPaymentPageProps> = ({
         disabled:
           !order.is_order_valid ||
           !payment ||
-          (isPaymentWallet(payment) && wallet && wallet.balance < order.total),
+          (isPaymentWallet(payment) && payment.balance < order.total),
       }}
     >
       <ModalHeader title="Choose Payment Method" />
