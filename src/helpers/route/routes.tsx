@@ -73,6 +73,7 @@ const MerchantProfile = lazy(() => import('../../pages/Merchant/Profile'));
 const Messages = lazy(() => import('../../pages/Messages'));
 const MerchantMessages = lazy(() => import('../../pages/Merchant/Messages'));
 const Waiting = lazy(() => import('../../pages/Waiting'));
+const WaitingDetails = lazy(() => import('../../pages/WaitingDetails'));
 
 export const router = createBrowserRouter([
   {
@@ -129,6 +130,10 @@ export const router = createBrowserRouter([
           {
             path: '/transactions/waiting',
             element: <Waiting />,
+          },
+          {
+            path: '/transactions/waiting/:id',
+            element: <WaitingDetails />,
           },
           {
             path: '/refunds',

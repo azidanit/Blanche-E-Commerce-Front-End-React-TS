@@ -5,7 +5,10 @@ import CardWallet from './CardWallet';
 import CardWalletDetails from './CardWalletDetails';
 
 const WalletPage: React.FC = () => {
-  const { data, isError, isLoading, isSuccess } = useGetWalletDetailsQuery();
+  const { data, isError, isLoading, isSuccess } = useGetWalletDetailsQuery(
+    undefined,
+    { refetchOnMountOrArgChange: true },
+  );
   return (
     <Row gutter={[32, 32]}>
       <Col xl={8}>

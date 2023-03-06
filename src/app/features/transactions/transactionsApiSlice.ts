@@ -56,7 +56,7 @@ export const transactionsApi = apiSlice.injectEndpoints({
     }),
     getWaitingForPaymentDetails: build.query<
       IGetWaitingForPaymentDetailsReponse,
-      number
+      string
     >({
       query: (id) => ({
         url: `/orders/waiting-for-payment/${id}`,

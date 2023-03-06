@@ -2,10 +2,7 @@ import { Divider } from 'antd';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PaymentIframe } from '../../..';
-import {
-  dateToDayMonthStringYear,
-  dateToMinuteHourMonthStringDayYear,
-} from '../../../../helpers/parseDate';
+import { dateToMinuteHourMonthStringDayYear } from '../../../../helpers/parseDate';
 import { toRupiah } from '../../../../helpers/toRupiah';
 import { IWaitingPayment } from '../../../../helpers/types';
 import { Button, Card } from '../../../atoms';
@@ -37,7 +34,7 @@ const CardWaiting: React.FC<CardWaitingProps> = ({ item }) => {
       <Card className={style.cw} onClick={handleDetails}>
         <div className={style.cw__header}>
           <p className={style.cw__header__created}>
-            {dateToDayMonthStringYear(new Date(item.created_at), ' ')}
+            {dateToMinuteHourMonthStringDayYear(new Date(item.created_at), ' ')}
           </p>
           <div>
             <p className={style.cw__header__before}>Pay Before</p>
