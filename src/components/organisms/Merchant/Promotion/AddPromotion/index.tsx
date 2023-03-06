@@ -32,7 +32,12 @@ const AddPromotion: React.FC<AddPromotionProps> = ({ isEdit, isDuplicate }) => {
     'Fixed Amount' | 'Percentage'
   >('Fixed Amount');
 
+  const [form] = useForm();
+
   const handleChange = (e: RadioChangeEvent) => {
+    form.setFieldsValue({
+      nominal: '',
+    });
     setDiscountType(e.target.value);
   };
 
@@ -65,8 +70,6 @@ const AddPromotion: React.FC<AddPromotionProps> = ({ isEdit, isDuplicate }) => {
   };
 
   const { id } = useParams();
-
-  const [form] = useForm();
 
   const [getPromotionById] = useLazyGetPromotionByIdQuery();
 

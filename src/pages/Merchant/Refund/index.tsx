@@ -6,7 +6,7 @@ const Refund: React.FC = () => {
   return (
     <div className={style.refund__page}>
       <h2 className={style.refund__page__title}>Refund List</h2>
-      <MerchantRefundList />;
+      <MerchantRefundList />
     </div>
   );
 };

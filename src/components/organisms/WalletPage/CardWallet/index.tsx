@@ -11,11 +11,7 @@ interface CardWalletProps {
   isLoading: boolean;
 }
 
-const CardWallet: React.FC<CardWalletProps> = ({
-  isLoading,
-  data,
-  isError,
-}) => {
+const CardWallet: React.FC<CardWalletProps> = ({ data, isError }) => {
   return (
     <Card className={style.card__wallet}>
       {isError && <ActiveWallet />}

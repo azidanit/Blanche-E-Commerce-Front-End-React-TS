@@ -1,9 +1,7 @@
 import React from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { IGetProductListResponse } from '../../../../helpers/types';
-import { Button } from '../../../atoms';
 import { ListCardProduct } from '../../../molecules';
-import useForm from '../../Auth/CardMerchantRegistration/SecondStep/useForm';
 import style from './index.module.scss';
 
 interface MoreProductsProps {

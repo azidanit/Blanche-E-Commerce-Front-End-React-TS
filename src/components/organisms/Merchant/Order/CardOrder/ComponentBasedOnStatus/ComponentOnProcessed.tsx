@@ -12,7 +12,7 @@ import { Button, FormLabel, Input } from '../../../../../atoms';
 import { ComponentBasedOnStatusProps } from './ComponentOnCanceled';
 import style from '../index.module.scss';
 import { UpdateStatus } from '../utils';
-import ReactToPrint, { useReactToPrint } from 'react-to-print';
+import { useReactToPrint } from 'react-to-print';
 import { capitalizeFirstLetter } from '../../../../../../helpers/capitalizeFirstLetter';
 import { IErrorResponse } from '../../../../../../helpers/types/response.interface';
 

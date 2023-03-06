@@ -8,7 +8,7 @@ import {
 import { capitalizeFirstLetter } from '../../../../../../../helpers/capitalizeFirstLetter';
 import { IRefundRequest } from '../../../../../../../helpers/types/refund.interface';
 import { IErrorResponse } from '../../../../../../../helpers/types/response.interface';
-import style from '../index.module.scss';
+
 
 interface ActionProps {
   refund: IRefundRequest;

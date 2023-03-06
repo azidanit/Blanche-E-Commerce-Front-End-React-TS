@@ -18,7 +18,7 @@ const CardReview: React.FC<CardReviewProps> = ({ data }) => {
       <div className={style.card__review__body}>
         <div className={style.card__review__body__user}>
           <Avatar />
-          <p>Giwang</p>
+          <p>{data.username}</p>
         </div>
         {data.image_url && (
           <Image

@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ProductState } from '../../../hooks/useProduct';
 
 const initialState = {
   productInfo: {

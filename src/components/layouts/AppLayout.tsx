@@ -13,14 +13,17 @@ const AppLayout = (): JSX.Element => {
   const [isMerchant, setIsMerchant] = useState(false);
   const dispatch = useAppDispatch();
 
-  const { isLoggedIn, user } = useAppSelector((state) => state.auth);
+  const { isLoggedIn, user, merchant } = useAppSelector((state) => state.auth);
 
   const { data: result, isLoading } = useGetProfileQuery(undefined, {
     skip: !isLoggedIn || (isLoggedIn && !user),
   });
   const { data: resultMerchant, isLoading: isLoadingMerchant } =
     useGetMerchantProfileQuery(undefined, {
-      skip: result?.role !== 'merchant',
+      skip:
+        result?.role !== 'merchant' ||
+        (result?.role !== 'merchant' && !isLoggedIn) ||
+        (result?.role !== 'merchant' && isLoggedIn && !merchant),
     });
 
   useEffect(() => {
@@ -29,7 +32,7 @@ const AppLayout = (): JSX.Element => {
     if (result.role === 'merchant') {
       setIsMerchant(true);
     }
-  }, [result]);
+  }, [result, isLoggedIn, user, merchant]);
 
   useEffect(() => {
     if (!isMerchant) return;
