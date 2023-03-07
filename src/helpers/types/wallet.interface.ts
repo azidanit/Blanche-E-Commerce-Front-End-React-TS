@@ -69,4 +69,6 @@ export interface ISetNewPinRequest {
 export interface IGetWalletHistoryRequest {
   page: number;
   limit: number;
+  start_date?: string;
+  end_date?: string;
 }

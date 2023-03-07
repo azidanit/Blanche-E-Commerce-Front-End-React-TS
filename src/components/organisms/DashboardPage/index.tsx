@@ -21,8 +21,8 @@ const DashboardPage: React.FC = () => {
   const onChange: RangePickerProps['onChange'] = (date, dateString) => {
     if (!isOpen) return;
     const newDate = {
-      start_date: dayjs(dateString[0]).format('YYYY-MM-DD'),
-      end_date: dayjs(dateString[1]).format('YYYY-MM-DD'),
+      start_date: dayjs(dateString[0]).toISOString(),
+      end_date: dayjs(dateString[1]).toISOString(),
     };
     setDate(newDate);
   };
