@@ -5,7 +5,7 @@ import WalletInfo from '../WalletInfo';
 import { useGetMerchantFundBalanceQuery } from '../../../../app/features/merchant/merchantApiSlice';
 
 const CardWallet: React.FC = () => {
-  const { data, isError, isLoading } = useGetMerchantFundBalanceQuery();
+  const { data } = useGetMerchantFundBalanceQuery();
 
   return (
     <Card className={style.card__wallet}>

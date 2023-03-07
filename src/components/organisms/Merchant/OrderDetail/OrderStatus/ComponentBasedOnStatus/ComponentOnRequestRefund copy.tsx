@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { IMerchantDetailTransactionResponse } from '../../../../../../helpers/types/merchant/merchant-order.interface';
 import { Button } from '../../../../../atoms';
 import style from '../index.module.scss';
 

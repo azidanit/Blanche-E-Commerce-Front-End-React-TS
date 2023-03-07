@@ -1,12 +1,9 @@
 import React from 'react';
 import { Button } from '../../../../../atoms';
-import { ComponentBasedOnStatusProps } from './ComponentOnCanceled';
 import style from '../index.module.scss';
 import classNames from 'classnames';
 
-const ComponentOnCompleted: React.FC<ComponentBasedOnStatusProps> = ({
-  transaction,
-}) => {
+const ComponentOnCompleted: React.FC = () => {
   const classProps = classNames(style.os__status, style.os__status__completed);
 
   return (

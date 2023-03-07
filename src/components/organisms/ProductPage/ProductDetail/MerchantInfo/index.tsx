@@ -5,7 +5,7 @@ import { Avatar, Card, Rate } from '../../../../atoms';
 import style from './index.module.scss';
 
 const MerchantInfo: React.FC = () => {
-  const { store, slug } = useParams();
+  const { store } = useParams();
 
   const { data: merchant } = useGetMerchantInfoQuery(store as string);
 

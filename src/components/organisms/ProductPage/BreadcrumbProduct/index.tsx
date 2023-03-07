@@ -11,7 +11,7 @@ const BreadcrumbProduct: React.FC = () => {
 
   const [categories, setCategories] = useState<ICategoryItem | undefined>();
 
-  const { data, isLoading } = useGetCategoryAncestorsBySlugQuery(
+  const { data } = useGetCategoryAncestorsBySlugQuery(
     product?.category?.url ? product?.category?.url : '',
     {
       skip: !product?.category?.url,

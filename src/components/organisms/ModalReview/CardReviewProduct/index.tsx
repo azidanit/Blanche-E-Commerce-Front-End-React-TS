@@ -1,4 +1,3 @@
-import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { message, Upload, UploadProps, Form as AForm } from 'antd';
 import { RcFile, UploadChangeParam, UploadFile } from 'antd/es/upload';
 import React, { useEffect, useState } from 'react';
@@ -45,7 +44,6 @@ const CardReviewProduct: React.FC<CardReviewProductProps> = ({
   data,
   transaction,
 }) => {
-  const [loading, setLoading] = useState(false);
   const [file, setFile] = useState<File>();
   const [addReview, { isLoading }] = useAddProductReviewByInvCodeMutation();
 
@@ -55,12 +53,7 @@ const CardReviewProduct: React.FC<CardReviewProductProps> = ({
     setFile(info.fileList[0].originFileObj);
   };
 
-  const uploadButton = (
-    <div>
-      {loading ? <LoadingOutlined /> : <PlusOutlined />}
-      <div style={{ marginTop: 8 }}>Upload</div>
-    </div>
-  );
+  const uploadButton = <div style={{ marginTop: 8 }}>Upload</div>;
 
   useEffect(() => {
     if (data.reviewed_at === null) {
