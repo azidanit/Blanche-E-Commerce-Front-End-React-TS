@@ -1,6 +1,5 @@
 import { Divider, message } from 'antd';
 import React from 'react';
-import { useNavigate } from 'react-router';
 import { useRequestLoginGoogleMutation } from '../../../../app/features/auth/authApiSlice';
 import { capitalizeFirstLetter } from '../../../../helpers/capitalizeFirstLetter';
 import { IErrorResponse } from '../../../../helpers/types/response.interface';

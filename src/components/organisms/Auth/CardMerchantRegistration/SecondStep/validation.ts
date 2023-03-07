@@ -1,5 +1,3 @@
-import { RuleType } from 'rc-field-form/lib/interface';
-
 export const rules = {
   store: [
     {

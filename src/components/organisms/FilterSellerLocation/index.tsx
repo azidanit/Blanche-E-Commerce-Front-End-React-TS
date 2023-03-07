@@ -11,7 +11,7 @@ interface IOption {
 }
 
 const SellerLocation: React.FC = () => {
-  const { data, isLoading } = useGetCitiesQuery();
+  const { data } = useGetCitiesQuery();
   const [options, setOptions] = useState<IOption[]>([]);
   const [selectedValues, setSelectedValues] = useState<string[] | undefined>(
     [],

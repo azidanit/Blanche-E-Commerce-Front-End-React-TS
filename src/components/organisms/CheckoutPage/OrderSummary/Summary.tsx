@@ -1,17 +1,13 @@
 import React from 'react';
 import { toRupiah } from '../../../../helpers/toRupiah';
-import {
-  ICheckoutResponse,
-  IVoucherMarketplaceResponse,
-} from '../../../../helpers/types';
+import { ICheckoutResponse } from '../../../../helpers/types';
 import style from './index.module.scss';
 
 interface SummaryProps {
   order: ICheckoutResponse;
-  mpVoucher: IVoucherMarketplaceResponse | undefined;
 }
 
-const Summary: React.FC<SummaryProps> = ({ order, mpVoucher }) => {
+const Summary: React.FC<SummaryProps> = ({ order }) => {
   return (
     <ul className={style.order__summary__content}>
       <li className={style.order__summary__content__item}>

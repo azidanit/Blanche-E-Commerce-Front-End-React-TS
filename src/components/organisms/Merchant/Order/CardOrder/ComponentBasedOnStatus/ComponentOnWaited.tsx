@@ -2,12 +2,12 @@ import { message } from 'antd';
 import React, { useState } from 'react';
 import { useUpdateMerchantOrderStatusMutation } from '../../../../../../app/features/merchant/merchantOrderApiSlice';
 import { Button, FormLabel, TextArea } from '../../../../../atoms';
-import { ComponentBasedOnStatusProps } from './ComponentOnCanceled';
 import style from '../index.module.scss';
 import { UpdateStatus } from '../utils';
 import { Form, ModalConfirm } from '../../../../..';
 import { capitalizeFirstLetter } from '../../../../../../helpers/capitalizeFirstLetter';
 import { IErrorResponse } from '../../../../../../helpers/types/response.interface';
+import { ComponentBasedOnStatusProps } from './ComponentOnProcessed';
 
 const ComponentOnWaited: React.FC<ComponentBasedOnStatusProps> = ({
   transaction,
