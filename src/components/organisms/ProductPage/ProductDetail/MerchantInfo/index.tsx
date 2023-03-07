@@ -28,7 +28,7 @@ const MerchantInfo: React.FC = () => {
       <div className={style.merchant__info__rate}>
         <Rate disabled value={merchant?.avg_rating} />
         <span className={style.merchant__info__rate__count}>
-          ({merchant?.avg_rating} rating)
+          ({merchant?.num_of_review} review)
         </span>
       </div>
     </Card>
