@@ -187,7 +187,7 @@ export const merchantApi = apiSlice.injectEndpoints({
       transformErrorResponse: (response) => response.data,
       invalidatesTags: ['Product'],
     }),
-    getProductByID: build.query<IGetProductByIDResponse, number>({
+    getProductByID: build.query<IGetProductByIDResponse, string>({
       query: (id) => ({
         url: `/merchants/products/${id}`,
         method: 'GET',

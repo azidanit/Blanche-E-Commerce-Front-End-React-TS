@@ -3,7 +3,7 @@ import { useForm } from 'antd/es/form/Form';
 import dayjs from 'dayjs';
 import React, { Key, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Form, Button } from '../../../..';
+import { Form, Button, ItemNotFound } from '../../../..';
 import { useGetProductListQuery } from '../../../../../app/features/merchant/merchantApiSlice';
 import { useGetPromotionByIdQuery } from '../../../../../app/features/merchant/promotionApiSlice';
 import { IProductPromotion } from '../../../../../helpers/types/merchant/promotion.merchant.inteface';
@@ -71,9 +71,10 @@ const AddPromotion: React.FC<AddPromotionProps> = ({ isEdit, isDuplicate }) => {
 
   const { id } = useParams();
 
-  const { data: promotion } = useGetPromotionByIdQuery(Number(id), {
-    skip: !id,
-  });
+  const { data: promotion, isLoading: isLoadingPromotion } =
+    useGetPromotionByIdQuery(Number(id), {
+      skip: !id,
+    });
 
   const { handleCloseModal, rowSelection, handleSubmit, selectedProducts } =
     useForms(
@@ -128,6 +129,14 @@ const AddPromotion: React.FC<AddPromotionProps> = ({ isEdit, isDuplicate }) => {
     const newProductKeys = [...promotion.product_ids];
     setProductKeys(newProductKeys);
   }, [promotion]);
+  if (!promotion && id && !isLoadingPromotion) {
+    return (
+      <ItemNotFound
+        title="Promotion is Not Found"
+        body="Please check again your promotion name"
+      />
+    );
+  }
 
   return (
     <Form className={style.form__promotion} onFinish={handleSubmit} form={form}>

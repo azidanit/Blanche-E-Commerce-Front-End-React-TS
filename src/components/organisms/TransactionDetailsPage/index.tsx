@@ -10,6 +10,7 @@ import ShippingDetails from './ShippingDetails';
 import TransactionActionOnDelivered from './TransactionAction/TransactionActionOnDelivered';
 import { OrderStatus } from '../Merchant/Order/CardOrder/utils';
 import TransactionActionOnCompleted from './TransactionAction/TransactionActionOnCompleted';
+import { ItemNotFound } from '../..';
 
 const TransactionDetailsPage: React.FC = () => {
   const params = useParams();
@@ -67,6 +68,15 @@ const TransactionDetailsPage: React.FC = () => {
       return;
     }
   }, [data]);
+
+  if (!data && !isLoading) {
+    return (
+      <ItemNotFound
+        title="Sorry, Your Transaction is Not Found."
+        body="Something went wrong, please try again later."
+      />
+    );
+  }
 
   return (
     <Skeleton loading={isLoading}>
