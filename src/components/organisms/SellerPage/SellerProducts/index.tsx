@@ -1,6 +1,6 @@
 import { Skeleton, TabsProps } from 'antd';
 import React from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Tabs } from '../../..';
 import ListProducts from '../ListProducts';
 import MostPurchased from '../MostPurchased';

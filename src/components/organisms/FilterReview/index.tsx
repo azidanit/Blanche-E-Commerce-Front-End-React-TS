@@ -36,15 +36,10 @@ const Review: React.FC = () => {
       setSearchParams(searchParams);
       return;
     }
-
-    console.log(checkedValues);
-
     const lastValue = checkedValues[checkedValues.length - 1];
     searchParams.set('filter_by', lastValue.toString());
     setSearchParams(searchParams);
   };
-
-  console.log([(params.search.filter_by || '').toString()], 'loj kok');
 
   return (
     <CheckboxGroup

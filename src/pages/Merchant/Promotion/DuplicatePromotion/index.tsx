@@ -13,7 +13,7 @@ const DuplicatePromotion: React.FC = () => {
             Create Promotion
           </h3>
           <p className={style.add__voucher__page__header__subtitle}>
-            Create a promotion for your products
+            Duplicate a promotion for your products
           </p>
         </div>
         <Divider />

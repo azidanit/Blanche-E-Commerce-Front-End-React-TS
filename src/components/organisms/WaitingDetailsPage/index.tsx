@@ -1,7 +1,7 @@
 import { Divider } from 'antd';
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { PaymentIframe } from '../..';
+import { ItemNotFound, PaymentIframe } from '../..';
 import { useGetWaitingForPaymentDetailsQuery } from '../../../app/features/transactions/transactionsApiSlice';
 import { dateToMinuteHourMonthStringDayYear } from '../../../helpers/parseDate';
 import { toRupiah } from '../../../helpers/toRupiah';
@@ -12,11 +12,22 @@ import style from './index.module.scss';
 const WaitingDetailsPage: React.FC = () => {
   const params = useParams();
   const [isIFrameOpen, setIsIFrameOpen] = useState(false);
-  const { data } = useGetWaitingForPaymentDetailsQuery(params.id || '');
+  const { data, isLoading } = useGetWaitingForPaymentDetailsQuery(
+    params.id || '',
+  );
 
   const onClick = () => {
     setIsIFrameOpen(true);
   };
+
+  if (!data && !isLoading) {
+    return (
+      <ItemNotFound
+        title="Transaction is Not Found"
+        body="Please check again your invoice code and try again."
+      />
+    );
+  }
 
   return (
     <>

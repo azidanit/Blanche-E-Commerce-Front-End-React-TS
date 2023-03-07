@@ -13,7 +13,7 @@ const EditPromotion: React.FC = () => {
             Edit Promotion
           </h3>
           <p className={style.add__voucher__page__header__subtitle}>
-            Create a promotion for your products
+            Edit a promotion for your products
           </p>
         </div>
         <Divider />
