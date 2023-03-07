@@ -1,7 +1,4 @@
 dispatch:
-# - url: "blanche.life/*"
-#   service: production
-
 - url: "staging.blanche.life/*"
   service: staging
 
@@ -9,6 +6,9 @@ dispatch:
   service: default
 
 - url: "www.blanche.life/*"
+  service: frontend
+
+- url: "blanche.life/*"
   service: frontend
 
 - url: "admin.blanche.life/*"

@@ -11,8 +11,8 @@ deploy_dev:
   - chmod +x ./setup_env.sh
   - ./setup_env.sh
   - apk add --no-cache nodejs npm
-  - npm install
-  - rm -rf build
+  - npm install --production
+  - npm prune
   - CI=false npm run build
   - gcloud --quiet --project $PROJECT_ID app deploy dev-app.yaml dispatch.yaml
 
