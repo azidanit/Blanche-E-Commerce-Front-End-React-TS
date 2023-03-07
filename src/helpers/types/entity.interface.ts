@@ -267,6 +267,7 @@ export interface ITransaction {
       product_slug: string;
       real_price: number;
       variant_name: string;
+      quantity: number;
     };
     total_product: number;
   };

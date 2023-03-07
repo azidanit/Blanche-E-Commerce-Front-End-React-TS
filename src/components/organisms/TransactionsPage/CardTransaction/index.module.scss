@@ -5,6 +5,7 @@
   border-radius: 0.5rem;
 
   &__header {
+    overflow-x: auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -69,14 +70,16 @@
     margin: 1rem 0;
   }
   &__more {
+    overflow-x: auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 1.5rem;
 
     &__price {
       display: flex;
       align-items: center;
-      gap: 0.25rem;
+      gap: 0.5rem;
       font-size: 0.875rem;
       &__text {
         color: $gray;

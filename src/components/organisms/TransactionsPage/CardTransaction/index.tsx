@@ -142,12 +142,15 @@ const CardTransaction: React.FC<CardTransactionProps> = ({ transaction }) => {
             {textTruncate(transaction.product_overview.product.name, 100)}
           </p>
           <p className={style.ct__product__details__quantity}>
-            {`${transaction.product_overview.total_product} items`} x{' '}
+            {`${transaction.product_overview.product.quantity} item(s)`} x{' '}
             {toRupiah(transaction.product_overview.product.discount_price)}
           </p>
           {transaction.product_overview.total_product > 1 && (
             <p className={style.ct__product__details__others}>
-              +{transaction.product_overview.total_product - 1} other items
+              +
+              {transaction.product_overview.total_product -
+                transaction.product_overview.product.quantity}{' '}
+              other item(s)
             </p>
           )}
         </div>
