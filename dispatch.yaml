@@ -10,3 +10,6 @@ dispatch:
 
 - url: "www.blanche.life/*"
   service: frontend
+
+- url: "admin.blanche.life/*"
+  service: frontend-admin
