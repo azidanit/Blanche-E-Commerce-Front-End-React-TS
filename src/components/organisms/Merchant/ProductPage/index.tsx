@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import style from './index.module.scss';
-import { Button, Form } from '../../..';
+import { Button, Form, ItemNotFound } from '../../..';
 import ProductInfo from './ProductInfo';
 import ProductMedia from './ProductMedia';
 import ProductDetails from './ProductDetails';
@@ -35,12 +35,15 @@ const ProductPage: React.FC = () => {
   const [upload, { isLoading: isLoadingPhoto }] =
     useUploadProductImageMutation();
   const params = useParams();
-  const { data } = useGetProductByIDQuery(params.id ? parseInt(params.id) : 0, {
-    skip: !Boolean(params.id),
-  });
+  const {
+    data,
+    isError,
+    isLoading: isLoadingFetch,
+  } = useGetProductByIDQuery(params.id || '', { skip: !params.id });
+
   const { data: variants } = useGetVariantsByIDQuery(
     params.id ? parseInt(params.id) : 0,
-    { skip: !Boolean(params.id) },
+    { skip: isError || !params.id },
   );
 
   const handleSetVariant = (value: boolean) => {
@@ -167,7 +170,7 @@ const ProductPage: React.FC = () => {
     (image, index) => {
       return {
         uid: index.toString(),
-        name: `Image 3`,
+        name: `Image`,
         url: image,
         status: 'done',
       };
@@ -214,6 +217,12 @@ const ProductPage: React.FC = () => {
   useEffect(() => {
     form.resetFields();
   }, [params.id]);
+
+  if (!data && !isLoadingFetch && params.id) {
+    return (
+      <ItemNotFound title="Product not found" body="Something went wrong." />
+    );
+  }
 
   return (
     <div className={style.pp}>

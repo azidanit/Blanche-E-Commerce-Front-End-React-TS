@@ -23,16 +23,19 @@ const Seller: React.FC = () => {
   const handleNavigate = () => {
     navigate('/', { replace: true });
   };
-  const { data, isLoading } = useGetMerchantInfoQuery(params.store || '', {
-    skip: !params.store,
-  });
+  const { data, isLoading, isSuccess } = useGetMerchantInfoQuery(
+    params.store || '',
+    {
+      skip: !params.store,
+    },
+  );
 
   if (!data) {
     if (!isLoading) {
       return (
         <div className={style.seller__page__notfound}>
           <ItemNotFound
-            title="Store Not Found"
+            title="Store is Not Found"
             body="Sorry, the store you are looking for is not found."
             className={style.seller__page__notfound__item}
             imageClassName={style.seller__page__notfound__image}
@@ -49,7 +52,7 @@ const Seller: React.FC = () => {
       <SEO title="Store" description="Store page" />
       <div className={style.seller__page}>
         <CardSellerProfile data={data} isLoading={isLoading} />
-        <SellerProducts />
+        {isSuccess && <SellerProducts />}
       </div>
     </>
   );

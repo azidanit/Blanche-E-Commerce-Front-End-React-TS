@@ -23,7 +23,7 @@ const Product = (): JSX.Element => {
   const isMobile = useMediaQuery('(max-width: 768px)');
   const navigate = useNavigate();
 
-  const { data, isLoading } = useGetProductBySlugQuery({
+  const { data, isLoading, isSuccess } = useGetProductBySlugQuery({
     store: store as string,
     slug: slug as string,
   });
@@ -59,17 +59,6 @@ const Product = (): JSX.Element => {
     );
   }, [data]);
 
-  const { data: similarProducts, isLoading: isLoadingSimilar } =
-    useGetProductsQuery(
-      {
-        limit: 24,
-        cat: data?.category?.url,
-      },
-      {
-        skip: !data?.category?.url,
-      },
-    );
-
   const { data: sellerProducts, isLoading: isLoadingSeller } =
     useGetProductsQuery(
       {
@@ -77,7 +66,18 @@ const Product = (): JSX.Element => {
         merchant: store as string,
       },
       {
-        skip: !store,
+        skip: !store || !isSuccess,
+      },
+    );
+
+  const { data: similarProducts, isLoading: isLoadingSimilar } =
+    useGetProductsQuery(
+      {
+        limit: 24,
+        cat: data?.category?.url,
+      },
+      {
+        skip: !data?.category?.url || !isSuccess,
       },
     );
 
@@ -96,40 +96,43 @@ const Product = (): JSX.Element => {
       </div>
     );
   }
-
   return (
     <div className={style.product}>
-      <BreadcrumbProduct />
-      <div className={style.product__page}>
-        <ProductDetail />
-        {data?.is_my_product ? (
-          <Button
-            size="large"
-            type="primary"
-            onClick={() => navigate(`/merchant/products/edit/${data.id}`)}
-          >
-            Edit My Product
-          </Button>
-        ) : (
-          <CardSummary />
-        )}
-      </div>
-      <div className={style.product__page__lists}>
-        <MoreProducts
-          title="More from this store"
-          data={sellerProducts}
-          isLoading={isLoadingSeller}
-          to={`/${store}`}
-        />
-        <MoreProducts
-          title="Similar Products"
-          data={similarProducts}
-          isLoading={isLoadingSimilar}
-          to={`/c/${data?.category?.url}`}
-        />
+      {isSuccess && (
+        <>
+          <BreadcrumbProduct />
+          <div className={style.product__page}>
+            <ProductDetail />
+            {data?.is_my_product ? (
+              <Button
+                size="large"
+                type="primary"
+                onClick={() => navigate(`/merchant/products/edit/${data.id}`)}
+              >
+                Edit My Product
+              </Button>
+            ) : (
+              <CardSummary />
+            )}
+          </div>
+          <div className={style.product__page__lists}>
+            <MoreProducts
+              title="More from this store"
+              data={sellerProducts}
+              isLoading={isLoadingSeller}
+              to={`/${store}`}
+            />
+            <MoreProducts
+              title="Similar Products"
+              data={similarProducts}
+              isLoading={isLoadingSimilar}
+              to={`/c/${data?.category?.url}`}
+            />
 
-        {isMobile && !data?.is_my_product && <CardSummaryMobile />}
-      </div>
+            {isMobile && !data?.is_my_product && <CardSummaryMobile />}
+          </div>
+        </>
+      )}
     </div>
   );
 };

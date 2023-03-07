@@ -2,7 +2,7 @@ import { Divider, Skeleton } from 'antd';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useGetMerchantOrderDetailsQuery } from '../../../app/features/merchant/merchantOrderApiSlice';
-import { SEO } from '../../../components';
+import { ItemNotFound, SEO } from '../../../components';
 import {
   OrderDetail,
   OrderStatus,
@@ -15,6 +15,14 @@ const TransactionDetailsPage: React.FC = () => {
   const { data, isLoading } = useGetMerchantOrderDetailsQuery(
     params.invoice || '',
   );
+
+  if (!data && !isLoading)
+    return (
+      <ItemNotFound
+        title="Order is Not Found"
+        body="Something went wrong. Check your invoice number and try again later."
+      />
+    );
 
   return (
     <>
