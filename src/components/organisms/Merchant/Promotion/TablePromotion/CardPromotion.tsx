@@ -1,7 +1,8 @@
 import React from 'react';
 import { toRupiah } from '../../../../../helpers/toRupiah';
 import { IPromotion } from '../../../../../helpers/types/merchant/promotion.merchant.inteface';
-import { Image } from '../../../../atoms';
+import { Button, Image } from '../../../../atoms';
+import PromotionDetailModal from '../PromotionDetail';
 import style from './index.module.scss';
 
 export interface TableItemProps {
@@ -9,6 +10,15 @@ export interface TableItemProps {
 }
 
 const CardPromotion: React.FC<TableItemProps> = ({ promotion }) => {
+  const [isModalDetailOpen, setIsModalDetailOpen] = React.useState(false);
+
+  const handleOpenModalDetail = () => {
+    setIsModalDetailOpen(true);
+  };
+  const handleCloseModalDetail = () => {
+    setIsModalDetailOpen(false);
+  };
+
   return (
     <div className={style.table__promotions__cv}>
       <Image
@@ -17,7 +27,11 @@ const CardPromotion: React.FC<TableItemProps> = ({ promotion }) => {
         alt=""
         imageClassName={style.table__promotions__cv__img__item}
       />
-      <div className={style.table__promotions__cv__info}>
+      <Button
+        type="link"
+        onClick={handleOpenModalDetail}
+        className={style.table__promotions__cv__info}
+      >
         <p className={style.table__promotions__cv__info__name}>
           {promotion.title}
         </p>
@@ -27,7 +41,13 @@ const CardPromotion: React.FC<TableItemProps> = ({ promotion }) => {
             ? toRupiah(promotion.discount_nominal)
             : promotion.discount_percentage + ' % '}
         </p>
-      </div>
+      </Button>
+
+      <PromotionDetailModal
+        isModalOpen={isModalDetailOpen}
+        promotion={promotion}
+        handleCancel={handleCloseModalDetail}
+      />
     </div>
   );
 };

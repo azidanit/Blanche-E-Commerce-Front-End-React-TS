@@ -5,6 +5,7 @@
     gap: 1rem;
     width: fit-content;
     &__info {
+      text-align: left;
       &__name {
         font-weight: $text-bold;
       }
