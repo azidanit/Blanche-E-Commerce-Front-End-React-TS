@@ -53,7 +53,7 @@ const MenuProfile: React.FC = () => {
       key: '6',
       label: (
         <Link to="transactions/waiting" className={style.menu__profile__item}>
-          <p>Waiting Transactions</p>
+          <p>Waiting Payment</p>
         </Link>
       ),
     },

@@ -15,7 +15,7 @@ import CartItem from './CartItem';
 import style from './index.module.scss';
 
 const CardSummary: React.FC = () => {
-  const { product, stock, price, isLoading, variant, isHaveVariant } =
+  const { product, stock, discountPrice, isLoading, variant, isHaveVariant } =
     useProduct();
 
   const [checkout, { isLoading: isLoadingCheckout }] = useCheckoutMutation();
@@ -31,9 +31,7 @@ const CardSummary: React.FC = () => {
   >();
   const navigate = useNavigate();
 
-  const [totalPrice, setTotalPrice] = useState(
-    price ? price : product?.max_real_price,
-  );
+  const [totalPrice, setTotalPrice] = useState(product?.max_discount_price);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -84,10 +82,10 @@ const CardSummary: React.FC = () => {
     }
   };
   useEffect(() => {
-    setTotalPrice(quantity * (price as number));
+    setTotalPrice(quantity * Number(discountPrice));
     setErrorAddToCart(undefined);
     setError('');
-  }, [quantity, price]);
+  }, [quantity, discountPrice]);
 
   const handleBuyNow = async () => {
     const body: ICheckoutRequest[] = [

@@ -1,6 +1,5 @@
 import {
   IMerchantDetailTransactionResponse,
-  IMerchantTransaction,
   IMerchantTransactionListRequest,
   IMerchantTransactionListResponse,
   IUpdateMerchantOrderStatusRequest,

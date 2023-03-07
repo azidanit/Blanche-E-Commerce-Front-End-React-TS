@@ -21,21 +21,13 @@ const items: TabsProps['items'] = [
 const SellerProducts: React.FC = () => {
   const navigate = useNavigate();
   const { store } = useParams();
-  const location = useLocation();
-
-  const lastPath = location.pathname.split('/').pop();
 
   const onChange = (key: string) => {
     navigate(`/${store}/${key}`);
   };
   return (
     <Skeleton loading={false}>
-      <Tabs
-        activeKey={lastPath}
-        onChange={onChange}
-        size="large"
-        items={items}
-      />
+      <Tabs onChange={onChange} size="large" items={items} />
     </Skeleton>
   );
 };

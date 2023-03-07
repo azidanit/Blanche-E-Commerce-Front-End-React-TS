@@ -7,7 +7,7 @@ import style from './index.module.scss';
 const MostPurchased: React.FC = () => {
   const { store } = useParams();
 
-  const { data } = useGetProductsQuery({
+  const { data, isLoading } = useGetProductsQuery({
     limit: 6,
     merchant: store,
     sort_dir: 'desc',
@@ -24,7 +24,7 @@ const MostPurchased: React.FC = () => {
           View all
         </Link>
       </div>
-      {data && <ListCardProduct data={data} />}
+      {data && <ListCardProduct data={data} isLoading={isLoading} />}
     </div>
   );
 };

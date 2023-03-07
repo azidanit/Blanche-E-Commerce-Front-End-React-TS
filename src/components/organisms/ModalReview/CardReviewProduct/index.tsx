@@ -97,7 +97,7 @@ const CardReviewProduct: React.FC<CardReviewProductProps> = ({
     }
 
     formData.append('rating', JSON.stringify(values.rating));
-    formData.append('description', values.description);
+    formData.append('description', values.description || '');
     formData.append('product_id', JSON.stringify(data.product_id));
     formData.append('variant_item_id', JSON.stringify(data.variant_item_id));
 

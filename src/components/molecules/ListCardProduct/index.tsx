@@ -6,6 +6,7 @@ import CardProduct from '../CardProduct';
 
 interface ListCardProductProps {
   data: IGetProductListResponse;
+  isLoading: boolean;
   grid?: {
     xs?: number;
     sm?: number;
@@ -17,6 +18,7 @@ interface ListCardProductProps {
 
 const ListCardProduct: React.FC<ListCardProductProps> = ({
   data,
+  isLoading,
   grid = { xs: 24, sm: 8, md: 6, lg: 6, xl: 4 },
 }) => {
   const { slug } = useParams();
@@ -33,7 +35,7 @@ const ListCardProduct: React.FC<ListCardProductProps> = ({
             xl={grid.xl}
             key={`product-${product.id + index}`}
           >
-            <CardProduct product={product} />
+            <CardProduct isLoading={isLoading} product={product} />
           </Col>
         ))}
     </Row>

@@ -6,7 +6,7 @@ import {
   IVoucherMarketplaceResponse,
   IVoucherMerchantResponse,
 } from '../../../../helpers/types';
-import { Button, Card } from '../../../atoms';
+import { Card } from '../../../atoms';
 import style from './index.module.scss';
 
 interface CardVoucherProps {
@@ -39,6 +39,12 @@ const CardVoucher: React.FC<CardVoucherProps> = ({ item, voucher }) => {
           {isVoucherMarketplace(item)
             ? ` ${item.discount_percentage}%`
             : toRupiah(item.discount_nominal)}
+        </li>
+        <li>{'Minimum purchase ' + toRupiah(item.min_order_nominal)}</li>
+
+        <li>
+          {isVoucherMarketplace(item) &&
+            'Discount up to ' + toRupiah(item.max_discount_nominal)}
         </li>
         <li>
           Expired at{' '}

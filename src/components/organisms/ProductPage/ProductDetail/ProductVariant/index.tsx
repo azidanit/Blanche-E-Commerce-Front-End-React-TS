@@ -11,16 +11,21 @@ import { Skeleton } from 'antd';
 const ProductVariant: React.FC = () => {
   const { store, slug } = useParams();
 
-  const { activeImage: img } = useProduct();
+  const { activeImage: img, product } = useProduct();
 
   const {
     data: variants,
 
     isLoading,
-  } = useGetProductVariantBySlugQuery({
-    store: store as string,
-    slug: slug as string,
-  });
+  } = useGetProductVariantBySlugQuery(
+    {
+      store: store as string,
+      slug: slug as string,
+    },
+    {
+      skip: !product,
+    },
+  );
 
   const [optionValue, setOptionValues] = useState<number[]>([]);
   const length = variants?.variant_options?.[1]?.type.length || 0;

@@ -9,6 +9,7 @@ import { textTruncate } from '../../../helpers/textTruncate';
 
 interface CardProductProps {
   product: IProduct;
+  isLoading: boolean;
 }
 
 const CardProduct: React.FC<CardProductProps> = ({ product }) => {
@@ -88,7 +89,7 @@ const CardProduct: React.FC<CardProductProps> = ({ product }) => {
             <div className={style.card__product__rating}>
               <StarFilled className={style.card__product__rating__star} />
               <span className={style.card__product__rating__avg}>
-                {product.avg_rating}
+                {product.avg_rating.toFixed(2)}
               </span>
             </div>
             |

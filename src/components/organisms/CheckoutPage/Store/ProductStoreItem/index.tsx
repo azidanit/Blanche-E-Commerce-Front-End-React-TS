@@ -70,21 +70,34 @@ const ProductStoreItem: React.FC<ProductStoreProps> = ({
           order={order}
           merchant={merchant}
         />
+
         <Delivery
           handleSetDelivery={handleSetDelivery}
           order={order}
           merchant={merchant}
         />
       </div>
-      {errorDeliveryOption && (
-        <Alert
-          message={errorDeliveryOption}
-          type="error"
-          showIcon
-          closable
-          className={style.product__store__item__alert}
-        />
-      )}
+      <div className={style.product__store__item__alert}>
+        {voucher && !order.is_voucher_invalid && (
+          <Alert
+            message="
+            Voucher is not valid, please select another voucher.
+          "
+            type="warning"
+            showIcon
+            closable
+          />
+        )}
+        {errorDeliveryOption && (
+          <Alert
+            message={errorDeliveryOption}
+            type="error"
+            showIcon
+            closable
+            className={style.product__store__item__alert}
+          />
+        )}
+      </div>
       {delivery && (
         <>
           <div className={style.product__store__item__desc}>
