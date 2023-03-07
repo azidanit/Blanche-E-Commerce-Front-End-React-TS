@@ -20,7 +20,7 @@ const Recommended: React.FC = () => {
       <div className={style.recommended__separator}>
         <h2 className={style.recommended__title}>Recommended For You</h2>
       </div>
-      {data && <ListCardProduct data={data} isLoading={isLoading} />}
+      <ListCardProduct data={data} isLoading={isLoading} />
       <div className={style.recommended__wrapper}>
         <Button
           type="primary"

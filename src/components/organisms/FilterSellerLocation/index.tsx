@@ -1,4 +1,3 @@
-import { Skeleton } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useGetCitiesQuery } from '../../../app/features/home/homeApiSlice';
@@ -47,7 +46,7 @@ const SellerLocation: React.FC = () => {
   }, [params.search.seller_city_id]);
 
   return (
-    <Skeleton loading={isLoading}>
+    <>
       {options && (
         <Select
           mode="multiple"
@@ -66,7 +65,7 @@ const SellerLocation: React.FC = () => {
           size="middle"
         />
       )}
-    </Skeleton>
+    </>
   );
 };
 

@@ -1,4 +1,3 @@
-import { Skeleton } from 'antd';
 import React from 'react';
 import { useGetRecommendationsQuery } from '../../app/features/home/homeApiSlice';
 import { useAppSelector } from '../../app/hooks';
@@ -22,24 +21,19 @@ const Recommendation: React.FC = () => {
       />
       <div className={style.recommendation}>
         <h1 className={style.recommendation__title}>Our Recommendation</h1>
-        <Skeleton loading={isLoading}>
-          {data && (
-            <>
-              <ListCardProduct data={data} isLoading={isLoading} />
-              {data.total_data > limit && (
-                <div className={style.recommendation__pagination}>
-                  <Pagination
-                    total={data.total_data}
-                    pageSize={limit}
-                    className={style.recommendation__pagination__pagination}
-                    showSizeChanger={false}
-                    size="default"
-                  />
-                </div>
-              )}
-            </>
-          )}
-        </Skeleton>
+
+        <ListCardProduct data={data} isLoading={isLoading} />
+        {data?.total_data && data?.total_data > limit && (
+          <div className={style.recommendation__pagination}>
+            <Pagination
+              total={data.total_data}
+              pageSize={limit}
+              className={style.recommendation__pagination__pagination}
+              showSizeChanger={false}
+              size="default"
+            />
+          </div>
+        )}
       </div>
     </>
   );

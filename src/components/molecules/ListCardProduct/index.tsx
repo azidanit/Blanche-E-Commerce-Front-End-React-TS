@@ -3,9 +3,10 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { IGetProductListResponse } from '../../../helpers/types';
 import CardProduct from '../CardProduct';
+import ListCardProductSkeleton from './ListCardProductSkeleton';
 
 interface ListCardProductProps {
-  data: IGetProductListResponse;
+  data: IGetProductListResponse | undefined;
   isLoading: boolean;
   grid?: {
     xs?: number;
@@ -22,18 +23,23 @@ const ListCardProduct: React.FC<ListCardProductProps> = ({
   grid = { xs: 24, sm: 8, md: 6, lg: 6, xl: 4 },
 }) => {
   const { slug } = useParams();
+
+  if (isLoading) {
+    return <ListCardProductSkeleton />;
+  }
+
   return (
     <Row gutter={[16, 32]}>
-      {data.products
+      {data?.products
         .filter((product) => product.slug !== slug)
-        .map((product, index) => (
+        .map((product) => (
           <Col
             xs={grid.xs}
             sm={grid.sm}
             md={grid.md}
             lg={grid.lg}
             xl={grid.xl}
-            key={`product-${product.id + index}`}
+            key={product.id}
           >
             <CardProduct isLoading={isLoading} product={product} />
           </Col>

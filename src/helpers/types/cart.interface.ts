@@ -23,6 +23,7 @@ export interface ICart {
   merchant_id: number | null;
   merchant_name: string;
   merchant_image: string;
+  merchant_domain: string;
   items: ICartItem[];
 }
 

@@ -1,5 +1,5 @@
 import { Dropdown, MenuProps, Skeleton } from 'antd';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from '../../../../atoms';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
 import style from './index.module.scss';

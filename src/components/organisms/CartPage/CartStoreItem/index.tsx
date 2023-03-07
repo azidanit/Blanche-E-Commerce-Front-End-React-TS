@@ -1,6 +1,7 @@
 import { message, Spin } from 'antd';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useUpdateCartsMutation } from '../../../../app/features/cart/cartApiSlice';
 import { capitalizeFirstLetter } from '../../../../helpers/capitalizeFirstLetter';
 import { ICart, ICartItem } from '../../../../helpers/types';
@@ -70,7 +71,9 @@ const CartStoreItem: React.FC<CartStoreItemProps> = ({ cart, isLoading }) => {
         <div className={style.cart__store__item__header}>
           <Checkbox onChange={onCheckAllChange} checked={checkAll} />
           <Avatar src={cart.merchant_image} size={isMobile ? 30 : 60} />
-          <h6>{cart.merchant_name}</h6>
+          <Link to={`/${cart.merchant_domain}`}>
+            <h6>{cart.merchant_name}</h6>
+          </Link>
         </div>
         <div className={style.cart__store__item__body}>
           {cart?.items?.map((item: ICartItem) => {

@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { IGetProductListResponse } from '../../../../helpers/types';
 import { CarouselProducts } from '../../../molecules';
+import ListCardProductSkeleton from '../../../molecules/ListCardProduct/ListCardProductSkeleton';
 import style from './index.module.scss';
 
 interface MoreProductsProps {
@@ -17,11 +18,11 @@ const MoreProducts: React.FC<MoreProductsProps> = ({
   to,
   isLoading,
 }) => {
-  if (!data) {
+  if (!data && !isLoading) {
     return <></>;
   }
 
-  if (data?.products ? data?.products?.length === 1 : 1) {
+  if (data?.products ? data?.products?.length === 1 : 1 && !isLoading) {
     return <></>;
   }
 
@@ -33,6 +34,7 @@ const MoreProducts: React.FC<MoreProductsProps> = ({
           View All
         </Link>
       </div>
+      {isLoading && <ListCardProductSkeleton count={6} />}
       {data && <CarouselProducts data={data} isLoading={isLoading} />}
     </div>
   );
