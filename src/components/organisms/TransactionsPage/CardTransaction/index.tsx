@@ -54,6 +54,12 @@ const CardTransaction: React.FC<CardTransactionProps> = ({ transaction }) => {
       setStatusIdx(0);
       return;
     }
+
+    if (transaction.transaction_status.on_completed_at) {
+      setStatus('completed');
+      setStatusIdx(OrderStatus.TransactionStatusOnCompleted);
+      return;
+    }
     if (transaction.transaction_status.on_request_refund_at) {
       setStatus('request refund');
       setStatusIdx(0);
@@ -61,15 +67,10 @@ const CardTransaction: React.FC<CardTransactionProps> = ({ transaction }) => {
     }
     if (transaction.transaction_status.on_canceled_at) {
       setStatus('canceled');
-
       setStatusIdx(0);
       return;
     }
-    if (transaction.transaction_status.on_completed_at) {
-      setStatus('completed');
-      setStatusIdx(OrderStatus.TransactionStatusOnCompleted);
-      return;
-    }
+
     if (transaction.transaction_status.on_delivered_at) {
       setStatus('delivered');
       setStatusIdx(OrderStatus.TransactionStatusDelivered);

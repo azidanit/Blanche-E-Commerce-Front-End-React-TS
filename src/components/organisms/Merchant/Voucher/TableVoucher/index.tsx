@@ -2,7 +2,7 @@ import { message, Space, Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ModalConfirm, Pagination, VoucherDetailModal } from '../../../..';
+import { ModalConfirm, Pagination } from '../../../..';
 import {
   useDeleteVoucherMutation,
   useGetMerchantVouchersQuery,
