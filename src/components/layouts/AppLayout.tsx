@@ -18,6 +18,7 @@ const AppLayout = (): JSX.Element => {
   const { data: result, isLoading } = useGetProfileQuery(undefined, {
     skip: !isLoggedIn || (!isLoggedIn && !user),
   });
+
   const { data: resultMerchant, isLoading: isLoadingMerchant } =
     useGetMerchantProfileQuery(undefined, {
       skip:
