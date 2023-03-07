@@ -1,4 +1,4 @@
-import { Breadcrumb, Skeleton } from 'antd';
+import { Breadcrumb } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useGetCategoryAncestorsBySlugQuery } from '../../../../app/features/product/productApiSlice';
@@ -23,32 +23,30 @@ const BreadcrumbProduct: React.FC = () => {
   }, [data]);
 
   return (
-    <Skeleton loading={isLoading}>
-      <Breadcrumb className={style.breadcrumb}>
+    <Breadcrumb className={style.breadcrumb}>
+      <Breadcrumb.Item>
+        <Link to="/">Home</Link>
+      </Breadcrumb.Item>
+      {categories?.name && (
         <Breadcrumb.Item>
-          <Link to="/">Home</Link>
+          <Link to={`/c/${categories.slug}`}>{categories?.name}</Link>
         </Breadcrumb.Item>
-        {categories?.name && (
-          <Breadcrumb.Item>
-            <Link to={`/c/${categories.slug}`}>{categories?.name}</Link>
-          </Breadcrumb.Item>
-        )}
+      )}
 
-        {categories?.children?.[0]?.name && (
-          <Breadcrumb.Item>
-            <Link to={`/c/${categories?.children?.[0]?.slug}`}>
-              {categories?.children?.[0]?.name}
-            </Link>
-          </Breadcrumb.Item>
-        )}
+      {categories?.children?.[0]?.name && (
+        <Breadcrumb.Item>
+          <Link to={`/c/${categories?.children?.[0]?.slug}`}>
+            {categories?.children?.[0]?.name}
+          </Link>
+        </Breadcrumb.Item>
+      )}
 
-        {categories?.children?.[0]?.children?.[0]?.name && (
-          <Breadcrumb.Item>
-            {categories?.children?.[0]?.children?.[0]?.name}
-          </Breadcrumb.Item>
-        )}
-      </Breadcrumb>
-    </Skeleton>
+      {categories?.children?.[0]?.children?.[0]?.name && (
+        <Breadcrumb.Item>
+          {categories?.children?.[0]?.children?.[0]?.name}
+        </Breadcrumb.Item>
+      )}
+    </Breadcrumb>
   );
 };
 

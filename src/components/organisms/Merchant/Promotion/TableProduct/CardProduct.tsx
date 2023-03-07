@@ -1,6 +1,5 @@
 import React from 'react';
 import { textTruncate } from '../../../../../helpers/textTruncate';
-import { toRupiah } from '../../../../../helpers/toRupiah';
 import { IMerchantProductOverview } from '../../../../../helpers/types';
 import { IProductPromotion } from '../../../../../helpers/types/merchant/promotion.merchant.inteface';
 import { Image } from '../../../../atoms';

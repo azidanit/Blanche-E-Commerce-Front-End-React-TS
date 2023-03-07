@@ -112,22 +112,19 @@ const Product = (): JSX.Element => {
         )}
       </div>
       <div className={style.product__page__lists}>
-        {Boolean(sellerProducts?.products.length) && (
-          <MoreProducts
-            title="More from this store"
-            data={sellerProducts}
-            isLoading={isLoadingSeller}
-            to={`/${store}`}
-          />
-        )}
-        {Boolean(similarProducts?.products.length) && (
-          <MoreProducts
-            title="Similar Products"
-            data={similarProducts}
-            isLoading={isLoadingSimilar}
-            to={`/c/${data?.category?.url}`}
-          />
-        )}
+        <MoreProducts
+          title="More from this store"
+          data={sellerProducts}
+          isLoading={isLoadingSeller}
+          to={`/${store}`}
+        />
+
+        <MoreProducts
+          title="Similar Products"
+          data={similarProducts}
+          isLoading={isLoadingSimilar}
+          to={`/c/${data?.category?.url}`}
+        />
       </div>
     </div>
   );

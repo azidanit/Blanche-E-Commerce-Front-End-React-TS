@@ -8,8 +8,8 @@ import style from './index.module.scss';
 const CardProfile: React.FC = () => {
   const { data, isLoading } = useGetProfileQuery();
   return (
-    <Skeleton loading={isLoading}>
-      <Card className={style.card__profile}>
+    <Card className={style.card__profile}>
+      <Skeleton loading={isLoading}>
         <div className={style.card__profile__header}>
           <Avatar size={60} src={data?.profile_picture} />
           <div className={style.card__profile__header__details}>
@@ -23,8 +23,8 @@ const CardProfile: React.FC = () => {
         </div>
         <Divider />
         <CardWallet />
-      </Card>
-    </Skeleton>
+      </Skeleton>
+    </Card>
   );
 };
 

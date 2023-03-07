@@ -1,4 +1,4 @@
-import { ConfigProvider, notification, Skeleton } from 'antd';
+import { ConfigProvider, Skeleton } from 'antd';
 import React, { Suspense } from 'react';
 import { router } from './helpers/route/routes';
 import { RouterProvider } from 'react-router-dom';
@@ -6,16 +6,6 @@ import theme from './helpers/theme';
 import { HelmetProvider } from 'react-helmet-async';
 
 function App(): JSX.Element {
-  notification.config({
-    placement: 'topRight',
-    top: 100,
-    duration: 1,
-    type: 'success',
-    style: {
-      width: 300,
-    },
-  });
-
   return (
     <HelmetProvider>
       <ConfigProvider theme={theme}>

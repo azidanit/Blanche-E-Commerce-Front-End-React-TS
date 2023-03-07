@@ -18,6 +18,7 @@ export const checkoutApi = apiSlice.injectEndpoints({
       transformResponse: (response: { data: ICheckoutResponse }) =>
         response.data,
       transformErrorResponse: (response) => response.data,
+      invalidatesTags: ['Cart Home'],
     }),
     checkoutSummary: build.mutation<ICheckoutResponse, ICheckoutSummaryRequest>(
       {
@@ -29,6 +30,7 @@ export const checkoutApi = apiSlice.injectEndpoints({
         transformResponse: (response: { data: ICheckoutResponse }) =>
           response.data,
         transformErrorResponse: (response) => response.data,
+        invalidatesTags: ['Cart Home'],
       },
     ),
     paymentTransactions: build.mutation<IPayResponse, IPayRequest>({

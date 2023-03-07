@@ -1,4 +1,3 @@
-import { Skeleton } from 'antd';
 import React from 'react';
 import { useAppSelector } from '../../../app/hooks';
 import {
@@ -10,6 +9,7 @@ import {
 import ItemNotFound from '../../../components/molecules/ItemNotFound';
 import { capitalizeFirstLetter } from '../../../helpers/capitalizeFirstLetter';
 import { IGetProductListResponse } from '../../../helpers/types';
+import ListCardProductSkeleton from '../../molecules/ListCardProduct/ListCardProductSkeleton';
 import style from './index.module.scss';
 
 interface ContentProps {
@@ -54,37 +54,47 @@ const Content: React.FC<ContentProps> = ({
           <SortProduct />
         </div>
       )}
-      <Skeleton loading={isLoading}>
-        {!isError && data?.total_data && Boolean(data?.products.length) ? (
-          <>
-            <ListCardProduct
-              isLoading={isLoading}
-              data={data}
-              grid={{
-                xs: 24,
-                md: 12,
-                lg: 8,
-                xl: 6,
-              }}
-            />
-            {data.total_data > limit && (
-              <div className={style.content__pagination}>
-                <Pagination
-                  total={data.total_data}
-                  pageSize={limit}
-                  className={style.content__pagination__pagination}
-                  showSizeChanger={false}
-                />
-              </div>
-            )}
-          </>
-        ) : (
-          <ItemNotFound
-            title="Sorry, your product is not found"
-            body="Try to change your search keyword or remove some filters."
+
+      {isLoading && (
+        <ListCardProductSkeleton
+          grid={{
+            xs: 24,
+            md: 12,
+            lg: 8,
+            xl: 6,
+          }}
+        />
+      )}
+      {!isError && data?.total_data && Boolean(data?.products.length) ? (
+        <>
+          <ListCardProduct
+            isLoading={isLoading}
+            data={data}
+            grid={{
+              xs: 24,
+              md: 12,
+              lg: 8,
+              xl: 6,
+            }}
           />
-        )}
-      </Skeleton>
+
+          {data.total_data > limit && (
+            <div className={style.content__pagination}>
+              <Pagination
+                total={data.total_data}
+                pageSize={limit}
+                className={style.content__pagination__pagination}
+                showSizeChanger={false}
+              />
+            </div>
+          )}
+        </>
+      ) : (
+        <ItemNotFound
+          title="Sorry, your product is not found"
+          body="Try to change your search keyword or remove some filters."
+        />
+      )}
     </div>
   );
 };

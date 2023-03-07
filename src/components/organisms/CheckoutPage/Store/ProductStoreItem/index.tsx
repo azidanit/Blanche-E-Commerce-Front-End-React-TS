@@ -78,7 +78,7 @@ const ProductStoreItem: React.FC<ProductStoreProps> = ({
         />
       </div>
       <div className={style.product__store__item__alert}>
-        {voucher && !order.is_voucher_invalid && (
+        {voucher && order.is_voucher_invalid && (
           <Alert
             message="
             Voucher is not valid, please select another voucher.

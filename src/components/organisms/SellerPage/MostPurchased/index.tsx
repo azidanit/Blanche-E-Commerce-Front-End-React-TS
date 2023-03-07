@@ -24,7 +24,7 @@ const MostPurchased: React.FC = () => {
           View all
         </Link>
       </div>
-      {data && <ListCardProduct data={data} isLoading={isLoading} />}
+      <ListCardProduct data={data} isLoading={isLoading} />
     </div>
   );
 };

@@ -11,10 +11,7 @@ interface CardSellerProfileProps {
   isLoading: boolean;
 }
 
-const CardSellerProfile: React.FC<CardSellerProfileProps> = ({
-  data,
-  isLoading,
-}) => {
+const CardSellerProfile: React.FC<CardSellerProfileProps> = ({ data }) => {
   const isMobile = useMediaQuery('(max-width: 768px)');
 
   return (
@@ -35,9 +32,7 @@ const CardSellerProfile: React.FC<CardSellerProfileProps> = ({
       </div>
       <div className={style.card__seller__profile__analytic}>
         <div className={style.card__seller__profile__analytic__item}>
-          <p>
-            <Rate value={data?.avg_rating} /> ({data?.num_of_review})
-          </p>
+          <Rate value={data?.avg_rating} /> <span>({data?.num_of_review})</span>
           <p>Rating & Reviews</p>
         </div>
         <div className={style.card__seller__profile__analytic__item}>

@@ -42,7 +42,7 @@ const SecondStep: React.FC<SecondStepProps> = ({
       instance.update({
         content: `You will be redirected to your dashboard!.`,
       });
-      navigate('/');
+      navigate('/merchant');
     }, 1000);
 
     setTimeout(() => {

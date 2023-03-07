@@ -22,7 +22,7 @@ const TransactionItem: React.FC<TransactionItemProps> = ({ transaction }) => {
   }, [newNotes]);
 
   const invoices = transaction.notes.match(/\[(.*?)\]/);
-  console.log(invoices);
+
   return (
     <div className={style.ti}>
       <div className={style.ti__header}>

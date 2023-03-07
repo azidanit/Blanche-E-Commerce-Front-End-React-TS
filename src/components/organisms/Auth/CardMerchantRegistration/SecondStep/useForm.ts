@@ -25,6 +25,11 @@ const useForm = ({
     useCreateMerchantMutation();
 
   const handleSubmit = async () => {
+    if (!address) {
+      message.error('Please select your address');
+      return;
+    }
+
     const body = {
       domain: domain,
       name: store,
