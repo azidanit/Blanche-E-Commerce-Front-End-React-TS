@@ -44,7 +44,7 @@ interface ListCardProductProps {
 
 const ListCardProductSkeleton: React.FC<ListCardProductProps> = ({
   count = 12,
-  grid = { xs: 24, sm: 8, md: 6, lg: 6, xl: 4 },
+  grid = { xs: 12, sm: 8, md: 6, lg: 6, xl: 4 },
 }) => {
   const skeletons = Array.from({ length: count }, (_, i) => (
     <Col

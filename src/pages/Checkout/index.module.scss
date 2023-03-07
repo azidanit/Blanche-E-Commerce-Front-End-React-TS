@@ -13,6 +13,7 @@
   @media screen and (max-width: 768px) {
     grid-template-columns: 1fr;
     grid: 0;
+    margin-bottom: 250px;
   }
 
   &__summary {

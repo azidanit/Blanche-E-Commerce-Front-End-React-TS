@@ -2,6 +2,10 @@
 
 .tp {
   padding: 2rem;
+
+  @media screen and (max-width: 768px) {
+    padding: 1rem 0rem;
+  }
   &__title {
     font-weight: $text-bold;
     text-align: center;

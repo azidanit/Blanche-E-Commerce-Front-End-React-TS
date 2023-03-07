@@ -11,10 +11,10 @@ const WalletPage: React.FC = () => {
   );
   return (
     <Row gutter={[32, 32]}>
-      <Col xl={8}>
+      <Col xl={8} xs={24}>
         <CardWallet data={data} isError={isError} isLoading={isLoading} />
       </Col>
-      <Col xl={16}>
+      <Col xl={16} xs={24}>
         <CardWalletDetails isSuccess={isSuccess} />
       </Col>
     </Row>

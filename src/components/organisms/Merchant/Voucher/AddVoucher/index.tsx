@@ -1,10 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Form, Button, Alert, ItemNotFound } from '../../../..';
-import {
-  useGetMerchantVoucherByCodeQuery,
-  useLazyGetMerchantVoucherByCodeQuery,
-} from '../../../../../app/features/merchant/voucherApiSlice';
+import { useGetMerchantVoucherByCodeQuery } from '../../../../../app/features/merchant/voucherApiSlice';
 import CardCouponInfo from './CardCouponInfo';
 import CardCouponSettings from './CardCouponSettings';
 import CardCouponType from './CardCouponType';
@@ -70,6 +67,7 @@ const AddVoucher: React.FC<AddVoucherProps> = ({
           htmlType="submit"
           size="large"
           loading={isLoading}
+          disabled={isLoading}
         >
           {isEdit ? 'Edit Voucher' : 'Create Voucher'}
         </Button>

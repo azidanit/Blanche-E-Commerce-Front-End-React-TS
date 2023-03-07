@@ -20,7 +20,7 @@ interface ListCardProductProps {
 const ListCardProduct: React.FC<ListCardProductProps> = ({
   data,
   isLoading,
-  grid = { xs: 24, sm: 8, md: 6, lg: 6, xl: 4 },
+  grid = { xs: 12, sm: 8, md: 6, lg: 6, xl: 4 },
 }) => {
   const { slug } = useParams();
 

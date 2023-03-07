@@ -6,10 +6,10 @@ import CardProfileDetails from './CardProfileDetails';
 const ProfilePage: React.FC = () => {
   return (
     <Row gutter={[32, 32]}>
-      <Col xl={6}>
+      <Col xl={6} xs={24}>
         <CardProfile />
       </Col>
-      <Col xl={18}>
+      <Col xl={18} xs={24}>
         <CardProfileDetails />
       </Col>
     </Row>
