@@ -6,13 +6,18 @@
   align-items: center;
   gap: 1rem;
   box-shadow: $box-shadow;
+  background: white !important;
 }
 
 .header {
   position: sticky;
   top: 0;
   z-index: 999;
-  background-color: white;
+  background: white !important;
+  padding-inline: 0; 
+  line-height: normal;
+
+
 
   &__button {
     display: flex;
