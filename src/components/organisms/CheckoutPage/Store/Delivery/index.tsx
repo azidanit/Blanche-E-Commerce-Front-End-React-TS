@@ -76,7 +76,7 @@ const Delivery: React.FC<DeliveryProps> = ({
         {merchantItem?.delivery_option ? (
           merchantItem.delivery_option.toUpperCase()
         ) : (
-          <>Choose Delivery Services</>
+         "Choose Delivery Services"
         )}
         <MdOutlineKeyboardArrowDown />
       </Button>
