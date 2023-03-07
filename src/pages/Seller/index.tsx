@@ -7,6 +7,7 @@ import {
   CardSellerProfile,
   ItemNotFound,
   SellerProducts,
+  SEO,
 } from '../../components';
 import style from './index.module.scss';
 
@@ -44,10 +45,13 @@ const Seller: React.FC = () => {
     }
   }
   return (
-    <div className={style.seller__page}>
-      <CardSellerProfile data={data} isLoading={isLoading} />
-      <SellerProducts />
-    </div>
+    <>
+      <SEO title="Store" description="Store page" />
+      <div className={style.seller__page}>
+        <CardSellerProfile data={data} isLoading={isLoading} />
+        <SellerProducts />
+      </div>
+    </>
   );
 };
 

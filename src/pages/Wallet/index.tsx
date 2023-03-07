@@ -1,12 +1,15 @@
 import React from 'react';
-import { WalletPage } from '../../components';
+import { SEO, WalletPage } from '../../components';
 import style from './index.module.scss';
 
 const Wallet: React.FC = () => {
   return (
-    <div className={style.wallet__page}>
-      <WalletPage />
-    </div>
+    <>
+      <SEO title="Wallet" description="Wallet page" />
+      <div className={style.wallet__page}>
+        <WalletPage />
+      </div>
+    </>
   );
 };
 

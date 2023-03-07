@@ -210,6 +210,11 @@ const ProductPage: React.FC = () => {
     initialValues.secondVariant = variants.variant_options[1].name;
   }
   const renderForm = !params.id || (data && variants);
+
+  useEffect(() => {
+    form.resetFields();
+  }, [params.id]);
+
   return (
     <div className={style.pp}>
       {renderForm && (

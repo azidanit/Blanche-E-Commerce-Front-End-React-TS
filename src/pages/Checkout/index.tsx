@@ -8,6 +8,7 @@ import {
   ListProductStore,
   ModalWarning,
   OrderSummary,
+  SEO,
 } from '../../components';
 import { capitalizeFirstLetter } from '../../helpers/capitalizeFirstLetter';
 import {
@@ -148,35 +149,38 @@ const Checkout: React.FC = () => {
   };
 
   return (
-    <Spin spinning={isLoading}>
-      <div className={style.checkout__page}>
-        <div className={style.checkout__page__info}>
-          <AddressCheckout
-            handleChangeAddress={handleChangeAddress}
-            errorAddress={errorAddress}
-          />
-          <ListProductStore
-            order={orderSummary}
-            merchant={merchant}
-            handleChangeMerchant={handleChangeMerchant}
-            errorDeliveryOption={errorDeliveryOption}
-          />
+    <>
+      <SEO title="Checkout" description="Checkout page" />
+      <Spin spinning={isLoading}>
+        <div className={style.checkout__page}>
+          <div className={style.checkout__page__info}>
+            <AddressCheckout
+              handleChangeAddress={handleChangeAddress}
+              errorAddress={errorAddress}
+            />
+            <ListProductStore
+              order={orderSummary}
+              merchant={merchant}
+              handleChangeMerchant={handleChangeMerchant}
+              errorDeliveryOption={errorDeliveryOption}
+            />
+          </div>
+          <div className={style.checkout__page__summary}>
+            <OrderSummary
+              handleChangeMpVoucher={handleChangeMpVoucher}
+              mpVoucher={mpVoucher}
+              address={address as IUserAddress}
+              merchant={merchant}
+              order={orderSummary}
+              handleMakeTx={handleMakeTx}
+              errorAddress={errorAddress}
+              errorDeliveryOption={errorDeliveryOption}
+            />
+          </div>
         </div>
-        <div className={style.checkout__page__summary}>
-          <OrderSummary
-            handleChangeMpVoucher={handleChangeMpVoucher}
-            mpVoucher={mpVoucher}
-            address={address as IUserAddress}
-            merchant={merchant}
-            order={orderSummary}
-            handleMakeTx={handleMakeTx}
-            errorAddress={errorAddress}
-            errorDeliveryOption={errorDeliveryOption}
-          />
-        </div>
-      </div>
-      <ModalWarning isModalOpen={isModalOpen} handleOk={handleOk} />
-    </Spin>
+        <ModalWarning isModalOpen={isModalOpen} handleOk={handleOk} />
+      </Spin>
+    </>
   );
 };
 

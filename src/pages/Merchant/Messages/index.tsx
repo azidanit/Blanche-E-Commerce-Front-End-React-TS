@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useMerchantGetMessageRefundRequestQuery } from '../../../app/features/merchant/refundApiSlice';
-import { Chat } from '../../../components';
+import { Chat, SEO } from '../../../components';
 import style from './index.module.scss';
 
 const Messages: React.FC = () => {
@@ -12,20 +12,26 @@ const Messages: React.FC = () => {
   );
 
   return (
-    <div className={style.messages}>
-      {data && (
-        <Chat
-          sender_id={2}
-          data={data}
-          isAction={
-            !data.refund_request_status[0].accepted_by_seller_at &&
-            !data.refund_request_status[0].rejected_by_seller_at
-              ? true
-              : false
-          }
-        />
-      )}
-    </div>
+    <>
+      <SEO
+        title={`Merchant Refund Messages`}
+        description="Merchant Refund Messages page"
+      />
+      <div className={style.messages}>
+        {data && (
+          <Chat
+            sender_id={2}
+            data={data}
+            isAction={
+              !data.refund_request_status[0].accepted_by_seller_at &&
+              !data.refund_request_status[0].rejected_by_seller_at
+                ? true
+                : false
+            }
+          />
+        )}
+      </div>
+    </>
   );
 };
 

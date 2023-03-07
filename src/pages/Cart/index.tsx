@@ -13,6 +13,7 @@ import {
   Checkbox,
   ItemNotFound,
   ListCartStoreItem,
+  SEO,
 } from '../../components';
 import { capitalizeFirstLetter } from '../../helpers/capitalizeFirstLetter';
 import { ICart, IUpdateCartRequest } from '../../helpers/types';
@@ -23,7 +24,6 @@ import style from './index.module.scss';
 const Cart: React.FC = () => {
   const { data: carts, isLoading } = useGetCartsQuery();
   const isMobile = useMediaQuery('(max-width: 768px)');
-  const [req, setReq] = useState<IUpdateCartRequest[]>([]);
   const [isCheckedAll, setIsCheckedAll] = useState<boolean>();
   const [updateCarts, { isLoading: isLoadingUpdateCarts }] =
     useUpdateCartsMutation();
@@ -51,7 +51,6 @@ const Cart: React.FC = () => {
           quantity: item.quantity,
         };
         req.push(r);
-        setReq(req);
       }),
     );
 
@@ -86,47 +85,50 @@ const Cart: React.FC = () => {
   }
 
   return (
-    <div className={style.cart__page}>
-      <h5>Cart</h5>
-      <Row gutter={[16, 16]}>
-        <Col xs={24} sm={24} md={24} lg={16} xl={17}>
-          <div className={style.cart__page__header}>
-            <Checkbox onChange={onCheckAllChange} checked={isCheckedAll}>
-              <p>Check all</p>
-            </Checkbox>{' '}
-            {carts?.quantity !== 0 && (
-              <Button
-                type="link"
-                className={style.cart__page__header__button}
-                onClick={handleDeleteCarts}
-              >
-                Delete All
-              </Button>
-            )}
-          </div>
+    <>
+      <SEO title="Cart" description="Cart page" />
+      <div className={style.cart__page}>
+        <h5>Cart</h5>
+        <Row gutter={[16, 16]}>
+          <Col xs={24} sm={24} md={24} lg={16} xl={17}>
+            <div className={style.cart__page__header}>
+              <Checkbox onChange={onCheckAllChange} checked={isCheckedAll}>
+                <p>Check all</p>
+              </Checkbox>{' '}
+              {carts?.quantity !== 0 && (
+                <Button
+                  type="link"
+                  className={style.cart__page__header__button}
+                  onClick={handleDeleteCarts}
+                >
+                  Delete All
+                </Button>
+              )}
+            </div>
 
-          <ListCartStoreItem
-            carts={carts?.carts}
-            isLoading={isLoading || isLoadingUpdateCarts}
-          />
-        </Col>
-        {!isMobile ? (
-          <Col lg={8} xl={7}>
-            <CartSummary
+            <ListCartStoreItem
+              carts={carts?.carts}
+              isLoading={isLoading || isLoadingUpdateCarts}
+            />
+          </Col>
+          {!isMobile ? (
+            <Col lg={8} xl={7}>
+              <CartSummary
+                carts={carts?.carts ? carts?.carts : []}
+                quantity={carts?.quantity ? carts?.quantity : 0}
+                total={carts?.total || 0}
+              />
+            </Col>
+          ) : (
+            <CartSummaryMobile
               carts={carts?.carts ? carts?.carts : []}
               quantity={carts?.quantity ? carts?.quantity : 0}
               total={carts?.total || 0}
             />
-          </Col>
-        ) : (
-          <CartSummaryMobile
-            carts={carts?.carts ? carts?.carts : []}
-            quantity={carts?.quantity ? carts?.quantity : 0}
-            total={carts?.total || 0}
-          />
-        )}
-      </Row>
-    </div>
+          )}
+        </Row>
+      </div>
+    </>
   );
 };
 

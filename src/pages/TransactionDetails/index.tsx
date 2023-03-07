@@ -1,12 +1,15 @@
 import React from 'react';
-import { TransactionDetailsPage } from '../../components';
+import { SEO, TransactionDetailsPage } from '../../components';
 import style from './index.module.scss';
 
 const TransactionDetails: React.FC = () => {
   return (
-    <div className={style.td}>
-      <TransactionDetailsPage />
-    </div>
+    <>
+      <SEO title="Transaction Details" description="Transaction Details page" />
+      <div className={style.td}>
+        <TransactionDetailsPage />
+      </div>
+    </>
   );
 };
 

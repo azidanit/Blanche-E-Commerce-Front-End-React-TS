@@ -1,12 +1,18 @@
 import React from 'react';
-import { ProductListPage } from '../../../../components';
+import { ProductListPage, SEO } from '../../../../components';
 import style from './index.module.scss';
 
 const ProductList: React.FC = () => {
   return (
-    <div className={style.pl}>
-      <ProductListPage />
-    </div>
+    <>
+      <SEO
+        title="Merchant Product List"
+        description="Merchant Product List page"
+      />
+      <div className={style.pl}>
+        <ProductListPage />
+      </div>
+    </>
   );
 };
 

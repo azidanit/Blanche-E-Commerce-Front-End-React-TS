@@ -10,6 +10,7 @@ import {
   CardSummary,
   ItemNotFound,
   ProductDetail,
+  SEO,
 } from '../../components';
 import MoreProducts from '../../components/organisms/ProductPage/MoreProducts';
 import useProduct from '../../hooks/useProduct';
