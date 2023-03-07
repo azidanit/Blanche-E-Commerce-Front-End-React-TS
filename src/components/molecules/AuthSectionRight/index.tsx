@@ -1,8 +1,6 @@
 import React from 'react';
 import style from './index.module.scss';
-import { Logo, Card, LogoIcon } from '../../atoms';
-import { Layout } from 'antd';
-import { CardLogin } from '../../organisms';
+import { Logo, LogoIcon } from '../../atoms';
 
 interface AuthSectionRightProps {
   children: React.ReactNode;

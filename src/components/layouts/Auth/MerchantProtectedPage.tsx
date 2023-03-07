@@ -16,7 +16,7 @@ const MerchantProtectedPage = (): JSX.Element => {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  const [getMerchantProfile, { isLoading }] = useLazyGetMerchantProfileQuery();
+  const [getMerchantProfile] = useLazyGetMerchantProfileQuery();
   const { merchant, isLoggedIn: isLoggedInMerchant } = useAppSelector(
     (state) => state.auth,
   );

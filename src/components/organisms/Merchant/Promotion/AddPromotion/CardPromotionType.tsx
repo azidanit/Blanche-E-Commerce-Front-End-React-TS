@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Card, FormLabel, Image, Input } from '../../../../atoms';
+import { Card, Image } from '../../../../atoms';
 import style from './index.module.scss';
 
 const CardPromotionType: React.FC = () => {

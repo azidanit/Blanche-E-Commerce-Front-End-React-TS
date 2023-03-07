@@ -1,7 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { apiSlice } from './api/apiSlice';
 import authReducer from './features/auth/authSlice';
-import registerReducer from './features/auth/registerSlice';
 import productReducer from './features/product/productSlice';
 import paramsReducer from './features/home/paramsSlice';
 import transactionsReducer from './features/transactions/transactionsSlice';
@@ -12,7 +11,6 @@ export const store = configureStore({
     auth: authReducer,
     product: productReducer,
     params: paramsReducer,
-    register: registerReducer,
     transactions: transactionsReducer,
   },
   middleware: (getDefaultMiddleware) =>
