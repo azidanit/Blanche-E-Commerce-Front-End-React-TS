@@ -3,8 +3,9 @@ import { createBrowserRouter } from 'react-router-dom';
 import ProtectedPage from '../../components/layouts/Auth/ProtectedPage';
 import AppLayout from '../../components/layouts/AppLayout';
 import MerchantLayout from '../../components/layouts/Merchant/MerchantLayout';
-import { SetNewPassword } from '../../components';
+import { ItemNotFound, SetNewPassword } from '../../components';
 import MerchantProtectedPage from '../../components/layouts/Auth/MerchantProtectedPage';
+import NotFound from '../../pages/NotFound';
 
 const Home = lazy(() => import('../../pages/Home'));
 const Login = lazy(() => import('../../pages/Auth/Login'));
@@ -323,5 +324,9 @@ export const router = createBrowserRouter([
   {
     path: '/transactions/:order_code/payment-status',
     element: <PaymentStatus />,
+  },
+  {
+    path: '*',
+    element: <NotFound />,
   },
 ]);
