@@ -20,4 +20,8 @@
       font-size: 1.1rem;
     }
   }
+
+  @media screen and (max-width: 768px) {
+    margin-bottom: 170px;
+  }
 }

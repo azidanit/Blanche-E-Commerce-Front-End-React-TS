@@ -41,6 +41,7 @@ export const reviewApiSlice = apiSlice.injectEndpoints({
           page: body.page,
           limit: body.limit,
           rating: body.rating,
+          filter_by: body.filter_by,
         },
       }),
       transformResponse: (response: { data: IGetReviewsResponse }) =>

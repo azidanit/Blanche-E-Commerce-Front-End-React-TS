@@ -28,6 +28,11 @@ const DetailProduct: React.FC<DetailProductProps> = ({ product }) => {
           <p className={style.dp__product__details__quantity}>
             {`${product.quantity} items`} x {toRupiah(product.discount_price)}
           </p>
+          {product.variant_name && (
+            <p className={style.ct__product__details__others}>
+              {product.variant_name}
+            </p>
+          )}
           {product.notes && (
             <p className={style.dp__product__details__notes}>
               Notes: <span>{product.notes}</span>

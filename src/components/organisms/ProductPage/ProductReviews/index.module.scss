@@ -10,5 +10,17 @@
   &__body {
     display: grid;
     grid-template-columns: 1fr 2fr;
+    gap: 2rem;
+
+    &__filter {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      box-shadow: $box-shadow;
+    }
+    &__item {
+      display: flex;
+      flex-direction: column;
+    }
   }
 }

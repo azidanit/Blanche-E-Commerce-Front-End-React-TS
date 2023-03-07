@@ -7,13 +7,11 @@ export interface ComponentBasedOnStatusProps {
   transaction: IMerchantTransaction;
 }
 
-const ComponentOnCanceled: React.FC<ComponentBasedOnStatusProps> = ({
-  transaction,
-}) => {
+const ComponentOnCanceled: React.FC<ComponentBasedOnStatusProps> = () => {
   return (
     <div className={style.card__order__actions__btn}>
       <Button type="primary" size="large" danger disabled>
-        Canceled by seller
+        Canceled
       </Button>
     </div>
   );

@@ -52,15 +52,6 @@ const ModalConfirm: React.FC<ModalConfirmPageProps> = (props) => {
       {children}
 
       <div className={style.modal__confirm__footer}>
-        <Button
-          type="primary"
-          size="large"
-          onClick={handleOk}
-          {...confirmButtonProps}
-        >
-          {confirmButtonText}
-        </Button>
-
         {cancelButton && (
           <Button
             type="primary"
@@ -72,6 +63,14 @@ const ModalConfirm: React.FC<ModalConfirmPageProps> = (props) => {
             Cancel
           </Button>
         )}
+        <Button
+          type="primary"
+          size="large"
+          onClick={handleOk}
+          {...confirmButtonProps}
+        >
+          {confirmButtonText}
+        </Button>
       </div>
     </Modal>
   );

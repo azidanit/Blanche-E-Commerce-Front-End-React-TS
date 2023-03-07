@@ -29,7 +29,6 @@ const initialState = {
 
 const HistorySection: React.FC<HistorySectionProps> = ({ isSuccess }) => {
   const [date, setDate] = useState<IState>(initialState);
-  const [isOpen, setIsOpen] = useState(false);
   const [page, setPage] = useState(1);
   const { data, isLoading } = useGetWalletHistoryQuery(
     { limit, page, start_date: date.start_date, end_date: date.end_date },
@@ -56,13 +55,7 @@ const HistorySection: React.FC<HistorySectionProps> = ({ isSuccess }) => {
     <Skeleton loading={isLoading}>
       <div className={style.hs__picker}>
         <p className={style.hs__date}>Filter Date</p>
-        <RangePicker
-          onChange={onChangeDate}
-          onOpenChange={(open) => {
-            setIsOpen(open);
-          }}
-          showTime={{ format: 'HH:mm' }}
-        />
+        <RangePicker onChange={onChangeDate} showTime={{ format: 'HH:mm' }} />
       </div>
       <div className={style.hs}>
         {data?.transactions.map((transaction, index) => (

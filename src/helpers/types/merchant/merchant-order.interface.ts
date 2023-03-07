@@ -18,6 +18,7 @@ export interface IUpdateMerchantOrderStatusRequest {
   status: number;
   receipt_number?: string;
   invoice_code: string;
+  cancellation_notes?: string;
 }
 
 export interface IMerchantTransaction {

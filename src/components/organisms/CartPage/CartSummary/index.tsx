@@ -21,8 +21,7 @@ const CartSummary: React.FC<CartSummaryProps> = ({
   total,
   carts,
 }) => {
-  const isLoading = false;
-  const [checkout, { isLoading: isLoadingCheckout }] = useCheckoutMutation();
+  const [checkout, { isLoading }] = useCheckoutMutation();
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -98,7 +97,7 @@ const CartSummary: React.FC<CartSummaryProps> = ({
               block
               disabled={total === 0}
               onClick={handleCheckout}
-              loading={isLoadingCheckout}
+              loading={isLoading}
             >
               Checkout
             </Button>

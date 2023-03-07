@@ -12,6 +12,7 @@ import { ITransaction } from '../../../../helpers/types';
 import { OrderStatus } from '../../Merchant/Order/OrderList';
 import ComponentOnDelivered from './ComponentOnDelivered';
 import ComponentOnCompleted from './ComponentOnCompleted';
+import ComponentOnWaited from './ComponentOnWaited';
 
 interface CardTransactionProps {
   transaction: ITransaction;
@@ -41,6 +42,9 @@ const CardTransaction: React.FC<CardTransactionProps> = ({ transaction }) => {
     ),
     [OrderStatus.TransactionStatusOnCompleted]: (
       <ComponentOnCompleted transaction={transaction} />
+    ),
+    [OrderStatus.TransactionStatusWaited]: (
+      <ComponentOnWaited transaction={transaction} />
     ),
   };
 
@@ -90,7 +94,7 @@ const CardTransaction: React.FC<CardTransactionProps> = ({ transaction }) => {
     }
     if (transaction.transaction_status.on_waited_at) {
       setStatus('waiting');
-      setStatusIdx(0);
+      setStatusIdx(OrderStatus.TransactionStatusWaited);
       return;
     }
   }, [transaction, status, statusIdx]);
@@ -152,6 +156,11 @@ const CardTransaction: React.FC<CardTransactionProps> = ({ transaction }) => {
               {transaction.product_overview.total_product -
                 transaction.product_overview.product.quantity}{' '}
               other item(s)
+            </p>
+          )}
+          {transaction.product_overview.product.variant_name && (
+            <p className={style.ct__product__details__others}>
+              {transaction.product_overview.product.variant_name}
             </p>
           )}
         </div>

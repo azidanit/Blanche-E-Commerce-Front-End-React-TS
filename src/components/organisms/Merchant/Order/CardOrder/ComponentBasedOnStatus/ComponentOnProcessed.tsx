@@ -8,7 +8,7 @@ import {
   ModalHeader,
 } from '../../../../..';
 import { useUpdateMerchantOrderStatusMutation } from '../../../../../../app/features/merchant/merchantOrderApiSlice';
-import { Button, FormLabel, Input } from '../../../../../atoms';
+import { Button, FormLabel, Input, TextArea } from '../../../../../atoms';
 import { ComponentBasedOnStatusProps } from './ComponentOnCanceled';
 import style from '../index.module.scss';
 import { UpdateStatus } from '../utils';
@@ -24,7 +24,16 @@ const ComponentOnProcessed: React.FC<ComponentBasedOnStatusProps> = ({
   const [receiptCode, setReceiptCode] = useState<string | undefined>(undefined);
   const [updateOrderStatus, { isLoading }] =
     useUpdateMerchantOrderStatusMutation();
+  const [isModalCancelOpen, setIsModalCancelOpen] = useState(false);
+  const [reason, setReason] = useState<string>('');
 
+  const handleOpenModalCancel = () => {
+    setIsModalCancelOpen(true);
+  };
+
+  const handleCloseModalCancel = () => {
+    setIsModalCancelOpen(false);
+  };
   const componentRef = useRef(null);
 
   const handlePrintLabel = () => {
@@ -46,6 +55,25 @@ const ComponentOnProcessed: React.FC<ComponentBasedOnStatusProps> = ({
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
   });
+  const handleCancel = async () => {
+    try {
+      await updateOrderStatus({
+        status: UpdateStatus.TransactionStatusOnCancel,
+        invoice_code: transaction.invoice_code,
+        cancellation_notes: reason,
+      }).unwrap();
+
+      message.success(
+        'Order has been canceled. You can see the detail in the Canceled Order tab.',
+      );
+
+      handleCloseModalCancel();
+    } catch (e) {
+      const err = e as IErrorResponse;
+
+      message.error(capitalizeFirstLetter(err.message));
+    }
+  };
 
   const handleSubmit = async () => {
     try {
@@ -68,6 +96,9 @@ const ComponentOnProcessed: React.FC<ComponentBasedOnStatusProps> = ({
       message.error(capitalizeFirstLetter(err.message));
     }
   };
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setReason(e.target.value);
+  };
   return (
     <>
       <div className={style.card__order__actions__btn}>
@@ -76,6 +107,15 @@ const ComponentOnProcessed: React.FC<ComponentBasedOnStatusProps> = ({
         </Button>
         <Button type="primary" size="large" onClick={handleOpenModal}>
           Deliver Order
+        </Button>
+        <Button
+          type="primary"
+          size="large"
+          danger
+          ghost
+          onClick={handleOpenModalCancel}
+        >
+          Cancel
         </Button>
       </div>
       <ModalConfirm
@@ -122,6 +162,22 @@ const ComponentOnProcessed: React.FC<ComponentBasedOnStatusProps> = ({
           <ShippingLabel transaction={transaction} />
         </div>
       </Modal>
+      <ModalConfirm
+        isModalOpen={isModalCancelOpen}
+        handleCancel={handleCloseModalCancel}
+        handleOk={handleCancel}
+        title="Cancel Order"
+        info="Are you sure to cancel this order? This action cannot be undone."
+        confirmButtonText="Cancel Order"
+        cancelButton={true}
+        confirmButtonProps={{ loading: isLoading, danger: true }}
+      >
+        <Form layout="vertical">
+          <FormLabel label="Please provide reason why you cancel this order? ">
+            <TextArea value={reason} onChange={handleChange} />
+          </FormLabel>
+        </Form>
+      </ModalConfirm>
     </>
   );
 };

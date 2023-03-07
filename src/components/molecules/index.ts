@@ -4,6 +4,7 @@ import InputQuantity from './InputQuantity';
 import Container from './Container';
 import Form from './Form';
 import Nav from './Nav';
+import NavMobile from './NavMobile';
 import CardProduct from './CardProduct';
 import ListCardProduct from './ListCardProduct';
 import Carousel from './Carousel';
@@ -56,4 +57,5 @@ export {
   Countdown,
   ModalConfirm,
   Chat,
+  NavMobile,
 };

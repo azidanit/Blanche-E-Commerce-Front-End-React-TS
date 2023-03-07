@@ -74,7 +74,7 @@ const ModalVoucher: React.FC<ModalVoucherProps> = ({
         onChange={handleChange}
       >
         {data.length > 0 ? (
-          data?.map(
+          data.map(
             (item: IVoucherMarketplaceResponse | IVoucherMerchantResponse) => (
               <Radio
                 value={item}

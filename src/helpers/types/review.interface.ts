@@ -33,6 +33,7 @@ export interface IGetReviewsRequest {
   page?: number;
   limit?: number;
   rating?: number;
+  filter_by?: string;
 }
 
 export interface IReview {

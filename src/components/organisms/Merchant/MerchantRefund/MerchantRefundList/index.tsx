@@ -14,7 +14,7 @@ const values = [
   'Need Approval',
   'Waiting Admin Approval',
   'Closed',
-  'Canceled By User',
+  'Canceled',
   'Rejected',
   'Refunded',
   'Waiting Buyer Approval',
