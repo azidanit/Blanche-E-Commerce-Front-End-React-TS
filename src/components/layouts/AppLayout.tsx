@@ -3,11 +3,12 @@ import { Outlet, useSearchParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { setParams } from '../../app/features/home/paramsSlice';
 import { parseSearchParams } from '../../helpers/parseSearchParams';
-import { Container, Nav, NavMobile } from '../molecules';
+import { Container, Nav, NavMobile, SearchBarMobile } from '../molecules';
 import { useGetProfileQuery } from '../../app/features/profile/profileApiSlice';
 import { setMerchant, setUser } from '../../app/features/auth/authSlice';
 import { useGetMerchantProfileQuery } from '../../app/features/merchant/merchantApiSlice';
 import useMediaQuery from '../../hooks/useMediaQuery';
+import { Loader } from '..';
 
 const AppLayout = (): JSX.Element => {
   const [searchParams] = useSearchParams();
@@ -43,7 +44,7 @@ const AppLayout = (): JSX.Element => {
   }, [searchParams]);
 
   if (isLoading || isLoadingMerchant) {
-    return <>...loading</>;
+    return <Loader />;
   }
 
   return (
@@ -57,6 +58,7 @@ const AppLayout = (): JSX.Element => {
         </>
       ) : (
         <>
+          <SearchBarMobile />
           <Container>
             <Outlet />
           </Container>

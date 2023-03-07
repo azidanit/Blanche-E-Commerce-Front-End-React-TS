@@ -1,17 +1,25 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAppSelector } from '../../app/hooks';
-import { ProductContent, SEO } from '../../components';
+import {
+  Button,
+  FilterProductMobile,
+  ProductContent,
+  SEO,
+} from '../../components';
 import { FilterProduct } from '../../components';
 import style from './index.module.scss';
 import { isEmpty } from 'lodash';
 import { useGetProductsQuery } from '../../app/features/home/homeApiSlice';
 import { useSearchParams } from 'react-router-dom';
 import { Key } from 'rc-tree-select/lib/interface';
+import useMediaQuery from '../../hooks/useMediaQuery';
 
 const limit = 28;
 
 const SearchResult: React.FC = () => {
   const params = useAppSelector((state) => state.params);
+  const [open, setOpen] = useState(false);
+  const isMobile = useMediaQuery('(max-width: 768px)');
   const [searchParams, setSearchParams] = useSearchParams();
   const { data, isLoading, isError, error } = useGetProductsQuery(
     { ...params.search, limit },
@@ -36,6 +44,14 @@ const SearchResult: React.FC = () => {
     setSearchParams(searchParams);
   };
 
+  const showDrawer = () => {
+    setOpen(true);
+  };
+
+  const onClose = () => {
+    setOpen(false);
+  };
+
   return (
     <>
       <SEO
@@ -48,11 +64,25 @@ const SearchResult: React.FC = () => {
       />
       <div className={style.sr}>
         <div className={style.sr__left}>
-          <p className={style.sr__title}>Filter</p>
-          <FilterProduct
-            onSelectCategory={onSelectCategory}
-            selectedCategory={params.search.cat}
-          />
+          {isMobile ? (
+            <>
+              <Button onClick={showDrawer}>Filter</Button>
+              <FilterProductMobile
+                onSelectCategory={onSelectCategory}
+                selectedCategory={params.search.cat}
+                open={open}
+                onClose={onClose}
+              />
+            </>
+          ) : (
+            <>
+              <p className={style.category__title}>Filter</p>
+              <FilterProduct
+                onSelectCategory={onSelectCategory}
+                selectedCategory={params.search.cat}
+              />
+            </>
+          )}
         </div>
         <ProductContent
           data={data}

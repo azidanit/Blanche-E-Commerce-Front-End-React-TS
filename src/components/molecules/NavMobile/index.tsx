@@ -3,10 +3,7 @@
 import { Header } from 'antd/es/layout/layout';
 import React from 'react';
 import { FaCalendarTimes, FaFileExcel, FaHome, FaUser } from 'react-icons/fa';
-import {
-  MdFavorite,
-  MdShoppingBag,
-} from 'react-icons/md';
+import { MdFavorite, MdShoppingBag } from 'react-icons/md';
 import { useAppSelector } from '../../../app/hooks';
 import style from './index.module.scss';
 import NavItem from './NavItem';
@@ -21,10 +18,9 @@ const NavMobile = (): JSX.Element => {
       {isLoggedIn && (
         <>
           <NavItem path="/profile" icon={<FaUser />} />
-
           <NavItem path="/cart" icon={<MdShoppingBag />} />
-          <NavItem path="/transactions" icon={<FaCalendarTimes />} />
           <NavItem path="/favorite-products" icon={<MdFavorite />} />
+          <NavItem path="/transactions" icon={<FaCalendarTimes />} />
           {user?.role === 'merchant' && (
             <NavItem path="/merchant" icon={<FaFileExcel />} />
           )}

@@ -1,7 +1,7 @@
 import React from 'react';
 import style from './index.module.scss';
 import { MdAccountBalanceWallet } from 'react-icons/md';
-import { Badge, Button, Tag } from '../../../atoms';
+import { Tag } from '../../../atoms';
 import {
   IGetWalletDetailsResponse,
   ISealabsPayAccounts,

@@ -2,6 +2,11 @@
 .product__reviews {
   width: 100%;
   margin-top: 2rem;
+
+  @media screen and (max-width: 768px) {
+    padding: 1rem;
+  }
+
   h5 {
     font-size: 1.5rem;
     font-weight: $text-bold;
@@ -11,6 +16,10 @@
     display: grid;
     grid-template-columns: 1fr 2fr;
     gap: 2rem;
+
+    @media screen and (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
 
     &__filter {
       display: flex;
