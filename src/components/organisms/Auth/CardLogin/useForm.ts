@@ -7,10 +7,7 @@ import {
   setUser,
 } from '../../../../app/features/auth/authSlice';
 import { useLazyGetMerchantProfileQuery } from '../../../../app/features/merchant/merchantApiSlice';
-import {
-  useGetProfileQuery,
-  useLazyGetProfileQuery,
-} from '../../../../app/features/profile/profileApiSlice';
+import { useLazyGetProfileQuery } from '../../../../app/features/profile/profileApiSlice';
 import { useAppDispatch } from '../../../../app/hooks';
 import { FormReturnAuth, LoginProps } from '../../../../helpers/types';
 
