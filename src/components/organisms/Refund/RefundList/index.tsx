@@ -14,7 +14,7 @@ const values = [
   'Waiting Merchant Approval',
   'Waiting Admin Approval',
   'Closed',
-  'Canceled By User',
+  'Canceled',
   'Rejected',
   'Refunded',
   'Need Approval',

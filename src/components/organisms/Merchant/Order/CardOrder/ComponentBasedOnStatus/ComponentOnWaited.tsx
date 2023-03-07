@@ -1,11 +1,11 @@
 import { message } from 'antd';
 import React, { useState } from 'react';
 import { useUpdateMerchantOrderStatusMutation } from '../../../../../../app/features/merchant/merchantOrderApiSlice';
-import { Button } from '../../../../../atoms';
+import { Button, FormLabel, TextArea } from '../../../../../atoms';
 import { ComponentBasedOnStatusProps } from './ComponentOnCanceled';
 import style from '../index.module.scss';
 import { UpdateStatus } from '../utils';
-import { ModalConfirm } from '../../../../..';
+import { Form, ModalConfirm } from '../../../../..';
 import { capitalizeFirstLetter } from '../../../../../../helpers/capitalizeFirstLetter';
 import { IErrorResponse } from '../../../../../../helpers/types/response.interface';
 
@@ -16,6 +16,7 @@ const ComponentOnWaited: React.FC<ComponentBasedOnStatusProps> = ({
   const [isModalDeclineOpen, setIsModalDeclineOpen] = useState(false);
   const [updateOrderStatus, { isLoading }] =
     useUpdateMerchantOrderStatusMutation();
+  const [reason, setReason] = useState<string>('');
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -23,6 +24,10 @@ const ComponentOnWaited: React.FC<ComponentBasedOnStatusProps> = ({
 
   const handleOpenModalDecline = () => {
     setIsModalDeclineOpen(true);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setReason(e.target.value);
   };
 
   const handleCloseModal = () => {
@@ -55,6 +60,7 @@ const ComponentOnWaited: React.FC<ComponentBasedOnStatusProps> = ({
       await updateOrderStatus({
         status: UpdateStatus.TransactionStatusOnCancel,
         invoice_code: transaction.invoice_code,
+        cancellation_notes: reason,
       }).unwrap();
 
       message.success(
@@ -102,7 +108,13 @@ const ComponentOnWaited: React.FC<ComponentBasedOnStatusProps> = ({
         confirmButtonText="Decline Order"
         cancelButton={true}
         confirmButtonProps={{ loading: isLoading, danger: true }}
-      />
+      >
+        <Form layout="vertical">
+          <FormLabel label="Please provide reason why you decline this order? ">
+            <TextArea value={reason} onChange={handleChange} />
+          </FormLabel>
+        </Form>
+      </ModalConfirm>
     </>
   );
 };

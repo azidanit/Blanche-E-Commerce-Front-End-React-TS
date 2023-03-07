@@ -1,4 +1,4 @@
-import { Skeleton } from 'antd';
+
 import React, { useState } from 'react';
 import {
   Input,

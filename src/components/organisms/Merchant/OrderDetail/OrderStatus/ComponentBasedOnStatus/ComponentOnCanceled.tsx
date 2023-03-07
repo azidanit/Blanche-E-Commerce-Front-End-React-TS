@@ -8,9 +8,7 @@ export interface ComponentBasedOnStatusProps {
   transaction: IMerchantDetailTransactionResponse;
 }
 
-const ComponentOnCanceled: React.FC<ComponentBasedOnStatusProps> = ({
-  transaction,
-}) => {
+const ComponentOnCanceled: React.FC<ComponentBasedOnStatusProps> = () => {
   const classProps = classNames(style.os__status, style.os__status__canceled);
 
   return (
@@ -19,7 +17,7 @@ const ComponentOnCanceled: React.FC<ComponentBasedOnStatusProps> = ({
         <p className={style.os__status__item__text}>Order has been canceled</p>
       </div>
       <Button type="primary" size="large" danger disabled>
-        Canceled by seller
+        Canceled
       </Button>
     </div>
   );

@@ -7,6 +7,10 @@
     align-items: start;
     position: relative;
 
+    @media screen and (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+
     &__notfound {
       text-align: center;
       &__item {

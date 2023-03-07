@@ -8,6 +8,7 @@ import { capitalizeFirstLetter } from '../../../../helpers/capitalizeFirstLetter
 import { toRupiah } from '../../../../helpers/toRupiah';
 import { ICheckoutRequest } from '../../../../helpers/types';
 import { IErrorResponse } from '../../../../helpers/types/response.interface';
+import useMediaQuery from '../../../../hooks/useMediaQuery';
 import useProduct from '../../../../hooks/useProduct';
 import { Alert, Button, Card } from '../../../atoms';
 import { InputQuantity, ModalConfirm } from '../../../molecules';
@@ -20,7 +21,7 @@ const CardSummary: React.FC = () => {
 
   const [checkout, { isLoading: isLoadingCheckout }] = useCheckoutMutation();
   const [quantity, setQuantity] = useState(1);
-
+  const isMobile = useMediaQuery('(max-width: 768px)');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [addToCart, { isLoading: isLoadingAddToCart, isError }] =
     useCreateCartsMutation();
@@ -132,7 +133,7 @@ const CardSummary: React.FC = () => {
             handleChange={handleChange}
             size="middle"
             disabledIncrement={quantity >= Number(stock)}
-            disableDecrement={quantity <= 1 || quantity > Number(stock)}
+            disableDecrement={quantity <= 1}
             min={1}
           />
           <p>
@@ -182,52 +183,58 @@ const CardSummary: React.FC = () => {
           />
         )}
 
-        <Divider />
-        <div className={style.card__summary__total}>
-          <span>Total</span>
-          <p>{toRupiah(totalPrice)}</p>
-        </div>
-      </Skeleton>
-      <div className={style.card__summary__button}>
-        {isLoading ? (
+        {!isMobile && (
           <>
-            <Skeleton.Button block />
-            <Skeleton.Button block />
-          </>
-        ) : (
-          <>
-            <Button
-              type="primary"
-              size="large"
-              block
-              onClick={handleSubmit}
-              disabled={
-                (!variant && isHaveVariant) ||
-                stock === 0 ||
-                quantity > Number(stock)
-              }
-              loading={isLoadingAddToCart}
-            >
-              Add to Cart
-            </Button>
-            <Button
-              type="primary"
-              size="large"
-              ghost
-              disabled={
-                (!variant && isHaveVariant) ||
-                stock === 0 ||
-                quantity > Number(stock)
-              }
-              onClick={handleBuyNow}
-              block
-              loading={isLoadingCheckout}
-            >
-              Buy Now
-            </Button>
+            <Divider />
+            <div className={style.card__summary__total}>
+              <span>Total</span>
+              <p>{toRupiah(totalPrice)}</p>
+            </div>
           </>
         )}
-      </div>
+      </Skeleton>
+      {!isMobile && (
+        <div className={style.card__summary__button}>
+          {isLoading ? (
+            <>
+              <Skeleton.Button block />
+              <Skeleton.Button block />
+            </>
+          ) : (
+            <>
+              <Button
+                type="primary"
+                size="large"
+                block
+                onClick={handleSubmit}
+                disabled={
+                  (!variant && isHaveVariant) ||
+                  stock === 0 ||
+                  quantity > Number(stock)
+                }
+                loading={isLoadingAddToCart}
+              >
+                Add to Cart
+              </Button>
+              <Button
+                type="primary"
+                size="large"
+                ghost
+                disabled={
+                  (!variant && isHaveVariant) ||
+                  stock === 0 ||
+                  quantity > Number(stock)
+                }
+                onClick={handleBuyNow}
+                block
+                loading={isLoadingCheckout}
+              >
+                Buy Now
+              </Button>
+            </>
+          )}
+        </div>
+      )}
 
       <ModalConfirm
         isModalOpen={isModalOpen}

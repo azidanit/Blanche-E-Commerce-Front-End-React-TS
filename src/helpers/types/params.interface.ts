@@ -12,4 +12,5 @@ export interface IParams {
   limit?: number;
   page?: number;
   status?: string;
+  filter_by?: string;
 }

@@ -1,12 +1,16 @@
 @use '../../../../styles/variables.scss' as *;
-.cart__summary {
+.cart__summary__mobile {
   box-shadow: $box-shadow;
   position: fixed;
-  bottom: 0;
+  bottom: 64px;
   background-color: white;
   padding: 1rem;
   width: 100vw;
   border-radius: 1.1rem;
+
+  @media screen and (max-width: 768px) {
+    padding: 0.7rem 1rem;
+  }
 
   &__button {
     margin-top: 1rem;

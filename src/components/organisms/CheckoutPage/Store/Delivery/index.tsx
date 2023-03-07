@@ -64,6 +64,7 @@ const Delivery: React.FC<DeliveryProps> = ({
       menu={{
         items,
         selectable: true,
+        disabled: !items,
       }}
     >
       <Button

@@ -3,7 +3,7 @@ import React from 'react';
 import style from './index.module.scss';
 import ListReviews from './ListReviews';
 import Rating from '../../FilterRating';
-import { Pagination } from '../../..';
+import { FilterReview, Pagination, Card } from '../../..';
 import { useGetReviewsQuery } from '../../../../app/features/reviews/reviewsApiSlice';
 import { useAppSelector } from '../../../../app/hooks';
 import { useParams } from 'react-router-dom';
@@ -32,17 +32,22 @@ const ProductReviews: React.FC = () => {
       <h5>Product Reviews</h5>
       <Divider />
       <div className={style.product__reviews__body}>
-        <Rating paramsQuery="rating" />
-        <ListReviews data={data} />{' '}
-        {data && data.total_data > limit && Boolean(data.reviews.length) && (
-          <div className={style.tl__pagination}>
-            <Pagination
-              total={data.total_data}
-              pageSize={limit}
-              showSizeChanger={false}
-            />
-          </div>
-        )}
+        <Card className={style.product__reviews__body__filter}>
+          <Rating paramsQuery="rating" />
+          <FilterReview />
+        </Card>
+        <div className={style.product__reviews__body__filter__item}>
+          <ListReviews data={data} />{' '}
+          {data && data.total_data > limit && Boolean(data.reviews.length) && (
+            <div className={style.tl__pagination}>
+              <Pagination
+                total={data.total_data}
+                pageSize={limit}
+                showSizeChanger={false}
+              />
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

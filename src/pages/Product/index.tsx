@@ -8,17 +8,19 @@ import {
   BreadcrumbProduct,
   Button,
   CardSummary,
+  CardSummaryMobile,
   ItemNotFound,
   ProductDetail,
-  SEO,
 } from '../../components';
 import MoreProducts from '../../components/organisms/ProductPage/MoreProducts';
+import useMediaQuery from '../../hooks/useMediaQuery';
 import useProduct from '../../hooks/useProduct';
 import style from './index.module.scss';
 
 const Product = (): JSX.Element => {
   const { store, slug } = useParams();
   const dispatch = useAppDispatch();
+  const isMobile = useMediaQuery('(max-width: 768px)');
   const navigate = useNavigate();
 
   const { data, isLoading } = useGetProductBySlugQuery({
@@ -119,13 +121,14 @@ const Product = (): JSX.Element => {
           isLoading={isLoadingSeller}
           to={`/${store}`}
         />
-
         <MoreProducts
           title="Similar Products"
           data={similarProducts}
           isLoading={isLoadingSimilar}
           to={`/c/${data?.category?.url}`}
         />
+
+        {isMobile && !data?.is_my_product && <CardSummaryMobile />}
       </div>
     </div>
   );

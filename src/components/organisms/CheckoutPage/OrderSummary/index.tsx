@@ -87,7 +87,11 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
         <span>{toRupiah(order.total)}</span>
       </div>
       <Divider style={{ margin: 0 }} />
-      <Button size="large" type="primary" onClick={showModal}>
+      <Button
+        size={isMobile ? 'small' : 'large'}
+        type="primary"
+        onClick={showModal}
+      >
         Choose Payment Method
       </Button>
       {errorAddress && (

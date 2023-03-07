@@ -1,7 +1,7 @@
 import React from 'react';
 import style from './index.module.scss';
 import { MdAccountBalanceWallet } from 'react-icons/md';
-import { Badge, Button, Tag } from '../../../atoms';
+import { Button } from '../../../atoms';
 import {
   ICheckoutResponse,
   IGetWalletDetailsResponse,
@@ -35,6 +35,7 @@ const CardWallet: React.FC<CardWalletProps> = ({
         from: location,
         search: order.order_code,
       },
+      replace: true,
     });
   };
 
@@ -44,6 +45,7 @@ const CardWallet: React.FC<CardWalletProps> = ({
         from: location,
         search: order.order_code,
       },
+      replace: true,
     });
   };
 

@@ -8,6 +8,7 @@ import {
   IVoucherMerchantResponse,
 } from '../../../../helpers/types';
 import { useGetVoucherQuery } from '../../../../app/features/marketplace/voucherApiSlice';
+import useMediaQuery from '../../../../hooks/useMediaQuery';
 
 interface VoucherMarketplaceProps {
   handleChangeMpVoucher: (
@@ -21,7 +22,7 @@ const VoucherMarketplace: React.FC<VoucherMarketplaceProps> = ({
   mpVoucher,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const isMobile = useMediaQuery('(max-width: 768px)');
   const handleSetVoucher = (
     voucher: IVoucherMarketplaceResponse | IVoucherMerchantResponse | undefined,
   ) => {
@@ -55,7 +56,7 @@ const VoucherMarketplace: React.FC<VoucherMarketplaceProps> = ({
     <div>
       <Button
         onClick={showModal}
-        size="large"
+        size={isMobile ? 'large' : 'small'}
         className={style.voucher__marketplace}
         type="primary"
         block

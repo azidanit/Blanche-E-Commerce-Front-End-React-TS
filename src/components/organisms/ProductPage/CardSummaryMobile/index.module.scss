@@ -1,0 +1,34 @@
+@use '../../../../styles/variables.scss' as *;
+.card__summary {
+  box-shadow: $box-shadow;
+  border-radius: 1.1rem;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 64px;
+  background-color: white;
+
+  &__total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    span {
+      font-size: 1rem;
+      font-weight: $text-regular;
+      color: $gray;
+    }
+    p {
+      font-size: 1rem;
+      font-weight: $text-medium;
+      color: $primary-100;
+    }
+  }
+
+  &__button {
+    display: flex;
+    justify-content: center;
+    margin-top: 0.5rem;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}

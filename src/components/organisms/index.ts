@@ -9,6 +9,7 @@ export * from './Merchant';
 export * from './Refund';
 
 import CategoryCarousel from './CategoryCarousel';
+import FilterReview from './FilterReview';
 import ListCartStoreItem from './CartPage/ListCartStoreItem';
 import FilterProduct from './FilterProduct';
 import SortProduct from './SortProduct';
@@ -72,4 +73,5 @@ export {
   MerchantProfile,
   WaitingPage,
   WaitingDetailsPage,
+  FilterReview,
 };

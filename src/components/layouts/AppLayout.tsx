@@ -3,14 +3,16 @@ import { Outlet, useSearchParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { setParams } from '../../app/features/home/paramsSlice';
 import { parseSearchParams } from '../../helpers/parseSearchParams';
-import { Container, Nav } from '../molecules';
+import { Container, Nav, NavMobile } from '../molecules';
 import { useGetProfileQuery } from '../../app/features/profile/profileApiSlice';
 import { setMerchant, setUser } from '../../app/features/auth/authSlice';
 import { useGetMerchantProfileQuery } from '../../app/features/merchant/merchantApiSlice';
+import useMediaQuery from '../../hooks/useMediaQuery';
 
 const AppLayout = (): JSX.Element => {
   const [searchParams] = useSearchParams();
   const dispatch = useAppDispatch();
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
   const { isLoggedIn, user, merchant } = useAppSelector((state) => state.auth);
 
@@ -46,10 +48,21 @@ const AppLayout = (): JSX.Element => {
 
   return (
     <>
-      <Nav />
-      <Container>
-        <Outlet />
-      </Container>
+      {!isMobile ? (
+        <>
+          <Nav />
+          <Container>
+            <Outlet />
+          </Container>
+        </>
+      ) : (
+        <>
+          <Container>
+            <Outlet />
+          </Container>
+          <NavMobile />
+        </>
+      )}
     </>
   );
 };
