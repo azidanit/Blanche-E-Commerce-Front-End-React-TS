@@ -1,7 +1,7 @@
 import { message } from 'antd';
 import React, { useState } from 'react';
 import { PinInput } from 'react-input-pin-code';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { Form } from '../..';
 import {
   useMakePaymentMutation,
@@ -84,8 +84,8 @@ const CardPaymentWallet: React.FC = () => {
             htmlType="submit"
             size="large"
             shape="round"
-            loading={isLoading}
-            disabled={isLoading}
+            loading={isLoading || isLoadingPayment}
+            disabled={isLoading || isLoadingPayment}
           >
             Pay Now
           </Button>

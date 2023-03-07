@@ -9,12 +9,16 @@ import {
 } from '../../../../..';
 import { useUpdateMerchantOrderStatusMutation } from '../../../../../../app/features/merchant/merchantOrderApiSlice';
 import { Button, FormLabel, Input, TextArea } from '../../../../../atoms';
-import { ComponentBasedOnStatusProps } from './ComponentOnCanceled';
 import style from '../index.module.scss';
 import { UpdateStatus } from '../utils';
 import { useReactToPrint } from 'react-to-print';
 import { capitalizeFirstLetter } from '../../../../../../helpers/capitalizeFirstLetter';
 import { IErrorResponse } from '../../../../../../helpers/types/response.interface';
+import { IMerchantTransaction } from '../../../../../../helpers/types/merchant/merchant-order.interface';
+
+export interface ComponentBasedOnStatusProps {
+  transaction: IMerchantTransaction;
+}
 
 const ComponentOnProcessed: React.FC<ComponentBasedOnStatusProps> = ({
   transaction,

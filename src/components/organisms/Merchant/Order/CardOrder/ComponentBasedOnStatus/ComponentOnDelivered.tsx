@@ -1,11 +1,8 @@
 import React from 'react';
 import { Button } from '../../../../../atoms';
-import { ComponentBasedOnStatusProps } from './ComponentOnCanceled';
 import style from '../index.module.scss';
 
-const ComponentOnDelivered: React.FC<ComponentBasedOnStatusProps> = ({
-  transaction,
-}) => {
+const ComponentOnDelivered: React.FC = () => {
   return (
     <div className={style.card__order__actions__btn}>
       <Button type="primary" size="large" ghost disabled>

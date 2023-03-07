@@ -74,11 +74,11 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
       <Divider style={{ margin: 0 }} />
 
       {isMobile ? (
-        <SummaryMobile order={order} mpVoucher={mpVoucher} />
+        <SummaryMobile order={order} />
       ) : (
         <>
           <h5>Order Summary</h5>
-          <Summary order={order} mpVoucher={mpVoucher} />
+          <Summary order={order} />
         </>
       )}
 
