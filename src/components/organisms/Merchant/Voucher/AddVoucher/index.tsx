@@ -67,6 +67,7 @@ const AddVoucher: React.FC<AddVoucherProps> = ({
           htmlType="submit"
           size="large"
           loading={isLoading}
+          disabled={isLoading}
         >
           {isEdit ? 'Edit Voucher' : 'Create Voucher'}
         </Button>
