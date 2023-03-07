@@ -1,5 +1,4 @@
 import React from 'react';
-import { Image } from '../../../../atoms';
 import { TableItemProps } from './CardPromotion';
 import style from './index.module.scss';
 

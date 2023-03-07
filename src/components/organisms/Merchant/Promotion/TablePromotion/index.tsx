@@ -6,7 +6,7 @@ import {
   useGetPromotionsMerchantQuery,
 } from '../../../../../app/features/merchant/promotionApiSlice';
 import { useAppSelector } from '../../../../../app/hooks';
-import { Button, Tag } from '../../../../atoms';
+import { Button } from '../../../../atoms';
 import CardQuota from './CardQuota';
 import CardTimePeriod from './CardTimePerod';
 import CardPromotion from './CardPromotion';

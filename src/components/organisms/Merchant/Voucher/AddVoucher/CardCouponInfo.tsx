@@ -4,7 +4,6 @@ import React from 'react';
 import { useAppSelector } from '../../../../../app/hooks';
 import { Card, FormLabel, Input } from '../../../../atoms';
 import style from './index.module.scss';
-import useForms from './useForm';
 import { rules } from './validation';
 
 interface CardCouponInfoProps {

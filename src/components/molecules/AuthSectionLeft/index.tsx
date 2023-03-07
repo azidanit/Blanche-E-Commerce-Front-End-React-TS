@@ -1,7 +1,6 @@
 import React from 'react';
 import style from './index.module.scss';
 import { Layout } from 'antd';
-import { Logo } from '../../atoms';
 
 const AuthSectionLeft: React.FC = () => {
   return (

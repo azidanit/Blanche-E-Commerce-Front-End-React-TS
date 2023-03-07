@@ -1,8 +1,7 @@
-import { DatePicker, RadioChangeEvent } from 'antd';
-import dayjs, { Dayjs } from 'dayjs';
+import { RadioChangeEvent } from 'antd';
 import React from 'react';
 import { RadioButtonGroup } from '../../../..';
-import { Card, FormLabel, Input, InputNumber } from '../../../../atoms';
+import { Card, FormLabel, InputNumber } from '../../../../atoms';
 import style from './index.module.scss';
 import { rules } from './validation';
 

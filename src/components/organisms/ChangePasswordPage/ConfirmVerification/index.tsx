@@ -25,7 +25,7 @@ const ConfirmVerification: React.FC<ConfirmVerificationProps> = ({
   changeRetryIn,
 }) => {
   const [value, setValue] = useState(initialPin);
-  const [verifyResetPassword, { isLoading }] = useVerifyResetPasswordMutation();
+  const [verifyResetPassword] = useVerifyResetPasswordMutation();
   const [sendVerification, { isLoading: isLoadingRequest }] =
     useRequestResetPasswordMutation();
   const [isCountdown, setIsCountdown] = useState(true);
