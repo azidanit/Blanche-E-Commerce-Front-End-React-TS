@@ -3,7 +3,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import ProtectedPage from '../../components/layouts/Auth/ProtectedPage';
 import AppLayout from '../../components/layouts/AppLayout';
 import MerchantLayout from '../../components/layouts/Merchant/MerchantLayout';
-import { SetNewPassword } from '../../components';
+import { ItemNotFound, SetNewPassword } from '../../components';
 import MerchantProtectedPage from '../../components/layouts/Auth/MerchantProtectedPage';
 import NotFound from '../../pages/NotFound';
 

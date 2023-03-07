@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Button } from '../../../../../atoms';
-import { ComponentBasedOnStatusProps } from './ComponentOnCanceled';
 import style from '../index.module.scss';
 import { useUpdateMerchantOrderStatusMutation } from '../../../../../../app/features/merchant/merchantOrderApiSlice';
 import { ModalConfirm } from '../../../../..';
@@ -8,6 +7,7 @@ import { UpdateStatus } from '../utils';
 import { message } from 'antd';
 import { capitalizeFirstLetter } from '../../../../../../helpers/capitalizeFirstLetter';
 import { IErrorResponse } from '../../../../../../helpers/types/response.interface';
+import { ComponentBasedOnStatusProps } from './ComponentOnProcessed';
 
 const ComponentOnDelivery: React.FC<ComponentBasedOnStatusProps> = ({
   transaction,

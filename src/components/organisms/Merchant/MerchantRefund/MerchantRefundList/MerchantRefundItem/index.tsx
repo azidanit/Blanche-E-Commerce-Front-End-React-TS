@@ -44,10 +44,8 @@ const MerchantRefundItem: React.FC<MerchantRefundItemProps> = ({ refund }) => {
     [RefundStatus.WaitingMerchantAproval]: (
       <ActionOnNeedApprovalMerchant refund={refund} />
     ),
-    [RefundStatus.WaitingAdminAproval]: (
-      <ActionOnNeedApprovalAdmin refund={refund} />
-    ),
-    [RefundStatus.Rejected]: <ActionOnNeedRejected refund={refund} />,
+    [RefundStatus.WaitingAdminAproval]: <ActionOnNeedApprovalAdmin />,
+    [RefundStatus.Rejected]: <ActionOnNeedRejected />,
   };
 
   const [status, setStatus] = useState('waiting');

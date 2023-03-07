@@ -1,6 +1,4 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../../app/store';
 import { ICart } from '../../../../helpers/types';
 import CartStoreItem from '../CartStoreItem';
 import style from './index.module.scss';

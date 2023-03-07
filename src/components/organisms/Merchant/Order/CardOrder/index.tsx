@@ -28,20 +28,14 @@ const CardOrder: React.FC<CardOrderProps> = ({ transaction }) => {
     [OrderStatus.TransactionStatusProcessed]: (
       <ComponentOnProcessed transaction={transaction} />
     ),
-    [OrderStatus.TransactionStatusCanceled]: (
-      <ComponentOnCanceled transaction={transaction} />
-    ),
+    [OrderStatus.TransactionStatusCanceled]: <ComponentOnCanceled />,
 
     [OrderStatus.TransactionStatusOnDelivery]: (
       <ComponentOnDelivery transaction={transaction} />
     ),
-    [OrderStatus.TransactionStatusDelivered]: (
-      <ComponentOnDelivered transaction={transaction} />
-    ),
+    [OrderStatus.TransactionStatusDelivered]: <ComponentOnDelivered />,
     [OrderStatus.TransactionStatusRequestRefund]: <ComponentOnRequestRefund />,
-    [OrderStatus.TransactionStatusOnCompleted]: (
-      <ComponentOnCompleted transaction={transaction} />
-    ),
+    [OrderStatus.TransactionStatusOnCompleted]: <ComponentOnCompleted />,
     [OrderStatus.TransactionStatusOnRefund]: (
       <ComponentOnDelivery transaction={transaction} />
     ),
