@@ -12,6 +12,10 @@
     gap: 1rem;
     font-size: 0.875rem;
 
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
     &__flex {
       display: flex;
       gap: 1rem;

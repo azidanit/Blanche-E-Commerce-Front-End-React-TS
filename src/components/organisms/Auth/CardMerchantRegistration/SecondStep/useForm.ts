@@ -1,6 +1,11 @@
 import { message } from 'antd';
 import { useState } from 'react';
-import { useCreateMerchantMutation } from '../../../../../app/features/merchant/merchantApiSlice';
+import { setMerchant } from '../../../../../app/features/auth/authSlice';
+import {
+  useCreateMerchantMutation,
+  useLazyGetMerchantProfileQuery,
+} from '../../../../../app/features/merchant/merchantApiSlice';
+import { useAppDispatch } from '../../../../../app/hooks';
 import {
   FormReturnAuth,
   ICreateMerchantRequest,
@@ -23,6 +28,9 @@ const useForm = ({
   const [error, setError] = useState<Error>();
   const [registerMerchant, { isLoading, isError }] =
     useCreateMerchantMutation();
+  const dispatch = useAppDispatch();
+
+  const [getMerchantProfile] = useLazyGetMerchantProfileQuery();
 
   const handleSubmit = async () => {
     if (!address) {
@@ -38,6 +46,8 @@ const useForm = ({
 
     try {
       await registerMerchant(body).unwrap();
+      const merchant = await getMerchantProfile().unwrap();
+      dispatch(setMerchant(merchant));
       message.success('Merchant has been created');
       countDown();
     } catch (e) {
