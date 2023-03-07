@@ -6,9 +6,13 @@ import style from './index.module.scss';
 
 interface ListCardProductProps {
   data: IGetProductListResponse;
+  isLoading: boolean;
 }
 
-const CarouselProducts: React.FC<ListCardProductProps> = ({ data }) => {
+const CarouselProducts: React.FC<ListCardProductProps> = ({
+  data,
+  isLoading,
+}) => {
   const { slug, store } = useParams();
 
   return (
@@ -16,7 +20,11 @@ const CarouselProducts: React.FC<ListCardProductProps> = ({ data }) => {
       {data.products
         .filter((product) => product.slug !== `${store}/${slug}`)
         .map((product) => (
-          <CardProduct product={product} key={product.id} />
+          <CardProduct
+            isLoading={isLoading}
+            product={product}
+            key={product.id}
+          />
         ))}
     </div>
   );

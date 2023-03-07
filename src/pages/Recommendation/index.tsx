@@ -25,7 +25,7 @@ const Recommendation: React.FC = () => {
         <Skeleton loading={isLoading}>
           {data && (
             <>
-              <ListCardProduct data={data} />
+              <ListCardProduct data={data} isLoading={isLoading} />
               {data.total_data > limit && (
                 <div className={style.recommendation__pagination}>
                   <Pagination

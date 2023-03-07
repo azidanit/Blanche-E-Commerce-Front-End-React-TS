@@ -22,13 +22,15 @@ const CardReview: React.FC<CardReviewProps> = ({ data }) => {
         </div>
         {data.image_url && (
           <Image
-            src={data.image_url}
+            src={data.image_url || ''}
             alt=""
             className={style.card__review__body__img}
           />
         )}
         {data.description && (
-          <p className={style.card__review__body__text}>{data.description}</p>
+          <p className={style.card__review__body__text}>
+            {data.description || ''}
+          </p>
         )}
       </div>
     </Card>

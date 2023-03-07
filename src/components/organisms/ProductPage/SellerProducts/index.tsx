@@ -4,12 +4,12 @@ import { ListCardProduct } from '../../../molecules';
 import style from './index.module.scss';
 
 const SellerProducts: React.FC = () => {
-  const { data } = useGetProductsQuery({ limit: 6 });
+  const { data, isLoading } = useGetProductsQuery({ limit: 6 });
 
   return (
     <div className={style.seller__products}>
       <h2 className={style.seller__products__header}>More from the store </h2>
-      {data && <ListCardProduct data={data} />}
+      {data && <ListCardProduct isLoading={isLoading} data={data} />}
     </div>
   );
 };

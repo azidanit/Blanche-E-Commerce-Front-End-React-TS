@@ -39,7 +39,7 @@ const FavoriteProduct: React.FC = () => {
         />
         {data && (
           <>
-            <ListCardProduct data={data} />
+            <ListCardProduct data={data} isLoading={isLoading} />
             {data.total_data > limit && (
               <div className={style.favorite_product__pagination}>
                 <Pagination

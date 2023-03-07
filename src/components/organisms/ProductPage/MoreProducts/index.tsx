@@ -8,11 +8,21 @@ interface MoreProductsProps {
   title: string;
   data: IGetProductListResponse | undefined;
   to: string;
+  isLoading: boolean;
 }
 
-const MoreProducts: React.FC<MoreProductsProps> = ({ title, data, to }) => {
+const MoreProducts: React.FC<MoreProductsProps> = ({
+  title,
+  data,
+  to,
+  isLoading,
+}) => {
   if (!data) {
-    return null;
+    return <></>;
+  }
+
+  if (data?.products ? data?.products?.length === 1 : 1) {
+    return <></>;
   }
 
   return (
@@ -23,7 +33,7 @@ const MoreProducts: React.FC<MoreProductsProps> = ({ title, data, to }) => {
           View All
         </Link>
       </div>
-      {data && <CarouselProducts data={data} />}
+      {data && <CarouselProducts data={data} isLoading={isLoading} />}
     </div>
   );
 };

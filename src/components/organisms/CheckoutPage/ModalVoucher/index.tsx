@@ -56,6 +56,7 @@ const ModalVoucher: React.FC<ModalVoucherProps> = ({
     handleSetVoucher(voucher);
     handleOk();
   };
+
   return (
     <Modal
       open={isModalOpen}
@@ -72,16 +73,22 @@ const ModalVoucher: React.FC<ModalVoucherProps> = ({
         value={voucher}
         onChange={handleChange}
       >
-        {data?.map(
-          (item: IVoucherMarketplaceResponse | IVoucherMerchantResponse) => (
-            <Radio
-              value={item}
-              key={item.code}
-              onClick={() => handleUncheck(item)}
-            >
-              <CardVoucher item={item} voucher={voucher} />
-            </Radio>
-          ),
+        {data.length > 0 ? (
+          data?.map(
+            (item: IVoucherMarketplaceResponse | IVoucherMerchantResponse) => (
+              <Radio
+                value={item}
+                key={item.code}
+                onClick={() => handleUncheck(item)}
+              >
+                <CardVoucher item={item} voucher={voucher} />
+              </Radio>
+            ),
+          )
+        ) : (
+          <div className={style.voucher__modal__empty}>
+            <p>There is no voucher available</p>
+          </div>
         )}
       </Radio.Group>
       {voucher && (

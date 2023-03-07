@@ -63,12 +63,11 @@ const TableProduct: React.FC<TableProductProps> = ({
   isLoading,
   page,
   selectedProducts,
-  productKeys,
 }) => {
   const dataSource: TableProductDataType[] | undefined = data?.products.map(
     (item) => ({
       key: item.id,
-      product: <CardProduct product={item} />,
+      product: <CardProduct product={item}  />,
       sold: item.num_of_sale || 0,
       price: <CardPrice product={item} />,
       stock: item.total_stock,

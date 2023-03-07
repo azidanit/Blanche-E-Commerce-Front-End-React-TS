@@ -3,6 +3,9 @@ export interface IVoucherMarketplaceResponse {
   code: string;
   discount_percentage: number;
   expired_at: string;
+  max_discount_nominal: number;
+  min_order_nominal: number;
+  quota: number;
 }
 
 export interface IGetPromotionBannerResponse {

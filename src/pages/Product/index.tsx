@@ -43,10 +43,7 @@ const Product = (): JSX.Element => {
         product: data,
         isDiscount: data?.min_real_price !== data?.min_discount_price,
         isRangePrice: data?.min_real_price !== data?.max_real_price,
-        price:
-          data?.min_real_price !== data?.min_discount_price
-            ? data?.min_discount_price
-            : data?.min_real_price,
+        price: data?.min_real_price,
         stock: variant === null ? data?.total_stock : variant.stock,
         activeImage: data?.images?.[0],
         isLoading: isLoading,
@@ -54,30 +51,32 @@ const Product = (): JSX.Element => {
         discountPrice:
           data?.min_real_price !== data?.min_discount_price
             ? data?.min_discount_price
-            : null,
+            : data?.min_discount_price,
       }),
     );
   }, [data]);
 
-  const { data: similarProducts } = useGetProductsQuery(
-    {
-      limit: 24,
-      cat: data?.category?.url,
-    },
-    {
-      skip: !data?.category?.url,
-    },
-  );
+  const { data: similarProducts, isLoading: isLoadingSimilar } =
+    useGetProductsQuery(
+      {
+        limit: 24,
+        cat: data?.category?.url,
+      },
+      {
+        skip: !data?.category?.url,
+      },
+    );
 
-  const { data: sellerProducts } = useGetProductsQuery(
-    {
-      limit: 12,
-      merchant: store as string,
-    },
-    {
-      skip: !store,
-    },
-  );
+  const { data: sellerProducts, isLoading: isLoadingSeller } =
+    useGetProductsQuery(
+      {
+        limit: 12,
+        merchant: store as string,
+      },
+      {
+        skip: !store,
+      },
+    );
 
   if (!data && !isLoading) {
     return (
@@ -117,6 +116,7 @@ const Product = (): JSX.Element => {
           <MoreProducts
             title="More from this store"
             data={sellerProducts}
+            isLoading={isLoadingSeller}
             to={`/${store}`}
           />
         )}
@@ -124,6 +124,7 @@ const Product = (): JSX.Element => {
           <MoreProducts
             title="Similar Products"
             data={similarProducts}
+            isLoading={isLoadingSimilar}
             to={`/c/${data?.category?.url}`}
           />
         )}

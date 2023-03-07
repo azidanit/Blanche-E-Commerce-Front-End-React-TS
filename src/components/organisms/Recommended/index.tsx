@@ -8,7 +8,7 @@ import style from './index.module.scss';
 const limit = 18;
 
 const Recommended: React.FC = () => {
-  const { data } = useGetRecommendationsQuery({ limit });
+  const { data, isLoading } = useGetRecommendationsQuery({ limit });
   const navigate = useNavigate();
 
   const onClick = () => {
@@ -20,7 +20,7 @@ const Recommended: React.FC = () => {
       <div className={style.recommended__separator}>
         <h2 className={style.recommended__title}>Recommended For You</h2>
       </div>
-      {data && <ListCardProduct data={data} />}
+      {data && <ListCardProduct data={data} isLoading={isLoading} />}
       <div className={style.recommended__wrapper}>
         <Button
           type="primary"

@@ -45,6 +45,7 @@ export interface IVoucherMerchantResponse {
   code: string;
   discount_nominal: number;
   expired_at: string;
+  min_order_nominal: number;
 }
 
 export interface IShippingOption {

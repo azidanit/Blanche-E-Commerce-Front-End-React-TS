@@ -21,10 +21,9 @@ const AppLayout = (): JSX.Element => {
   const { data: resultMerchant, isLoading: isLoadingMerchant } =
     useGetMerchantProfileQuery(undefined, {
       skip:
-        !isLoggedIn ||
+        !result ||
         result?.role !== 'merchant' ||
-        (result?.role !== 'merchant' && !isLoggedIn) ||
-        (result?.role !== 'merchant' && !isLoggedIn && !merchant),
+        (result?.role === 'merchant' && !merchant),
     });
 
   useEffect(() => {

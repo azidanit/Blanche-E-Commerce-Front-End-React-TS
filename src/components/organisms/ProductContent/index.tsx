@@ -58,6 +58,7 @@ const Content: React.FC<ContentProps> = ({
         {!isError && data?.total_data && Boolean(data?.products.length) ? (
           <>
             <ListCardProduct
+              isLoading={isLoading}
               data={data}
               grid={{
                 xs: 24,
