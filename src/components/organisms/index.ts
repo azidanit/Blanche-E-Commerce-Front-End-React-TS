@@ -40,6 +40,8 @@ import DashboardPage from './DashboardPage';
 import MerchantProfile from './Merchant/Profile';
 import WaitingPage from './WaitingPage';
 import WaitingDetailsPage from './WaitingDetailsPage';
+import FilterProductMobile from './FilterProductMobile';
+import Loader from './Loader';
 
 export {
   CategoryCarousel,
@@ -55,8 +57,10 @@ export {
   PromotionBanner,
   FilterSellerProduct,
   TransactionsPage,
+  Loader,
   PaymentIframe,
   TransactionDetailsPage,
+  FilterProductMobile,
   ProductPage,
   ShippingPage,
   ChangePasswordPage,

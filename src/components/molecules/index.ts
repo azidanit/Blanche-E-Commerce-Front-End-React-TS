@@ -27,6 +27,7 @@ import Countdown from './Countdown';
 import ModalConfirm from './ModalConfirm';
 import Chat from './Chat';
 import CarouselProducts from './CarouselProducts';
+import SearchBarMobile from './SearchBarMobile';
 
 export {
   AuthSectionLeft,
@@ -38,6 +39,7 @@ export {
   Popconfirm,
   Nav,
   CardProduct,
+  SearchBarMobile,
   ListCardProduct,
   Carousel,
   Arrow,

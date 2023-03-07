@@ -36,6 +36,7 @@ const Review: React.FC = () => {
       setSearchParams(searchParams);
       return;
     }
+
     const lastValue = checkedValues[checkedValues.length - 1];
     searchParams.set('filter_by', lastValue.toString());
     setSearchParams(searchParams);
@@ -46,7 +47,6 @@ const Review: React.FC = () => {
       options={options}
       onChange={onChange}
       value={[(params.search.filter_by || '').toString()]}
-      // defaultValue={[(params.search.filter_by || '').toString()]}
       className={style.rating}
     />
   );
