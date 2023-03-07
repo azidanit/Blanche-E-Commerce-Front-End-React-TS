@@ -20,7 +20,7 @@ const baseQueryWithReauth: typeof baseQuery = async (
     if (status === 403) {
       window.location.href = '/';
     } else if (status === 401) {
-      const is_logged_in = cookie.get('is_logged_in');
+      const is_logged_in = cookie.get('is_user_logged_in');
 
       if (!is_logged_in) {
         api.dispatch(logout());
