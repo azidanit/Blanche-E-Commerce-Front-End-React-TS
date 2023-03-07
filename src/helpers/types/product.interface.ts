@@ -69,6 +69,7 @@ export interface IGetTransactionListRequest {
   end_date?: string;
   page?: number;
   limit?: number;
+  sort?: number;
 }
 
 export interface IGetTransactionListResponse {

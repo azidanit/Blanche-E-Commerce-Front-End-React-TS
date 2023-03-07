@@ -7,7 +7,7 @@ import { sortOptions } from './options';
 const SortProduct: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const onChange = async (value: string) => {
+  const onChange = (value: string) => {
     searchParams.delete('page');
     searchParams.set('ob', value);
     setSearchParams(searchParams);

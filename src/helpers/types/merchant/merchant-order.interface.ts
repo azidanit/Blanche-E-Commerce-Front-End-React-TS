@@ -11,6 +11,7 @@ export interface IMerchantTransactionListRequest {
   end_date?: string;
   page?: number;
   limit?: number;
+  sort?: number;
 }
 
 export interface IUpdateMerchantOrderStatusRequest {
