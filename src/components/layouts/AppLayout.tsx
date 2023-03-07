@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Outlet, useSearchParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { setParams } from '../../app/features/home/paramsSlice';
@@ -10,7 +10,6 @@ import { useGetMerchantProfileQuery } from '../../app/features/merchant/merchant
 
 const AppLayout = (): JSX.Element => {
   const [searchParams] = useSearchParams();
-  const [isMerchant, setIsMerchant] = useState(false);
   const dispatch = useAppDispatch();
 
   const { isLoggedIn, user, merchant } = useAppSelector((state) => state.auth);
@@ -21,25 +20,21 @@ const AppLayout = (): JSX.Element => {
 
   const { data: resultMerchant, isLoading: isLoadingMerchant } =
     useGetMerchantProfileQuery(undefined, {
-      skip:
-        !result ||
-        result?.role !== 'merchant' ||
-        (result?.role === 'merchant' && !merchant),
+      skip: user?.role !== 'merchant',
     });
 
   useEffect(() => {
     if (!result) return;
-    console.log(result);
     dispatch(setUser(result));
     if (result.role === 'merchant') {
-      setIsMerchant(true);
+      dispatch(setMerchant(resultMerchant));
     }
   }, [result, isLoggedIn, user, merchant]);
 
   useEffect(() => {
-    if (!isMerchant) return;
+    if (!resultMerchant || user?.role !== 'merchant') return;
     dispatch(setMerchant(resultMerchant));
-  }, [isMerchant]);
+  }, [resultMerchant, isLoggedIn, user, merchant]);
 
   useEffect(() => {
     dispatch(setParams(parseSearchParams(searchParams)));
