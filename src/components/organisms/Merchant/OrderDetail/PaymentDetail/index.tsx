@@ -3,7 +3,6 @@ import classNames from 'classnames';
 import React from 'react';
 import { capitalizeFirstLetter } from '../../../../../helpers/capitalizeFirstLetter';
 import { toRupiah } from '../../../../../helpers/toRupiah';
-import { IPaymentDetails } from '../../../../../helpers/types';
 import { IMerchantPaymentDetails } from '../../../../../helpers/types/merchant/merchant-order.interface';
 import { Card } from '../../../../atoms';
 import style from './index.module.scss';

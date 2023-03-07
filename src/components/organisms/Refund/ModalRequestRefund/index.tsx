@@ -12,7 +12,7 @@ import { capitalizeFirstLetter } from '../../../../helpers/capitalizeFirstLetter
 import { IRequestRefund } from '../../../../helpers/types/refund.interface';
 import { IErrorResponse } from '../../../../helpers/types/response.interface';
 import { Button, FormLabel, TextArea } from '../../../atoms';
-import { Form, Modal, ModalConfirm, ModalHeader } from '../../../molecules';
+import { Form, Modal, ModalHeader } from '../../../molecules';
 import style from './index.module.scss';
 import { rules } from './validation';
 
