@@ -7,6 +7,7 @@ import {
   CardPaymentWallet,
   LogoIcon,
   ModalConfirm,
+  SEO,
 } from '../../components';
 import { capitalizeFirstLetter } from '../../helpers/capitalizeFirstLetter';
 import { IErrorResponse } from '../../helpers/types/response.interface';
@@ -56,28 +57,31 @@ const WalletPayment: React.FC = () => {
   };
 
   return (
-    <Spin spinning={isPageLoading}>
-      <div className={style.wallet__payment}>
-        <div className={style.wallet__payment__header}>
-          <LogoIcon size="large" />
-          <h1>Wallet Payment</h1>
+    <>
+      <SEO title="Wallet Payment" description="Wallet payment page" />
+      <Spin spinning={isPageLoading}>
+        <div className={style.wallet__payment}>
+          <div className={style.wallet__payment__header}>
+            <LogoIcon size="large" />
+            <h1>Wallet Payment</h1>
+          </div>
+          <CardPaymentWallet />
+          <Button danger type="link" onClick={handleModalOpen}>
+            Cancel Payment
+          </Button>
+          <ModalConfirm
+            title="Cancel Payment"
+            info="Are you sure to cancel this payment?"
+            isModalOpen={isModalOpen}
+            handleOk={handleCancel}
+            cancelButton={true}
+            handleCancel={() => setIsModalOpen(false)}
+            confirmButtonText="Yes"
+            confirmButtonProps={{ danger: true, loading: isLoading }}
+          />
         </div>
-        <CardPaymentWallet />
-        <Button danger type="link" onClick={handleModalOpen}>
-          Cancel Payment
-        </Button>
-        <ModalConfirm
-          title="Cancel Payment"
-          info="Are you sure to cancel this payment?"
-          isModalOpen={isModalOpen}
-          handleOk={handleCancel}
-          cancelButton={true}
-          handleCancel={() => setIsModalOpen(false)}
-          confirmButtonText="Yes"
-          confirmButtonProps={{ danger: true, loading: isLoading }}
-        />
-      </div>
-    </Spin>
+      </Spin>
+    </>
   );
 };
 

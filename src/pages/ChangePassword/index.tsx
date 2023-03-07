@@ -1,12 +1,15 @@
 import React from 'react';
-import { ChangePasswordPage } from '../../components';
+import { ChangePasswordPage, SEO } from '../../components';
 import style from './index.module.scss';
 
 const ChangePassword: React.FC = () => {
   return (
-    <div className={style.cp}>
-      <ChangePasswordPage />
-    </div>
+    <>
+      <SEO title="Change Password" description="Change password page" />
+      <div className={style.cp}>
+        <ChangePasswordPage />
+      </div>
+    </>
   );
 };
 

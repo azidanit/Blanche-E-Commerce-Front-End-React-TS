@@ -1,12 +1,18 @@
 import React from 'react';
-import { WaitingDetailsPage } from '../../components';
+import { SEO, WaitingDetailsPage } from '../../components';
 import style from './index.module.scss';
 
 const TransactionDetails: React.FC = () => {
   return (
-    <div className={style.wd}>
-      <WaitingDetailsPage />
-    </div>
+    <>
+      <SEO
+        title="Waiting Payment Details"
+        description="Waiting Payment Details page"
+      />
+      <div className={style.wd}>
+        <WaitingDetailsPage />
+      </div>
+    </>
   );
 };
 

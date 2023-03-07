@@ -1,5 +1,12 @@
 import React, { ChangeEvent, Fragment, useState } from 'react';
-import { Card, FormLabel, Input, Modal, ModalHeader } from '../../components';
+import {
+  Card,
+  FormLabel,
+  Input,
+  Modal,
+  ModalHeader,
+  SEO,
+} from '../../components';
 import style from './index.module.scss';
 import { Button, Divider, message, Radio, RadioChangeEvent } from 'antd';
 import { useGetSealabsPayAccountQuery } from '../../app/features/profile/profileApiSlice';
@@ -106,6 +113,7 @@ const TopupWallet: React.FC = () => {
 
   return (
     <>
+      <SEO title="Top Up Wallet" description="Top Up Wallet page" />
       <div className={style.tw}>
         <h3 className={style.tw__title}>Top Up Wallet</h3>
         <Card className={style.tw__card}>

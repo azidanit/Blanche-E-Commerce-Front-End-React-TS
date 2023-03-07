@@ -1,5 +1,12 @@
 import React, { ChangeEvent, Fragment, useState } from 'react';
-import { Card, FormLabel, Input, Modal, ModalHeader } from '../../components';
+import {
+  Card,
+  FormLabel,
+  Input,
+  Modal,
+  ModalHeader,
+  SEO,
+} from '../../components';
 import style from './index.module.scss';
 import { Button, message } from 'antd';
 import { toRupiahWithoutSymbol } from '../../helpers/toRupiah';
@@ -74,6 +81,7 @@ const Withdraw: React.FC = () => {
 
   return (
     <>
+      <SEO title="Withdraw" />
       <div className={style.withdraw}>
         <h3 className={style.withdraw__title}>Withdraw</h3>
         <Card className={style.withdraw__card}>

@@ -1,12 +1,15 @@
 import React from 'react';
-import { SellerFundPage } from '../../components';
+import { SellerFundPage, SEO } from '../../components';
 import style from './index.module.scss';
 
 const SellerFund: React.FC = () => {
   return (
-    <div className={style.sf}>
-      <SellerFundPage />
-    </div>
+    <>
+      <SEO title="Merchant Fund" description="Merchant Fund page" />
+      <div className={style.sf}>
+        <SellerFundPage />
+      </div>
+    </>
   );
 };
 

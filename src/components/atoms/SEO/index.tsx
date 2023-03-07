@@ -3,10 +3,10 @@ import { Helmet } from 'react-helmet-async';
 
 interface SEOProps {
   title: string;
-  description: string;
+  description?: string;
 }
 
-const SEO: React.FC<SEOProps> = ({ title, description }) => {
+const SEO: React.FC<SEOProps> = ({ title, description = title + ' page' }) => {
   return (
     <Helmet>
       <title>{title} | blanche</title>
